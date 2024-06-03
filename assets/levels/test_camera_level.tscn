@@ -49,9 +49,12 @@ transform = Transform3D(0.958566, 0.282209, 0.0388521, -0.273945, 0.950596, -0.1
 
 [node name="ThirdPersonCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26, 5)
+spring_length = 2.0
 follow_target = NodePath("../AdjustedBall")
 
 [node name="ThirdPersonCamera2" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
+spring_length = 10.0
+allow_player_input = false
 follow_target = NodePath("../AdjustedBall2")
 
 [node name="Controller" type="Node" parent="." node_paths=PackedStringArray("main_camera", "vc1", "vc2")]

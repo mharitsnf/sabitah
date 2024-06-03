@@ -42,7 +42,11 @@ class FollowData extends RefCounted:
 		camera_adjusting_basis_changed.emit(value)
 
 @export_group("Flags")
+## If true, the player is able to control this camera (e.g., rotate with mouse and/or joypad).
+@export var allow_player_input: bool = true
 ## If true, make this camera update its basis relative to the planet surface.
+## If this camera is parented to a node that has already been adjusting its basis,
+## then activating this property would cancel its effect.
 @export var adjusting_basis: bool = true:
 	set(value):
 		adjusting_basis = value
@@ -72,22 +76,28 @@ signal camera_adjusting_basis_changed(new_value: bool)
 
 func _process(delta: float) -> void:
 	_update_basis()
+
+	# Rotation functions
 	_clamp_rotation()
 	_smooth_rotation_amount(delta)
-
 	_rotate_smooth()
 
-## Update the basis according to the normal (if [adjusting_basis] is [true]).
+## **Private**. Update the basis according to the normal (if [adjusting_basis] is [true]).
 func _update_basis() -> void:
 	if adjusting_basis: basis = Common.Geometry.adjust_basis_to_normal(basis, global_position.normalized())
 
 # region Passed functions
 
-const MOUSE_SENSITIVITY: float = .001
+func process(_delta: float) -> void:
+	if !allow_player_input: return
+
+	_rotate_joypad()
+
 func unhandled_input(event: InputEvent) -> void:
+	if !allow_player_input: return
+
 	if event is InputEventMouseMotion:
-		var relative: Vector2 = event.relative * MOUSE_SENSITIVITY
-		set_rotation_input(relative.x, relative.y)
+		_rotate_mouse(event)
 
 # region Follow Target Functions
 
@@ -139,16 +149,25 @@ func _smooth_rotation_amount(delta: float) -> void:
 	_x_rot_input = lerp(_x_rot_input, 0., delta * ROTATION_AMOUNT_SMOOTHING_WEIGHT)
 	_y_rot_input = lerp(_y_rot_input, 0., delta * ROTATION_AMOUNT_SMOOTHING_WEIGHT)
 
-## Virtual. Clamps the rotation.
+## Private. Virtual. Clamps the rotation.
 func _clamp_rotation() -> void:
 	pass
 
-## Virtual. Function to rotate the camera.
+## Private. Virtual. Function to rotate the camera.
 func _rotate_smooth() -> void:
 	pass
 
-## For rotating the virtual camera using euler rotation.
-func set_rotation_input(x_amount: float, y_amount: float) -> void:
+const MOUSE_SENSITIVITY: float = .001
+## Private. Accepts mouse motion event and set the rotation input variables.
+func _rotate_mouse(event: InputEventMouseMotion) -> void:
+	var relative: Vector2 = event.relative * MOUSE_SENSITIVITY
+	_set_rotation_input(relative.x, relative.y)
+
+func _rotate_joypad() -> void:
+	pass
+
+## Private. For rotating the virtual camera using euler rotation.
+func _set_rotation_input(x_amount: float, y_amount: float) -> void:
 	_x_rot_input = x_amount
 	_y_rot_input = y_amount
 
