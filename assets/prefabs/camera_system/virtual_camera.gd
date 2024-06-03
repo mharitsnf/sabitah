@@ -56,6 +56,7 @@ class FollowData extends RefCounted:
 
 @export_group("Rotation")
 @export var rotation_target: Node3D
+@export var camera_rotation_settings: CameraRotationSettings
 @export_subgroup("Parameters")
 @export var rotation_limits: Vector2 = Vector2(-80, 80)
 
@@ -161,8 +162,14 @@ const MOUSE_SENSITIVITY: float = .001
 func _rotate_mouse(event: InputEventMouseMotion) -> void:
 	# Exit immediately if keyboard is not active
 	if !Common.InputState.is_keyboard_active(): return
-	
+
 	var relative: Vector2 = event.relative * MOUSE_SENSITIVITY
+	
+	if camera_rotation_settings:
+		relative *= camera_rotation_settings.mouse_sensitivity
+		relative.x *= camera_rotation_settings.get_mouse_x_direction()
+		relative.y *= camera_rotation_settings.get_mouse_x_direction()
+
 	_set_rotation_input(relative.x, relative.y)
 
 const JOYPAD_SENSITIVITY: float = .01
@@ -173,6 +180,12 @@ func _rotate_joypad() -> void:
 	
 	var relative: Vector2 = Input.get_vector("camera_left", "camera_right", "camera_up",  "camera_down") * JOYPAD_SENSITIVITY
 	if relative == Vector2.ZERO: return
+	
+	if camera_rotation_settings:
+		relative *= camera_rotation_settings.joypad_sensitivity
+		relative.x *= camera_rotation_settings.get_joypad_x_direction()
+		relative.y *= camera_rotation_settings.get_joypad_y_direction()
+
 	_set_rotation_input(relative.x, relative.y)
 
 ## Private. For rotating the virtual camera using euler rotation.
