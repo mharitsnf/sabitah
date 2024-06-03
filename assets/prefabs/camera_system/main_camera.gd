@@ -68,8 +68,6 @@ class FollowData extends RefCounted:
 	# Meaning, the change follow target will not work immediately because the path does not exist yet.
 	set = _set_follow_target
 
-@export_subgroup("Transition")
-@export var use_transition: bool = true
 var transitioning: bool = false
 var transition_elapsed_time: float = 0.
 signal transition_finished
@@ -102,7 +100,7 @@ func _set_follow_target(new_target: VirtualCamera) -> void:
 	if follow_target == new_target:
 		push_warning("The current follow target is the same as the new one.")
 		return
-	if use_transition and transitioning:
+	if transitioning:
 		push_warning("Main camera is still transitioning")
 		return
 	
@@ -125,7 +123,7 @@ func _change_follow_target(value: VirtualCamera) -> void:
 	current_follow_data.mount_remote_transform()
 
 	# Start transition if [use_transition] is true
-	if use_transition:
+	if value.camera_use_transition:
 		transitioning = true
 		await transition_finished
 
@@ -152,7 +150,9 @@ func _transition(delta: float) -> void:
 			previous_follow_data.get_remote_transform().global_position,
 			current_follow_data.get_remote_transform().global_position - previous_follow_data.get_remote_transform().global_position,
 			transition_elapsed_time,
-			.75, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
+			current_follow_data.get_target().camera_tween_settings.tween_duration,
+			current_follow_data.get_target().camera_tween_settings.tween_trans,
+			current_follow_data.get_target().camera_tween_settings.tween_ease
 		)
 
 		var previous_quat: Quaternion = Quaternion(previous_follow_data.get_remote_transform().global_basis.orthonormalized())
@@ -161,7 +161,9 @@ func _transition(delta: float) -> void:
 			previous_quat,
 			previous_quat.inverse() * current_quat,
 			transition_elapsed_time,
-			.75, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
+			current_follow_data.get_target().camera_tween_settings.tween_duration,
+			current_follow_data.get_target().camera_tween_settings.tween_trans,
+			current_follow_data.get_target().camera_tween_settings.tween_ease
 		)
 
 		transition_elapsed_time += delta

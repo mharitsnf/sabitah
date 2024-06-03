@@ -54,7 +54,6 @@ follow_target = NodePath("../AdjustedBall")
 
 [node name="ThirdPersonCamera2" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
 spring_length = 10.0
-allow_player_input = false
 follow_target = NodePath("../AdjustedBall2")
 
 [node name="Controller" type="Node" parent="." node_paths=PackedStringArray("main_camera", "vc1", "vc2")]

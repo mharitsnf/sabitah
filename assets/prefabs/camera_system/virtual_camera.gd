@@ -40,6 +40,8 @@ class FollowData extends RefCounted:
 	set(value):
 		camera_adjusting_basis = value
 		camera_adjusting_basis_changed.emit(value)
+@export var camera_use_transition: bool = true
+@export var camera_tween_settings: TweenSettings
 
 @export_group("Flags")
 ## If true, the player is able to control this camera (e.g., rotate with mouse and/or joypad).
@@ -63,9 +65,6 @@ class FollowData extends RefCounted:
 	# This function is first called before the main camera enters the scene tree.
 	# Meaning, the change follow target will not work immediately because the path does not exist yet.
 	set = _set_follow_target
-
-@export_subgroup("Transition")
-@export var transitioning: bool = true
 
 var previous_follow_data: FollowData
 var current_follow_data: FollowData

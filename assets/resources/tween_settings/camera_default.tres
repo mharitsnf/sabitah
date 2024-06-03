@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TweenSettings" load_steps=2 format=3 uid="uid://0kfxgywql7i7"]
+
+[ext_resource type="Script" path="res://assets/resources/tween_settings/tween_settings.gd" id="1_18oag"]
+
+[resource]
+script = ExtResource("1_18oag")
+tween_duration = 0.75
+tween_trans = 7
+tween_ease = 2

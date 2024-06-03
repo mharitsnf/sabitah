@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsnpu4dpbgb15"]
+[gd_scene load_steps=3 format=3 uid="uid://bsnpu4dpbgb15"]
 
 [ext_resource type="Script" path="res://assets/prefabs/camera_system/third_person_camera.gd" id="1_046a1"]
+[ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/camera_default.tres" id="2_tamkl"]
 
 [node name="ThirdPersonCamera" type="Node3D" node_paths=PackedStringArray("camera_target", "rotation_target")]
 script = ExtResource("1_046a1")
 camera_target = NodePath("RotationTarget/SpringArm3D")
 camera_adjusting_basis = false
+camera_tween_settings = ExtResource("2_tamkl")
 rotation_target = NodePath("RotationTarget")
 
 [node name="RotationTarget" type="Node3D" parent="."]
