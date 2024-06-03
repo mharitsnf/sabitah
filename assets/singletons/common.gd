@@ -1,5 +1,9 @@
 extends Node
 
+func _ready() -> void:
+    InputState.set_current_device(InputHelper.guess_device_name())
+    InputHelper.device_changed.connect(InputState._on_input_device_changed)
+
 class Geometry extends RefCounted:
     static func adjust_basis_to_normal(old_basis: Basis, new_normal: Vector3) -> Basis:
         new_normal = new_normal.normalized()
@@ -7,6 +11,21 @@ class Geometry extends RefCounted:
         var new_right : Vector3 = quat * old_basis.x
         var new_forward : Vector3 = quat * old_basis.z
         return Basis(new_right, new_normal, new_forward).orthonormalized()
+
+class InputState extends RefCounted:
+    static var _current_device: String
+
+    static func is_keyboard_active() -> bool:
+        return get_current_device() == InputHelper.DEVICE_KEYBOARD
+    
+    static func set_current_device(device: String) -> void:
+        _current_device = device
+    
+    static func get_current_device() -> String:
+        return _current_device
+    
+    static func _on_input_device_changed(device: String, _device_index: int) -> void:
+        set_current_device(device)
 
 ## Factory class for [RemoteTransform3D]
 class RemoteTransform3DBuilder extends RefCounted:

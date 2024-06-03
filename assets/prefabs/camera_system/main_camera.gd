@@ -85,6 +85,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_transition(delta)
 
+	if current_follow_data:
+		current_follow_data.get_target().process(delta)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if current_follow_data:
 		current_follow_data.get_target().unhandled_input(event)

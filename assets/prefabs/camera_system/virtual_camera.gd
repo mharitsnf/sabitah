@@ -144,7 +144,7 @@ var _y_rot_input: float = 0.
 
 ## Smooth out the rotation input from the user. Runs every time the user
 ## stops sending input.
-const ROTATION_AMOUNT_SMOOTHING_WEIGHT: float = 10.
+const ROTATION_AMOUNT_SMOOTHING_WEIGHT: float = 2.5
 func _smooth_rotation_amount(delta: float) -> void:
 	_x_rot_input = lerp(_x_rot_input, 0., delta * ROTATION_AMOUNT_SMOOTHING_WEIGHT)
 	_y_rot_input = lerp(_y_rot_input, 0., delta * ROTATION_AMOUNT_SMOOTHING_WEIGHT)
@@ -160,11 +160,21 @@ func _rotate_smooth() -> void:
 const MOUSE_SENSITIVITY: float = .001
 ## Private. Accepts mouse motion event and set the rotation input variables.
 func _rotate_mouse(event: InputEventMouseMotion) -> void:
+	# Exit immediately if keyboard is not active
+	if !Common.InputState.is_keyboard_active(): return
+	
 	var relative: Vector2 = event.relative * MOUSE_SENSITIVITY
 	_set_rotation_input(relative.x, relative.y)
 
+const JOYPAD_SENSITIVITY: float = .01
+## Private. Accepts joypad analog as camera rotation and set the rotation input variables
 func _rotate_joypad() -> void:
-	pass
+	# Exit immediately if keyboard is active
+	if Common.InputState.is_keyboard_active(): return
+	
+	var relative: Vector2 = Input.get_vector("camera_left", "camera_right", "camera_down", "camera_up") * JOYPAD_SENSITIVITY
+	if relative == Vector2.ZERO: return
+	_set_rotation_input(relative.x, relative.y)
 
 ## Private. For rotating the virtual camera using euler rotation.
 func _set_rotation_input(x_amount: float, y_amount: float) -> void:

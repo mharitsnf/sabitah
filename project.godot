@@ -40,6 +40,29 @@ project/assembly_name="Sabitah"
 
 enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/extra_snaps/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nv.file_system/plugin.cfg")
 
+[input]
+
+camera_up={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":-1.0,"script":null)
+]
+}
+camera_down={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":3,"axis_value":1.0,"script":null)
+]
+}
+camera_left={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":-1.0,"script":null)
+]
+}
+camera_right={
+"deadzone": 0.5,
+"events": [Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":-1,"axis":2,"axis_value":1.0,"script":null)
+]
+}
+
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
