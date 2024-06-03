@@ -171,7 +171,7 @@ func _rotate_joypad() -> void:
 	# Exit immediately if keyboard is active
 	if Common.InputState.is_keyboard_active(): return
 	
-	var relative: Vector2 = Input.get_vector("camera_left", "camera_right", "camera_down", "camera_up") * JOYPAD_SENSITIVITY
+	var relative: Vector2 = Input.get_vector("camera_left", "camera_right", "camera_up",  "camera_down") * JOYPAD_SENSITIVITY
 	if relative == Vector2.ZERO: return
 	_set_rotation_input(relative.x, relative.y)
 

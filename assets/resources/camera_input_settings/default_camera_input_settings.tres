@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CameraInputSettings" load_steps=2 format=3 uid="uid://b8vik54rgq3y3"]
+
+[ext_resource type="Script" path="res://assets/resources/camera_input_settings/camera_input_settings.gd" id="1_114fd"]
+
+[resource]
+script = ExtResource("1_114fd")
+invert_x = false
+invert_y = false

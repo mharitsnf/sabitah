@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://7gf086sxl5fm"]
+
+[ext_resource type="Script" path="res://assets/prefabs/camera_system/first_person_camera.gd" id="1_7xa68"]
+[ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/camera_default.tres" id="2_b2co1"]
+
+[node name="FirstPersonCamera" type="Node3D" node_paths=PackedStringArray("offset_target", "camera_target", "rotation_target")]
+script = ExtResource("1_7xa68")
+offset_target = NodePath("RotationTarget/Gimbal/Offset")
+camera_target = NodePath("RotationTarget/Gimbal/Offset")
+camera_adjusting_basis = false
+camera_tween_settings = ExtResource("2_b2co1")
+rotation_target = NodePath("RotationTarget")
+
+[node name="RotationTarget" type="Node3D" parent="."]
+
+[node name="Gimbal" type="Node3D" parent="RotationTarget"]
+
+[node name="Offset" type="Node3D" parent="RotationTarget/Gimbal"]
