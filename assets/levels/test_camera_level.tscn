@@ -40,7 +40,15 @@ shape = SubResource("SphereShape3D_xj3ch")
 
 [node name="MainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_jyic3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.9381, 3.12389)
-follow_target = NodePath("../ThirdPersonCamera")
+follow_target = NodePath("../Cameras/ThirdPersonCamera")
+
+[node name="Cameras" type="Node" parent="."]
+
+[node name="ThirdPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
+follow_target = NodePath("../../AdjustedBall")
+
+[node name="FirstPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("4_wnifp")]
+follow_target = NodePath("../../AdjustedBall")
 
 [node name="AdjustedBall" parent="." instance=ExtResource("1_x2u4w")]
 transform = Transform3D(0.999656, -0.000533563, -0.0262387, -0.0206814, 0.59948, -0.800123, 0.0161565, 0.80039, 0.599262, -0.013535, 15.2072, 20.3038)
@@ -48,21 +56,8 @@ transform = Transform3D(0.999656, -0.000533563, -0.0262387, -0.0206814, 0.59948,
 [node name="AdjustedBall2" parent="." instance=ExtResource("1_x2u4w")]
 transform = Transform3D(0.958566, 0.282209, 0.0388521, -0.273945, 0.950596, -0.146019, -0.0781406, 0.129326, 0.988519, 7.19915, 24.2497, 3.29909)
 
-[node name="ThirdPersonCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26, 5)
-spring_length = 2.0
-follow_target = NodePath("../AdjustedBall")
-
-[node name="ThirdPersonCamera2" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
-spring_length = 10.0
-follow_target = NodePath("../AdjustedBall2")
-
-[node name="FirstPersonCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("4_wnifp")]
-offset = Vector3(0, 1, -1)
-follow_target = NodePath("../AdjustedBall")
-
 [node name="Controller" type="Node" parent="." node_paths=PackedStringArray("main_camera", "vc1", "vc2")]
 script = ExtResource("4_xhk4w")
 main_camera = NodePath("../MainCamera")
-vc1 = NodePath("../ThirdPersonCamera")
-vc2 = NodePath("../FirstPersonCamera")
+vc1 = NodePath("../Cameras/ThirdPersonCamera")
+vc2 = NodePath("../Cameras/FirstPersonCamera")

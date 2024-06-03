@@ -1,17 +1,19 @@
 class_name MainCamera extends Camera3D
 
 class FollowData extends RefCounted:
+	var _main_camera: MainCamera
 	var _target: VirtualCamera
 	var _camera_target: Node3D
 	var _rt: RemoteTransform3D
 	
-	func _init(__target: VirtualCamera) -> void:
+	func _init(__main_camera: MainCamera, __target: VirtualCamera) -> void:
+		_main_camera = __main_camera
 		_target = __target
 		_camera_target = _target.camera_target
 
 		# Creates a new remote transform
 		var rt_builder: Common.RemoteTransform3DBuilder = Common.RemoteTransform3DBuilder.new()
-		rt_builder.rename("MainCamera")
+		rt_builder.rename(_main_camera.name)
 		rt_builder.update_rotation(!_target.camera_adjusting_basis)
 		_rt = rt_builder.get_remote_transform()
 	
@@ -119,7 +121,7 @@ func _change_follow_target(value: VirtualCamera) -> void:
 		previous_follow_data = current_follow_data
 	
 	# Creates a new follow data for the new follow target and mount the remote transform
-	current_follow_data = FollowData.new(value)
+	current_follow_data = FollowData.new(self, value)
 	current_follow_data.mount_remote_transform()
 
 	# Start transition if [use_transition] is true
@@ -133,16 +135,16 @@ func _change_follow_target(value: VirtualCamera) -> void:
 	
 	# Assigns the new remote transform to the new path
 	current_follow_data.set_remote_path(get_path())
-	transitioning = false
 
 # region Transition functions
 
 func _transition_finished() -> void:
+	transitioning = false
 	transition_elapsed_time = 0.
 
 func _transition(delta: float) -> void:
 	if transitioning:
-		if transition_elapsed_time > .75 or !previous_follow_data or !current_follow_data:
+		if !previous_follow_data or !current_follow_data or transition_elapsed_time > current_follow_data.get_target().camera_tween_settings.tween_duration:
 			transition_finished.emit()
 			return
 
@@ -160,6 +162,15 @@ func _transition(delta: float) -> void:
 		quaternion = Tween.interpolate_value(
 			previous_quat,
 			previous_quat.inverse() * current_quat,
+			transition_elapsed_time,
+			current_follow_data.get_target().camera_tween_settings.tween_duration,
+			current_follow_data.get_target().camera_tween_settings.tween_trans,
+			current_follow_data.get_target().camera_tween_settings.tween_ease
+		)
+
+		fov = Tween.interpolate_value(
+			previous_follow_data.get_target().current_fov,
+			current_follow_data.get_target().current_fov - previous_follow_data.get_target().current_fov,
 			transition_elapsed_time,
 			current_follow_data.get_target().camera_tween_settings.tween_duration,
 			current_follow_data.get_target().camera_tween_settings.tween_trans,

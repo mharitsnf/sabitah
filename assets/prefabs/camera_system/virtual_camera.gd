@@ -54,11 +54,18 @@ class FollowData extends RefCounted:
 		adjusting_basis = value
 		if current_follow_data: current_follow_data.set_update_rotation(!value)
 
+@export_group("FoV")
+@export var allow_zoom: bool = false
+@export var fov_settings: CameraFoVSettings:
+	set(value):
+		fov_settings = value
+		current_fov = value.initial_fov
+var current_fov: float
+
 @export_group("Rotation")
 @export var rotation_target: Node3D
-@export var camera_rotation_settings: CameraRotationSettings
-@export_subgroup("Parameters")
-@export var rotation_limits: Vector2 = Vector2(-80, 80)
+@export var rotation_settings: CameraRotationSettings
+@export var clamp_settings: CameraClampSettings
 
 @export_group("Following")
 ## Who is this [VirtualCamera] currently following?
@@ -66,6 +73,13 @@ class FollowData extends RefCounted:
 	# This function is first called before the main camera enters the scene tree.
 	# Meaning, the change follow target will not work immediately because the path does not exist yet.
 	set = _set_follow_target
+
+## If true, then the camera will transition between different follow targets.
+@export var use_transition: bool = true 
+@export var tween_settings: TweenSettings
+var transitioning: bool = false
+var transition_elapsed_time: float = 0.
+signal transition_finished
 
 var previous_follow_data: FollowData
 var current_follow_data: FollowData
@@ -75,11 +89,12 @@ signal camera_adjusting_basis_changed(new_value: bool)
 # region Per-frame functions
 
 func _process(delta: float) -> void:
+	_transition(delta)
 	_update_basis()
 
 	# Rotation functions
-	_clamp_rotation()
 	_smooth_rotation_amount(delta)
+	_clamp_rotation()
 	_rotate_smooth()
 
 ## **Private**. Update the basis according to the normal (if [adjusting_basis] is [true]).
@@ -90,7 +105,6 @@ func _update_basis() -> void:
 
 func process(_delta: float) -> void:
 	if !allow_player_input: return
-
 	_rotate_joypad()
 
 func unhandled_input(event: InputEvent) -> void:
@@ -109,6 +123,9 @@ func _set_follow_target(new_target: Node3D) -> void:
 	if follow_target == new_target:
 		push_warning("The current follow target is the same as the new one.")
 		return
+	if transitioning:
+		push_warning("Virtual camera is still transitioning")
+		return
 	
 	follow_target = new_target
 	_change_follow_target(new_target)
@@ -123,19 +140,62 @@ func _change_follow_target(value: Node3D) -> void:
 	var rt_builder: Common.RemoteTransform3DBuilder = Common.RemoteTransform3DBuilder.new()
 	rt_builder.rename(name)
 	rt_builder.update_rotation(!adjusting_basis)
-	rt_builder.set_path(get_path())
 	var rt: RemoteTransform3D = rt_builder.get_remote_transform()
 	
 	# Dismisses the current follow data
 	if current_follow_data:
 		current_follow_data.set_remote_path(NodePath(""))
-		current_follow_data.dismount_remote_transform()
 		previous_follow_data = current_follow_data
 	
 	# Creates a new follow data for the new follow target
-	var new_follow_data: FollowData = FollowData.new(value, rt)
-	current_follow_data = new_follow_data
+	current_follow_data = FollowData.new(value, rt)
 	current_follow_data.mount_remote_transform()
+
+	# Start transition if [use_transition] is true
+	if use_transition:
+		transitioning = true
+		await transition_finished
+	
+	# Dismount the previous remote transform
+	if previous_follow_data:
+		previous_follow_data.dismount_remote_transform()
+
+	# Assigns the new remote transform to the new path
+	current_follow_data.set_remote_path(get_path())
+
+# region Transition functions
+
+func _transition_finished() -> void:
+	transitioning = false
+	transition_elapsed_time = 0.
+
+func _transition(delta: float) -> void:
+	if transitioning:
+		if !previous_follow_data or !current_follow_data or transition_elapsed_time > tween_settings.tween_duration:
+			transition_finished.emit()
+			return
+
+		global_position = Tween.interpolate_value(
+			previous_follow_data.get_remote_transform().global_position,
+			current_follow_data.get_remote_transform().global_position - previous_follow_data.get_remote_transform().global_position,
+			transition_elapsed_time,
+			camera_tween_settings.tween_duration,
+			camera_tween_settings.tween_trans,
+			camera_tween_settings.tween_ease
+		)
+
+		var previous_quat: Quaternion = Quaternion(previous_follow_data.get_remote_transform().global_basis.orthonormalized())
+		var current_quat: Quaternion = Quaternion(current_follow_data.get_remote_transform().global_basis.orthonormalized())
+		quaternion = Tween.interpolate_value(
+			previous_quat,
+			previous_quat.inverse() * current_quat,
+			transition_elapsed_time,
+			camera_tween_settings.tween_duration,
+			camera_tween_settings.tween_trans,
+			camera_tween_settings.tween_ease
+		)
+
+		transition_elapsed_time += delta
 
 # region Rotation functions
 
@@ -165,10 +225,10 @@ func _rotate_mouse(event: InputEventMouseMotion) -> void:
 
 	var relative: Vector2 = event.relative * MOUSE_SENSITIVITY
 	
-	if camera_rotation_settings:
-		relative *= camera_rotation_settings.mouse_sensitivity
-		relative.x *= camera_rotation_settings.get_mouse_x_direction()
-		relative.y *= camera_rotation_settings.get_mouse_x_direction()
+	if rotation_settings:
+		relative *= rotation_settings.mouse_sensitivity
+		relative.x *= rotation_settings.get_mouse_x_direction()
+		relative.y *= rotation_settings.get_mouse_x_direction()
 
 	_set_rotation_input(relative.x, relative.y)
 
@@ -181,10 +241,10 @@ func _rotate_joypad() -> void:
 	var relative: Vector2 = Input.get_vector("camera_left", "camera_right", "camera_up",  "camera_down") * JOYPAD_SENSITIVITY
 	if relative == Vector2.ZERO: return
 	
-	if camera_rotation_settings:
-		relative *= camera_rotation_settings.joypad_sensitivity
-		relative.x *= camera_rotation_settings.get_joypad_x_direction()
-		relative.y *= camera_rotation_settings.get_joypad_y_direction()
+	if rotation_settings:
+		relative *= rotation_settings.joypad_sensitivity
+		relative.x *= rotation_settings.get_joypad_x_direction()
+		relative.y *= rotation_settings.get_joypad_y_direction()
 
 	_set_rotation_input(relative.x, relative.y)
 

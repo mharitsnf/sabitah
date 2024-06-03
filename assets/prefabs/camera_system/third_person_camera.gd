@@ -19,5 +19,5 @@ func _rotate_smooth() -> void:
 		gimbal.rotate_object_local(Vector3.RIGHT, _y_rot_input)
 
 func _clamp_rotation() -> void:
-	if gimbal:
-		gimbal.rotation_degrees.x = clamp(gimbal.rotation_degrees.x, rotation_limits.x, rotation_limits.y)
+	if !clamp_settings or !gimbal: return
+	gimbal.rotation_degrees.x = clamp(gimbal.rotation_degrees.x, clamp_settings.limit.x, clamp_settings.limit.y)
