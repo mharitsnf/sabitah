@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjmkf3vc6i518"]
+
+[ext_resource type="Script" path="res://assets/prefabs/camera_system/main_camera.gd" id="1_st1fw"]
+
+[node name="MainCamera" type="Camera3D"]
+script = ExtResource("1_st1fw")
+
+[connection signal="transition_finished" from="." to="." method="_transition_finished"]

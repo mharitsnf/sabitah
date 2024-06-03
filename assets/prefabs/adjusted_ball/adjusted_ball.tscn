@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbf7p6hqqkk5a"]
+
+[ext_resource type="Script" path="res://assets/prefabs/adjusted_ball/adjusted_ball.gd" id="1_040fv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vpgaw"]
+
+[node name="AdjustedBall" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_vpgaw")
+script = ExtResource("1_040fv")

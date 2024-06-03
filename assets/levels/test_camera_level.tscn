@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://3437j5vecywp"]
+
+[ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_jyic3"]
+[ext_resource type="PackedScene" uid="uid://dbf7p6hqqkk5a" path="res://assets/prefabs/adjusted_ball/adjusted_ball.tscn" id="1_x2u4w"]
+[ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="3_340v0"]
+[ext_resource type="Script" path="res://assets/levels/controller.gd" id="4_xhk4w"]
+
+[sub_resource type="Environment" id="Environment_aebvd"]
+background_mode = 1
+background_color = Color(0.054, 0.03, 0.15, 1)
+sdfgi_enabled = true
+sdfgi_min_cell_size = 8.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_jpeoa"]
+radius = 25.0
+height = 50.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xj3ch"]
+radius = 25.0
+
+[node name="TestCameraLevel" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_aebvd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Planet" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("SphereMesh_jpeoa")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_xj3ch")
+
+[node name="MainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_jyic3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.9381, 3.12389)
+follow_target = NodePath("../ThirdPersonCamera")
+
+[node name="AdjustedBall" parent="." instance=ExtResource("1_x2u4w")]
+transform = Transform3D(0.999656, -0.000533563, -0.0262387, -0.0206814, 0.59948, -0.800123, 0.0161565, 0.80039, 0.599262, -0.013535, 15.2072, 20.3038)
+
+[node name="AdjustedBall2" parent="." instance=ExtResource("1_x2u4w")]
+transform = Transform3D(0.958566, 0.282209, 0.0388521, -0.273945, 0.950596, -0.146019, -0.0781406, 0.129326, 0.988519, 7.19915, 24.2497, 3.29909)
+
+[node name="ThirdPersonCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 26, 5)
+follow_target = NodePath("../AdjustedBall")
+
+[node name="ThirdPersonCamera2" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
+follow_target = NodePath("../AdjustedBall2")
+
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("main_camera", "vc1", "vc2")]
+script = ExtResource("4_xhk4w")
+main_camera = NodePath("../MainCamera")
+vc1 = NodePath("../ThirdPersonCamera")
+vc2 = NodePath("../ThirdPersonCamera2")
