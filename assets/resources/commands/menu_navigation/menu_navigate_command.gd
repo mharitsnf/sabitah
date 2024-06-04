@@ -1,4 +1,4 @@
-class_name NavigateToCommand extends Command
+class_name MenuNavigateCommand extends Command
 
 @export var target_menu: MenuLayer.Menus
 

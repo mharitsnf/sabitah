@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://drigyf33vphlq"]
 
 [ext_resource type="Script" path="res://assets/prefabs/ui_components/generic_button.gd" id="1_2by7o"]
-[ext_resource type="Resource" uid="uid://c76p07ugbwp1u" path="res://assets/resources/commands/navigate_to/to_main_menu.tres" id="2_ov7k5"]
+[ext_resource type="Resource" uid="uid://c76p07ugbwp1u" path="res://assets/resources/commands/menu_navigation/to_main_menu.tres" id="2_ov7k5"]
 
 [node name="GenericButton" type="Button"]
 offset_right = 8.0

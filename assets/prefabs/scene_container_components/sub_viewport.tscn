@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://byyvtf6lm73ku"]
+
+[node name="SubViewport" type="SubViewport"]
+handle_input_locally = false
+screen_space_aa = 1
+scaling_3d_mode = 2
+fsr_sharpness = 2.0
+size = Vector2i(1280, 720)
+render_target_update_mode = 4

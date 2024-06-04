@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SceneNavigateCommand" load_steps=2 format=3 uid="uid://8qmvemf4jmbm"]
+
+[ext_resource type="Script" path="res://assets/resources/commands/scene_navigation/scene_navigate_command.gd" id="1_grjum"]
+
+[resource]
+script = ExtResource("1_grjum")
+target_scene = 1

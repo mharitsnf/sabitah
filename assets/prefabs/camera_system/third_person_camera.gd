@@ -1,6 +1,10 @@
 class_name ThirdPersonCamera extends VirtualCamera
 
 @export_group("Parameters")
+@export_flags_3d_physics var spring_arm_collision_mask: int:
+	set(value):
+		spring_arm_collision_mask = value
+		if spring_arm: spring_arm.collision_mask = spring_arm_collision_mask
 @export var spring_length: float = 5:
 	set(value):
 		spring_length = value
@@ -11,7 +15,9 @@ class_name ThirdPersonCamera extends VirtualCamera
 
 func _ready() -> void:
 	super()
-	if spring_arm: spring_arm.spring_length = spring_length
+	if spring_arm:
+		spring_arm.spring_length = spring_length
+		spring_arm.collision_mask = spring_arm_collision_mask
 
 func _rotate_camera() -> void:
 	if !rotation_target and !gimbal: return

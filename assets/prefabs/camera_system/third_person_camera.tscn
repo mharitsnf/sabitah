@@ -20,5 +20,6 @@ tween_settings = ExtResource("2_tamkl")
 [node name="RotationTarget" type="Node3D" parent="."]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="RotationTarget"]
+collision_mask = 0
 
 [connection signal="transition_finished" from="." to="." method="_transition_finished"]

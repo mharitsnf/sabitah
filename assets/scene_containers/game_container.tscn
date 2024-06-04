@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://mmlk171px1r1"]
+
+[ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/scene_container_components/sub_viewport.tscn" id="1_8mhvs"]
+[ext_resource type="PackedScene" uid="uid://3437j5vecywp" path="res://assets/levels/test_camera_level.tscn" id="2_7l2ap"]
+[ext_resource type="PackedScene" uid="uid://cghdqxrh3weip" path="res://assets/prefabs/menu_layer/menu_layer.tscn" id="3_4ypjo"]
+
+[node name="GameContainer" type="Node"]
+
+[node name="MainSVC" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" parent="MainSVC" instance=ExtResource("1_8mhvs")]
+
+[node name="TestCameraLevel" parent="MainSVC/SubViewport" instance=ExtResource("2_7l2ap")]
+
+[node name="MenuLayer" parent="." instance=ExtResource("3_4ypjo")]

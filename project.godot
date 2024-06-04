@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Sabitah"
-run/main_scene="res://assets/levels/scene_manager.tscn"
+run/main_scene="res://assets/scene_manager/scene_manager.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://3437j5vecywp"]
+[gd_scene load_steps=8 format=3 uid="uid://3437j5vecywp"]
 
 [ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_jyic3"]
 [ext_resource type="PackedScene" uid="uid://dbf7p6hqqkk5a" path="res://assets/prefabs/adjusted_ball/adjusted_ball.tscn" id="1_x2u4w"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="3_340v0"]
 [ext_resource type="PackedScene" uid="uid://7gf086sxl5fm" path="res://assets/prefabs/camera_system/first_person_camera.tscn" id="4_wnifp"]
-[ext_resource type="Script" path="res://assets/levels/controller.gd" id="4_xhk4w"]
 
 [sub_resource type="Environment" id="Environment_aebvd"]
 background_mode = 1
@@ -45,6 +44,7 @@ follow_target = NodePath("../Cameras/ThirdPersonCamera")
 [node name="Cameras" type="Node" parent="."]
 
 [node name="ThirdPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
+spring_arm_collision_mask = 1
 follow_target = NodePath("../../AdjustedBall")
 
 [node name="FirstPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("4_wnifp")]
@@ -55,9 +55,3 @@ transform = Transform3D(0.999656, -0.000533563, -0.0262387, -0.0206814, 0.59948,
 
 [node name="AdjustedBall2" parent="." instance=ExtResource("1_x2u4w")]
 transform = Transform3D(0.958566, 0.282209, 0.0388521, -0.273945, 0.950596, -0.146019, -0.0781406, 0.129326, 0.988519, 7.19915, 24.2497, 3.29909)
-
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("main_camera", "vc1", "vc2")]
-script = ExtResource("4_xhk4w")
-main_camera = NodePath("../MainCamera")
-vc1 = NodePath("../Cameras/ThirdPersonCamera")
-vc2 = NodePath("../Cameras/FirstPersonCamera")

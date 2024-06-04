@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dllb6gb77txlc"]
+
+[ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_p3o4g"]
+[ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_2047r"]
+
+[sub_resource type="Environment" id="Environment_capf0"]
+background_mode = 1
+background_color = Color(0.054, 0.03, 0.15, 1)
+sdfgi_enabled = true
+sdfgi_min_cell_size = 8.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_gsfuk"]
+radius = 25.0
+height = 50.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xhskh"]
+radius = 25.0
+
+[node name="TestGlobeLevel" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_capf0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Planet" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("SphereMesh_gsfuk")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_xhskh")
+
+[node name="MainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_p3o4g")]
+follow_target = NodePath("../Cameras/ThirdPersonCamera")
+
+[node name="Cameras" type="Node" parent="."]
+
+[node name="ThirdPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_2047r")]
+spring_length = 50.0
+adjusting_basis = false
+follow_target = NodePath("../../StaticBody3D")

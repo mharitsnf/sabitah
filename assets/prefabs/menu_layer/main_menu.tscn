@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnw1k6gr2u3di"]
+[gd_scene load_steps=10 format=3 uid="uid://bnw1k6gr2u3di"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/menu_layer/base_menu.tscn" id="1_gnp2d"]
 [ext_resource type="Script" path="res://assets/prefabs/menu_layer/main_menu.gd" id="2_qmi3w"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_components/generic_button.tscn" id="3_y8qf8"]
+[ext_resource type="Resource" uid="uid://8qmvemf4jmbm" path="res://assets/resources/commands/scene_navigation/to_globe.tres" id="4_mmdue"]
+[ext_resource type="Resource" uid="uid://dscw7r5absl3p" path="res://assets/resources/commands/scene_navigation/to_game.tres" id="4_o8u73"]
 
 [sub_resource type="Animation" id="Animation_0dj5e"]
 length = 0.001
@@ -105,19 +107,24 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 32.0
-offset_top = 536.0
-offset_right = 96.0
-offset_bottom = 637.0
+offset_top = -184.0
+offset_right = 178.0
+offset_bottom = -83.0
 grow_vertical = 0
 
 [node name="GenericButton" parent="VBoxContainer" index="0" instance=ExtResource("3_y8qf8")]
 layout_mode = 2
+text = "Open Menu Again"
 
 [node name="GenericButton2" parent="VBoxContainer" index="1" instance=ExtResource("3_y8qf8")]
 layout_mode = 2
+text = "To Game"
+on_press_command = ExtResource("4_o8u73")
 
 [node name="GenericButton3" parent="VBoxContainer" index="2" instance=ExtResource("3_y8qf8")]
 layout_mode = 2
+text = "To Globe"
+on_press_command = ExtResource("4_mmdue")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 libraries = {
