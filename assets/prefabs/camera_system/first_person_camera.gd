@@ -10,7 +10,7 @@ class_name FirstPersonCamera extends VirtualCamera
 
 @onready var gimbal: Node3D = $RotationTarget/Gimbal
 
-func _rotate_smooth() -> void:
+func _rotate_camera() -> void:
 	if rotation_target and gimbal: 
 		rotation_target.rotate_object_local(Vector3.UP, _x_rot_input)
 		gimbal.rotate_object_local(Vector3.RIGHT, _y_rot_input)

@@ -87,6 +87,7 @@ func _process(delta: float) -> void:
 
 	if current_follow_data:
 		current_follow_data.get_target().process(delta)
+		if !transitioning: fov = current_follow_data.get_target().get_fov()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if current_follow_data:
@@ -169,8 +170,8 @@ func _transition(delta: float) -> void:
 		)
 
 		fov = Tween.interpolate_value(
-			previous_follow_data.get_target().current_fov,
-			current_follow_data.get_target().current_fov - previous_follow_data.get_target().current_fov,
+			previous_follow_data.get_target().get_fov(),
+			current_follow_data.get_target().get_fov() - previous_follow_data.get_target().get_fov(),
 			transition_elapsed_time,
 			current_follow_data.get_target().camera_tween_settings.tween_duration,
 			current_follow_data.get_target().camera_tween_settings.tween_trans,

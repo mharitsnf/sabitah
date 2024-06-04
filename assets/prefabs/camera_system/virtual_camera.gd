@@ -40,7 +40,9 @@ class FollowData extends RefCounted:
 	set(value):
 		camera_adjusting_basis = value
 		camera_adjusting_basis_changed.emit(value)
+## Should the [MainCamera] use transition when entering this [VirtualCamera]?
 @export var camera_use_transition: bool = true
+## Tween settings if the [camera_use_transition] is true.
 @export var camera_tween_settings: TweenSettings
 
 @export_group("Flags")
@@ -59,8 +61,9 @@ class FollowData extends RefCounted:
 @export var fov_settings: CameraFoVSettings:
 	set(value):
 		fov_settings = value
-		current_fov = value.initial_fov
-var current_fov: float
+		actual_fov = value.initial_fov
+		_fov_input = value.initial_fov
+var actual_fov: float
 
 @export_group("Rotation")
 @export var rotation_target: Node3D
@@ -101,10 +104,14 @@ func _process(delta: float) -> void:
 	_transition(delta)
 	_update_basis()
 
+	# FoV functions
+	_on_stop_smooth_fov_input()
+	_clamp_fov()
+
 	# Rotation functions
-	_smooth_rotation_amount()
+	_on_stopped_smooth_rotation_input()
 	_clamp_rotation()
-	_rotate_smooth()
+	_rotate_camera()
 
 ## **Private**. Update the basis according to the normal (if [adjusting_basis] is [true]).
 func _update_basis() -> void:
@@ -128,6 +135,9 @@ func process(_delta: float) -> void:
 # For player input
 func unhandled_input(event: InputEvent) -> void:
 	if !_is_player_input_allowed(): return
+
+	if event is InputEventMouseButton:
+		_zoom_mouse(event)
 
 	if event is InputEventMouseMotion:
 		_rotate_mouse(event)
@@ -223,17 +233,17 @@ var _y_rot_input: float = 0.
 
 ## Smooth out the rotation input from the user. Runs every time the user
 ## stops sending input.
-const ROTATION_AMOUNT_SMOOTHING_WEIGHT: float = 7.5
-func _smooth_rotation_amount() -> void:
-	_x_rot_input = lerp(_x_rot_input, 0., _g_delta * ROTATION_AMOUNT_SMOOTHING_WEIGHT)
-	_y_rot_input = lerp(_y_rot_input, 0., _g_delta * ROTATION_AMOUNT_SMOOTHING_WEIGHT)
+const ROTATION_INPUT_STOP_WEIGHT: float = 7.5
+func _on_stopped_smooth_rotation_input() -> void:
+	_x_rot_input = lerp(_x_rot_input, 0., _g_delta * ROTATION_INPUT_STOP_WEIGHT)
+	_y_rot_input = lerp(_y_rot_input, 0., _g_delta * ROTATION_INPUT_STOP_WEIGHT)
 
 ## Private. Virtual. Clamps the rotation.
 func _clamp_rotation() -> void:
 	pass
 
 ## Private. Virtual. Function to rotate the camera.
-func _rotate_smooth() -> void:
+func _rotate_camera() -> void:
 	pass
 
 const MOUSE_SENSITIVITY: float = .001
@@ -272,3 +282,29 @@ func _set_rotation_input(x_amount: float, y_amount: float) -> void:
 	_x_rot_input = lerp(_x_rot_input, x_amount, _g_delta * 25.)
 	_y_rot_input = lerp(_y_rot_input, y_amount, _g_delta * 25.)
 
+# region FoV Functions
+
+var _fov_input: float = actual_fov
+
+func get_fov() -> float:
+	return actual_fov
+
+func _on_stop_smooth_fov_input() -> void:
+	actual_fov = lerp(actual_fov, _fov_input, _g_delta * 5.)
+
+func _clamp_fov() -> void:
+	if !fov_settings: return
+	actual_fov = clamp(actual_fov, fov_settings.fov_limit.x, fov_settings.fov_limit.y)
+	_fov_input = clamp(_fov_input, fov_settings.fov_limit.x, fov_settings.fov_limit.y)
+
+const FOV_CHANGE_RATE: float = 2.
+func _zoom_mouse(event: InputEventMouseButton) -> void:
+	if !allow_zoom: return
+
+	if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		_set_fov_input(_fov_input - FOV_CHANGE_RATE)
+	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		_set_fov_input(_fov_input + FOV_CHANGE_RATE)
+
+func _set_fov_input(amount: float) -> void:
+	_fov_input = amount

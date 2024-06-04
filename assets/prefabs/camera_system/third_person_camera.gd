@@ -11,13 +11,12 @@ class_name ThirdPersonCamera extends VirtualCamera
 
 func _ready() -> void:
 	super()
-	if spring_arm:
-		spring_arm.spring_length = spring_length
+	if spring_arm: spring_arm.spring_length = spring_length
 
-func _rotate_smooth() -> void:
-	if rotation_target and gimbal: 
-		rotation_target.rotate_object_local(Vector3.UP, _x_rot_input)
-		gimbal.rotate_object_local(Vector3.RIGHT, _y_rot_input)
+func _rotate_camera() -> void:
+	if !rotation_target and !gimbal: return
+	rotation_target.rotate_object_local(Vector3.UP, _x_rot_input)
+	gimbal.rotate_object_local(Vector3.RIGHT, _y_rot_input)
 
 func _clamp_rotation() -> void:
 	if !clamp_settings or !gimbal: return

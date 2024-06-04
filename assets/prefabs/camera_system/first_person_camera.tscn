@@ -12,6 +12,7 @@ offset_target = NodePath("RotationTarget/Gimbal/Offset")
 camera_target = NodePath("RotationTarget/Gimbal/Offset")
 camera_adjusting_basis = false
 camera_tween_settings = ExtResource("2_b2co1")
+allow_zoom = true
 fov_settings = ExtResource("3_gsdwc")
 rotation_target = NodePath("RotationTarget")
 rotation_settings = ExtResource("3_7qp6o")
