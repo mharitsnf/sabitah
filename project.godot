@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Sabitah"
-run/main_scene="res://assets/levels/game_container.tscn"
+run/main_scene="res://assets/levels/scene_manager.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -30,6 +30,7 @@ gdscript/warnings/inferred_declaration=2
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=2
 window/stretch/mode="viewport"
 
 [dotnet]

@@ -108,6 +108,7 @@ func _update_basis() -> void:
 
 # region Input and Passed functions
 
+## Helper function to check if player input is allowed in this [VirtualCamera]
 func _is_player_input_allowed() -> bool:
 	# Disable input (return false) if...
 	if !allow_player_input: return false

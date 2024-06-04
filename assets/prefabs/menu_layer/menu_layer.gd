@@ -4,30 +4,28 @@ enum Menus {
     NONE, MAIN_MENU
 }
 
-var menu_dict: Dictionary = {
-    Menus.MAIN_MENU: preload("res://assets/prefabs/menu_layer/main_menu.tscn")
-}
-
-var menu_instances: Dictionary = {
-    Menus.MAIN_MENU: null
-}
-
-class UIData extends RefCounted:
-    var _key: Menus
+class MenuData extends RefCounted:
+    var _pscn: PackedScene
     var _instance: BaseMenu
 
-    func _init(__key: Menus, __instance: BaseMenu) -> void:
-        _key = __key
-        _instance = __instance
+    func _init(__pscn: PackedScene) -> void:
+        _pscn = __pscn
     
+    func create_instance() -> void:
+        _instance = _pscn.instantiate()
+
     func get_instance() -> BaseMenu:
         return _instance
 
-var transitioning: bool = false
-var history_stack: Array[UIData] = []
+var menu_dict: Dictionary = {
+    Menus.MAIN_MENU: MenuData.new(preload("res://assets/prefabs/menu_layer/main_menu.tscn"))
+}
 
-func _process(_delta: float) -> void:
-    if Input.is_action_just_pressed("toggle_main_menu"):
+var transitioning: bool = false
+var history_stack: Array[MenuData] = []
+
+func _input(event: InputEvent) -> void:
+    if event.is_action_pressed("toggle_main_menu"):
         if history_stack.is_empty(): navigate_to(Menus.MAIN_MENU)
         else: clear()
 
@@ -52,6 +50,7 @@ func _is_navigating_allowed() -> bool:
         return false
     return true
 
+## Returns true if the menu layer has an active menu.
 func has_active_menu() -> bool:
     return !history_stack.is_empty()
 
@@ -60,33 +59,28 @@ func back() -> void:
     if !_is_navigating_allowed(): return
 
     if !history_stack.is_empty():
-        var current_data: UIData = history_stack.pop_back()
-        var current_instance: BaseMenu = (current_data as UIData).get_instance()
-        _instance_exit(current_instance)
+        var current_data: MenuData = history_stack.pop_back()
+        await _instance_exit((current_data as MenuData).get_instance())
 
     if !history_stack.is_empty():
-        var prev_data: UIData = history_stack.back()
-        var prev_instance: BaseMenu = (prev_data as UIData).get_instance()
-        _instance_enter(prev_instance)
+        var prev_data: MenuData = history_stack.back()
+        _instance_enter((prev_data as MenuData).get_instance())
 
 ## Function for navigating to another menu.
 func navigate_to(menu: Menus) -> void:
     if !_is_navigating_allowed(): return
     
-    if !menu_instances[menu]: menu_instances[menu] = menu_dict[menu].instantiate()
-    var instance: BaseMenu = menu_instances[menu]
-
-    var new_data: UIData = UIData.new(menu, instance)
+    var next_data: MenuData = menu_dict[menu]
+    if !next_data.get_instance(): next_data.create_instance()
 
     # If we have an active menu, remove it from the stack first.
     if !history_stack.is_empty():
-        var current_data: UIData = history_stack.back()
-        var current_instance: BaseMenu = (current_data as UIData).get_instance()
-        _instance_exit(current_instance)
+        var current_data: MenuData = history_stack.back()
+        await _instance_exit((current_data as MenuData).get_instance())
 
     # Add the new menu to the stack.
-    history_stack.push_back(new_data)
-    _instance_enter(instance)
+    history_stack.push_back(next_data)
+    _instance_enter(next_data.get_instance())
 
 ## Function for clearing the history stack (remove all active menus)
 func clear() -> void:
@@ -95,8 +89,7 @@ func clear() -> void:
     # If the history stack is not empty, remove the current instance from the tree
     # and clear the history stack.
     if !history_stack.is_empty():
-        var current_data: UIData = history_stack.back()
-        var current_instance: BaseMenu = (current_data as UIData).get_instance()
-        _instance_exit(current_instance)
+        var current_data: MenuData = history_stack.back()
+        _instance_exit((current_data as MenuData).get_instance())
     
         history_stack = []

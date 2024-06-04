@@ -1,4 +1,4 @@
 class_name Command extends Resource
 
-func action() -> void:
+func action(_args: Array = []) -> void:
     pass
