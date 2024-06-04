@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cghdqxrh3weip"]
-
-[ext_resource type="Script" path="res://assets/prefabs/ui_layer/ui_layer.gd" id="1_q5hub"]
-
-[node name="UILayer" type="CanvasLayer"]
-script = ExtResource("1_q5hub")

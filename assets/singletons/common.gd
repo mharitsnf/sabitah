@@ -22,6 +22,9 @@ class InputState extends RefCounted:
     static func _on_input_device_changed(device: String, _device_index: int) -> void:
         current_device = device
 
+class Promise extends RefCounted:
+    signal completed
+
 ## Factory class for [RemoteTransform3D]
 class RemoteTransform3DBuilder extends RefCounted:
     var _rt: RemoteTransform3D

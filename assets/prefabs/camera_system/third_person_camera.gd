@@ -10,6 +10,7 @@ class_name ThirdPersonCamera extends VirtualCamera
 @onready var spring_arm: SpringArm3D = $RotationTarget/SpringArm3D
 
 func _ready() -> void:
+	super()
 	if spring_arm:
 		spring_arm.spring_length = spring_length
 

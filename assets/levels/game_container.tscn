@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://mmlk171px1r1"]
 
 [ext_resource type="PackedScene" uid="uid://3437j5vecywp" path="res://assets/levels/test_camera_level.tscn" id="1_gpliu"]
-[ext_resource type="PackedScene" uid="uid://cghdqxrh3weip" path="res://assets/prefabs/ui_layer/ui_layer.tscn" id="2_dvv62"]
+[ext_resource type="PackedScene" uid="uid://cghdqxrh3weip" path="res://assets/prefabs/menu_layer/menu_layer.tscn" id="2_dvv62"]
 
 [node name="GameContainer" type="Node"]
 
@@ -24,4 +24,4 @@ render_target_update_mode = 4
 
 [node name="HUDLayer" type="CanvasLayer" parent="."]
 
-[node name="UILayer" parent="." instance=ExtResource("2_dvv62")]
+[node name="MenuLayer" parent="." instance=ExtResource("2_dvv62")]

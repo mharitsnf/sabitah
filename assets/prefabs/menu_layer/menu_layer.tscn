@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cghdqxrh3weip"]
+
+[ext_resource type="Script" path="res://assets/prefabs/menu_layer/menu_layer.gd" id="1_q5hub"]
+
+[node name="MenuLayer" type="CanvasLayer" groups=["menu_layer"]]
+script = ExtResource("1_q5hub")

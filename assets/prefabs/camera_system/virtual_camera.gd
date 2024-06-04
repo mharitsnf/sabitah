@@ -84,9 +84,14 @@ signal transition_finished
 var previous_follow_data: FollowData
 var current_follow_data: FollowData
 
+var menu_layer: MenuLayer
+
 signal camera_adjusting_basis_changed(new_value: bool)
 
 # region Per-frame functions
+
+func _ready() -> void:
+	menu_layer = Group.first("menu_layer")
 
 func _process(delta: float) -> void:
 	_transition(delta)
@@ -101,14 +106,23 @@ func _process(delta: float) -> void:
 func _update_basis() -> void:
 	if adjusting_basis: basis = Common.Geometry.adjust_basis_to_normal(basis, global_position.normalized())
 
-# region Passed functions
+# region Input and Passed functions
 
+func _is_player_input_allowed() -> bool:
+	# Disable input (return false) if...
+	if !allow_player_input: return false
+	if menu_layer.has_active_menu(): return false
+	return true
+
+# For player input
 func process(_delta: float) -> void:
-	if !allow_player_input: return
+	if !_is_player_input_allowed(): return
+	
 	_rotate_joypad()
 
+# For player input
 func unhandled_input(event: InputEvent) -> void:
-	if !allow_player_input: return
+	if !_is_player_input_allowed(): return
 
 	if event is InputEventMouseMotion:
 		_rotate_mouse(event)
