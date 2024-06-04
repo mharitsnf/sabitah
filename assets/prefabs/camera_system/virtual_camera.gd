@@ -286,18 +286,22 @@ func _set_rotation_input(x_amount: float, y_amount: float) -> void:
 
 var _fov_input: float = actual_fov
 
+## Returns the [actual_fov] of this [VirtualCamera].
 func get_fov() -> float:
 	return actual_fov
 
+## Private. Lerps the [actual_fov] to [_fov_input].
 func _on_stop_smooth_fov_input() -> void:
 	actual_fov = lerp(actual_fov, _fov_input, _g_delta * 5.)
 
+## Private. Clamps the FoV values to its limits specified in the [fov_settings] variable.
 func _clamp_fov() -> void:
 	if !fov_settings: return
 	actual_fov = clamp(actual_fov, fov_settings.fov_limit.x, fov_settings.fov_limit.y)
 	_fov_input = clamp(_fov_input, fov_settings.fov_limit.x, fov_settings.fov_limit.y)
 
 const FOV_CHANGE_RATE: float = 2.
+## Private. Accepts mouse input for controlling the FoV values.
 func _zoom_mouse(event: InputEventMouseButton) -> void:
 	if !allow_zoom: return
 
@@ -306,5 +310,6 @@ func _zoom_mouse(event: InputEventMouseButton) -> void:
 	if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 		_set_fov_input(_fov_input + FOV_CHANGE_RATE)
 
+## Private. Sets the [_fov_input] variable according to player input.
 func _set_fov_input(amount: float) -> void:
 	_fov_input = amount
