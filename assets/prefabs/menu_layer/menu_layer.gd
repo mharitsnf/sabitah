@@ -90,6 +90,6 @@ func clear() -> void:
     # and clear the history stack.
     if !history_stack.is_empty():
         var current_data: MenuData = history_stack.back()
-        _instance_exit((current_data as MenuData).get_instance())
+        await _instance_exit((current_data as MenuData).get_instance())
     
         history_stack = []
