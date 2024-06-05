@@ -59,7 +59,7 @@ func _instance_enter(instance: Node) -> void:
     add_child(instance)
 
 ## Function for switching active scenes.
-func switch_scene(target_scene: Scenes) -> Common.Promise:
+func switch_scene(target_scene: Scenes) -> void:
     if current_scene_data and current_scene_data.get_key() == target_scene:
         push_error("Target scene is the same as the current one!")
         return
@@ -73,5 +73,3 @@ func switch_scene(target_scene: Scenes) -> Common.Promise:
 
     current_scene_data = next_scene_data
     _instance_enter(next_scene_data.get_instance())
-
-    return Common.Promise.new()

@@ -3,7 +3,7 @@ class_name DialogueCommand extends Command
 @export var dialogue_res: DialogueResource
 @export var dialogue_start: String = "start"
 
-func action(_args: Array = []) -> Common.Promise:
+func action(_args: Array = []) -> void:
     var menu_layer: MenuLayer = Group.first("menu_layer")
     await (menu_layer as MenuLayer).clear()
     
@@ -15,5 +15,3 @@ func action(_args: Array = []) -> Common.Promise:
     # print(line)
     
     DialogueManager.show_dialogue_balloon(dialogue_res, dialogue_start)
-    
-    return Common.Promise.new()

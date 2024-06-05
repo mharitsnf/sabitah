@@ -16,13 +16,11 @@ func _on_button_focus_entered(button: Button) -> void:
     active_button = button
 
 # Overridden
-func about_to_exit() -> Common.Promise:
+func about_to_exit() -> void:
     await super()
     active_button.release_focus()
-    return Common.Promise.new()
 
 # Overridden
-func after_entering() -> Common.Promise:
+func after_entering() -> void:
     await super()
     (button_vbox.get_child(0) as Button).grab_focus()
-    return Common.Promise.new()

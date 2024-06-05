@@ -1,4 +1,4 @@
 class_name Command extends Resource
 
-func action(_args: Array = []) -> Common.Promise:
-    return Common.Promise.new()
+func action(_args: Array = []) -> void:
+    await Common.wait(.1)

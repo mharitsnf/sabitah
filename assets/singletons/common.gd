@@ -5,9 +5,8 @@ func _ready() -> void:
     InputState.current_device = InputHelper.guess_device_name()
     InputHelper.device_changed.connect(InputState._on_input_device_changed)
 
-func wait(sec: float) -> Promise:
+func wait(sec: float) -> void:
     await get_tree().create_timer(sec).timeout
-    return Promise.new()
 
 class Geometry extends RefCounted:
     static func adjust_basis_to_normal(old_basis: Basis, new_normal: Vector3) -> Basis:
