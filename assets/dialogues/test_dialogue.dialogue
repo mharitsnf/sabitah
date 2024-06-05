@@ -1,0 +1,23 @@
+~ start
+if State.has_given_mayor_gift:
+	=> has_given_mayor_gift
+else:
+	=> first_interaction
+
+~ first_interaction
+Harits: WAIT UP!!!
+do Common.wait(1)
+Harits: That boat... [speed=1] You're *Rokuhara's* son right?
+- Yes
+	Harits: I knew it! You two look exactly the same!
+- Who's that?
+	Harits: Ah... nevermind. You look too similar to him.
+Harits: Anyway, I just want to give you this since you helped the mayor earlier.
+Harits: I hope this helps with your adventure.
+Harits: Also, the mayor says that you are free to visit this island whenever you need to.
+set State.has_given_mayor_gift = true
+=> has_given_mayor_gift
+
+~ has_given_mayor_gift
+Harits: I hope that gift has been useful for you.
+=> END

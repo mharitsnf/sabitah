@@ -2,8 +2,16 @@ class_name GenericButton extends Button
 
 @export var on_press_command: Command
 
+var processing: bool = false
+
 func _ready() -> void:
-    assert(on_press_command)
+	assert(on_press_command)
 
 func _on_pressed() -> void:
-    on_press_command.action()
+	if processing:
+		print("still processing!")
+		return
+	
+	processing = true
+	await on_press_command.action()
+	processing = false

@@ -67,7 +67,7 @@ func back() -> void:
         _instance_enter((prev_data as MenuData).get_instance())
 
 ## Function for navigating to another menu.
-func navigate_to(menu: Menus) -> void:
+func navigate_to(menu: Menus) -> Common.Promise:
     if !_is_navigating_allowed(): return
     
     var next_data: MenuData = menu_dict[menu]
@@ -82,8 +82,10 @@ func navigate_to(menu: Menus) -> void:
     history_stack.push_back(next_data)
     _instance_enter(next_data.get_instance())
 
+    return Common.Promise.new()
+
 ## Function for clearing the history stack (remove all active menus)
-func clear() -> void:
+func clear() -> Common.Promise:
     if !_is_navigating_allowed(): return
 
     # If the history stack is not empty, remove the current instance from the tree
@@ -93,3 +95,5 @@ func clear() -> void:
         await _instance_exit((current_data as MenuData).get_instance())
     
         history_stack = []
+    
+    return Common.Promise.new()
