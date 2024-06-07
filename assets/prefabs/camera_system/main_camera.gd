@@ -86,12 +86,8 @@ func _process(delta: float) -> void:
 	_transition(delta)
 
 	if current_follow_data:
-		current_follow_data.get_target().process(delta)
 		if !transitioning: fov = current_follow_data.get_target().get_fov()
-
-func _unhandled_input(event: InputEvent) -> void:
-	if current_follow_data:
-		current_follow_data.get_target().unhandled_input(event)
+		current_follow_data.get_target().delegated_process(delta)
 
 # region Follow target functions
 

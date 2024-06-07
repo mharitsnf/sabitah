@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://1cfuft35ap2"]
 
-[ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_xdcd7"]
+[ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_xupbg"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://boff0eub4rosv" path="res://assets/prefabs/actor/test_actor.tscn" id="4_4h5jq"]
@@ -20,7 +20,7 @@ height = 4.0
 [node name="Environment" type="Node" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1497.7, 0)
+transform = Transform3D(1, 0, 0, 0, 0.798635, 0.601815, 0, -0.601815, 0.798635, 0, 1497.7, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
@@ -28,8 +28,7 @@ environment = SubResource("Environment_f3y7e")
 
 [node name="Camera" type="Node" parent="."]
 
-[node name="MainCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("1_xdcd7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
+[node name="PlayerMainCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("1_r30bq")]
 follow_target = NodePath("../ThirdPersonCamera")
 
 [node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]

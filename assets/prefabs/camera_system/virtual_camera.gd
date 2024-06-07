@@ -45,16 +45,11 @@ class FollowData extends RefCounted:
 ## Tween settings if the [camera_use_transition] is true.
 @export var camera_tween_settings: TweenSettings
 
-@export_group("Flags")
+@export_group("Input")
 ## If true, the player is able to control this camera (e.g., rotate with mouse and/or joypad).
 @export var allow_player_input: bool = true
-## If true, make this camera update its basis relative to the planet surface.
-## If this camera is parented to a node that has already been adjusting its basis,
-## then activating this property would cancel its effect.
-@export var adjusting_basis: bool = true:
-	set(value):
-		adjusting_basis = value
-		if current_follow_data: current_follow_data.set_update_rotation(!value)
+## Settings for rotation inputs.
+@export var rotation_settings: CameraRotationSettings
 
 @export_group("FoV")
 @export var allow_zoom: bool = false
@@ -66,8 +61,14 @@ class FollowData extends RefCounted:
 var actual_fov: float
 
 @export_group("Rotation")
+## If true, make this camera update its basis relative to the planet surface.
+## If this camera is parented to a node that has already been adjusting its basis,
+## activating this property would cancel its effect.
+@export var adjusting_basis: bool = true:
+	set(value):
+		adjusting_basis = value
+		if current_follow_data: current_follow_data.set_update_rotation(!value)
 @export var rotation_target: Node3D
-@export var rotation_settings: CameraRotationSettings
 @export var clamp_settings: CameraClampSettings
 
 @export_group("Following")
@@ -126,14 +127,18 @@ func _is_player_input_allowed() -> bool:
 	if menu_layer.has_active_menu(): return false
 	return true
 
-# For player input
-func process(_delta: float) -> void:
+## Delegated process to be run from the [MainCamera]
+func delegated_process(_delta: float) -> void:
+	pass
+
+## Delegated process specifically for player input (joypad)
+func player_process(_delta: float) -> void:
 	if !_is_player_input_allowed(): return
 	
 	_rotate_joypad()
 
-# For player input
-func unhandled_input(event: InputEvent) -> void:
+## Delegated process specifically for player input (mouse)
+func player_unhandled_input(event: InputEvent) -> void:
 	if !_is_player_input_allowed(): return
 
 	if event is InputEventMouseButton:
