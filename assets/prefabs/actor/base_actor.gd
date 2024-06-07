@@ -1,6 +1,10 @@
 class_name BaseActor extends RigidBody3D
 
 @export_group("Buoyancy settings")
+@export_subgroup("Water normal settings")
+@export var adjust_to_water_normal: bool = false
+@export var normal_target: Node3D
+@export_subgroup("Height settings")
 ## The strength of the upwards force of the actor.
 @export var float_force : float = 5.
 ## The strength of the flat y velocity damping when the actor is submerged.
@@ -10,6 +14,7 @@ class_name BaseActor extends RigidBody3D
 
 ## Describes how far the actor is from the ocean surface
 var depth_from_ocean_surface : float = 0.
+var current_normal: Vector3 = Vector3.UP
 
 var ocean: Ocean
 
@@ -21,6 +26,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
     _calculate_depth_to_ocean_surface(state)
     _dampen_velocity(state)
     _apply_buoyancy_force()
+    _update_to_water_normal()
 
 # region Buoyancy
 # =====
@@ -38,6 +44,10 @@ class GerstnerResult extends RefCounted:
 
 func is_submerged() -> bool:
     return depth_from_ocean_surface > 0.
+
+func _update_to_water_normal() -> void:
+    if adjust_to_water_normal and normal_target and is_submerged():
+        normal_target.basis = Common.Geometry.adjust_basis_to_normal(normal_target.basis, current_normal)
 
 ## Private. Adds upward force to the actor so that it floats above the water surface.
 func _apply_buoyancy_force() -> void:
@@ -62,6 +72,7 @@ func _calculate_depth_to_ocean_surface(state: PhysicsDirectBodyState3D) -> void:
 
     var linear_offset : Vector3 = _calculate_offset_to_ocean_target()
     var gerstner_result : GerstnerResult = _calculate_total_gerstner(linear_offset)
+    current_normal = gerstner_result.normal
     var flat_position : Vector3 = state.transform.basis.inverse() * global_position
     var water_height : float = State.Game.PLANET_RADIUS + ocean_surface_offset + gerstner_result.vertex.y
     depth_from_ocean_surface = water_height - flat_position.y
