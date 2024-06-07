@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://boff0eub4rosv"]
+
+[ext_resource type="Script" path="res://assets/prefabs/actor/base_actor.gd" id="1_tr2sk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nu7ig"]
+albedo_color = Color(0.545098, 0.658824, 0.803922, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fu68s"]
+material = SubResource("StandardMaterial3D_nu7ig")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7651e"]
+
+[node name="TestActor" type="RigidBody3D"]
+linear_damp = 2.0
+script = ExtResource("1_tr2sk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_fu68s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_7651e")

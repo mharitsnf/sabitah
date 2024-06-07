@@ -1,10 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://civ3m35o0ypxt"]
 
-[ext_resource type="Shader" path="res://assets/resources/ocean/ocean.gdshader" id="1_crfte"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/ocean.gdshader" id="1_sikiv"]
 
 [sub_resource type="Gradient" id="Gradient_1j0d2"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.529412)
+interpolation_mode = 2
 colors = PackedColorArray(0.3, 0.3, 0.3, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kod0u"]
@@ -35,21 +34,21 @@ noise = SubResource("FastNoiseLite_gd7io")
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_crfte")
+shader = ExtResource("1_sikiv")
 shader_parameter/planet_radius = 1485.6
 shader_parameter/target_world_position = Vector3(0, 1485.6, 0)
 shader_parameter/target_up = Vector3(0, 1, 0)
 shader_parameter/target_right = Vector3(1, 0, 0)
 shader_parameter/target_fwd = Vector3(0, 0, 1)
-shader_parameter/cpu_time = 111.856
+shader_parameter/cpu_time = 0.652764
 shader_parameter/movement_offset = Vector3(0, -1485.6, 0)
 shader_parameter/plane_size = 1000.0
 shader_parameter/speed = 1.0
-shader_parameter/wave_1 = Vector4(0.245, 5.365, 1.545, 0.855)
-shader_parameter/wave_2 = Vector4(0.15, 2.72, 1.21, 0.87)
-shader_parameter/wave_3 = Vector4(0.15, 1.17, 0.375, 0.43)
-shader_parameter/wave_4 = Vector4(0.36, 1.215, 1.26, 0.275)
-shader_parameter/wave_5 = Vector4(0.305, 4, 0.875, 0.395)
+shader_parameter/wave_1 = Vector4(0.012, 50, 0.455, 0.675)
+shader_parameter/wave_2 = Vector4(0.007, 75, 0.4, 0.74)
+shader_parameter/wave_3 = Vector4(0.025, 45, 0.49, 0.405)
+shader_parameter/wave_4 = Vector4(0.011, 65, 0.345, 0.615)
+shader_parameter/wave_5 = Vector4(0.023, 41, 0.595, 0.87)
 shader_parameter/albedo = Color(0.184314, 0.458824, 0.717647, 1)
 shader_parameter/albedo2 = Color(0.447059, 0.631373, 0.764706, 1)
 shader_parameter/metallic = 0.0

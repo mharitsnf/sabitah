@@ -35,6 +35,28 @@ func _process(delta: float) -> void:
     _update_target_transform()
     _update_shader_params()
 
+# region Getters
+
+func get_target() -> Node3D:
+    return target
+
+func get_target_basis() -> Basis:
+    return target_basis
+
+func get_offset() -> Vector3:
+    return offset
+
+func get_target_position() -> Vector3:
+    return target_world_pos
+
+func get_time_elapsed() -> float:
+    return time_elapsed
+
+func get_speed() -> float:
+    return speed
+
+# region Transform fn
+
 func _calculate_offset(delta: float) -> void:
     if !target: return
     if transitioning: return

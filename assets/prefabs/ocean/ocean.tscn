@@ -1,15 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://nwcslco3ksia"]
 
-[ext_resource type="Material" uid="uid://civ3m35o0ypxt" path="res://assets/resources/ocean/m_ocean.tres" id="1_xro5x"]
+[ext_resource type="Material" uid="uid://civ3m35o0ypxt" path="res://assets/resources/materials/m_ocean.tres" id="1_rm2v0"]
 [ext_resource type="Script" path="res://assets/prefabs/ocean/ocean.gd" id="2_2oyqa"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ee1mp"]
-material = ExtResource("1_xro5x")
+material = ExtResource("1_rm2v0")
 size = Vector2(1000, 1000)
 subdivide_width = 100
 subdivide_depth = 100
 
-[node name="Ocean" type="MeshInstance3D"]
+[node name="Ocean" type="MeshInstance3D" groups=["ocean"]]
+sorting_offset = 1500.0
 extra_cull_margin = 16384.0
 mesh = SubResource("PlaneMesh_ee1mp")
 script = ExtResource("2_2oyqa")
