@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://1cfuft35ap2"]
+
+[ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_xdcd7"]
+[ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_xupbg"]
+[ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
+
+[sub_resource type="Environment" id="Environment_f3y7e"]
+background_mode = 1
+background_color = Color(0.054, 0.03, 0.15, 1)
+sdfgi_enabled = true
+sdfgi_min_cell_size = 8.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ki4e8"]
+radius = 5.0
+height = 10.0
+
+[node name="TestLevel1" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1536.3, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_f3y7e")
+
+[node name="Camera" type="Node" parent="."]
+
+[node name="MainCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("1_xdcd7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
+follow_target = NodePath("../ThirdPersonCamera")
+
+[node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
+spring_length = 25.0
+follow_target = NodePath("../../MeshInstance3D")
+
+[node name="Ocean" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_f1v4r")]
+target = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
+mesh = SubResource("SphereMesh_ki4e8")
+skeleton = NodePath("")
