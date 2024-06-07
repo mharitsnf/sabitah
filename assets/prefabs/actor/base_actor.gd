@@ -2,7 +2,9 @@ class_name BaseActor extends RigidBody3D
 
 @export_group("Buoyancy settings")
 @export_subgroup("Water normal settings")
+## If true, the [normal_target] will adjust its rotation along the water surface normal.
 @export var adjust_to_water_normal: bool = false
+## The target for adjusting rotation along water surface normal.
 @export var normal_target: Node3D
 @export_subgroup("Height settings")
 ## The strength of the upwards force of the actor.
@@ -14,6 +16,7 @@ class_name BaseActor extends RigidBody3D
 
 ## Describes how far the actor is from the ocean surface
 var depth_from_ocean_surface : float = 0.
+## The current water normal.
 var current_normal: Vector3 = Vector3.UP
 
 var ocean: Ocean
@@ -42,9 +45,11 @@ class GerstnerResult extends RefCounted:
         tangent = _tangent
         binormal = _binormal
 
+## Returns true if the actor is currently under the water surface.
 func is_submerged() -> bool:
     return depth_from_ocean_surface > 0.
 
+## Private. Adjusts the [normal_target]'s rotation along the water surface normal.
 func _update_to_water_normal() -> void:
     if adjust_to_water_normal and normal_target and is_submerged():
         normal_target.basis = Common.Geometry.adjust_basis_to_normal(normal_target.basis, current_normal)
