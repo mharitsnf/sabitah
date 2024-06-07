@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://3437j5vecywp"]
+[gd_scene load_steps=11 format=3 uid="uid://3437j5vecywp"]
 
 [ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_jyic3"]
 [ext_resource type="PackedScene" uid="uid://dbf7p6hqqkk5a" path="res://assets/prefabs/adjusted_ball/adjusted_ball.tscn" id="1_x2u4w"]
@@ -17,6 +17,13 @@ height = 50.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xj3ch"]
 radius = 25.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6drkm"]
+radius = 50.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hhh1m"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vk4n0"]
 
 [node name="TestCameraLevel" type="Node3D"]
 
@@ -37,6 +44,16 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("SphereShape3D_xj3ch")
 
+[node name="Gravity" type="Area3D" parent="StaticBody3D"]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 29.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Gravity"]
+shape = SubResource("SphereShape3D_6drkm")
+
 [node name="MainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_jyic3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.9381, 3.12389)
 follow_target = NodePath("../Cameras/ThirdPersonCamera")
@@ -44,8 +61,7 @@ follow_target = NodePath("../Cameras/ThirdPersonCamera")
 [node name="Cameras" type="Node" parent="."]
 
 [node name="ThirdPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
-spring_arm_collision_mask = 1
-follow_target = NodePath("../../AdjustedBall")
+follow_target = NodePath("../../RigidBody3D/Marker3D")
 
 [node name="FirstPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("4_wnifp")]
 follow_target = NodePath("../../AdjustedBall")
@@ -55,3 +71,17 @@ transform = Transform3D(0.999656, -0.000533563, -0.0262387, -0.0206814, 0.59948,
 
 [node name="AdjustedBall2" parent="." instance=ExtResource("1_x2u4w")]
 transform = Transform3D(0.958566, 0.282209, 0.0388521, -0.273945, 0.950596, -0.146019, -0.0781406, 0.129326, 0.988519, 7.19915, 24.2497, 3.29909)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 29.2531, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_hhh1m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_vk4n0")
+
+[node name="Marker3D" type="Marker3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

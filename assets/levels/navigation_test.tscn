@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://cuj6f5ma3rmwq"]
+
+[ext_resource type="PackedScene" uid="uid://boeroi228cyoe" path="res://assets/prefabs/temp/test_rb.tscn" id="1_sj5ap"]
+[ext_resource type="Script" path="res://addons/free-look-camera/camera.gd" id="2_7k6rg"]
+
+[sub_resource type="Environment" id="Environment_r3nqt"]
+background_mode = 1
+background_color = Color(0.054, 0.03, 0.15, 1)
+sdfgi_enabled = true
+sdfgi_min_cell_size = 8.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_dqdlt"]
+radius = 10.0
+height = 20.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4ds7l"]
+radius = 10.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q5cfp"]
+radius = 50.0
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_t1oeo"]
+vertices = PackedVector3Array(-6.48867, 8, 1.26133, -5.48867, 8.25, 3.76133, -3.73867, 8, 5.51133, -5.11367, 8.5, 3.38633, 1.26133, 8, 6.51133, 3.76133, 8, 5.51133, 5.51133, 8, 3.76133, 3.38633, 8.5, 5.13633, 6.51133, 8, -1.23867, 5.51133, 8, -3.73867, 3.76133, 8.25, -5.48867, 1.26133, 8, -6.48867, -1.23867, 8, -6.48867, 0.975613, 9.25, -4.98867, 4.29704, 9, -2.73867, -1.23867, 8, -6.48867, -3.73867, 8.25, -5.48867, -5.48867, 8.25, -3.73867, -6.48867, 8, -1.23867, -6.48867, 8, 1.26133, -4.98867, 9.25, -0.952959, -3.48867, 9.25, -3.16724, -1.98867, 8.75, -5.38153, -3.73867, 8, 5.51133, -1.23867, 8, 6.51133, 1.26133, 8, 6.51133, 0.0113268, 8.25, 6.26133, 5.51133, 8, 3.76133, 6.51133, 8, 1.26133, 6.51133, 8, -1.23867, 5.76133, 8.25, 2.51133, 6.51133, 8, -1.23867, -1.23867, 8, -6.48867, -6.48867, 8, 1.26133, -3.73867, 8, 5.51133, 1.26133, 8, 6.51133, 5.51133, 8, 3.76133, 5.76133, 8.25, 2.51133, 4.29704, 9, -2.73867, 0.975613, 9.25, -4.98867, -1.98867, 8.75, -5.38153, -3.48867, 9.25, -3.16724, -4.98867, 9.25, -0.952959, -5.11367, 8.5, 3.38633, 0.0113268, 8.25, 6.26133, 3.38633, 8.5, 5.13633, -0.978419, 10.25, 2.01706, 1.99652, 10.25, 0.51212, -0.968588, 10.25, -0.986763, 2.01139, 10, -2.50874, -3.99353, 9.75, 0.518172, -2.50336, 9.5, 3.52199, 5.01654, 9, 0.534095, 0.516665, 9.75, 3.49397, 3.48645, 9.75, -1.0038, 0.521339, 9.75, -4.00269)
+polygons = [PackedInt32Array(2, 1, 3), PackedInt32Array(3, 1, 0), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 4), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 10), PackedInt32Array(13, 10, 14), PackedInt32Array(14, 10, 9), PackedInt32Array(14, 9, 8), PackedInt32Array(15, 22, 16), PackedInt32Array(16, 22, 21), PackedInt32Array(16, 21, 17), PackedInt32Array(17, 21, 20), PackedInt32Array(17, 20, 18), PackedInt32Array(18, 20, 19), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 23), PackedInt32Array(27, 30, 28), PackedInt32Array(28, 30, 29), PackedInt32Array(45, 37, 36), PackedInt32Array(37, 52, 31), PackedInt32Array(31, 54, 38), PackedInt32Array(38, 49, 39), PackedInt32Array(39, 40, 32), PackedInt32Array(40, 55, 41), PackedInt32Array(41, 50, 42), PackedInt32Array(42, 50, 33), PackedInt32Array(33, 50, 43), PackedInt32Array(43, 51, 34), PackedInt32Array(34, 51, 44), PackedInt32Array(44, 53, 35), PackedInt32Array(35, 53, 45), PackedInt32Array(45, 47, 37), PackedInt32Array(52, 54, 31), PackedInt32Array(37, 47, 52), PackedInt32Array(54, 49, 38), PackedInt32Array(49, 55, 39), PackedInt32Array(39, 55, 40), PackedInt32Array(55, 48, 41), PackedInt32Array(41, 48, 50), PackedInt32Array(50, 51, 43), PackedInt32Array(51, 53, 44), PackedInt32Array(53, 47, 45), PackedInt32Array(52, 47, 54), PackedInt32Array(54, 47, 49), PackedInt32Array(49, 48, 55), PackedInt32Array(48, 46, 50), PackedInt32Array(50, 46, 51), PackedInt32Array(51, 46, 53), PackedInt32Array(53, 46, 47), PackedInt32Array(47, 48, 49), PackedInt32Array(48, 47, 46)]
+agent_height = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_m3w0e"]
+
+[node name="NavigationTest" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_r3nqt")
+
+[node name="TestRB" parent="." node_paths=PackedStringArray("marker") instance=ExtResource("1_sj5ap")]
+transform = Transform3D(0.238334, 0.0831058, -0.967621, -0.358097, -0.91861, -0.167099, -0.902753, 0.386327, -0.189176, 0.939095, -10.3803, 4.3655)
+marker = NodePath("../Marker3D")
+
+[node name="TestRB2" parent="." node_paths=PackedStringArray("marker") instance=ExtResource("1_sj5ap")]
+transform = Transform3D(0.846388, -0.53133, 0.036269, 0.528869, 0.846571, 0.0601256, -0.0626508, -0.031708, 0.997532, -6.85415, 10.9208, -0.409033)
+marker = NodePath("../Marker3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("SphereMesh_dqdlt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_4ds7l")
+
+[node name="Gravity" type="Area3D" parent="StaticBody3D"]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 29.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Gravity"]
+shape = SubResource("SphereShape3D_q5cfp")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_t1oeo")
+
+[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.866025, -0.5, 0, 0.5, -0.866025, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_t1oeo")
+
+[node name="NavigationRegion3D4" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_t1oeo")
+
+[node name="NavigationRegion3D5" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_t1oeo")
+
+[node name="NavigationRegion3D3" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_t1oeo")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 3.7, 18.3)
+script = ExtResource("2_7k6rg")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(-0.0216909, -0.0225326, -0.999511, 0.0106592, 0.999684, -0.0227678, 0.999708, -0.0111478, -0.0214439, -0.225326, 9.99684, -0.111478)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Marker3D"]
+mesh = SubResource("SphereMesh_m3w0e")

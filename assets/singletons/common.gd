@@ -15,6 +15,18 @@ class Geometry extends RefCounted:
         var new_right : Vector3 = quat * old_basis.x
         var new_forward : Vector3 = quat * old_basis.z
         return Basis(new_right, new_normal, new_forward).orthonormalized()
+    
+    ## Returns the distance between two vectors, [a] and [b], along a sphere surface of radius [r].
+    static func slength(a: Vector3, b: Vector3, r: float) -> float:
+        var n_a: Vector3 = a.normalized()
+        var n_b: Vector3 = b.normalized()
+        var a_dot_b: float = n_a.dot(n_b)
+        var rad: float = acos(a_dot_b)
+        return r * rad
+
+    ## Returns the maximum possible distance between two vectors along a sphere surface of radius [r].
+    static func max_slength(r: float) -> float:
+        return PI * r
 
 class InputState extends RefCounted:
     static var current_device: String
