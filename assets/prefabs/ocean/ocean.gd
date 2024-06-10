@@ -49,6 +49,9 @@ func get_offset() -> Vector3:
 func get_target_position() -> Vector3:
     return target_world_pos
 
+func get_target_position_normalized() -> Vector3:
+    return target_world_pos.normalized()
+
 func get_time_elapsed() -> float:
     return time_elapsed
 

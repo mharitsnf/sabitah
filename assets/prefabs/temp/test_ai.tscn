@@ -1,14 +1,20 @@
 [gd_scene load_steps=5 format=3 uid="uid://boeroi228cyoe"]
 
-[ext_resource type="Script" path="res://assets/prefabs/temp/test_rb.gd" id="1_230go"]
+[ext_resource type="Script" path="res://assets/prefabs/temp/test_ai.gd" id="1_230go"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kruoe"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_70gik"]
+radius = 0.025
+height = 0.1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4joql"]
+radius = 0.025
+height = 0.1
 
-[node name="TestRB" type="RigidBody3D"]
+[node name="TestAI" type="RigidBody3D"]
+collision_layer = 3
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_kruoe")
 linear_damp = 0.5
 script = ExtResource("1_230go")
@@ -20,10 +26,13 @@ mesh = SubResource("CapsuleMesh_70gik")
 shape = SubResource("CapsuleShape3D_4joql")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
 avoidance_enabled = true
-radius = 0.6
+height = 0.1
+radius = 0.03
 time_horizon_agents = 2.0
-max_speed = 7.5
+max_speed = 0.5
 use_3d_avoidance = true
 debug_enabled = true
 
