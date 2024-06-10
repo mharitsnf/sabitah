@@ -1,6 +1,8 @@
 extends RigidBody3D
 
 @export var marker: Marker3D
+@export var actor_projection_pscn: PackedScene
+var actor_projection: ActorProjection
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
@@ -9,8 +11,12 @@ const SPHERE_RAD: float = 74.28
 var velocity_scale: float = 1.
 var has_wait_one_frame: bool = false
 
-func _process(_delta: float) -> void:
-	print(global_position)
+func _ready() -> void:
+	actor_projection = actor_projection_pscn.instantiate()
+	(actor_projection as ActorProjection).target_world_type = State.Game.GameType.MAIN
+	(actor_projection as ActorProjection).target_world = Group.first("main_world")
+	(actor_projection as ActorProjection).reference_node = self
+	(actor_projection as ActorProjection).add_to_world()
 
 func _physics_process(_delta: float) -> void:
 	if !marker: return

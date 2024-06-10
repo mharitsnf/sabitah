@@ -45,10 +45,11 @@ follow_target = NodePath("../ThirdPersonCamera")
 
 [node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
+spring_length = 15.0
 follow_target = NodePath("../../TestActor")
 
 [node name="Ocean" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_f1v4r")]
 target = NodePath("../TestActor")
 
 [node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
-transform = Transform3D(0.999964, -0.000391556, -0.00850834, 0.00038373, 1, -0.000921365, 0.0085087, 0.000918067, 0.999963, -0.585986, 1496.56, 1.37394)
+transform = Transform3D(0.999923, 0.00903981, -0.00847466, -0.00894102, 0.999893, 0.0116242, 0.00857883, -0.0115475, 0.999897, 13.4295, 1485.44, -17.155)

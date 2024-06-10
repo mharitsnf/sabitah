@@ -7,11 +7,10 @@ var reference_node: Node3D
 func _process(_delta: float) -> void:
 	_project_position()
 	_project_rotation()
-	print(name, ' ', global_position)
 
 func add_to_world() -> void:
 	if !is_inside_tree():
-		target_world.add_child(self)
+		target_world.add_child.call_deferred(self)
 
 func _project_position() -> void:
 	if reference_node:

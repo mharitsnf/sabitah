@@ -39,13 +39,13 @@ transform = Transform3D(0.882948, -0.469025, 0.020478, 0, 0.0436193, 0.999048, -
 navigation_mesh = SubResource("NavigationMesh_01ffq")
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(-0.782982, -0.0687297, -0.618236, 0.212537, 0.904505, -0.369727, 0.584609, -0.420888, -0.693603, -5.10524, 67.1866, -31.2636)
+transform = Transform3D(-0.7853, 0.0459316, -0.617409, 0.0681297, 0.997599, -0.0124406, 0.615356, -0.0518336, -0.786544, 3.4552, 75.0444, -3.89918)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Marker3D"]
 mesh = SubResource("CapsuleMesh_wdjbd")
 
 [node name="TestAI" parent="." node_paths=PackedStringArray("marker") instance=ExtResource("2_7xe1x")]
-transform = Transform3D(0.999977, -0.00038563, -0.00676302, 0.000390367, 1, 0.000699167, 0.00676275, -0.000701791, 0.999977, -0.0289906, 75.1772, -0.0527587)
+transform = Transform3D(0.999484, 0.0308263, -0.00903868, -0.0318669, 0.986957, -0.157798, 0.00405647, 0.158004, 0.98743, 2.30365, 73.7553, 11.8077)
 collision_layer = 17
 collision_mask = 17
 marker = NodePath("../Marker3D")
