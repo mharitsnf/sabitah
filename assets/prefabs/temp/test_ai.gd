@@ -9,6 +9,9 @@ const SPHERE_RAD: float = 74.28
 var velocity_scale: float = 1.
 var has_wait_one_frame: bool = false
 
+func _process(_delta: float) -> void:
+	print(global_position)
+
 func _physics_process(_delta: float) -> void:
 	if !marker: return
 	
@@ -28,7 +31,6 @@ func _physics_process(_delta: float) -> void:
 	var cur_pos: Vector3 = basis.inverse() * global_position
 	var flat_cur_pos: Vector3 = Vector3(cur_pos.x, 0., cur_pos.z)
 
-	# var dir: Vector3 = (nav.get_next_path_position() - global_position).normalized()
 	var dir: Vector3 = (flat_next_pos - flat_cur_pos).normalized()
 	dir = basis * dir
 

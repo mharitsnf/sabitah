@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=10 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="1_dfsp8"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
 [ext_resource type="PackedScene" uid="uid://bifnx42u6q3b" path="res://assets/prefabs/planet_body/planet_static_body.tscn" id="2_e4tao"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_xupbg"]
+[ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/mini_sub_viewport.tscn" id="3_bdutt"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://boff0eub4rosv" path="res://assets/prefabs/actor/test_actor.tscn" id="4_4h5jq"]
+[ext_resource type="PackedScene" uid="uid://cocdjpmr404u3" path="res://assets/levels/test_mini_world.tscn" id="4_5lhte"]
 
 [sub_resource type="Environment" id="Environment_f3y7e"]
 background_mode = 1
@@ -13,7 +15,7 @@ background_color = Color(0.054, 0.03, 0.15, 1)
 sdfgi_enabled = true
 sdfgi_min_cell_size = 8.0
 
-[node name="TestLevel1" type="Node3D"]
+[node name="TestLevel1" type="Node3D" groups=["main_world"]]
 
 [node name="Environment" type="Node" parent="."]
 
@@ -25,9 +27,16 @@ shadow_enabled = true
 environment = SubResource("Environment_f3y7e")
 
 [node name="GravityArea" parent="Environment" instance=ExtResource("1_dfsp8")]
+gravity = 29.4
 
 [node name="PlanetStaticBody" parent="Environment" instance=ExtResource("2_e4tao")]
 show_mesh = false
+
+[node name="Mini" type="Node" parent="."]
+
+[node name="MiniSubViewport" parent="Mini" instance=ExtResource("3_bdutt")]
+
+[node name="TestMiniWorld" parent="Mini/MiniSubViewport" instance=ExtResource("4_5lhte")]
 
 [node name="Camera" type="Node" parent="."]
 
@@ -42,4 +51,4 @@ follow_target = NodePath("../../TestActor")
 target = NodePath("../TestActor")
 
 [node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
-transform = Transform3D(0.476243, 0.879121, -0.0184048, -0.879104, 0.476482, 0.0118803, 0.0192138, 0.0105218, 0.99976, 1322.46, 716.771, 15.828)
+transform = Transform3D(0.999964, -0.000391556, -0.00850834, 0.00038373, 1, -0.000921365, 0.0085087, 0.000918067, 0.999963, -0.585986, 1496.56, 1.37394)

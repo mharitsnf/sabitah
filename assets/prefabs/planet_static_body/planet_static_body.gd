@@ -30,6 +30,6 @@ func _set_area_type(value: State.Game.GameType) -> void:
             (mesh_instance.mesh as SphereMesh).radius = planet_data['radius']
             (mesh_instance.mesh as SphereMesh).height = planet_data['radius'] * 2.
         else:
-            (collision_shape.shape as SphereShape3D).radius = State.Game.PLANET_RADIUS
+            (collision_shape.shape as SphereShape3D).radius = State.Game.PLANET_RADIUS * _scale_dict[value]
             (mesh_instance.mesh as SphereMesh).radius = State.Game.PLANET_RADIUS * _scale_dict[value]
             (mesh_instance.mesh as SphereMesh).height = State.Game.PLANET_RADIUS * _scale_dict[value] * 2.

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://byyvtf6lm73ku"]
 
-[node name="SubViewport" type="SubViewport"]
+[node name="MainSubViewport" type="SubViewport"]
 handle_input_locally = false
 msaa_3d = 2
 scaling_3d_mode = 2

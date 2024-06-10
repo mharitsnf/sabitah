@@ -24,6 +24,4 @@ class Game extends RefCounted:
             "strength": ProjectSettings.get_setting("physics/3d/default_gravity") * scale_dict[type]
         }
 
-        
-
 var has_given_mayor_gift: bool = false

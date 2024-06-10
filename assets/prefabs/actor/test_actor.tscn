@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://boff0eub4rosv"]
+[gd_scene load_steps=6 format=3 uid="uid://boff0eub4rosv"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/base_actor.gd" id="1_tr2sk"]
+[ext_resource type="PackedScene" uid="uid://d0u5umvdrhiw8" path="res://assets/prefabs/actor_projection/test_actor_projection.tscn" id="2_u81nq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7651e"]
 
@@ -15,6 +16,7 @@ linear_damp = 2.0
 script = ExtResource("1_tr2sk")
 adjust_to_water_normal = true
 normal_target = NodePath("CollisionShape3D")
+actor_projection_pscn = ExtResource("2_u81nq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_7651e")
