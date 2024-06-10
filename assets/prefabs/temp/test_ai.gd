@@ -6,8 +6,6 @@ var actor_projection: ActorProjection
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
-const SPHERE_RAD: float = 74.28
-
 var velocity_scale: float = 1.
 var has_wait_one_frame: bool = false
 

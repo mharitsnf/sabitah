@@ -34,7 +34,7 @@ avoidance_enabled = true
 height = 0.1
 radius = 0.03
 time_horizon_agents = 2.0
-max_speed = 0.5
+max_speed = 0.25
 use_3d_avoidance = true
 debug_enabled = true
 

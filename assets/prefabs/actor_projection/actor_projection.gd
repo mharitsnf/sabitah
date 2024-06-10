@@ -4,6 +4,8 @@ var target_world_type: State.Game.GameType
 var target_world: Node
 var reference_node: Node3D
 
+@onready var normal_target: Node3D = %CollisionShape3D
+
 func _process(_delta: float) -> void:
 	_project_position()
 	_project_rotation()
@@ -18,6 +20,9 @@ func _project_position() -> void:
 
 		var target_planet_data: Dictionary = State.Game.get_planet_data(target_world_type)
 		global_position = unit_pos * target_planet_data['radius']
+
+		if reference_node is BaseActor and normal_target:
+			normal_target.basis = reference_node.normal_target.basis
 
 func _project_rotation() -> void:
 	if reference_node:
