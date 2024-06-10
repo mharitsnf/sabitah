@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=11 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="1_dfsp8"]
+[ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_qqlyk"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
 [ext_resource type="PackedScene" uid="uid://bifnx42u6q3b" path="res://assets/prefabs/planet_body/planet_static_body.tscn" id="2_e4tao"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_xupbg"]
@@ -16,6 +17,13 @@ sdfgi_enabled = true
 sdfgi_min_cell_size = 8.0
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
+script = ExtResource("1_qqlyk")
+
+[node name="MiniWorld" type="Node" parent="."]
+
+[node name="MiniSubViewport" parent="MiniWorld" instance=ExtResource("3_bdutt")]
+
+[node name="TestMiniWorld" parent="MiniWorld/MiniSubViewport" instance=ExtResource("4_5lhte")]
 
 [node name="Environment" type="Node" parent="."]
 
@@ -31,12 +39,6 @@ gravity = 29.4
 
 [node name="PlanetStaticBody" parent="Environment" instance=ExtResource("2_e4tao")]
 show_mesh = false
-
-[node name="Mini" type="Node" parent="."]
-
-[node name="MiniSubViewport" parent="Mini" instance=ExtResource("3_bdutt")]
-
-[node name="TestMiniWorld" parent="Mini/MiniSubViewport" instance=ExtResource("4_5lhte")]
 
 [node name="Camera" type="Node" parent="."]
 

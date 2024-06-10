@@ -1,7 +1,7 @@
 @tool
 class_name PlanetStaticBody extends StaticBody3D
 
-var _scale_dict: Dictionary = {
+var _game_scale_dict: Dictionary = {
     State.Game.GameType.MAIN: 1.,
     State.Game.GameType.MINI: .05
 }
@@ -30,6 +30,15 @@ func _set_area_type(value: State.Game.GameType) -> void:
             (mesh_instance.mesh as SphereMesh).radius = planet_data['radius']
             (mesh_instance.mesh as SphereMesh).height = planet_data['radius'] * 2.
         else:
-            (collision_shape.shape as SphereShape3D).radius = State.Game.PLANET_RADIUS * _scale_dict[value]
-            (mesh_instance.mesh as SphereMesh).radius = State.Game.PLANET_RADIUS * _scale_dict[value]
-            (mesh_instance.mesh as SphereMesh).height = State.Game.PLANET_RADIUS * _scale_dict[value] * 2.
+            pass
+            # Set the collision shape radius
+            (collision_shape.shape as SphereShape3D).radius = State.Game.PLANET_RADIUS * \
+            _game_scale_dict[value]
+
+            # Set the mesh radius
+            (mesh_instance.mesh as SphereMesh).radius = State.Game.PLANET_RADIUS * \
+            _game_scale_dict[value]
+            
+            # Set the mesh height
+            (mesh_instance.mesh as SphereMesh).height = State.Game.PLANET_RADIUS * 2. * \
+            _game_scale_dict[value]

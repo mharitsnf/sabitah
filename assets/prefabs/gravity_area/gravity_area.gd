@@ -1,11 +1,10 @@
 @tool
 class_name GravityArea extends Area3D
 
-var _scale_dict: Dictionary = {
+var _game_scale_dict: Dictionary = {
     State.Game.GameType.MAIN: 1.,
     State.Game.GameType.MINI: .05
 }
-const _GRAVITY_RADIUS_SCALE: float = 2.
 
 @export var area_type: State.Game.GameType: set = _set_area_type
 
@@ -23,5 +22,8 @@ func _set_area_type(value: State.Game.GameType) -> void:
             (collision_shape.shape as SphereShape3D).radius = gravity_data['radius']
             gravity = gravity_data['strength']
         else:
-            (collision_shape.shape as SphereShape3D).radius = State.Game.PLANET_RADIUS * _GRAVITY_RADIUS_SCALE * _scale_dict[value]
-            gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * _scale_dict[value]
+            (collision_shape.shape as SphereShape3D).radius = State.Game.PLANET_RADIUS * State.Game.GRAVITY_RADIUS_SCALE * \
+            _game_scale_dict[value]
+
+            gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * \
+            _game_scale_dict[value]

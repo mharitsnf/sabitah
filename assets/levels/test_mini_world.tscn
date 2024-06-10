@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cocdjpmr404u3"]
+[gd_scene load_steps=8 format=3 uid="uid://cocdjpmr404u3"]
 
+[ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_6g0hx"]
 [ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="1_x1pfe"]
 [ext_resource type="PackedScene" uid="uid://boeroi228cyoe" path="res://assets/prefabs/temp/test_ai.tscn" id="2_7xe1x"]
 [ext_resource type="PackedScene" uid="uid://bifnx42u6q3b" path="res://assets/prefabs/planet_body/planet_static_body.tscn" id="2_ud8ft"]
@@ -14,6 +15,8 @@ agent_radius = 0.03
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_wdjbd"]
 
 [node name="TestMiniWorld" type="Node3D" groups=["mini_world"]]
+script = ExtResource("1_6g0hx")
+game_level_type = 1
 
 [node name="Planet" type="Node" parent="."]
 
