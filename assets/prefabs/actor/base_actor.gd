@@ -42,10 +42,16 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 ## Private. Create a projection of this node to another world.
 func _create_projection() -> void:
 	actor_projection = actor_projection_pscn.instantiate()
-	(actor_projection as ActorProjection).target_world_type = State.Game.GameType.MINI
-	(actor_projection as ActorProjection).target_world = Group.first("mini_world")
 	(actor_projection as ActorProjection).reference_node = self
 	(actor_projection as ActorProjection).add_to_world()
+
+# region Horizontal Movement
+
+func _get_movevment_input() -> void:
+	pass
+
+func _move() -> void:
+	pass
 
 # region Buoyancy
 # =====

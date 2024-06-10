@@ -19,12 +19,6 @@ sdfgi_min_cell_size = 8.0
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
 script = ExtResource("1_qqlyk")
 
-[node name="MiniWorld" type="Node" parent="."]
-
-[node name="MiniSubViewport" parent="MiniWorld" instance=ExtResource("3_bdutt")]
-
-[node name="TestMiniWorld" parent="MiniWorld/MiniSubViewport" instance=ExtResource("4_5lhte")]
-
 [node name="Environment" type="Node" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
@@ -39,6 +33,12 @@ gravity = 29.4
 
 [node name="PlanetStaticBody" parent="Environment" instance=ExtResource("2_e4tao")]
 show_mesh = false
+
+[node name="MiniWorld" type="Node" parent="."]
+
+[node name="MiniSubViewport" parent="MiniWorld" instance=ExtResource("3_bdutt")]
+
+[node name="TestMiniWorld" parent="MiniWorld/MiniSubViewport" instance=ExtResource("4_5lhte")]
 
 [node name="Camera" type="Node" parent="."]
 

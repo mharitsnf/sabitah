@@ -12,10 +12,11 @@ var has_wait_one_frame: bool = false
 func _ready() -> void:
 	_create_projection()
 
+func _process(_delta: float) -> void:
+	print(global_position)
+
 func _create_projection() -> void:
 	actor_projection = actor_projection_pscn.instantiate()
-	(actor_projection as ActorProjection).target_world_type = State.Game.GameType.MAIN
-	(actor_projection as ActorProjection).target_world = Group.first("main_world")
 	(actor_projection as ActorProjection).reference_node = self
 	(actor_projection as ActorProjection).add_to_world()
 
