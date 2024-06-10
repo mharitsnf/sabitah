@@ -20,8 +20,7 @@ func _physics_process(_delta: float) -> void:
 
 	var dist: float = Common.Geometry.slength(nav.target_position, global_position, State.Game.PLANET_RADIUS)
 	dist = min(200., dist)
-	velocity_scale = remap(dist, 0., 200., 0., 1.)
-	print(dist, " ", velocity_scale)
+	velocity_scale = remap(dist, 0., 100., 0., 1.)
 
 	var next_pos: Vector3 = nav.get_next_path_position()
 	next_pos = basis.inverse() * next_pos

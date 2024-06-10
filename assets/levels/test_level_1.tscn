@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=8 format=3 uid="uid://1cfuft35ap2"]
 
-[ext_resource type="Texture2D" uid="uid://br1kd50cmsl0h" path="res://assets/resources/textures/uv grids.webp" id="1_jxqaf"]
+[ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="1_dfsp8"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
+[ext_resource type="PackedScene" uid="uid://bifnx42u6q3b" path="res://assets/prefabs/planet_body/planet_static_body.tscn" id="2_e4tao"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_xupbg"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://boff0eub4rosv" path="res://assets/prefabs/actor/test_actor.tscn" id="4_4h5jq"]
@@ -11,20 +12,6 @@ background_mode = 1
 background_color = Color(0.054, 0.03, 0.15, 1)
 sdfgi_enabled = true
 sdfgi_min_cell_size = 8.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_4yfx0"]
-radius = 2971.2
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_gjek8"]
-radius = 1485.6
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3an3"]
-albedo_texture = ExtResource("1_jxqaf")
-
-[sub_resource type="SphereMesh" id="SphereMesh_qftfl"]
-material = SubResource("StandardMaterial3D_s3an3")
-radius = 1485.6
-height = 2971.2
 
 [node name="TestLevel1" type="Node3D"]
 
@@ -37,37 +24,22 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_f3y7e")
 
-[node name="Gravity" type="Area3D" parent="Environment"]
-gravity_space_override = 3
-gravity_point = true
-gravity_point_center = Vector3(0, 0, 0)
-gravity_direction = Vector3(0, 0, 0)
-gravity = 29.4
+[node name="GravityArea" parent="Environment" instance=ExtResource("1_dfsp8")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Gravity"]
-shape = SubResource("SphereShape3D_4yfx0")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
-collision_layer = 16
-collision_mask = 16
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D"]
-shape = SubResource("SphereShape3D_gjek8")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment/StaticBody3D"]
-visible = false
-mesh = SubResource("SphereMesh_qftfl")
+[node name="PlanetStaticBody" parent="Environment" instance=ExtResource("2_e4tao")]
+show_mesh = false
 
 [node name="Camera" type="Node" parent="."]
 
 [node name="PlayerMainCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("1_r30bq")]
 follow_target = NodePath("../ThirdPersonCamera")
 
-[node name="ThirdPersonCamera" parent="Camera" instance=ExtResource("2_xupbg")]
+[node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
+follow_target = NodePath("../../TestActor")
 
 [node name="Ocean" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_f1v4r")]
 target = NodePath("../TestActor")
 
 [node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
-transform = Transform3D(0.999629, 0.0237677, -0.0132943, -0.023894, 0.99967, -0.00941889, 0.013066, 0.00973305, 0.999867, 35.4995, 1493.11, 14.5373)
+transform = Transform3D(0.476243, 0.879121, -0.0184048, -0.879104, 0.476482, 0.0118803, 0.0192138, 0.0105218, 0.99976, 1322.46, 716.771, 15.828)
