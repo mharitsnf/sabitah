@@ -5,27 +5,27 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kruoe"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_70gik"]
-radius = 0.025
-height = 0.1
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4joql"]
-radius = 0.025
-height = 0.1
 
-[node name="TestAI" type="RigidBody3D"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_70gik"]
+
+[node name="TestAI" type="RigidBody3D" node_paths=PackedStringArray("collision", "visual")]
 collision_layer = 3
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_kruoe")
 linear_damp = 0.5
 script = ExtResource("1_230go")
 actor_projection_pscn = ExtResource("2_8vsue")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_70gik")
+collision = NodePath("CollisionShape3D")
+visual = NodePath("CollisionShape3D/MeshInstance3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_4joql")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_70gik")
+skeleton = NodePath("../..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_desired_distance = 0.5

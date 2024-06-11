@@ -6,7 +6,8 @@ var xz_move_input: Vector2 = Vector2.ZERO
 
 func _process(_delta: float) -> void:
 	_temp_get_player_input()
-	print(xz_move_input)
+	# var pj: BaseProjection = projection_factory.get_projection()
+	# print(name, " ", pj.get_child(0).scale)
 
 func _physics_process(_delta: float) -> void:
 	_move()

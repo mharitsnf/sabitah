@@ -33,6 +33,9 @@ class Game extends RefCounted:
     const PLANET_RADIUS : float = 1485.6
     const GRAVITY_RADIUS_SCALE: float = 2.
 
+    static func get_scale(type: GameType) -> float:
+        return (world_dict[type] as GameData).get_scale()
+
     ## Returns the level node of the provided [type].
     static func get_level(type: GameType) -> Node:
         return (world_dict[type] as GameData).get_level()

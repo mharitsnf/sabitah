@@ -16,6 +16,8 @@ class_name BaseActor extends RigidBody3D
 
 @export_group("Projection")
 @export var actor_projection_pscn: PackedScene
+@export var collision: CollisionShape3D
+@export var visual: Node3D
 var actor_projection: ActorProjection
 
 ## Describes how far the actor is from the ocean surface
@@ -23,12 +25,24 @@ var depth_from_ocean_surface : float = 0.
 ## The current water normal.
 var current_normal: Vector3 = Vector3.UP
 
+var world_type: State.Game.GameType
+var projection_factory: Common.ProjectionFactory
+
 ## Reference to ocean node.
 var ocean: Ocean
 
+func _enter_tree() -> void:
+	world_type = State.Game.get_world_type(get_world_3d())
+
+	if !projection_factory:
+		projection_factory = Common.ProjectionFactory.new(self)
+		projection_factory.set_ref_world_type(world_type)
+		projection_factory.set_ref_collision(collision)
+		
+	projection_factory.start_projection()
+
 func _ready() -> void:
 	ocean = Group.first("ocean")
-	_create_projection()
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	state.transform.basis = Common.Geometry.adjust_basis_to_normal(state.transform.basis, global_position.normalized())
@@ -37,14 +51,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	_apply_buoyancy_force()
 	_update_to_water_normal(state)
 
-# region Projection
-# =====
-
-## Private. Create a projection of this node to another world.
-func _create_projection() -> void:
-	actor_projection = actor_projection_pscn.instantiate()
-	(actor_projection as ActorProjection).reference_node = self
-	(actor_projection as ActorProjection).add_to_world()
+func _exit_tree() -> void:
+	projection_factory.end_projection()
 
 # region Buoyancy
 # =====
