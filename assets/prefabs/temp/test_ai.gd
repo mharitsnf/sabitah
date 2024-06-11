@@ -27,11 +27,6 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	projection_factory.end_projection()
 
-func _create_projection() -> void:
-	actor_projection = actor_projection_pscn.instantiate()
-	(actor_projection as ActorProjection).reference_node = self
-	(actor_projection as ActorProjection).add_to_world()
-
 func _physics_process(_delta: float) -> void:
 	if !marker: return
 	
@@ -54,7 +49,7 @@ func _physics_process(_delta: float) -> void:
 	var dir: Vector3 = (flat_next_pos - flat_cur_pos).normalized()
 	dir = basis * dir
 
-	var new_vel: Vector3 = dir * nav.max_speed
+	var new_vel: Vector3 = dir * 5.
 	if nav.avoidance_enabled:
 		nav.set_velocity(new_vel)
 	else:
@@ -62,7 +57,8 @@ func _physics_process(_delta: float) -> void:
 
 func _move(_safe_velocity: Vector3) -> void:
 	# linear_velocity = _safe_velocity
-	apply_central_force(_safe_velocity * velocity_scale)
+	# apply_central_force(_safe_velocity * velocity_scale)
+	apply_central_force(_safe_velocity)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	quaternion = Common.Geometry.recalculate_quaternion(state.transform.basis, global_position.normalized())

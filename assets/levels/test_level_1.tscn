@@ -55,7 +55,7 @@ follow_target = NodePath("../../TestActor")
 target = NodePath("../TestActor")
 
 [node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, -6.31203)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999987, -0.00507231, -1.31195e-05, 0.00507232, 0.999978, 0.00423483, -8.36111e-06, -0.00423484, 0.999991, -7.53542, 1485.57, -6.29128)

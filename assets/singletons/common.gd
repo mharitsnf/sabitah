@@ -75,6 +75,7 @@ class RemoteTransform3DBuilder extends RefCounted:
 		reset()
 		return result
 
+## Factory class for creating projection of [BaseActor].
 class ProjectionFactory extends RefCounted:
 	var _ref: Node3D
 	var _ref_world_type: State.Game.GameType
@@ -86,17 +87,26 @@ class ProjectionFactory extends RefCounted:
 	var _projection_pscn: PackedScene = preload("res://assets/prefabs/actor_projection/base_projection.tscn")
 	var _projection: BaseProjection
 
+	var _nav_obstacle_pscn: PackedScene = preload("res://assets/prefabs/navigation_obstacle/navigation_obstacle_3d.tscn")
+	var _nav_obstacle: NavigationObstacle3D
+
 	func _init(__ref: Node3D) -> void:
 		_ref = __ref
 		_projection = _projection_pscn.instantiate()
 		(_projection as BaseProjection).reference_node = _ref
 		_projection.name = "PJ" + _ref.name
 	
+	## Sets the reference node world type. Also sets up the projection's world type
 	func set_ref_world_type(value: State.Game.GameType) -> void:
 		_ref_world_type = value
 		_world_type = State.Game.GameType.MAIN if value == State.Game.GameType.MINI else State.Game.GameType.MINI
 		_projection.world_type = _world_type
+
+		if _world_type == State.Game.GameType.MINI:
+			_nav_obstacle = _nav_obstacle_pscn.instantiate()
+			_projection.add_child.call_deferred(_nav_obstacle)
 	
+	## Sets the reference node collision. Also sets up the projection's collision
 	func set_ref_collision(value: CollisionShape3D) -> void:
 		_ref_collision = value
 		_collision = value.duplicate()
@@ -106,18 +116,21 @@ class ProjectionFactory extends RefCounted:
 			State.Game.GameType.MAIN: (_collision as CollisionShape3D).scale = Vector3.ONE
 			State.Game.GameType.MINI: (_collision as CollisionShape3D).scale = Vector3.ONE * mini_scale
 		
-		_projection.add_child(_collision)
+		_projection.add_child.call_deferred(_collision)
 		_projection.normal_target = _collision
 
+	## Returns the projection node.
 	func get_projection() -> BaseProjection:
 		return _projection
 
+	## Starts projecting by adding the [_projection] node to the target world.
 	func start_projection() -> void:
 		if _projection.is_inside_tree(): return
 
 		var target_level: Node = State.Game.get_level(_world_type)
 		target_level.add_child.call_deferred(_projection)
 
+	## Stops projecting by removing the [_projection] node from the target world.
 	func end_projection() -> void:
 		if !_projection.is_inside_tree(): return
 

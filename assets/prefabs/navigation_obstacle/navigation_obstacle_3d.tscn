@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://3c4dujofpror"]
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D"]
+radius = 0.1
+height = 0.03
+use_3d_avoidance = true

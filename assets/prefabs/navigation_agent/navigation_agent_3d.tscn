@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d3odqrd32anrv"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D"]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+avoidance_enabled = true
+height = 0.1
+radius = 0.1
+neighbor_distance = 2.0
+time_horizon_agents = 2.0
+max_speed = 0.25
+use_3d_avoidance = true
+debug_enabled = true
