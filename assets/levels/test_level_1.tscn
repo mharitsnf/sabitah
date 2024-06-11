@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=12 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="1_dfsp8"]
 [ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_qqlyk"]
@@ -15,6 +15,8 @@ background_mode = 1
 background_color = Color(0.054, 0.03, 0.15, 1)
 sdfgi_enabled = true
 sdfgi_min_cell_size = 8.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_h3ebp"]
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
 script = ExtResource("1_qqlyk")
@@ -47,11 +49,14 @@ follow_target = NodePath("../ThirdPersonCamera")
 
 [node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
-spring_length = 15.0
 follow_target = NodePath("../../TestActor")
 
 [node name="Ocean" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_f1v4r")]
 target = NodePath("../TestActor")
 
 [node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
-transform = Transform3D(0.999923, 0.00903981, -0.00847466, -0.00894102, 0.999893, 0.0116242, 0.00857883, -0.0115475, 0.999897, 13.4295, 1485.44, -17.155)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.999987, -0.00507231, -1.31195e-05, 0.00507232, 0.999978, 0.00423483, -8.36111e-06, -0.00423484, 0.999991, -7.53542, 1485.57, -6.29128)
+mesh = SubResource("SphereMesh_h3ebp")

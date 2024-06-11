@@ -42,7 +42,7 @@ transform = Transform3D(0.882948, -0.469025, 0.020478, 0, 0.0436193, 0.999048, -
 navigation_mesh = SubResource("NavigationMesh_01ffq")
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(-0.7853, 0.0459316, -0.617409, 0.0681297, 0.997599, -0.0124406, 0.615356, -0.0518336, -0.786544, 3.4552, 75.0444, -3.89918)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 75.28, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Marker3D"]
 mesh = SubResource("CapsuleMesh_wdjbd")

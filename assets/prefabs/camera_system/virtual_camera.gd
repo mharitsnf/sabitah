@@ -90,8 +90,6 @@ var current_follow_data: FollowData
 
 var menu_layer: MenuLayer
 
-var _g_delta: float
-
 signal camera_adjusting_basis_changed(new_value: bool)
 
 # region Per-frame functions
@@ -100,8 +98,6 @@ func _ready() -> void:
 	menu_layer = Group.first("menu_layer")
 
 func _process(delta: float) -> void:
-	_g_delta = delta
-
 	_transition(delta)
 	_update_basis()
 
@@ -110,7 +106,9 @@ func _process(delta: float) -> void:
 	_clamp_fov()
 
 	# Rotation functions
-	_on_stopped_smooth_rotation_input()
+	if Common.InputState.is_keyboard_active():
+		_on_stopped_smooth_rotation_input()
+	
 	_clamp_rotation()
 	_rotate_camera()
 
@@ -236,12 +234,12 @@ func _transition(delta: float) -> void:
 var _x_rot_input: float = 0.
 var _y_rot_input: float = 0.
 
+const ROTATION_INPUT_STOP_WEIGHT: float = 7.5
 ## Smooth out the rotation input from the user. Runs every time the user
 ## stops sending input.
-const ROTATION_INPUT_STOP_WEIGHT: float = 7.5
 func _on_stopped_smooth_rotation_input() -> void:
-	_x_rot_input = lerp(_x_rot_input, 0., _g_delta * ROTATION_INPUT_STOP_WEIGHT)
-	_y_rot_input = lerp(_y_rot_input, 0., _g_delta * ROTATION_INPUT_STOP_WEIGHT)
+	_x_rot_input = lerp(_x_rot_input, 0., get_process_delta_time() * ROTATION_INPUT_STOP_WEIGHT)
+	_y_rot_input = lerp(_y_rot_input, 0., get_process_delta_time() * ROTATION_INPUT_STOP_WEIGHT)
 
 ## Private. Virtual. Clamps the rotation.
 func _clamp_rotation() -> void:
@@ -280,12 +278,15 @@ func _rotate_joypad() -> void:
 		relative.x *= rotation_settings.get_joypad_x_direction()
 		relative.y *= rotation_settings.get_joypad_y_direction()
 
-	_set_rotation_input(relative.x, relative.y)
+	if relative != Vector2.ZERO:
+		_set_rotation_input(relative.x, relative.y)
+	else:
+		_on_stopped_smooth_rotation_input()
 
 ## Private. For rotating the virtual camera using euler rotation.
 func _set_rotation_input(x_amount: float, y_amount: float) -> void:
-	_x_rot_input = lerp(_x_rot_input, x_amount, _g_delta * 25.)
-	_y_rot_input = lerp(_y_rot_input, y_amount, _g_delta * 25.)
+	_x_rot_input = lerp(_x_rot_input, x_amount, get_process_delta_time() * 25.)
+	_y_rot_input = lerp(_y_rot_input, y_amount, get_process_delta_time() * 25.)
 
 # region FoV Functions
 
@@ -297,7 +298,7 @@ func get_fov() -> float:
 
 ## Private. Lerps the [actual_fov] to [_fov_input].
 func _on_stop_smooth_fov_input() -> void:
-	actual_fov = lerp(actual_fov, _fov_input, _g_delta * 5.)
+	actual_fov = lerp(actual_fov, _fov_input, get_process_delta_time() * 5.)
 
 ## Private. Clamps the FoV values to its limits specified in the [fov_settings] variable.
 func _clamp_fov() -> void:

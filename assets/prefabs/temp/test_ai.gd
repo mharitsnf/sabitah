@@ -13,7 +13,8 @@ func _ready() -> void:
 	_create_projection()
 
 func _process(_delta: float) -> void:
-	print(global_position)
+	pass
+	# print(global_position)
 
 func _create_projection() -> void:
 	actor_projection = actor_projection_pscn.instantiate()

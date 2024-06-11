@@ -23,6 +23,7 @@ var depth_from_ocean_surface : float = 0.
 ## The current water normal.
 var current_normal: Vector3 = Vector3.UP
 
+## Reference to ocean node.
 var ocean: Ocean
 
 func _ready() -> void:
@@ -44,14 +45,6 @@ func _create_projection() -> void:
 	actor_projection = actor_projection_pscn.instantiate()
 	(actor_projection as ActorProjection).reference_node = self
 	(actor_projection as ActorProjection).add_to_world()
-
-# region Horizontal Movement
-
-func _get_movevment_input() -> void:
-	pass
-
-func _move() -> void:
-	pass
 
 # region Buoyancy
 # =====
