@@ -65,7 +65,7 @@ func _move(_safe_velocity: Vector3) -> void:
 	apply_central_force(_safe_velocity * velocity_scale)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	state.transform.basis = Common.Geometry.adjust_basis_to_normal(state.transform.basis, global_position.normalized())
+	quaternion = Common.Geometry.recalculate_quaternion(state.transform.basis, global_position.normalized())
 	_clamp_velocity(state)
 
 func _clamp_velocity(state: PhysicsDirectBodyState3D) -> void:

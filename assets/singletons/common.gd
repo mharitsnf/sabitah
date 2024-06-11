@@ -9,12 +9,12 @@ func wait(sec: float) -> void:
 	await get_tree().create_timer(sec).timeout
 
 class Geometry extends RefCounted:
-	static func adjust_basis_to_normal(old_basis: Basis, new_normal: Vector3) -> Basis:
+	static func recalculate_quaternion(old_basis: Basis, new_normal: Vector3) -> Quaternion:
 		new_normal = new_normal.normalized()
 		var quat : Quaternion = Quaternion(old_basis.y, new_normal).normalized()
 		var new_right : Vector3 = quat * old_basis.x
 		var new_forward : Vector3 = quat * old_basis.z
-		return Basis(new_right, new_normal, new_forward).orthonormalized()
+		return Quaternion(Basis(new_right, new_normal, new_forward).orthonormalized())
 	
 	## Returns the distance between two vectors, [a] and [b], along a sphere surface of radius [r].
 	static func slength(a: Vector3, b: Vector3, r: float) -> float:

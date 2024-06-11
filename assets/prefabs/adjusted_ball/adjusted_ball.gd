@@ -1,5 +1,5 @@
 extends MeshInstance3D
 
 func _process(_delta: float) -> void:
-    var new_basis: Basis = Common.Geometry.adjust_basis_to_normal(basis, global_position.normalized())
-    basis = new_basis
+    var new_quat: Quaternion = Common.Geometry.recalculate_quaternion(basis, global_position.normalized())
+    quaternion = new_quat

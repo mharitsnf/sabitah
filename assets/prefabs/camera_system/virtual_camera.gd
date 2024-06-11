@@ -114,7 +114,7 @@ func _process(delta: float) -> void:
 
 ## **Private**. Update the basis according to the normal (if [adjusting_basis] is [true]).
 func _update_basis() -> void:
-	if adjusting_basis: basis = Common.Geometry.adjust_basis_to_normal(basis, global_position.normalized())
+	if adjusting_basis: quaternion = Common.Geometry.recalculate_quaternion(basis, global_position.normalized())
 
 # region Input and Passed functions
 

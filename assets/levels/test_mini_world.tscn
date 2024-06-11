@@ -26,7 +26,6 @@ area_type = 1
 
 [node name="PlanetStaticBody" parent="Planet" instance=ExtResource("2_ud8ft")]
 area_type = 1
-show_mesh = false
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-0.0784591, 0, 0.996917, 0, 1, 0, -0.996917, 0, -0.0784591, 4.14191, 73.9742, -10.2612)

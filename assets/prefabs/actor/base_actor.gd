@@ -45,7 +45,7 @@ func _ready() -> void:
 	ocean = Group.first("ocean")
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	state.transform.basis = Common.Geometry.adjust_basis_to_normal(state.transform.basis, global_position.normalized())
+	quaternion = Common.Geometry.recalculate_quaternion(state.transform.basis, global_position.normalized())
 	_calculate_depth_to_ocean_surface(state)
 	_dampen_velocity(state)
 	_apply_buoyancy_force()
@@ -76,8 +76,8 @@ const BASIS_LERP_WEIGHT: float = 5.
 ## Private. Adjusts the [normal_target]'s rotation along the water surface normal.
 func _update_to_water_normal(state: PhysicsDirectBodyState3D) -> void:
 	if adjust_to_water_normal and normal_target:
-		var target_basis: Basis = Common.Geometry.adjust_basis_to_normal(normal_target.basis, current_normal) if is_submerged() else Basis.IDENTITY
-		normal_target.basis = normal_target.basis.slerp(target_basis, state.step * BASIS_LERP_WEIGHT)
+		var target_quat: Quaternion = Common.Geometry.recalculate_quaternion(normal_target.basis, current_normal) if is_submerged() else Quaternion.IDENTITY
+		normal_target.quaternion = normal_target.quaternion.slerp(target_quat, state.step * BASIS_LERP_WEIGHT)
 
 ## Private. Adds upward force to the actor so that it floats above the water surface.
 func _apply_buoyancy_force() -> void:
