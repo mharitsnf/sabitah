@@ -24,27 +24,11 @@ var depth_from_ocean_surface : float = 0.
 ## The current water normal.
 var current_normal: Vector3 = Vector3.UP
 
-var world_type: State.Game.GameType
-var projection_factory: Common.ProjectionFactory
-
 ## Reference to ocean_data node.
 var ocean_data: OceanData
-var planet_data: Dictionary
-
-func _enter_tree() -> void:
-	world_type = State.Game.get_world_type(get_world_3d())
-	xz_speed_limit = xz_speed_limit
-
-	# if !projection_factory:
-	# 	projection_factory = Common.ProjectionFactory.new(self)
-	# 	projection_factory.set_ref_world_type(world_type)
-	# 	projection_factory.set_ref_collision(collision)
-		
-	# projection_factory.start_projection()
 
 func _ready() -> void:
 	ocean_data = Group.first("ocean_data")
-	planet_data = State.Game.get_planet_data(world_type)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	quaternion = Common.Geometry.recalculate_quaternion(state.transform.basis, global_position.normalized())
@@ -54,9 +38,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	_update_to_water_normal(state)
 
 	_clamp_xz_velocity(state)
-
-# func _exit_tree() -> void:
-# 	projection_factory.end_projection()
 
 # region Horizontal Movement
 # =====
@@ -97,7 +78,7 @@ func _update_to_water_normal(state: PhysicsDirectBodyState3D) -> void:
 ## Private. Adds upward force to the actor so that it floats above the water surface.
 func _apply_buoyancy_force() -> void:
 	if depth_from_ocean_surface > 0.:
-		apply_central_force(global_basis.y * float_force * ProjectSettings.get_setting("physics/3d/default_gravity") * depth_from_ocean_surface)
+		apply_central_force(global_basis.y.normalized() * float_force * ProjectSettings.get_setting("physics/3d/default_gravity") * depth_from_ocean_surface)
 
 ## Private. Dampens the flat y velocity of this actor.
 func _dampen_y_velocity(state: PhysicsDirectBodyState3D) -> void:
@@ -120,7 +101,7 @@ func _calculate_depth_from_ocean_surface(state: PhysicsDirectBodyState3D) -> voi
 	current_normal = gerstner_result.normal
 	var flat_position : Vector3 = state.transform.basis.inverse() * global_position
 	var water_height : float = State.Game.PLANET_RADIUS + ocean_surface_offset + gerstner_result.vertex.y
-	depth_from_ocean_surface = (water_height * State.Game.get_scale(world_type)) - flat_position.y
+	depth_from_ocean_surface = water_height - flat_position.y
 
 ## Private. Calculates the distance (offset) from the ocean_data's target to the actor.
 func _calculate_offset_to_ocean_target() -> Vector3:

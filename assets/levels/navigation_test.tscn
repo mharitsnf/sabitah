@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cuj6f5ma3rmwq"]
 
-[ext_resource type="PackedScene" uid="uid://boeroi228cyoe" path="res://assets/prefabs/temp/test_ai.tscn" id="1_sj5ap"]
+[ext_resource type="PackedScene" uid="uid://boeroi228cyoe" path="res://assets/prefabs/navigation/ai/navigation_ai.tscn" id="1_sj5ap"]
 [ext_resource type="Script" path="res://addons/free-look-camera/camera.gd" id="2_7k6rg"]
 
 [sub_resource type="Environment" id="Environment_r3nqt"]

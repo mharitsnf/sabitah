@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://x3od7g5xj3gl"]
-
-[ext_resource type="Script" path="res://assets/prefabs/actor_projection/base_projection.gd" id="1_xp5em"]
-
-[node name="BaseProjection" type="StaticBody3D"]
-script = ExtResource("1_xp5em")

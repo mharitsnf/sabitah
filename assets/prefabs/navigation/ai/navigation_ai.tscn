@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://boeroi228cyoe"]
+
+[ext_resource type="Script" path="res://assets/prefabs/navigation/ai/navigation_ai.gd" id="1_f6cdu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u476q"]
+friction = 0.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iq5pf"]
+radius = 0.125
+height = 0.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1rxe0"]
+radius = 0.125
+height = 0.5
+
+[node name="NavigationAI" type="RigidBody3D" node_paths=PackedStringArray("nav")]
+physics_material_override = SubResource("PhysicsMaterial_u476q")
+lock_rotation = true
+angular_damp = 5.0
+script = ExtResource("1_f6cdu")
+move_speed = 5.0
+max_speed = 0.2
+nav = NodePath("NavigationAgent3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_iq5pf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_1rxe0")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+radius = 0.13
+time_horizon_agents = 2.0
+use_3d_avoidance = true
+debug_enabled = true
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_move"]

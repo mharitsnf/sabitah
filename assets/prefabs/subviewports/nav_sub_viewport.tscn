@@ -5,7 +5,7 @@
 [sub_resource type="World3D" id="World3D_5o3ea"]
 environment = SubResource("Environment_0wuog")
 
-[node name="MiniSubViewport" type="SubViewport"]
+[node name="NavSubViewport" type="SubViewport"]
 disable_3d = true
 own_world_3d = true
 world_3d = SubResource("World3D_5o3ea")

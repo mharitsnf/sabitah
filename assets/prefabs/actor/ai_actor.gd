@@ -1,48 +1,32 @@
 class_name AIActor extends BaseActor
 
+@export var nav_target: NavigationTarget
 @export_group("Horizontal Movement")
 @export var move_speed: float = 15.
-@export_group("Navigation")
-@export var target_marker: Marker3D
 
-@onready var nav: NavigationAgent3D = %NavigationAgent3D
-
-var has_wait_one_frame: bool = false
+var nav_ai_factory: Common.NavigationAIFactory
 
 func _enter_tree() -> void:
-    super()
-    move_speed = move_speed
+	if !nav_ai_factory:
+		nav_ai_factory = Common.NavigationAIFactory.new(self)
+	nav_ai_factory.update_ai_position()
+	nav_ai_factory.set_ai_target(nav_target.get_nav_target())
 
-func _physics_process(_delta: float) -> void:
-    _calculate_navigation()
+	nav_ai_factory.add_ai_to_nav_world()
 
-func _calculate_navigation() -> void:
-    if !target_marker: return
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	super(state)
+	_move_actor()
+
+func _move_actor() -> void:
+	var planet_data: Dictionary = State.Game.get_planet_data(State.Game.GameType.MAIN)
+	var ai_pos: Vector3 = nav_ai_factory.get_ai().global_position
+	var ai_pos_planet: Vector3 = ai_pos.normalized() * planet_data['radius']
 	
-    if !has_wait_one_frame:
-        await get_tree().physics_frame
-        has_wait_one_frame = true
+	var dist: float = (ai_pos_planet - global_position).length()
+	var dir: Vector3 = (ai_pos.normalized() - global_position.normalized()).normalized()
+	
+	apply_central_force(dir * move_speed * dist * 2.)
 
-    nav.target_position = target_marker.global_position
-
-    var next_pos: Vector3 = nav.get_next_path_position()
-    var cur_pos: Vector3 = global_position
-
-    var flat_next_pos: Vector3 = basis.inverse() * next_pos
-    flat_next_pos = Vector3(flat_next_pos.x, 0., flat_next_pos.z)
-    var flat_cur_pos: Vector3 = basis.inverse() * cur_pos
-    flat_cur_pos = Vector3(flat_cur_pos.x, 0., flat_cur_pos.z)
-
-    var dir: Vector3 = (flat_next_pos - flat_cur_pos)
-    dir = dir.normalized()
-    dir = basis * dir
-
-    var new_vel: Vector3 = dir * move_speed
-    if nav.avoidance_enabled:
-        nav.set_velocity(new_vel)
-    else:
-        _move(new_vel)
-
-func _move(_safe_velocity: Vector3) -> void:
-    # print(_safe_velocity)
-    apply_central_force(_safe_velocity)
+func _exit_tree() -> void:
+	nav_ai_factory.remove_ai_from_nav_world()

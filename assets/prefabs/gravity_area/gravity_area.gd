@@ -3,7 +3,7 @@ class_name GravityArea extends Area3D
 
 var _game_scale_dict: Dictionary = {
     State.Game.GameType.MAIN: 1.,
-    State.Game.GameType.MINI: .05
+    State.Game.GameType.NAV: .05
 }
 
 @export var area_type: State.Game.GameType: set = _set_area_type

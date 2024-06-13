@@ -23,14 +23,3 @@ shape = SubResource("BoxShape3D_wx5qd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
 mesh = SubResource("BoxMesh_tku65")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-unique_name_in_owner = true
-avoidance_enabled = true
-height = 0.1
-radius = 0.05
-time_horizon_obstacles = 2.0
-use_3d_avoidance = true
-debug_enabled = true
-
-[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_move"]

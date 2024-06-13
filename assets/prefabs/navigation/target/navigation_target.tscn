@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtnook2vegfb2"]
+
+[ext_resource type="Script" path="res://assets/prefabs/navigation/target/navigation_target.gd" id="1_ibnkf"]
+
+[node name="NavigationTarget" type="Marker3D"]
+script = ExtResource("1_ibnkf")

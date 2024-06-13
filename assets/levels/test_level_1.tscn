@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=15 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="1_dfsp8"]
 [ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_qqlyk"]
@@ -7,8 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_xupbg"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://boff0eub4rosv" path="res://assets/prefabs/actor/test_actor.tscn" id="4_4h5jq"]
+[ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/nav_sub_viewport.tscn" id="4_qbgsx"]
+[ext_resource type="PackedScene" uid="uid://dib7m5a41lrgf" path="res://assets/levels/nav_world.tscn" id="5_jphay"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
+[ext_resource type="PackedScene" uid="uid://8rve6jcq5kyi" path="res://assets/prefabs/actor/ai_actor.tscn" id="12_yh4gp"]
+[ext_resource type="PackedScene" uid="uid://dtnook2vegfb2" path="res://assets/prefabs/navigation/target/navigation_target.tscn" id="13_qjase"]
 
 [sub_resource type="Environment" id="Environment_f3y7e"]
 background_mode = 1
@@ -34,6 +38,12 @@ gravity = 29.4
 [node name="PlanetStaticBody" parent="Environment" instance=ExtResource("2_e4tao")]
 show_mesh = false
 
+[node name="NavWorld" type="Node" parent="."]
+
+[node name="NavSubViewport" parent="NavWorld" instance=ExtResource("4_qbgsx")]
+
+[node name="NavWorld" parent="NavWorld/NavSubViewport" instance=ExtResource("5_jphay")]
+
 [node name="Camera" type="Node" parent="."]
 
 [node name="PlayerMainCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("1_r30bq")]
@@ -42,16 +52,26 @@ follow_target = NodePath("../ThirdPersonCamera")
 [node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
 spring_length = 10.0
-follow_target = NodePath("../../TestActor")
+follow_target = NodePath("../../AIActor")
 
-[node name="OceanData" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_gte18")]
+[node name="Oceans" type="Node" parent="."]
+
+[node name="OceanData" parent="Oceans" node_paths=PackedStringArray("target") instance=ExtResource("8_gte18")]
 unique_name_in_owner = true
-target = NodePath("../TestActor")
+target = NodePath("../../TestActor")
 
-[node name="Ocean" parent="." instance=ExtResource("3_f1v4r")]
+[node name="Ocean" parent="Oceans" instance=ExtResource("3_f1v4r")]
+skeleton = NodePath("../..")
+
+[node name="NavigationTarget" parent="." instance=ExtResource("13_qjase")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
 
 [node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1491.96, -6.31203)
 
 [node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
-transform = Transform3D(0.999994, 0.00333895, 9.95255e-06, -0.00333897, 0.999985, 0.00434134, 4.54313e-06, -0.00434135, 0.999991, 9.88245, 1485.58, -6.44951)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.67985, 1485.52, 11.9065)
+
+[node name="AIActor" parent="." node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
+transform = Transform3D(0.999964, 0.0082678, 0.00169194, -0.00832574, 0.999254, 0.037714, -0.00137887, -0.0377268, 0.999287, -78.5679, 1469.69, -202.114)
+nav_target = NodePath("../NavigationTarget")

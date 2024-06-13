@@ -1,17 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bifnx42u6q3b"]
+[gd_scene load_steps=5 format=3 uid="uid://bifnx42u6q3b"]
 
 [ext_resource type="Script" path="res://assets/prefabs/planet_static_body/planet_static_body.gd" id="1_46te1"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_amlsd"]
+friction = 0.0
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_vthpy"]
-radius = 74.28
+radius = 1485.6
 
 [sub_resource type="SphereMesh" id="SphereMesh_oaby5"]
-radius = 74.28
-height = 148.56
+radius = 1485.6
+height = 2971.2
 
 [node name="PlanetStaticBody" type="StaticBody3D"]
 collision_layer = 16
 collision_mask = 16
+physics_material_override = SubResource("PhysicsMaterial_amlsd")
 script = ExtResource("1_46te1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

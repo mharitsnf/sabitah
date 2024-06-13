@@ -75,64 +75,77 @@ class RemoteTransform3DBuilder extends RefCounted:
 		reset()
 		return result
 
-## Factory class for creating projection of [BaseActor].
-class ProjectionFactory extends RefCounted:
-	var _ref: Node3D
-	var _ref_world_type: State.Game.GameType
-	var _ref_collision: CollisionShape3D
-	
-	var _world_type: State.Game.GameType
-	var _collision: CollisionShape3D
+class NavigationAIFactory extends RefCounted:
+	var _main_actor: BaseActor
 
-	var _projection_pscn: PackedScene = preload("res://assets/prefabs/actor_projection/base_projection.tscn")
-	var _projection: BaseProjection
+	var _nav_ai_pscn: PackedScene = preload("res://assets/prefabs/navigation/ai/navigation_ai.tscn")
+	var _nav_ai: NavigationAI
 
-	var _nav_obstacle_pscn: PackedScene = preload("res://assets/prefabs/navigation_obstacle/navigation_obstacle_3d.tscn")
-	var _nav_obstacle: NavigationObstacle3D
+	func _init(__main_actor: BaseActor) -> void:
+		_main_actor = __main_actor
+		_nav_ai = _nav_ai_pscn.instantiate()
+		(_nav_ai as NavigationAI).max_speed = _main_actor.xz_speed_limit * State.Game.MAIN_TO_NAV_SCALE
+		(_nav_ai as NavigationAI).move_speed = (_main_actor as AIActor).move_speed * State.Game.MAIN_TO_NAV_SCALE
+		print((_nav_ai as NavigationAI).max_speed, " ", (_nav_ai as NavigationAI).move_speed)
 
-	func _init(__ref: Node3D) -> void:
-		_ref = __ref
-		_projection = _projection_pscn.instantiate()
-		(_projection as BaseProjection).reference_node = _ref
-		_projection.name = "PJ" + _ref.name
-	
-	## Sets the reference node world type. Also sets up the projection's world type
-	func set_ref_world_type(value: State.Game.GameType) -> void:
-		_ref_world_type = value
-		_world_type = State.Game.GameType.MAIN if value == State.Game.GameType.MINI else State.Game.GameType.MINI
-		_projection.world_type = _world_type
+	func update_ai_position() -> void:
+		var actor_unit_pos: Vector3 = _main_actor.global_position.normalized()
+		var planet_data: Dictionary = State.Game.get_planet_data(State.Game.GameType.NAV)
+		_nav_ai.position = (actor_unit_pos * planet_data['radius'])
 
-		if _world_type == State.Game.GameType.MINI:
-			_nav_obstacle = _nav_obstacle_pscn.instantiate()
-			_projection.add_child.call_deferred(_nav_obstacle)
-	
-	## Sets the reference node collision. Also sets up the projection's collision
-	func set_ref_collision(value: CollisionShape3D) -> void:
-		_ref_collision = value
-		_collision = value.duplicate()
+	func set_ai_target(target: Marker3D) -> void:
+		_nav_ai.target = target
 
-		var mini_scale: float = State.Game.get_scale(State.Game.GameType.MINI)
-		match _world_type:
-			State.Game.GameType.MAIN: (_collision as CollisionShape3D).scale = Vector3.ONE
-			State.Game.GameType.MINI: (_collision as CollisionShape3D).scale = Vector3.ONE * mini_scale
+	func get_ai_agent() -> NavigationAgent3D:
+		return _nav_ai.nav
+
+	func get_ai() -> NavigationAI:
+		return _nav_ai
+
+	func add_ai_to_nav_world() -> void:
+		if _nav_ai.is_inside_tree():
+			return
 		
-		_projection.add_child.call_deferred(_collision)
-		_projection.normal_target = _collision
+		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		level.add_child.call_deferred(_nav_ai)
+	
+	func remove_ai_from_nav_world() -> void:
+		if !_nav_ai.is_inside_tree():
+			return
+		
+		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		level.remove_child.call_deferred(_nav_ai)
 
-	## Returns the projection node.
-	func get_projection() -> BaseProjection:
-		return _projection
 
-	## Starts projecting by adding the [_projection] node to the target world.
-	func start_projection() -> void:
-		if _projection.is_inside_tree(): return
+class NavigationTargetFactory extends RefCounted:
+	var _main_target: NavigationTarget
+	var _nav_target: Marker3D
 
-		var target_level: Node = State.Game.get_level(_world_type)
-		target_level.add_child.call_deferred(_projection)
+	func _init(__main_target: NavigationTarget) -> void:
+		_main_target = __main_target
 
-	## Stops projecting by removing the [_projection] node from the target world.
-	func end_projection() -> void:
-		if !_projection.is_inside_tree(): return
+		_nav_target = Marker3D.new()
+		_nav_target.name = "RefTo" + _main_target.name
 
-		var target_level: Node = State.Game.get_level(_world_type)
-		target_level.remove_child.call_deferred(_projection)
+		var planet_data: Dictionary = State.Game.get_planet_data(State.Game.GameType.NAV)
+		_nav_target.position = _main_target.global_position.normalized() * planet_data['radius']
+
+	## Return the navigation target inside the navigation world
+	func get_nav_target() -> Marker3D:
+		return _nav_target
+
+	## Add the navigation target to the navigation world.
+	func add_to_nav_world() -> void:
+		if _nav_target.is_inside_tree():
+			return
+		
+		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		level.add_child.call_deferred(_nav_target)
+
+	## Remove the navigation target from the navigation world.
+	func remove_from_nav_world() -> void:
+		if !_nav_target.is_inside_tree():
+			return
+		
+		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		level.remove_child.call_deferred(_nav_target)
