@@ -1,22 +1,20 @@
-[gd_scene load_steps=12 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=11 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="1_dfsp8"]
 [ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_qqlyk"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
 [ext_resource type="PackedScene" uid="uid://bifnx42u6q3b" path="res://assets/prefabs/planet_body/planet_static_body.tscn" id="2_e4tao"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_xupbg"]
-[ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/mini_sub_viewport.tscn" id="3_bdutt"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://boff0eub4rosv" path="res://assets/prefabs/actor/test_actor.tscn" id="4_4h5jq"]
-[ext_resource type="PackedScene" uid="uid://cocdjpmr404u3" path="res://assets/levels/test_mini_world.tscn" id="4_5lhte"]
+[ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
+[ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
 
 [sub_resource type="Environment" id="Environment_f3y7e"]
 background_mode = 1
 background_color = Color(0.054, 0.03, 0.15, 1)
 sdfgi_enabled = true
 sdfgi_min_cell_size = 8.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_h3ebp"]
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
 script = ExtResource("1_qqlyk")
@@ -36,12 +34,6 @@ gravity = 29.4
 [node name="PlanetStaticBody" parent="Environment" instance=ExtResource("2_e4tao")]
 show_mesh = false
 
-[node name="MiniWorld" type="Node" parent="."]
-
-[node name="MiniSubViewport" parent="MiniWorld" instance=ExtResource("3_bdutt")]
-
-[node name="TestMiniWorld" parent="MiniWorld/MiniSubViewport" instance=ExtResource("4_5lhte")]
-
 [node name="Camera" type="Node" parent="."]
 
 [node name="PlayerMainCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("1_r30bq")]
@@ -49,14 +41,17 @@ follow_target = NodePath("../ThirdPersonCamera")
 
 [node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
+spring_length = 10.0
 follow_target = NodePath("../../TestActor")
 
-[node name="Ocean" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_f1v4r")]
+[node name="OceanData" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_gte18")]
+unique_name_in_owner = true
 target = NodePath("../TestActor")
 
-[node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, -6.31203)
+[node name="Ocean" parent="." instance=ExtResource("3_f1v4r")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.999987, -0.00507231, -1.31195e-05, 0.00507232, 0.999978, 0.00423483, -8.36111e-06, -0.00423484, 0.999991, -7.53542, 1485.57, -6.29128)
-mesh = SubResource("SphereMesh_h3ebp")
+[node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1491.96, -6.31203)
+
+[node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
+transform = Transform3D(0.999994, 0.00333895, 9.95255e-06, -0.00333897, 0.999985, 0.00434134, 4.54313e-06, -0.00434135, 0.999991, 9.88245, 1485.58, -6.44951)

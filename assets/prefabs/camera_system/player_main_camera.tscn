@@ -4,3 +4,5 @@
 
 [node name="PlayerMainCamera" type="Camera3D"]
 script = ExtResource("1_ahu2v")
+
+[connection signal="transition_finished" from="." to="." method="_transition_finished"]

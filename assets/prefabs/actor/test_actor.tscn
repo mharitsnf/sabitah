@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://boff0eub4rosv"]
+[gd_scene load_steps=5 format=3 uid="uid://boff0eub4rosv"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/character_actor.gd" id="1_8fwyu"]
-[ext_resource type="PackedScene" uid="uid://d0u5umvdrhiw8" path="res://assets/prefabs/actor_projection/test_actor_projection.tscn" id="2_u81nq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7651e"]
 
@@ -11,16 +10,14 @@ albedo_color = Color(0.545098, 0.658824, 0.803922, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_fu68s"]
 material = SubResource("StandardMaterial3D_nu7ig")
 
-[node name="TestActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target", "collision", "visual")]
+[node name="TestActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target", "collision")]
 lock_rotation = true
 linear_damp = 2.0
 script = ExtResource("1_8fwyu")
 move_speed = 10.0
 adjust_to_water_normal = true
 normal_target = NodePath("CollisionShape3D")
-actor_projection_pscn = ExtResource("2_u81nq")
 collision = NodePath("CollisionShape3D")
-visual = NodePath("CollisionShape3D/MeshInstance3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_7651e")

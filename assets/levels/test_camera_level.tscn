@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://3437j5vecywp"]
+[gd_scene load_steps=12 format=3 uid="uid://3437j5vecywp"]
 
-[ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_jyic3"]
+[ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_lmsd7"]
 [ext_resource type="PackedScene" uid="uid://dbf7p6hqqkk5a" path="res://assets/prefabs/adjusted_ball/adjusted_ball.tscn" id="1_x2u4w"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="3_340v0"]
 [ext_resource type="PackedScene" uid="uid://7gf086sxl5fm" path="res://assets/prefabs/camera_system/first_person_camera.tscn" id="4_wnifp"]
@@ -24,6 +24,21 @@ radius = 50.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hhh1m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vk4n0"]
+
+[sub_resource type="GDScript" id="GDScript_vh52v"]
+script/source = "extends Node
+
+@export var main_camera: MainCamera
+@export var vc1: VirtualCamera
+@export var vc2: VirtualCamera
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"ui_accept\"):
+		if main_camera.follow_target == vc1:
+			main_camera.follow_target = vc2
+		else:
+			main_camera.follow_target = vc1
+"
 
 [node name="TestCameraLevel" type="Node3D"]
 
@@ -54,17 +69,16 @@ gravity = 29.4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Gravity"]
 shape = SubResource("SphereShape3D_6drkm")
 
-[node name="MainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_jyic3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.9381, 3.12389)
-follow_target = NodePath("../Cameras/ThirdPersonCamera")
-
 [node name="Cameras" type="Node" parent="."]
+
+[node name="PlayerMainCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("1_lmsd7")]
+follow_target = NodePath("../ThirdPersonCamera")
 
 [node name="ThirdPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("3_340v0")]
 follow_target = NodePath("../../RigidBody3D/Marker3D")
 
 [node name="FirstPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("4_wnifp")]
-follow_target = NodePath("../../AdjustedBall")
+follow_target = NodePath("../../AdjustedBall2")
 
 [node name="AdjustedBall" parent="." instance=ExtResource("1_x2u4w")]
 transform = Transform3D(0.999656, -0.000533563, -0.0262387, -0.0206814, 0.59948, -0.800123, 0.0161565, 0.80039, 0.599262, -0.013535, 15.2072, 20.3038)
@@ -85,3 +99,9 @@ shape = SubResource("CapsuleShape3D_vk4n0")
 
 [node name="Marker3D" type="Marker3D" parent="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CameraController" type="Node" parent="." node_paths=PackedStringArray("main_camera", "vc1", "vc2")]
+script = SubResource("GDScript_vh52v")
+main_camera = NodePath("../Cameras/PlayerMainCamera")
+vc1 = NodePath("../Cameras/ThirdPersonCamera")
+vc2 = NodePath("../Cameras/FirstPersonCamera")

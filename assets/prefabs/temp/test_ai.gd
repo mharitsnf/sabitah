@@ -8,24 +8,24 @@ var actor_projection: ActorProjection
 
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 
-var world_type: State.Game.GameType
+# var world_type: State.Game.GameType
 var projection_factory: Common.ProjectionFactory
 
 var velocity_scale: float = 1.
 var has_wait_one_frame: bool = false
 
-func _enter_tree() -> void:
-	world_type = State.Game.get_world_type(get_world_3d())
+# func _enter_tree() -> void:
+# 	world_type = State.Game.get_world_type(get_world_3d())
 
-	if !projection_factory:
-		projection_factory = Common.ProjectionFactory.new(self)
-		projection_factory.set_ref_world_type(world_type)
-		projection_factory.set_ref_collision(collision)
+# 	if !projection_factory:
+# 		projection_factory = Common.ProjectionFactory.new(self)
+# 		projection_factory.set_ref_world_type(world_type)
+# 		projection_factory.set_ref_collision(collision)
 	
-	projection_factory.start_projection()
+# 	projection_factory.start_projection()
 
-func _exit_tree() -> void:
-	projection_factory.end_projection()
+# func _exit_tree() -> void:
+# 	projection_factory.end_projection()
 
 func _physics_process(_delta: float) -> void:
 	if !marker: return

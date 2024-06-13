@@ -122,7 +122,7 @@ func _update_basis() -> void:
 func _is_player_input_allowed() -> bool:
 	# Disable input (return false) if...
 	if !allow_player_input: return false
-	if menu_layer.has_active_menu(): return false
+	if menu_layer and menu_layer.has_active_menu(): return false
 	return true
 
 ## Delegated process to be run from the [MainCamera]

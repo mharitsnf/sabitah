@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5vheik6jvc0c"]
+
+[ext_resource type="Script" path="res://assets/prefabs/actor/base_actor.gd" id="1_e5rtm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0ksat"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kmyyu"]
+
+[node name="StaticActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target", "collision")]
+lock_rotation = true
+linear_damp = 2.0
+script = ExtResource("1_e5rtm")
+adjust_to_water_normal = true
+normal_target = NodePath("CollisionShape3D")
+collision = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_0ksat")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("BoxMesh_kmyyu")

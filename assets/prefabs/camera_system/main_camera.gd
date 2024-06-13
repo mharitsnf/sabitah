@@ -29,7 +29,7 @@ class FollowData extends RefCounted:
 
 	## Listener for the [_target]'s signal [camera_adjusting_basis_changed].
 	func _on_camera_adjusting_basis_changed(value: bool) -> void:
-		_set_update_rotation(!value)
+		_rt.update_rotation = !value
 
 	## Adds the remote transform [_rt] to the camera target [_camera_target].
 	func mount_remote_transform() -> void:
@@ -58,10 +58,6 @@ class FollowData extends RefCounted:
 	## Sets the remote path of the [_rt] node.
 	func set_remote_path(new_path: NodePath) -> void:
 		_rt.remote_path = new_path
-
-	## Updates the [update_rotation] property inside the [RemoteTransform3D] node.
-	func _set_update_rotation(value: bool) -> void:
-		_rt.update_rotation = value
 
 @export_group("Following")
 ## Which [VirtualCamera] should this [MainCamera] follow?
@@ -112,7 +108,7 @@ func _change_follow_target(value: VirtualCamera) -> void:
 	# to enter the scene tree first.
 	if !is_inside_tree(): await tree_entered
 
-	# Clears the remote path of the previous remote transform
+	# Clears the remote path of the current remote transform, if we have any
 	if current_follow_data:
 		current_follow_data.set_remote_path(NodePath(""))
 		previous_follow_data = current_follow_data

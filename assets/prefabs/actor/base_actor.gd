@@ -1,6 +1,8 @@
 class_name BaseActor extends RigidBody3D
 
 @export_group("Buoyancy settings")
+@export_subgroup("Horizontal Movement")
+@export var xz_speed_limit: float = 7.5
 @export_subgroup("Water normal settings")
 ## If true, the [normal_target] will adjust its rotation along the water surface normal.
 @export var adjust_to_water_normal: bool = false
@@ -11,16 +13,13 @@ class_name BaseActor extends RigidBody3D
 @export var float_force : float = 5.
 ## The strength of the flat y velocity damping when the actor is submerged.
 @export_range(0., 1., .01) var water_drag : float = .1
-## The height offset of the ocean surface.
+## The height offset of the ocean_data surface.
 @export var ocean_surface_offset : float = 0.
 
 @export_group("Projection")
-@export var actor_projection_pscn: PackedScene
 @export var collision: CollisionShape3D
-@export var visual: Node3D
-var actor_projection: ActorProjection
 
-## Describes how far the actor is from the ocean surface
+## Describes how far the actor is from the ocean_data surface
 var depth_from_ocean_surface : float = 0.
 ## The current water normal.
 var current_normal: Vector3 = Vector3.UP
@@ -28,31 +27,47 @@ var current_normal: Vector3 = Vector3.UP
 var world_type: State.Game.GameType
 var projection_factory: Common.ProjectionFactory
 
-## Reference to ocean node.
-var ocean: Ocean
+## Reference to ocean_data node.
+var ocean_data: OceanData
+var planet_data: Dictionary
 
 func _enter_tree() -> void:
 	world_type = State.Game.get_world_type(get_world_3d())
+	xz_speed_limit = xz_speed_limit
 
-	if !projection_factory:
-		projection_factory = Common.ProjectionFactory.new(self)
-		projection_factory.set_ref_world_type(world_type)
-		projection_factory.set_ref_collision(collision)
+	# if !projection_factory:
+	# 	projection_factory = Common.ProjectionFactory.new(self)
+	# 	projection_factory.set_ref_world_type(world_type)
+	# 	projection_factory.set_ref_collision(collision)
 		
-	projection_factory.start_projection()
+	# projection_factory.start_projection()
 
 func _ready() -> void:
-	ocean = Group.first("ocean")
+	ocean_data = Group.first("ocean_data")
+	planet_data = State.Game.get_planet_data(world_type)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	quaternion = Common.Geometry.recalculate_quaternion(state.transform.basis, global_position.normalized())
-	_calculate_depth_to_ocean_surface(state)
-	_dampen_velocity(state)
+	_calculate_depth_from_ocean_surface(state)
+	_dampen_y_velocity(state)
 	_apply_buoyancy_force()
 	_update_to_water_normal(state)
 
-func _exit_tree() -> void:
-	projection_factory.end_projection()
+	_clamp_xz_velocity(state)
+
+# func _exit_tree() -> void:
+# 	projection_factory.end_projection()
+
+# region Horizontal Movement
+# =====
+func _clamp_xz_velocity(state: PhysicsDirectBodyState3D) -> void:
+	var flat_vel: Vector3 = state.transform.basis.inverse() * state.linear_velocity
+	var xz_vel: Vector3 = Vector3(flat_vel.x, 0., flat_vel.z)
+	var speed: float = xz_vel.length()
+	if speed > xz_speed_limit:
+		var limited_vel: Vector3 = xz_vel.normalized() * xz_speed_limit
+		limited_vel.y = flat_vel.y
+		state.linear_velocity = state.transform.basis * limited_vel
 
 # region Buoyancy
 # =====
@@ -85,18 +100,18 @@ func _apply_buoyancy_force() -> void:
 		apply_central_force(global_basis.y * float_force * ProjectSettings.get_setting("physics/3d/default_gravity") * depth_from_ocean_surface)
 
 ## Private. Dampens the flat y velocity of this actor.
-func _dampen_velocity(state: PhysicsDirectBodyState3D) -> void:
+func _dampen_y_velocity(state: PhysicsDirectBodyState3D) -> void:
 	if depth_from_ocean_surface > 0.:
 		var flat_vel : Vector3 = basis.inverse() * state.linear_velocity
 		flat_vel.y *= 1. - water_drag
 		state.linear_velocity = basis * flat_vel
 
 ## Private. Calculates the depth of the actor relative to the water surface.
-func _calculate_depth_to_ocean_surface(state: PhysicsDirectBodyState3D) -> void:
-	if !ocean:
+func _calculate_depth_from_ocean_surface(state: PhysicsDirectBodyState3D) -> void:
+	if !ocean_data:
 		push_error("Ocean is not defined")
 		return
-	if !ocean.get_target():
+	if !ocean_data.get_target():
 		push_error("Ocean target is not defined")
 		return
 
@@ -105,48 +120,51 @@ func _calculate_depth_to_ocean_surface(state: PhysicsDirectBodyState3D) -> void:
 	current_normal = gerstner_result.normal
 	var flat_position : Vector3 = state.transform.basis.inverse() * global_position
 	var water_height : float = State.Game.PLANET_RADIUS + ocean_surface_offset + gerstner_result.vertex.y
-	depth_from_ocean_surface = water_height - flat_position.y
+	depth_from_ocean_surface = (water_height * State.Game.get_scale(world_type)) - flat_position.y
 
-## Private. Calculates the distance (offset) from the ocean's target to the actor.
+## Private. Calculates the distance (offset) from the ocean_data's target to the actor.
 func _calculate_offset_to_ocean_target() -> Vector3:
-	var ocean_target_basis : Basis = ocean.get_target_basis()
+	# Calculate normalized vertex position
+	var ocean_target_basis : Basis = ocean_data.get_target_basis()
 	var my_flat_pos : Vector3 = ocean_target_basis.inverse() * global_position
-	var ocean_target_flat_pos : Vector3 = ocean_target_basis.inverse() * ocean.get_target_position()
+	var ocean_target_flat_pos : Vector3 = ocean_target_basis.inverse() * ocean_data.get_target_position()
 	var vertex : Vector3 = my_flat_pos - ocean_target_flat_pos
+	
+	# Scale the vertex according to the game scale
 	return Vector3(vertex.x, 0, vertex.z)
 
 ## Private. Calculates the total buoyancy across all wave data.
 func _calculate_total_gerstner(vertex : Vector3) -> GerstnerResult:
 	var tangent : Vector3 = Vector3(1., 0., 0.)
 	var binormal : Vector3 = Vector3(0., 0., 1.)
-	var gerstner_vertex : Vector3 = ocean.get_offset() + vertex
+	var gerstner_vertex : Vector3 = (ocean_data.get_offset()) + vertex
 
-	var gerstner_res : GerstnerResult = _calculate_gerstner(ocean.wave_data_1, gerstner_vertex)
+	var gerstner_res : GerstnerResult = _calculate_gerstner(ocean_data.wave_data_1, gerstner_vertex)
 	gerstner_vertex += gerstner_res.vertex
 	tangent += gerstner_res.tangent
 	binormal += gerstner_res.binormal
 
-	gerstner_res = _calculate_gerstner(ocean.wave_data_2, gerstner_vertex)
+	gerstner_res = _calculate_gerstner(ocean_data.wave_data_2, gerstner_vertex)
 	gerstner_vertex += gerstner_res.vertex
 	tangent += gerstner_res.tangent
 	binormal += gerstner_res.binormal
 
-	gerstner_res = _calculate_gerstner(ocean.wave_data_3, gerstner_vertex)
+	gerstner_res = _calculate_gerstner(ocean_data.wave_data_3, gerstner_vertex)
 	gerstner_vertex += gerstner_res.vertex
 	tangent += gerstner_res.tangent
 	binormal += gerstner_res.binormal
 
-	gerstner_res = _calculate_gerstner(ocean.wave_data_4, gerstner_vertex)
+	gerstner_res = _calculate_gerstner(ocean_data.wave_data_4, gerstner_vertex)
 	gerstner_vertex += gerstner_res.vertex
 	tangent += gerstner_res.tangent
 	binormal += gerstner_res.binormal
 
-	gerstner_res = _calculate_gerstner(ocean.wave_data_5, gerstner_vertex)
+	gerstner_res = _calculate_gerstner(ocean_data.wave_data_5, gerstner_vertex)
 	gerstner_vertex += gerstner_res.vertex
 	tangent += gerstner_res.tangent
 	binormal += gerstner_res.binormal
 
-	gerstner_vertex -= ocean.get_offset()
+	gerstner_vertex -= ocean_data.get_offset()
 	var normal : Vector3 = binormal.cross(tangent).normalized()
 	return GerstnerResult.new(gerstner_vertex, normal, tangent, binormal)
 
@@ -159,8 +177,7 @@ func _calculate_gerstner(wave_data : Vector4, vertex : Vector3) -> GerstnerResul
 	var k : float = 2. * PI / wavelength;
 	var c : float = sqrt(9.8 / k);
 	var d : Vector2 = direction.normalized();
-	# var f : float = k * (d.dot(Vector2(vertex.x, vertex.z)) - (ocean_plane.elapsed_time * c * ocean_plane.speed))
-	var f : float = k * (d.dot(Vector2(vertex.x, vertex.z)) - (ocean.get_time_elapsed() * c * ocean.get_speed()))
+	var f : float = k * (d.dot(Vector2(vertex.x, vertex.z)) - (ocean_data.get_time_elapsed() * c * ocean_data.get_speed()))
 	var a : float = steepness / k
 
 	var d_tangent : Vector3 = Vector3(

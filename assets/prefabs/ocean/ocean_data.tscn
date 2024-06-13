@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdffjdvhoedax"]
+
+[ext_resource type="Script" path="res://assets/prefabs/ocean/ocean_data.gd" id="1_muvt0"]
+
+[node name="OceanData" type="Node3D" groups=["ocean_data"]]
+script = ExtResource("1_muvt0")
+wave_data_1 = Vector4(0.02, 50, 0.455, 0.675)
+wave_data_2 = Vector4(0.01, 75, 0.4, 0.74)
+wave_data_3 = Vector4(0.03, 45, 0.49, 0.405)
+wave_data_4 = Vector4(0.015, 65, 0.345, 0.615)
+wave_data_5 = Vector4(0.03, 41, 0.595, 0.87)

@@ -11,9 +11,9 @@ script = ExtResource("1_046a1")
 camera_target = NodePath("RotationTarget/SpringArm3D")
 camera_adjusting_basis = false
 camera_tween_settings = ExtResource("2_tamkl")
+rotation_settings = ExtResource("3_wjig2")
 fov_settings = ExtResource("3_xpjkl")
 rotation_target = NodePath("RotationTarget")
-rotation_settings = ExtResource("3_wjig2")
 clamp_settings = ExtResource("4_saf8t")
 tween_settings = ExtResource("2_tamkl")
 

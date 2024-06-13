@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://8rve6jcq5kyi"]
+
+[ext_resource type="Script" path="res://assets/prefabs/actor/ai_actor.gd" id="1_syci6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wx5qd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o1qbf"]
+albedo_color = Color(1, 0.529412, 0.529412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tku65"]
+material = SubResource("StandardMaterial3D_o1qbf")
+
+[node name="AIActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target", "collision")]
+lock_rotation = true
+linear_damp = 2.0
+script = ExtResource("1_syci6")
+adjust_to_water_normal = true
+normal_target = NodePath("CollisionShape3D")
+collision = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_wx5qd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("BoxMesh_tku65")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+avoidance_enabled = true
+height = 0.1
+radius = 0.05
+time_horizon_obstacles = 2.0
+use_3d_avoidance = true
+debug_enabled = true
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_move"]
