@@ -52,7 +52,7 @@ follow_target = NodePath("../ThirdPersonCamera")
 [node name="ThirdPersonCamera" parent="Camera" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xupbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1536.3, 0)
 spring_length = 10.0
-follow_target = NodePath("../../AIActor")
+follow_target = NodePath("../../TestActor")
 
 [node name="Oceans" type="Node" parent="."]
 
@@ -63,15 +63,21 @@ target = NodePath("../../TestActor")
 [node name="Ocean" parent="Oceans" instance=ExtResource("3_f1v4r")]
 skeleton = NodePath("../..")
 
-[node name="NavigationTarget" parent="." instance=ExtResource("13_qjase")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
-
 [node name="TestActor" parent="." instance=ExtResource("4_4h5jq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1491.96, -6.31203)
 
 [node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.67985, 1485.52, 11.9065)
 
+[node name="NavigationTarget" parent="." instance=ExtResource("13_qjase")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
+
 [node name="AIActor" parent="." node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
-transform = Transform3D(0.999964, 0.0082678, 0.00169194, -0.00832574, 0.999254, 0.037714, -0.00137887, -0.0377268, 0.999287, -78.5679, 1469.69, -202.114)
+transform = Transform3D(0.980675, -0.195623, 0.00273777, 0.195598, 0.980656, 0.00746314, -0.00414477, -0.00678342, 0.999968, -290.617, 1456.86, -10.0774)
 nav_target = NodePath("../NavigationTarget")
+
+[node name="AIActor2" parent="." node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
+transform = Transform3D(0.97651, -0.21547, -0.000898805, 0.215471, 0.976484, 0.00717475, -0.000668273, -0.00719988, 0.999974, -320.102, 1450.66, -10.6961)
+nav_target = NodePath("../NavigationTarget")
+move_speed = 30.0
+xz_speed_limit = 15.0

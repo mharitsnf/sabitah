@@ -130,7 +130,7 @@ func delegated_process(_delta: float) -> void:
 	pass
 
 ## Delegated process specifically for player input (joypad)
-func player_process(_delta: float) -> void:
+func player_input_process(_delta: float) -> void:
 	if !_is_player_input_allowed(): return
 	
 	_rotate_joypad()
@@ -146,6 +146,16 @@ func player_unhandled_input(event: InputEvent) -> void:
 		_rotate_mouse(event)
 
 # region Follow Target Functions
+
+## Add a remote transform to the VirtualCamera's camera_target.
+func mount_remote_transform(rt: RemoteTransform3D) -> void:
+	if !rt.is_inside_tree():
+		camera_target.add_child.call_deferred(rt)
+
+## Remove a remote transform to the VirtualCamera's camera_target.
+func unmount_remote_transform(rt: RemoteTransform3D) -> void:
+	if rt.is_inside_tree() and rt.get_parent() == camera_target:
+		camera_target.remove_child.call_deferred(rt)
 
 ## Sets a new follow target for the camera.
 func _set_follow_target(new_target: Node3D) -> void:

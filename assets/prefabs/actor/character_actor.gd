@@ -4,7 +4,7 @@ class_name CharacterActor extends BaseActor
 
 var xz_move_input: Vector2 = Vector2.ZERO
 
-func _process(_delta: float) -> void:
+func player_input_process(_delta: float) -> void:
 	_temp_get_player_input()
 
 func _physics_process(_delta: float) -> void:
@@ -18,7 +18,6 @@ func _temp_get_player_input() -> void:
 	var p_input: Vector2 = Input.get_vector("character_right", "character_left", "character_forward", "character_backward")
 	_set_move_input(p_input)
 
-const MOVE_INPUT_LERP_WEIGHT: float = 10.
 func _set_move_input(value: Vector2) -> void:
 	xz_move_input = value
 

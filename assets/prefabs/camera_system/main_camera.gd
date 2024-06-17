@@ -19,29 +19,27 @@ class FollowData extends RefCounted:
 	
 	# Connect the [_target]'s adjusting basis changed signal to the main camera.
 	func _connect_adjusting_basis() -> void:
-		if !_target.camera_adjusting_basis_changed.is_connected(_on_camera_adjusting_basis_changed):
-			_target.camera_adjusting_basis_changed.connect(_on_camera_adjusting_basis_changed)
+		if !_target.camera_adjusting_basis_changed.is_connected(_on_target_adjusting_basis_changed):
+			_target.camera_adjusting_basis_changed.connect(_on_target_adjusting_basis_changed)
 	
 	## Disconnect the [_target]'s adjusting basis changed signal to the main camera.
 	func _disconnect_adjusting_basis() -> void:
-		if _target.camera_adjusting_basis_changed.is_connected(_on_camera_adjusting_basis_changed):
-			_target.camera_adjusting_basis_changed.disconnect(_on_camera_adjusting_basis_changed)
+		if _target.camera_adjusting_basis_changed.is_connected(_on_target_adjusting_basis_changed):
+			_target.camera_adjusting_basis_changed.disconnect(_on_target_adjusting_basis_changed)
 
 	## Listener for the [_target]'s signal [camera_adjusting_basis_changed].
-	func _on_camera_adjusting_basis_changed(value: bool) -> void:
+	func _on_target_adjusting_basis_changed(value: bool) -> void:
 		_rt.update_rotation = !value
 
 	## Adds the remote transform [_rt] to the camera target [_camera_target].
 	func mount_remote_transform() -> void:
 		_connect_adjusting_basis()
-		if !_rt.is_inside_tree():
-			_camera_target.add_child(_rt)
+		_target.mount_remote_transform(_rt)
 
 	## Removes the remote transform [_rt] child of the [_target].
 	func dismount_remote_transform() -> void:
 		_disconnect_adjusting_basis()
-		if _rt.is_inside_tree() and _rt.get_parent() == _camera_target:
-			_camera_target.remove_child(_rt)
+		_target.unmount_remote_transform(_rt)
 
 	## Returns the current virtual camera, [_target].
 	func get_target() -> VirtualCamera:

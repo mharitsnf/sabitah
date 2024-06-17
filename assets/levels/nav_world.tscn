@@ -30,7 +30,7 @@ transform = Transform3D(-0.90525, 6.74464e-09, -0.424879, 0.0727643, 0.985226, -
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6533, 64.3669, -36.78)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.2315, 71.8745, 4.3794)
 script = ExtResource("1_3m2mv")
 
 [node name="Bodies" type="Node" parent="."]
