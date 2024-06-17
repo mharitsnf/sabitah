@@ -4,3 +4,4 @@
 
 [node name="PlayerCharacterFPC" instance=ExtResource("1_nvepg")]
 offset = Vector3(0, 0.5, -1)
+adjusting_basis = false

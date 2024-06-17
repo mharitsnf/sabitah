@@ -23,11 +23,12 @@ func player_input_process(_delta: float) -> void:
 func _rotate_mesh(ref_basis: Basis) -> void:
     if !meshes: return
     if xz_move_input == Vector2.ZERO: return
-
-    ref_basis = ref_basis.orthonormalized()
-    var dir: Vector3 = -ref_basis.z * xz_move_input.y + ref_basis.x * xz_move_input.x
-    dir = Vector3(dir.x, 0., dir.z).normalized()
     
+    ref_basis = ref_basis.orthonormalized()
+    var dir: Vector3 = (-ref_basis.z * xz_move_input.y + ref_basis.x * xz_move_input.x).normalized()
+    dir = basis.inverse() * dir
+    dir = Vector3(dir.x, 0., dir.z).normalized()
+
     var new_quat: Quaternion = Basis.looking_at(dir, meshes.basis.y).get_rotation_quaternion()
     meshes.quaternion = meshes.basis.get_rotation_quaternion().slerp(new_quat, get_process_delta_time() * 10.)
 

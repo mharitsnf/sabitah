@@ -4,3 +4,4 @@
 
 [node name="PlayerCharacterTPC" instance=ExtResource("1_ay3an")]
 spring_length = 7.5
+adjusting_basis = false

@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://ctg4o5euvsbt5"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/toon_shader.gdshader" id="1_6yknn"]
+[ext_resource type="Texture2D" uid="uid://bvqv8dcyo834p" path="res://assets/resources/textures/isa true master.png" id="2_44h3s"]
+
+[sub_resource type="Gradient" id="Gradient_1v6w7"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.489152, 0.524655)
+colors = PackedColorArray(0.33, 0.33, 0.33, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jm8w1"]
+gradient = SubResource("Gradient_1v6w7")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_6yknn")
+shader_parameter/_roughness = 1.0
+shader_parameter/_metallic = null
+shader_parameter/posterize_levels = 10.0
+shader_parameter/albedo_tex = ExtResource("2_44h3s")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_jm8w1")

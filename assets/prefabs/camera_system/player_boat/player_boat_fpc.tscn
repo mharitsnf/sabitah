@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://1c6vc4mwptwk"]
+
+[ext_resource type="PackedScene" uid="uid://7gf086sxl5fm" path="res://assets/prefabs/camera_system/first_person_camera.tscn" id="1_f5vbr"]
+
+[node name="PlayerBoatFPC" instance=ExtResource("1_f5vbr")]
+offset = Vector3(0, 12, 0)

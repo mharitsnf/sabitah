@@ -10,7 +10,7 @@ var _game_scale_dict: Dictionary = {
 
 @onready var collision_shape: CollisionShape3D = %CollisionShape3D
 
-func _ready() -> void:
+func _exit_tree() -> void:
     _set_area_type(area_type)
 
 func _set_area_type(value: State.Game.GameType) -> void:
