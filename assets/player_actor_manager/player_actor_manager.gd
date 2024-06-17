@@ -1,7 +1,7 @@
 class_name PlayerActorManager extends Node
 
 enum PlayerActors {
-    CHARACTER
+    CHARACTER, BOAT
 }
 
 class PlayerData extends RefCounted:
@@ -24,10 +24,12 @@ class PlayerData extends RefCounted:
     func set_instance(__instance: BaseActor) -> void:
         _instance = __instance
         _reference_manager = _instance.get_node("ReferenceManager")
+        assert(_reference_manager)
     
     func create_instance() -> void:
         _instance = _pscn.instantiate()
         _reference_manager = _instance.get_node("ReferenceManager")
+        assert(_reference_manager)
 
 var player_data_dict: Dictionary = {
     PlayerActors.CHARACTER: PlayerData.new(preload("res://assets/prefabs/actor/player_character.tscn"))
@@ -45,12 +47,13 @@ var current_player_data: PlayerData:
 
 var main_camera: MainCamera
 var ocean_data: OceanData
-
-func _enter_tree() -> void:
-    main_camera = Group.first("main_camera")
-    ocean_data = Group.first("ocean_data")
+var menu_layer: MenuLayer
 
 func _ready() -> void:
+    main_camera = Group.first("main_camera")
+    ocean_data = Group.first("ocean_data")
+    menu_layer = Group.first("menu_layer")
+
     _set_existing_instances()
     _remove_other_actors()
     _create_actor_instances()
@@ -58,14 +61,20 @@ func _ready() -> void:
 
 # Run the delegated player input process
 func _process(delta: float) -> void:
-    if current_player_data and current_player_data.get_instance():
-        current_player_data.get_instance().delegated_process(delta)
-        current_player_data.get_instance().player_input_process(delta)
+    if !current_player_data: return
+    if !current_player_data.get_instance(): return
+    if menu_layer and menu_layer.has_active_menu(): return
+
+    current_player_data.get_instance().delegated_process(delta)
+    current_player_data.get_instance().player_input_process(delta)
 
 # Run the delegated player unhandled input
 func _unhandled_input(event: InputEvent) -> void:
-    if current_player_data and current_player_data.get_instance():
-        current_player_data.get_instance().player_unhandled_input(event)
+    if !current_player_data: return
+    if !current_player_data.get_instance(): return
+    if menu_layer and menu_layer.has_active_menu(): return
+    
+    current_player_data.get_instance().player_unhandled_input(event)
 
 # region Initialization
 

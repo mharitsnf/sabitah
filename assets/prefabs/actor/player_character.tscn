@@ -26,12 +26,17 @@ first_person_camera = NodePath("../PlayerCharacterFPC")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_64xov")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("CapsuleMesh_22ihj")
+[node name="Meshes" type="Node3D" parent="CollisionShape3D"]
+unique_name_in_owner = true
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/Meshes"]
+mesh = SubResource("CapsuleMesh_22ihj")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D/Meshes"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.4)
 mesh = SubResource("BoxMesh_bgxi2")
+skeleton = NodePath("../..")
 
 [node name="PlayerCharacterTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xgva6")]
 follow_target = NodePath("..")

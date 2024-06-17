@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dllb6gb77txlc"]
 
-[ext_resource type="PackedScene" uid="uid://cjmkf3vc6i518" path="res://assets/prefabs/camera_system/main_camera.tscn" id="1_p3o4g"]
+[ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_2047r"]
 
 [sub_resource type="Environment" id="Environment_capf0"]
@@ -35,7 +35,7 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("SphereShape3D_xhskh")
 
-[node name="MainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_p3o4g")]
+[node name="PlayerMainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_4fsy1")]
 follow_target = NodePath("../Cameras/ThirdPersonCamera")
 
 [node name="Cameras" type="Node" parent="."]

@@ -35,20 +35,15 @@ func _process(delta: float) -> void:
 func get_target() -> Node3D:
     return target
 
+## Returns the orthonormalized basis of the [target]
 func get_target_basis() -> Basis:
-    return target_basis
+    return target_basis.orthonormalized()
 
 func get_offset() -> Vector3:
     return offset
 
-func get_offset_normalized() -> Vector3:
-    return offset.normalized()
-
 func get_target_position() -> Vector3:
     return target_world_pos
-
-func get_target_position_normalized() -> Vector3:
-    return target_world_pos.normalized()
 
 func get_time_elapsed() -> float:
     return time_elapsed
