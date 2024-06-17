@@ -20,7 +20,6 @@ var has_wait_one_frame: bool = false
 
 func _ready() -> void:
 	nav.max_speed = max_speed
-	print(nav.max_speed)
 
 func _physics_process(_delta: float) -> void:
 	if !target: return

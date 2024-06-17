@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bihp1xu32e3qd"]
+
+[ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="1_ay3an"]
+
+[node name="PlayerCharacterTPC" instance=ExtResource("1_ay3an")]
+spring_length = 7.5

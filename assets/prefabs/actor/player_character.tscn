@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://owvya8o67o8w"]
+
+[ext_resource type="Script" path="res://assets/prefabs/actor/player_character_actor.gd" id="1_wl6cc"]
+[ext_resource type="Script" path="res://assets/prefabs/reference_manager/player_reference_manager.gd" id="2_rl4tg"]
+[ext_resource type="PackedScene" uid="uid://bihp1xu32e3qd" path="res://assets/prefabs/camera_system/player_character/player_character_tpc.tscn" id="2_xgva6"]
+[ext_resource type="PackedScene" uid="uid://ji6wwvaddy0" path="res://assets/prefabs/camera_system/player_character/player_character_fpc.tscn" id="3_8vimr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_64xov"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_22ihj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bgxi2"]
+size = Vector3(0.5, 0.25, 0.25)
+
+[node name="PlayerCharacter" type="RigidBody3D"]
+lock_rotation = true
+linear_damp = 2.0
+script = ExtResource("1_wl6cc")
+move_speed = 15.0
+
+[node name="ReferenceManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
+script = ExtResource("2_rl4tg")
+third_person_camera = NodePath("../PlayerCharacterTPC")
+first_person_camera = NodePath("../PlayerCharacterFPC")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_64xov")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_22ihj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.4)
+mesh = SubResource("BoxMesh_bgxi2")
+
+[node name="PlayerCharacterTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("2_xgva6")]
+follow_target = NodePath("..")
+
+[node name="PlayerCharacterFPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_8vimr")]
+follow_target = NodePath("..")

@@ -10,11 +10,11 @@ class FollowData extends RefCounted:
 	
 	## Mount the remote transform [_rt] to the target [_target].
 	func mount_remote_transform() -> void:
-		_target.add_child(_rt)
+		_target.add_child.call_deferred(_rt)
 
 	## Removes the remote transform [_rt] child of the [_target].
 	func dismount_remote_transform() -> void:
-		_target.remove_child(_rt)
+		_target.remove_child.call_deferred(_rt)
 
 	## Returns the current follow target, [_target].
 	func get_target() -> Node3D:

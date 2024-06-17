@@ -16,9 +16,6 @@ class_name BaseActor extends RigidBody3D
 ## The height offset of the ocean_data surface.
 @export var ocean_surface_offset : float = 0.
 
-@export_group("Projection")
-@export var collision: CollisionShape3D
-
 ## Describes how far the actor is from the ocean_data surface
 var depth_from_ocean_surface : float = 0.
 ## The current water normal.

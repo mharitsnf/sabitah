@@ -86,7 +86,6 @@ class NavigationAIFactory extends RefCounted:
 		_nav_ai = _nav_ai_pscn.instantiate()
 		(_nav_ai as NavigationAI).max_speed = _main_actor.xz_speed_limit * State.Game.MAIN_TO_NAV_SCALE
 		(_nav_ai as NavigationAI).move_speed = (_main_actor as AIActor).move_speed * State.Game.MAIN_TO_NAV_SCALE
-		print((_nav_ai as NavigationAI).max_speed, " ", (_nav_ai as NavigationAI).move_speed)
 
 	func update_ai_position() -> void:
 		var actor_unit_pos: Vector3 = _main_actor.global_position.normalized()

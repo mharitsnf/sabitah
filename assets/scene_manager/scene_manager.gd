@@ -20,7 +20,7 @@ class SceneData extends RefCounted:
     func get_key() -> SceneManager.Scenes:
         return _key
 
-    func set_existing_instance(__instance: Node) -> void:
+    func set_instance(__instance: Node) -> void:
         _instance = __instance
 
     func create_instance() -> void:
@@ -47,16 +47,8 @@ func _set_existing_instances() -> void:
     var existing_data: Array = scene_data_dict.values().filter(func(_data: SceneData) -> bool: return _data.get_pscn().resource_path == child.scene_file_path)
     if existing_data.is_empty(): return
     
-    (existing_data[0] as SceneData).set_existing_instance(child)
+    (existing_data[0] as SceneData).set_instance(child)
     current_scene_data = existing_data[0] as SceneData
-
-## Helper function for removing instance to the [SceneManager].
-func _instance_exit(instance: Node) -> void:
-    remove_child(instance)
-
-## Helper function for adding instance to the [SceneManager].
-func _instance_enter(instance: Node) -> void:
-    add_child(instance)
 
 ## Function for switching active scenes.
 func switch_scene(target_scene: Scenes) -> void:
@@ -68,8 +60,8 @@ func switch_scene(target_scene: Scenes) -> void:
     if !next_scene_data.get_instance(): next_scene_data.create_instance()
 
     if current_scene_data:
-        _instance_exit(current_scene_data.get_instance())
+        remove_child.call_deferred(current_scene_data.get_instance())
         previous_scene_data = current_scene_data
 
     current_scene_data = next_scene_data
-    _instance_enter(next_scene_data.get_instance())
+    add_child.call_deferred(next_scene_data.get_instance())
