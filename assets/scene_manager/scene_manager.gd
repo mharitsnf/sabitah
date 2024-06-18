@@ -43,12 +43,16 @@ func _ready() -> void:
 func _set_existing_instances() -> void:
     if get_child_count() == 0: return
     
-    var child: Node = get_child(0)
-    var existing_data: Array = scene_data_dict.values().filter(func(_data: SceneData) -> bool: return _data.get_pscn().resource_path == child.scene_file_path)
-    if existing_data.is_empty(): return
-    
-    (existing_data[0] as SceneData).set_instance(child)
-    current_scene_data = existing_data[0] as SceneData
+    var idx: int = 0
+    for child: Node in get_children():
+        var existing_data: Array = scene_data_dict.values().filter(func(_data: SceneData) -> bool: return _data.get_pscn().resource_path == child.scene_file_path)
+        if existing_data.is_empty(): continue
+        
+        (existing_data[0] as SceneData).set_instance(child)
+        if idx == 0:
+            current_scene_data = existing_data[0] as SceneData
+
+        idx += 1
 
 ## Function for switching active scenes.
 func switch_scene(target_scene: Scenes) -> void:

@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://1cfuft35ap2"]
 
-[ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_qqlyk"]
+[ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
-[ext_resource type="PackedScene" uid="uid://bifnx42u6q3b" path="res://assets/prefabs/planet_body/planet_static_body.tscn" id="2_e4tao"]
-[ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity_area/main_gravity_area.tscn" id="2_e7lot"]
+[ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity_areas/main_gravity_area.tscn" id="2_jdiks"]
+[ext_resource type="PackedScene" uid="uid://bnaadx2owlxa8" path="res://assets/prefabs/planet_bodies/main_planet_body.tscn" id="3_04ued"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/nav_sub_viewport.tscn" id="4_qbgsx"]
 [ext_resource type="PackedScene" uid="uid://dib7m5a41lrgf" path="res://assets/levels/nav_world.tscn" id="5_jphay"]
@@ -21,7 +21,7 @@ sdfgi_enabled = true
 sdfgi_min_cell_size = 8.0
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
-script = ExtResource("1_qqlyk")
+script = ExtResource("1_4i1xa")
 
 [node name="Environment" type="Node" parent="."]
 
@@ -32,10 +32,9 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_f3y7e")
 
-[node name="MainGravityArea" parent="Environment" instance=ExtResource("2_e7lot")]
+[node name="MainGravityArea" parent="Environment" instance=ExtResource("2_jdiks")]
 
-[node name="PlanetStaticBody" parent="Environment" instance=ExtResource("2_e4tao")]
-show_mesh = false
+[node name="MainPlanetBody" parent="Environment" instance=ExtResource("3_04ued")]
 
 [node name="NavWorld" type="Node" parent="."]
 

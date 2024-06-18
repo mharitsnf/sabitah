@@ -19,7 +19,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	_move_actor()
 
 func _move_actor() -> void:
-	var planet_data: Dictionary = State.Game.get_planet_data(State.Game.GameType.MAIN)
+	var planet_data: Dictionary = State.get_planet_data(State.LevelType.MAIN)
 	var ai_pos: Vector3 = nav_ai_factory.get_ai().global_position
 	var ai_pos_planet: Vector3 = ai_pos.normalized() * planet_data['radius']
 	

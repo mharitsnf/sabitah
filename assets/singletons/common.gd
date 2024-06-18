@@ -84,12 +84,12 @@ class NavigationAIFactory extends RefCounted:
 	func _init(__main_actor: BaseActor) -> void:
 		_main_actor = __main_actor
 		_nav_ai = _nav_ai_pscn.instantiate()
-		(_nav_ai as NavigationAI).max_speed = _main_actor.xz_speed_limit * State.Game.MAIN_TO_NAV_SCALE
-		(_nav_ai as NavigationAI).move_speed = (_main_actor as AIActor).move_speed * State.Game.MAIN_TO_NAV_SCALE
+		(_nav_ai as NavigationAI).max_speed = _main_actor.xz_speed_limit * State.MAIN_TO_NAV_SCALE
+		(_nav_ai as NavigationAI).move_speed = (_main_actor as AIActor).move_speed * State.MAIN_TO_NAV_SCALE
 
 	func update_ai_position() -> void:
 		var actor_unit_pos: Vector3 = _main_actor.global_position.normalized()
-		var planet_data: Dictionary = State.Game.get_planet_data(State.Game.GameType.NAV)
+		var planet_data: Dictionary = State.get_planet_data(State.LevelType.NAV)
 		_nav_ai.position = (actor_unit_pos * planet_data['radius'])
 
 	func set_ai_target(target: Marker3D) -> void:
@@ -105,14 +105,14 @@ class NavigationAIFactory extends RefCounted:
 		if _nav_ai.is_inside_tree():
 			return
 		
-		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		var level: Node = State.get_level(State.LevelType.NAV)
 		level.add_child.call_deferred(_nav_ai)
 	
 	func remove_ai_from_nav_world() -> void:
 		if !_nav_ai.is_inside_tree():
 			return
 		
-		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		var level: Node = State.get_level(State.LevelType.NAV)
 		level.remove_child.call_deferred(_nav_ai)
 
 
@@ -126,7 +126,7 @@ class NavigationTargetFactory extends RefCounted:
 		_nav_target = Marker3D.new()
 		_nav_target.name = "RefTo" + _main_target.name
 
-		var planet_data: Dictionary = State.Game.get_planet_data(State.Game.GameType.NAV)
+		var planet_data: Dictionary = State.get_planet_data(State.LevelType.NAV)
 		_nav_target.position = _main_target.global_position.normalized() * planet_data['radius']
 
 	## Return the navigation target inside the navigation world
@@ -138,7 +138,7 @@ class NavigationTargetFactory extends RefCounted:
 		if _nav_target.is_inside_tree():
 			return
 		
-		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		var level: Node = State.get_level(State.LevelType.NAV)
 		level.add_child.call_deferred(_nav_target)
 
 	## Remove the navigation target from the navigation world.
@@ -146,5 +146,5 @@ class NavigationTargetFactory extends RefCounted:
 		if !_nav_target.is_inside_tree():
 			return
 		
-		var level: Node = State.Game.get_level(State.Game.GameType.NAV)
+		var level: Node = State.get_level(State.LevelType.NAV)
 		level.remove_child.call_deferred(_nav_target)

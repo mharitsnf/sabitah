@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://d33a0m2ds1m7i"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bdkuj"]
+radius = 148.56
+
+[node name="NavGravityArea" type="Area3D"]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+gravity = 1.47
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_bdkuj")

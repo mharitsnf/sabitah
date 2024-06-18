@@ -21,11 +21,11 @@ func player_input_process(_delta: float) -> void:
 
 func _get_exit_boat_input() -> void:
 	if Input.is_action_just_pressed("switch_actor"):
-		if State.Game.game_pam.transitioning: return
+		if State.game_pam.transitioning: return
 		
-		var next_pd: PlayerActorManager.PlayerData = State.Game.game_pam.get_player_data(PlayerActorManager.PlayerActors.CHARACTER)
+		var next_pd: PlayerActorManager.PlayerData = State.game_pam.get_player_data(PlayerActorManager.PlayerActors.CHARACTER)
 		next_pd.get_instance().position = dropoff_point.global_position
-		State.Game.game_pam.change_player_data(next_pd)
+		State.game_pam.change_player_data(next_pd)
 
 ## Private. Polls the gas / forward input from the player.
 func _get_forward_input() -> void:

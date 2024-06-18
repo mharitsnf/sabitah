@@ -46,7 +46,7 @@ var ocean_data: OceanData
 var menu_layer: MenuLayer
 
 func _ready() -> void:
-	State.Game.game_pam = self
+	State.game_pam = self
 
 	main_camera = Group.first("main_camera")
 	ocean_data = Group.first("ocean_data")
@@ -85,7 +85,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _get_switch_camera_input() -> void:
 	if Input.is_action_just_pressed("switch_camera"):
 		if main_camera.transitioning:
-			push_error("Main camera is still transitioning!")
+			push_warning("Main camera is still transitioning!")
 			return
 
 		var next_cam: VirtualCamera = current_player_data.get_camera_manager().get_next_camera()
@@ -106,10 +106,6 @@ func change_player_data(new_pd: PlayerData) -> Array:
 		push_error("change_player_data: new player data cannot be null!")
 		return [false]
 
-	if transitioning:
-		push_error("change_player_data: PlayerActorManager is still transitioning!")
-		return [false]
-
 	transitioning = true
 
 	if current_player_data:
@@ -119,7 +115,8 @@ func change_player_data(new_pd: PlayerData) -> Array:
 	
 	# Add the instance if its not inside the tree yet.
 	if !current_player_data.get_instance().is_inside_tree():
-		add_child(current_player_data.get_instance())
+		add_child.call_deferred(current_player_data.get_instance())
+		await current_player_data.get_instance().tree_entered
 
 	# Switch to the new actor's entry camera
 	var entry_cam: VirtualCamera = new_pd.get_camera_manager().get_entry_camera()
@@ -172,5 +169,5 @@ func _remove_other_actors() -> void:
 func _initiate_current_player_data() -> void:
 	if current_player_data: return
 	if get_child_count() == 0:
-		(player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance().position = Vector3(0., State.Game.PLANET_RADIUS, 0.)
+		(player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance().position = Vector3(0., State.PLANET_RADIUS, 0.)
 		change_player_data(player_data_dict[PlayerActors.BOAT] as PlayerData)

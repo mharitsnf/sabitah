@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c20bryruf658d"]
+
+[ext_resource type="Script" path="res://assets/prefabs/time_manager/time_manager.gd" id="1_6rx1h"]
+
+[node name="TimeManager" type="Node" groups=["time_manager"]]
+script = ExtResource("1_6rx1h")

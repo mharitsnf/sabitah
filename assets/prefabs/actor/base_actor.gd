@@ -110,7 +110,7 @@ func _calculate_depth_from_ocean_surface(state: PhysicsDirectBodyState3D) -> voi
 	var gerstner_result : GerstnerResult = _calculate_total_gerstner(linear_offset)
 	current_normal = gerstner_result.normal
 	var flat_position : Vector3 = state.transform.basis.inverse() * global_position
-	var water_height : float = State.Game.PLANET_RADIUS + ocean_surface_offset + gerstner_result.vertex.y
+	var water_height : float = State.PLANET_RADIUS + ocean_surface_offset + gerstner_result.vertex.y
 	depth_from_ocean_surface = water_height - flat_position.y
 
 ## Private. Calculates the distance (offset) from the ocean_data's target to the actor.

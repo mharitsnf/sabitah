@@ -33,7 +33,7 @@ shape = SubResource("ConvexPolygonShape3D_g8mar")
 unique_name_in_owner = true
 
 [node name="Marker3D" type="Marker3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
 
 [node name="PlayerBoatTPC" parent="." instance=ExtResource("2_h4vmj")]
 

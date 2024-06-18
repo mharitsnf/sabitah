@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dllb6gb77txlc"]
+[gd_scene load_steps=8 format=3 uid="uid://dllb6gb77txlc"]
 
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
+[ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_2047r"]
+[ext_resource type="Resource" uid="uid://cs84dcb1uccxs" path="res://assets/resources/camera_clamp_settings/globe_tpc.tres" id="3_0of1s"]
 
 [sub_resource type="Environment" id="Environment_capf0"]
 background_mode = 1
@@ -10,13 +12,15 @@ sdfgi_enabled = true
 sdfgi_min_cell_size = 8.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_gsfuk"]
-radius = 25.0
-height = 50.0
+radius = 74.28
+height = 148.56
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xhskh"]
-radius = 25.0
+radius = 74.28
 
 [node name="TestGlobeLevel" type="Node3D"]
+script = ExtResource("1_han2f")
+level_type = 2
 
 [node name="Environment" type="Node" parent="."]
 
@@ -41,6 +45,7 @@ follow_target = NodePath("../Cameras/ThirdPersonCamera")
 [node name="Cameras" type="Node" parent="."]
 
 [node name="ThirdPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_2047r")]
-spring_length = 50.0
+spring_length = 150.0
 adjusting_basis = false
+clamp_settings = ExtResource("3_0of1s")
 follow_target = NodePath("../../StaticBody3D")

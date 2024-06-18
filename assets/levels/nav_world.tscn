@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dib7m5a41lrgf"]
+[gd_scene load_steps=6 format=3 uid="uid://dib7m5a41lrgf"]
 
 [ext_resource type="Script" path="res://addons/free-look-camera/camera.gd" id="1_3m2mv"]
-[ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_eylqm"]
-[ext_resource type="PackedScene" uid="uid://gmyq43gbwo6t" path="res://assets/prefabs/gravity_area/gravity_area.tscn" id="2_lqo1j"]
-[ext_resource type="PackedScene" uid="uid://bifnx42u6q3b" path="res://assets/prefabs/planet_body/planet_static_body.tscn" id="3_cchk7"]
+[ext_resource type="Script" path="res://assets/levels/level.gd" id="1_sbdn0"]
+[ext_resource type="PackedScene" uid="uid://d33a0m2ds1m7i" path="res://assets/prefabs/gravity_areas/nav_gravity_area.tscn" id="3_p7s5i"]
 
 [sub_resource type="Environment" id="Environment_pea8y"]
 background_mode = 1
@@ -16,8 +15,8 @@ agent_height = 0.5
 agent_radius = 0.13
 
 [node name="NavWorld" type="Node3D"]
-script = ExtResource("1_eylqm")
-game_level_type = 1
+script = ExtResource("1_sbdn0")
+level_type = 1
 
 [node name="Environment" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.53674e-07)
@@ -35,13 +34,7 @@ script = ExtResource("1_3m2mv")
 
 [node name="Bodies" type="Node" parent="."]
 
-[node name="GravityArea" parent="Bodies" instance=ExtResource("2_lqo1j")]
-gravity = 1.47
-area_type = 1
-
-[node name="PlanetStaticBody" parent="Bodies" instance=ExtResource("3_cchk7")]
-area_type = 1
-show_mesh = false
+[node name="NavGravityArea" parent="Bodies" instance=ExtResource("3_p7s5i")]
 
 [node name="NavigationRegions" type="Node" parent="."]
 

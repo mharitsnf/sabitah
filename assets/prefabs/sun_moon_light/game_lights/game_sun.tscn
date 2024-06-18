@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://tk486pqtvspa"]
+
+[ext_resource type="Script" path="res://assets/prefabs/sun_moon_light/sun_moon_light.gd" id="1_303f7"]
+
+[node name="SunLight" type="DirectionalLight3D"]
+script = ExtResource("1_303f7")
+adjust_intensity = true
+max_intensity = 0.6

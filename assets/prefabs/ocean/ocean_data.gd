@@ -2,7 +2,8 @@
 class_name OceanData extends Node3D
 
 @export_group("Follow target")
-@export var target : BaseActor
+var prev_target: BaseActor
+@export var target : BaseActor: set = _set_target
 
 @export_group("Wave data")
 @export var wave_data_1 : Vector4
@@ -18,7 +19,7 @@ var target_basis: Basis = Basis.IDENTITY
 var transitioning: bool = false
 
 # Transform variables
-var default_initial_position : Vector3 = Vector3(0., State.Game.PLANET_RADIUS, 0.)
+var default_initial_position : Vector3 = Vector3(0., State.PLANET_RADIUS, 0.)
 var initial_position : Vector3 = default_initial_position
 var initial_basis : Basis = Basis.IDENTITY
 var offset : Vector3 = Vector3.ZERO
@@ -31,6 +32,9 @@ func _process(delta: float) -> void:
     _update_target_transform()
 
 # region Setters and Getters
+
+func _set_target(value: BaseActor) -> void:
+    target = value
 
 func get_target() -> Node3D:
     return target
@@ -89,7 +93,7 @@ func get_shader_data() -> Dictionary:
         _target_fwd = target_basis.z
 
     return {
-        "planet_radius": State.Game.PLANET_RADIUS,
+        "planet_radius": State.PLANET_RADIUS,
         "cpu_time": time_elapsed,
         "movement_offset": offset,
         "wave_1": wave_data_1,

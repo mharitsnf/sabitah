@@ -22,12 +22,12 @@ func player_input_process(_delta: float) -> void:
 
 func _get_enter_boat_input() -> void:
     if Input.is_action_just_pressed("switch_actor"):
-        if State.Game.game_pam.transitioning: return
+        if State.game_pam.transitioning: return
         
-        var next_pd: PlayerActorManager.PlayerData = State.Game.game_pam.get_player_data(PlayerActorManager.PlayerActors.BOAT)
-        var res: Array = await State.Game.game_pam.change_player_data(next_pd)
+        var next_pd: PlayerActorManager.PlayerData = State.game_pam.get_player_data(PlayerActorManager.PlayerActors.BOAT)
+        var res: Array = await State.game_pam.change_player_data(next_pd)
         if res[0] as bool:
-            State.Game.game_pam.remove_child.call_deferred((res[1] as PlayerActorManager.PlayerData).get_instance())
+            State.game_pam.remove_child.call_deferred((res[1] as PlayerActorManager.PlayerData).get_instance())
 
 ## Private. Polls player input for horizontal movement.
 func _get_horizontal_input() -> void:

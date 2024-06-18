@@ -61,7 +61,7 @@ func _apply_buoyancy_force() -> void:
 		apply_central_force(global_basis.y.normalized() * float_force * ProjectSettings.get_setting("physics/3d/default_gravity") * depth_from_ocean_surface)
 
 func _calculate_depth_from_ocean_surface(state: PhysicsDirectBodyState3D) -> void:
-	var planet_data: Dictionary = State.Game.get_planet_data(State.Game.GameType.NAV)
+	var planet_data: Dictionary = State.get_planet_data(State.LevelType.NAV)
 	var flat_position: Vector3 = state.transform.basis.inverse() * global_position
 	var water_height: float = planet_data['radius']
 	depth_from_ocean_surface = water_height - flat_position.y

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cocdjpmr404u3"]
 
-[ext_resource type="Script" path="res://assets/levels/game_level.gd" id="1_6g0hx"]
+[ext_resource type="Script" path="res://assets/levels/level.gd" id="1_6g0hx"]
 
 [node name="TestMiniWorld" type="Node3D" groups=["mini_world"]]
 script = ExtResource("1_6g0hx")
