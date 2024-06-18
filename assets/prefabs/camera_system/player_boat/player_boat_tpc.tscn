@@ -4,3 +4,4 @@
 
 [node name="PlayerBoatTPC" instance=ExtResource("1_o6msj")]
 spring_length = 15.0
+adjusting_basis = false

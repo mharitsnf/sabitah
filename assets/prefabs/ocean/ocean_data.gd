@@ -62,7 +62,7 @@ func _calculate_offset(delta: float) -> void:
         var xz_vel: Vector3 = Vector3(flat_vel.x, 0, flat_vel.z)
         offset += xz_vel * delta
     else:
-        var current_flat_pos : Vector3 = initial_basis * target.global_position
+        var current_flat_pos : Vector3 = initial_basis.inverse() * target.global_position
         current_flat_pos.y = 0
         offset = current_flat_pos - initial_position
 

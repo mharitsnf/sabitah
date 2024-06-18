@@ -4,3 +4,4 @@
 
 [node name="PlayerBoatFPC" instance=ExtResource("1_f5vbr")]
 offset = Vector3(0, 12, 0)
+adjusting_basis = false

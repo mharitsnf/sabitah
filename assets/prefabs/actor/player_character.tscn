@@ -21,7 +21,7 @@ rotation_weight = 10.0
 visual_node = NodePath("CollisionShape3D/Meshes")
 normal_target = NodePath("CollisionShape3D")
 
-[node name="ReferenceManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
+[node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
 script = ExtResource("2_rl4tg")
 third_person_camera = NodePath("../PlayerCharacterTPC")
 first_person_camera = NodePath("../PlayerCharacterFPC")

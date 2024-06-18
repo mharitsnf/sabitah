@@ -13,12 +13,13 @@ points = PackedVector3Array(-0.4432, -0.0914739, -3.65871, 0.48322, -0.0826591, 
 lock_rotation = true
 angular_damp = 2.0
 script = ExtResource("1_8xmt2")
-move_speed = 15.0
+move_speed = 30.0
 brake_speed = 10.0
+xz_speed_limit = 20.0
 adjust_to_water_normal = true
 normal_target = NodePath("CollisionShape3D")
 
-[node name="ReferenceManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
+[node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
 script = ExtResource("1_lco5q")
 third_person_camera = NodePath("../PlayerBoatTPC")
 first_person_camera = NodePath("../PlayerBoatFPC")
