@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://assets/player_actor_manager/player_actor_manager.gd" id="1_05u3t"]
 
-[node name="PlayerActorManager" type="Node"]
+[node name="PlayerActorManager" type="Node" groups=["PAM"]]
 script = ExtResource("1_05u3t")

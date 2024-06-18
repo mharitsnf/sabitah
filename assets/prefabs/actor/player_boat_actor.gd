@@ -1,5 +1,7 @@
 class_name PlayerBoatActor extends BoatActor
 
+@export var dropoff_point: Marker3D
+
 var forward_input: float = 0.
 var brake_input: float = 0.
 var lr_input: float = 0.
@@ -12,9 +14,18 @@ func _process(_delta: float) -> void:
 	_rotate_visuals(lr_input)
 
 func player_input_process(_delta: float) -> void:
+	_get_exit_boat_input()
 	_get_forward_input()
 	_get_brake_input()
 	_get_lr_input()
+
+func _get_exit_boat_input() -> void:
+	if Input.is_action_just_pressed("switch_actor"):
+		if State.Game.game_pam.transitioning: return
+		
+		var next_pd: PlayerActorManager.PlayerData = State.Game.game_pam.get_player_data(PlayerActorManager.PlayerActors.CHARACTER)
+		next_pd.get_instance().position = dropoff_point.global_position
+		State.Game.game_pam.change_player_data(next_pd)
 
 ## Private. Polls the gas / forward input from the player.
 func _get_forward_input() -> void:

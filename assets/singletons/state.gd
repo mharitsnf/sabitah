@@ -26,6 +26,9 @@ class Game extends RefCounted:
         GameType.NAV: GameData.new(GameType.NAV),
     }
 
+    ## Reference to the game scene's PlayerActorManager.
+    static var game_pam: PlayerActorManager
+
     const PLANET_RADIUS : float = 1485.6
     const GRAVITY_RADIUS_SCALE: float = 2.
     const MAIN_TO_NAV_SCALE: float = .05

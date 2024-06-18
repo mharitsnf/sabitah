@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://owvya8o67o8w"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/player_character_actor.gd" id="1_wl6cc"]
-[ext_resource type="Script" path="res://assets/prefabs/reference_manager/player_reference_manager.gd" id="2_rl4tg"]
+[ext_resource type="Script" path="res://assets/prefabs/player_managers/player_camera_manager.gd" id="2_el2ug"]
 [ext_resource type="PackedScene" uid="uid://bihp1xu32e3qd" path="res://assets/prefabs/camera_system/player_character/player_character_tpc.tscn" id="2_xgva6"]
 [ext_resource type="PackedScene" uid="uid://ji6wwvaddy0" path="res://assets/prefabs/camera_system/player_character/player_character_fpc.tscn" id="3_8vimr"]
 
@@ -22,7 +22,7 @@ visual_node = NodePath("CollisionShape3D/Meshes")
 normal_target = NodePath("CollisionShape3D")
 
 [node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
-script = ExtResource("2_rl4tg")
+script = ExtResource("2_el2ug")
 third_person_camera = NodePath("../PlayerCharacterTPC")
 first_person_camera = NodePath("../PlayerCharacterFPC")
 
