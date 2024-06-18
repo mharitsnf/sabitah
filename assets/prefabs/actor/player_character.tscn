@@ -12,11 +12,14 @@
 [sub_resource type="BoxMesh" id="BoxMesh_bgxi2"]
 size = Vector3(0.5, 0.25, 0.25)
 
-[node name="PlayerCharacter" type="RigidBody3D"]
+[node name="PlayerCharacter" type="RigidBody3D" node_paths=PackedStringArray("visual_node", "normal_target")]
 lock_rotation = true
 linear_damp = 2.0
 script = ExtResource("1_wl6cc")
 move_speed = 15.0
+rotation_weight = 10.0
+visual_node = NodePath("CollisionShape3D/Meshes")
+normal_target = NodePath("CollisionShape3D")
 
 [node name="ReferenceManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
 script = ExtResource("2_rl4tg")

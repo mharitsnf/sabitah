@@ -32,7 +32,8 @@ class PlayerData extends RefCounted:
         assert(_reference_manager)
 
 var player_data_dict: Dictionary = {
-    PlayerActors.CHARACTER: PlayerData.new(preload("res://assets/prefabs/actor/player_character.tscn"))
+    PlayerActors.CHARACTER: PlayerData.new(preload("res://assets/prefabs/actor/player_character.tscn")),
+    PlayerActors.BOAT: PlayerData.new(preload("res://assets/prefabs/actor/player_boat.tscn"))
 }
 
 var previous_player_data: PlayerData

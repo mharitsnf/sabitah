@@ -1,8 +1,8 @@
 class_name BaseActor extends RigidBody3D
 
-@export_group("Buoyancy settings")
-@export_subgroup("Horizontal Movement")
+@export_group("Horizontal movement")
 @export var xz_speed_limit: float = 7.5
+@export_group("Buoyancy settings")
 @export_subgroup("Water normal settings")
 ## If true, the [normal_target] will adjust its rotation along the water surface normal.
 @export var adjust_to_water_normal: bool = false
@@ -77,7 +77,11 @@ func is_submerged() -> bool:
 const BASIS_LERP_WEIGHT: float = 5.
 ## Private. Adjusts the [normal_target]'s rotation along the water surface normal.
 func _update_to_water_normal(state: PhysicsDirectBodyState3D) -> void:
-	if adjust_to_water_normal and normal_target:
+	if !normal_target:
+		push_error("_update_to_water_normal: normal_target is not assigned!")
+		return
+		
+	if adjust_to_water_normal:
 		var target_quat: Quaternion = Common.Geometry.recalculate_quaternion(normal_target.basis, current_normal) if is_submerged() else Quaternion.IDENTITY
 		normal_target.quaternion = normal_target.quaternion.slerp(target_quat, state.step * BASIS_LERP_WEIGHT)
 
