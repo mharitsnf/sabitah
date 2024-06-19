@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b37cn5qcc4lth"]
+
+[ext_resource type="Texture2D" uid="uid://bnrmlf1qu21kb" path="res://assets/resources/textures/star-512.png" id="1_wbjss"]
+
+[node name="SunMoonSprite" type="Sprite3D"]
+sorting_offset = 5942.4
+cast_shadow = 0
+extra_cull_margin = 16384.0
+gi_mode = 0
+billboard = 1
+double_sided = false
+texture = ExtResource("1_wbjss")

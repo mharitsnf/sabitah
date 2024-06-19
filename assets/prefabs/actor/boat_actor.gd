@@ -30,6 +30,6 @@ func _brake(strength: float) -> void:
 ## Private. Rotates the boat visuals.
 func _rotate_visuals(strength: float) -> void:
     if !normal_target:
-        push_error("_rotate_visuals: normal target is not assigned!")
+        push_error("Normal target is not assigned!")
         return
     normal_target.rotate_object_local(Vector3.UP, get_process_delta_time() * -strength * rotation_weight)

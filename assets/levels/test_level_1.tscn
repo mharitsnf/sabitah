@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=16 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
+[ext_resource type="PackedScene" uid="uid://c8ywta7cboshe" path="res://assets/prefabs/sun_moon_manager/game_sun_moon_manager.tscn" id="2_46lh5"]
 [ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity_areas/main_gravity_area.tscn" id="2_jdiks"]
 [ext_resource type="PackedScene" uid="uid://bnaadx2owlxa8" path="res://assets/prefabs/planet_bodies/main_planet_body.tscn" id="3_04ued"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
@@ -25,9 +26,7 @@ script = ExtResource("1_4i1xa")
 
 [node name="Environment" type="Node" parent="."]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 0.798635, 0.601815, 0, -0.601815, 0.798635, 0, 1497.7, 0)
-shadow_enabled = true
+[node name="GameSunMoonManager" parent="Environment" instance=ExtResource("2_46lh5")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_f3y7e")
@@ -58,7 +57,7 @@ skeleton = NodePath("../..")
 [node name="PlayerActorController" parent="." instance=ExtResource("11_ni3kg")]
 
 [node name="PlayerBoat" parent="PlayerActorController" instance=ExtResource("10_nw3w6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
+transform = Transform3D(-0.011856, -0.999917, 0.0049834, 0.999762, -0.0117626, 0.0183649, -0.0183048, 0.00519994, 0.999819, -1485.48, -17.4746, 7.72504)
 
 [node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
 transform = Transform3D(0.99947, -0.00807827, -0.0315495, 0.00799244, 0.999964, -0.00284574, 0.0315714, 0.00259207, 0.999498, -12.0011, 1485.55, 3.85078)

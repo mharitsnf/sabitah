@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8ywta7cboshe"]
+[gd_scene load_steps=6 format=3 uid="uid://c8ywta7cboshe"]
 
 [ext_resource type="Script" path="res://assets/prefabs/sun_moon_manager/sun_moon_manager.gd" id="1_st3em"]
 [ext_resource type="PackedScene" uid="uid://tk486pqtvspa" path="res://assets/prefabs/sun_moon_light/game_lights/game_sun.tscn" id="2_ne4qu"]
+[ext_resource type="PackedScene" uid="uid://djou7nwdry7kn" path="res://assets/prefabs/sun_moon_sprites/game_sprites/game_sun_sprite.tscn" id="3_tl482"]
 [ext_resource type="PackedScene" uid="uid://ba6ciwlcm7r6t" path="res://assets/prefabs/sun_moon_light/game_lights/game_moon.tscn" id="3_u1oms"]
+[ext_resource type="PackedScene" uid="uid://cx0fnso7ddxjj" path="res://assets/prefabs/sun_moon_sprites/game_sprites/game_moon_sprite.tscn" id="5_7joao"]
 
 [node name="GameSunMoonManager" type="Node3D" node_paths=PackedStringArray("sun", "moon")]
 script = ExtResource("1_st3em")
@@ -11,4 +13,12 @@ moon = NodePath("MoonLight")
 
 [node name="SunLight" parent="." instance=ExtResource("2_ne4qu")]
 
+[node name="GameSunSprite" parent="SunLight" instance=ExtResource("3_tl482")]
+sorting_offset = 1485.6
+extra_cull_margin = 0.0
+
 [node name="MoonLight" parent="." instance=ExtResource("3_u1oms")]
+
+[node name="GameMoonSprite" parent="MoonLight" instance=ExtResource("5_7joao")]
+sorting_offset = 1485.6
+extra_cull_margin = 0.0

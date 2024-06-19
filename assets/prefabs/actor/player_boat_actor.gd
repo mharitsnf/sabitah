@@ -7,7 +7,7 @@ var brake_input: float = 0.
 var lr_input: float = 0.
 
 func _physics_process(_delta: float) -> void:
-	_move_forward(normal_target.basis, forward_input)
+	_move_forward(normal_target.global_basis, forward_input)
 	_brake(brake_input)
 
 func _process(_delta: float) -> void:

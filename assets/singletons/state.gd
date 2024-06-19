@@ -66,7 +66,8 @@ func get_planet_data(type: LevelType) -> Dictionary:
         _: applied_scale = 1.
     
     return {
-        "radius": State.PLANET_RADIUS * applied_scale
+        "radius": State.PLANET_RADIUS * applied_scale,
+        "sun_moon_distance": State.PLANET_RADIUS * applied_scale * SUN_MOON_RADIUS_SCALE
     }
 
 ## Returns gravitational data (e.g., radius, gravity strength).

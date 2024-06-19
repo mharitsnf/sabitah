@@ -132,6 +132,7 @@ float linear_depth(float value, vec2 screen_uv, mat4 inv_pro_mat) {
 void fragment() {
 	// === SETUP
 	vec2 scaled_uv = UV + (movement_offset.xz / (plane_size * movement_offset_scale));
+	//vec3 normal = texture(texture_normal, scaled_uv).rgb;
 	vec3 normal = mix(
 		texture(texture_normal, scaled_uv).rgb,
 		texture(texture_normal2, scaled_uv).rgb,

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba6ciwlcm7r6t"]
+[gd_scene load_steps=3 format=3 uid="uid://ba6ciwlcm7r6t"]
 
 [ext_resource type="Script" path="res://assets/prefabs/sun_moon_light/sun_moon_light.gd" id="1_dd0ax"]
+[ext_resource type="Curve" uid="uid://bgclyurlji81s" path="res://assets/resources/curves/moon_intensity_curve.tres" id="2_vor0f"]
 
 [node name="MoonLight" type="DirectionalLight3D"]
+shadow_enabled = true
 script = ExtResource("1_dd0ax")
 adjust_intensity = true
-max_intensity = 0.2
+intensity_curve = ExtResource("2_vor0f")

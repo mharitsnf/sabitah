@@ -54,6 +54,9 @@ func _set_existing_instances() -> void:
 
         idx += 1
 
+func get_active_scene_type() -> Scenes:
+    return current_scene_data.get_key()
+
 ## Function for switching active scenes.
 func switch_scene(target_scene: Scenes) -> void:
     if current_scene_data and current_scene_data.get_key() == target_scene:
