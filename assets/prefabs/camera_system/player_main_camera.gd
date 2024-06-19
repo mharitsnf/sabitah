@@ -1,6 +1,5 @@
 class_name PlayerMainCamera extends MainCamera
 
-
 func _process(delta: float) -> void:
     super(delta)
     if current_follow_data:

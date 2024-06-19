@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cojme1jiv7anq"]
+
+[ext_resource type="PackedScene" uid="uid://b2w78i20fkt68" path="res://assets/prefabs/sun_moon_light/sun_moon_light.tscn" id="1_srf37"]
+
+[node name="GlobeSun" instance=ExtResource("1_srf37")]
+light_energy = 0.6
+level_type = 2

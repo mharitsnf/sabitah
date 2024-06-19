@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2w78i20fkt68"]
+
+[ext_resource type="Script" path="res://assets/prefabs/sun_moon_light/sun_moon_light.gd" id="1_2idx6"]
+
+[node name="SunMoonLight" type="DirectionalLight3D"]
+shadow_enabled = true
+script = ExtResource("1_2idx6")
