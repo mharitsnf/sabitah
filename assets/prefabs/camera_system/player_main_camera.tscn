@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://assets/prefabs/camera_system/player_main_camera.gd" id="1_ahu2v"]
 
 [node name="PlayerMainCamera" type="Camera3D" groups=["main_camera"]]
+far = 8000.0
 script = ExtResource("1_ahu2v")
 
 [connection signal="transition_finished" from="." to="." method="_transition_finished"]
