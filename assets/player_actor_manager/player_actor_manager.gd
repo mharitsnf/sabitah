@@ -12,6 +12,7 @@ class PlayerData extends RefCounted:
 	var _pscn: PackedScene
 	var _instance: Node3D
 	var _camera_manager: PlayerCameraManager
+	var _player_controller: PlayerController
 
 	func _init(__pscn: PackedScene = null) -> void:
 		if __pscn: _pscn = __pscn
@@ -21,6 +22,9 @@ class PlayerData extends RefCounted:
 
 	func get_instance() -> Node3D:
 		return _instance
+
+	func get_controller() -> PlayerController:
+		return _player_controller
 
 	func get_camera_manager() -> PlayerCameraManager:
 		return _camera_manager
@@ -32,6 +36,8 @@ class PlayerData extends RefCounted:
 	func set_instance(__instance: Node3D) -> void:
 		assert(__instance)
 		assert(__instance.has_node("CameraManager"))
+		assert(__instance.has_node("Controller"))
+
 		_set_instance(__instance)
 	
 	## Creates a new instance from the [_pscn].
@@ -40,6 +46,7 @@ class PlayerData extends RefCounted:
 
 		var tmp_instance: Node3D = _pscn.instantiate()
 		assert(tmp_instance.has_node("CameraManager"))
+		assert(tmp_instance.has_node("Controller"))
 
 		_set_instance(tmp_instance)
 
@@ -47,10 +54,16 @@ class PlayerData extends RefCounted:
 	func _set_instance(__instance: Node3D) -> void:
 		_instance = __instance
 		_camera_manager = _instance.get_node("CameraManager")
+		_player_controller = _instance.get_node("Controller")
+
+@export var player_actor_pscns: Dictionary = {
+	PlayerActors.BOAT: null,
+	PlayerActors.CHARACTER: null,
+}
 
 var player_data_dict: Dictionary = {
-	PlayerActors.CHARACTER: PlayerData.new(preload("res://assets/prefabs/actor/player_character.tscn")),
-	PlayerActors.BOAT: PlayerData.new(preload("res://assets/prefabs/actor/player_boat.tscn"))
+	PlayerActors.BOAT: null,
+	PlayerActors.CHARACTER: null,
 }
 
 var previous_player_data: PlayerData
@@ -75,8 +88,8 @@ func _ready() -> void:
 	assert(ocean_data)
 	assert(menu_layer)
 
+	_create_player_data()
 	_set_existing_instances()
-	_remove_other_actors()
 	_create_actor_instances()
 	_initiate_current_player_data()
 
@@ -84,24 +97,22 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !current_player_data: return
 	if !current_player_data.get_instance(): return
+	if !current_player_data.get_controller(): return
 	if menu_layer and menu_layer.has_active_menu(): return
 
 	_get_switch_camera_input()
 
-	if current_player_data.get_instance().has_method("delegated_process"):
-		current_player_data.get_instance().delegated_process(delta)
-	
-	if current_player_data.get_instance().has_method("player_input_process"):
-		current_player_data.get_instance().player_input_process(delta)
+	current_player_data.get_controller().delegated_process(delta)
+	current_player_data.get_controller().player_input_process(delta)
 
 # Run the delegated player unhandled input
 func _unhandled_input(event: InputEvent) -> void:
 	if !current_player_data: return
 	if !current_player_data.get_instance(): return
+	if !current_player_data.get_controller(): return
 	if menu_layer and menu_layer.has_active_menu(): return
 	
-	if current_player_data.get_instance().has_method("player_unhandled_input"):
-		current_player_data.get_instance().player_unhandled_input(event)
+	current_player_data.get_controller().player_unhandled_input(event)
 
 # region Inputs
 
@@ -170,6 +181,11 @@ func _set_current_light_type(value: LightType) -> void:
 
 # region Initialization
 
+func _create_player_data() -> void:
+	for k: PlayerActors in player_actor_pscns.keys():
+		if player_actor_pscns[k] is PackedScene:
+			player_data_dict[k] = PlayerData.new(player_actor_pscns[k])
+
 ## Private. Register existing children as instances in the [player_data_dict].
 func _set_existing_instances() -> void:
 	if get_child_count() == 0: return
@@ -193,16 +209,10 @@ func _create_actor_instances() -> void:
 		if pd.get_instance(): continue
 		pd.create_instance()
 
-## Private. Remove children other than the first children from the scene tree.
-func _remove_other_actors() -> void:
-	if get_child_count() > 1:
-		var children: Array[Node] = get_children()
-		children.pop_front()
-		for c: Node in children:
-			remove_child.call_deferred(c)
-
 func _initiate_current_player_data() -> void:
 	if current_player_data: return
 	if get_child_count() == 0:
-		(player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance().position = Vector3(0., State.PLANET_RADIUS, 0.)
+		add_child.call_deferred((player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance())
+		await (player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance().tree_entered
+		(player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance().global_position = Vector3(0., State.PLANET_RADIUS, 0.)
 		change_player_data(player_data_dict[PlayerActors.BOAT] as PlayerData)

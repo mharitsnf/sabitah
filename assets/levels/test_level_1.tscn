@@ -10,9 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://dib7m5a41lrgf" path="res://assets/levels/nav_world.tscn" id="5_jphay"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
-[ext_resource type="PackedScene" uid="uid://bdk083w4nwcgc" path="res://assets/prefabs/actor/player_boat.tscn" id="10_nw3w6"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/player_actor_manager/player_actor_manager.tscn" id="11_ni3kg"]
+[ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://8rve6jcq5kyi" path="res://assets/prefabs/actor/ai_actor.tscn" id="12_yh4gp"]
 [ext_resource type="PackedScene" uid="uid://dtnook2vegfb2" path="res://assets/prefabs/navigation/target/navigation_target.tscn" id="13_qjase"]
 
@@ -46,7 +46,7 @@ environment = SubResource("Environment_f3y7e")
 
 [node name="OceanData" parent="Oceans" node_paths=PackedStringArray("target") instance=ExtResource("8_gte18")]
 unique_name_in_owner = true
-target = NodePath("../../PlayerActorController/PlayerBoat")
+target = NodePath("../../PlayerActorController/PlayerBoatActor")
 
 [node name="Ocean" parent="Oceans" instance=ExtResource("3_f1v4r")]
 skeleton = NodePath("../..")
@@ -59,8 +59,8 @@ skeleton = NodePath("../..")
 
 [node name="PlayerActorController" parent="." instance=ExtResource("11_ni3kg")]
 
-[node name="PlayerBoat" parent="PlayerActorController" instance=ExtResource("10_nw3w6")]
-transform = Transform3D(0.128393, 0.990879, -0.0409199, -0.952148, 0.111624, -0.284525, -0.277362, 0.0754927, 0.957795, 1472.05, 165.829, 112.152)
+[node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
 
 [node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
 transform = Transform3D(0.99947, -0.00807827, -0.0315495, 0.00799244, 0.999964, -0.00284574, 0.0315714, 0.00259207, 0.999498, -12.0011, 1485.55, 3.85078)
