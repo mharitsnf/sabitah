@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=17 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/nav_sub_viewport.tscn" id="4_qbgsx"]
 [ext_resource type="PackedScene" uid="uid://dib7m5a41lrgf" path="res://assets/levels/nav_world.tscn" id="5_jphay"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
+[ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
 [ext_resource type="PackedScene" uid="uid://bdk083w4nwcgc" path="res://assets/prefabs/actor/player_boat.tscn" id="10_nw3w6"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/player_actor_manager/player_actor_manager.tscn" id="11_ni3kg"]
@@ -54,10 +55,12 @@ skeleton = NodePath("../..")
 
 [node name="PlayerMainCamera" parent="Camera" instance=ExtResource("1_r30bq")]
 
+[node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("10_bq821")]
+
 [node name="PlayerActorController" parent="." instance=ExtResource("11_ni3kg")]
 
 [node name="PlayerBoat" parent="PlayerActorController" instance=ExtResource("10_nw3w6")]
-transform = Transform3D(0.9998, -0.00175112, 0.01991, 0.0016361, 0.999982, 0.00579185, -0.0199198, -0.00575812, 0.999785, -2.60147, 1485.57, -8.55426)
+transform = Transform3D(0.0608672, 0.996355, -0.0597692, -0.968876, 0.0445814, -0.243501, -0.239949, 0.0727301, 0.968057, 1480.18, 66.2301, 108.048)
 
 [node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
 transform = Transform3D(0.99947, -0.00807827, -0.0315495, 0.00799244, 0.999964, -0.00284574, 0.0315714, 0.00259207, 0.999498, -12.0011, 1485.55, 3.85078)

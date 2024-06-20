@@ -1,5 +1,7 @@
 extends Node
 
+# region Constants
+
 ## The radius of the main planet.
 const PLANET_RADIUS: float = 1485.6
 ## Amount of seconds in a day.
@@ -41,8 +43,18 @@ var world_dict: Dictionary = {
     LevelType.GLOBE: GameData.new(LevelType.GLOBE)
 }
 
+# region References
+
 ## Reference to the game scene's PlayerActorManager.
 var game_pam: PlayerActorManager
+
+var game_camera: Camera3D
+var globe_camera: Camera3D
+
+var game_sun: DirectionalLight3D
+var globe_sun: DirectionalLight3D
+
+# region Setters and getters
 
 func set_level(type: LevelType, level: Node) -> void:
     (world_dict[type] as GameData).set_level(level)

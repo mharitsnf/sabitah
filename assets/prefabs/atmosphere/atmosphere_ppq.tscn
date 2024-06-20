@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d683pks54vrf"]
+
+[ext_resource type="Material" uid="uid://bhwk1j6lcw3f2" path="res://assets/resources/materials/m_atmosphere.tres" id="1_1yvjx"]
+[ext_resource type="Script" path="res://assets/prefabs/atmosphere/atmosphere.gd" id="1_3c3ew"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_fe8aq"]
+material = ExtResource("1_1yvjx")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="AtmospherePPQ" type="MeshInstance3D"]
+sorting_offset = -1000.0
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_fe8aq")
+script = ExtResource("1_3c3ew")

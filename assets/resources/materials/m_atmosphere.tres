@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bhwk1j6lcw3f2"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/atmospheric_scattering.gdshader" id="1_k7ue5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_k7ue5")
+shader_parameter/fov = 0.0
+shader_parameter/planet_center = null
+shader_parameter/sun_center = null
+shader_parameter/planet_radius = null
+shader_parameter/atmosphere_radius = null
+shader_parameter/optical_depth_sample_size = 10
+shader_parameter/in_scattering_sample_size = 10
+shader_parameter/r_scattering_coefficients = null
+shader_parameter/r_density_falloff = null
+shader_parameter/m_scattering_coefficients = null
+shader_parameter/m_density_falloff = null
+shader_parameter/density_falloff_strength = null
+shader_parameter/optical_depth_strength = null
+shader_parameter/is_accelerated = null
+shader_parameter/f_exposure = null

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dllb6gb77txlc"]
+[gd_scene load_steps=11 format=3 uid="uid://dllb6gb77txlc"]
 
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
 [ext_resource type="PackedScene" uid="uid://dlwgk43fjx6sh" path="res://assets/prefabs/sun_moon_manager/globe_sun_moon_manager.tscn" id="2_0v6h4"]
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_2047r"]
 [ext_resource type="Resource" uid="uid://cs84dcb1uccxs" path="res://assets/resources/camera_clamp_settings/globe_tpc.tres" id="3_0of1s"]
+[ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
 
 [sub_resource type="Environment" id="Environment_capf0"]
 background_mode = 1
@@ -44,7 +45,11 @@ skeleton = NodePath("../..")
 shape = SubResource("SphereShape3D_xhskh")
 
 [node name="PlayerMainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_4fsy1")]
+level_type = 2
 follow_target = NodePath("../Cameras/ThirdPersonCamera")
+
+[node name="AtmospherePPQ" parent="PlayerMainCamera" instance=ExtResource("4_le2kd")]
+level_type = 2
 
 [node name="Cameras" type="Node" parent="."]
 

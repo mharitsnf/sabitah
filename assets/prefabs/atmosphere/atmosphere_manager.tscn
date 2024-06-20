@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://5qe5j6rsx0n5"]
+
+[ext_resource type="Script" path="res://assets/prefabs/atmosphere/atmosphere_manager.gd" id="1_8vpco"]
+
+[node name="AtmosphereManager" type="Node" groups=["atmosphere_manager"]]
+script = ExtResource("1_8vpco")
+is_accelerated = true
+od_tex_filename = "testing"
+optical_depth_sample_size = 10
+in_scattering_sample_size = 15
+r_density_falloff = 200.0
+r_exponent = 4.5
+r_numerator = 380.0
+r_scattering_strength = 0.01
+m_density_falloff = 200.0
+m_scattering_strength = 0.1
+density_falloff_strength = 0.2
+optical_depth_strength = 3.5
+wavelengths = Vector3(700, 530, 440)
+f_exposure = 2.0

@@ -7,4 +7,5 @@ cast_shadow = 0
 gi_mode = 0
 billboard = 1
 double_sided = false
+alpha_cut = 1
 texture = ExtResource("1_wbjss")

@@ -9,3 +9,4 @@ wave_data_2 = Vector4(0.01, 75, 0.4, 0.74)
 wave_data_3 = Vector4(0.03, 45, 0.49, 0.405)
 wave_data_4 = Vector4(0.015, 65, 0.345, 0.615)
 wave_data_5 = Vector4(0.03, 41, 0.595, 0.87)
+speed = 0.25
