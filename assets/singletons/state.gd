@@ -21,10 +21,6 @@ enum LevelType {
     MAIN, NAV, GLOBE, NONE
 }
 
-enum CameraType {
-    NORMAL, SUNDIAL
-}
-
 class GameData extends RefCounted:
     var _key: LevelType
     var _level: Node

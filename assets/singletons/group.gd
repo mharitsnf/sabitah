@@ -1,5 +1,8 @@
 extends Node
 
+func all(group_name: String) -> Array[Node]:
+    return get_tree().get_nodes_in_group(group_name)
+
 ## Add a [node] to a group of name [group_name].
 func add(group_name: String, node: Node) -> void:
     if !node.is_in_group(group_name):

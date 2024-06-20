@@ -15,6 +15,7 @@ func _process(_delta: float) -> void:
 
 func player_input_process(_delta: float) -> void:
 	_get_exit_boat_input()
+	_get_enter_boat_sundial_input()
 	_get_forward_input()
 	_get_brake_input()
 	_get_lr_input()
@@ -26,6 +27,14 @@ func _get_exit_boat_input() -> void:
 		var next_pd: PlayerActorManager.PlayerData = State.game_pam.get_player_data(PlayerActorManager.PlayerActors.CHARACTER)
 		next_pd.get_instance().position = dropoff_point.global_position
 		State.game_pam.change_player_data(next_pd)
+
+func _get_enter_boat_sundial_input() -> void:
+	if Input.is_action_just_pressed("toggle_boat_sundial"):
+		if State.game_pam.transitioning: return
+
+		var sundial_pd: PlayerActorManager.PlayerData = PlayerActorManager.PlayerData.new()
+		sundial_pd.set_instance(%BoatSundialManager)
+		State.game_pam.change_player_data(sundial_pd)
 
 ## Private. Polls the gas / forward input from the player.
 func _get_forward_input() -> void:

@@ -1,35 +1,52 @@
 class_name PlayerActorManager extends Node
 
 enum PlayerActors {
-	CHARACTER, BOAT
+	CHARACTER, BOAT, SUNDIAL
+}
+
+enum LightType {
+	NORMAL, SUNDIAL
 }
 
 class PlayerData extends RefCounted:
 	var _pscn: PackedScene
-	var _instance: BaseActor
+	var _instance: Node3D
 	var _camera_manager: PlayerCameraManager
 
-	func _init(__pscn: PackedScene) -> void:
-		_pscn = __pscn
+	func _init(__pscn: PackedScene = null) -> void:
+		if __pscn: _pscn = __pscn
 
 	func get_pscn() -> PackedScene:
 		return _pscn
 
-	func get_instance() -> BaseActor:
+	func get_instance() -> Node3D:
 		return _instance
 
 	func get_camera_manager() -> PlayerCameraManager:
 		return _camera_manager
 
-	func set_instance(__instance: BaseActor) -> void:
+	func set_pscn(__pscn: PackedScene) -> void:
+		_pscn = __pscn
+
+	## Sets [_instance] from an existing node.
+	func set_instance(__instance: Node3D) -> void:
+		assert(__instance)
+		assert(__instance.has_node("CameraManager"))
+		_set_instance(__instance)
+	
+	## Creates a new instance from the [_pscn].
+	func create_instance() -> void:
+		assert(_pscn)
+
+		var tmp_instance: Node3D = _pscn.instantiate()
+		assert(tmp_instance.has_node("CameraManager"))
+
+		_set_instance(tmp_instance)
+
+	## Private. Helper function for setting [_instance] and [_camera_manager].
+	func _set_instance(__instance: Node3D) -> void:
 		_instance = __instance
 		_camera_manager = _instance.get_node("CameraManager")
-		assert(_camera_manager)
-	
-	func create_instance() -> void:
-		_instance = _pscn.instantiate()
-		_camera_manager = _instance.get_node("CameraManager")
-		assert(_camera_manager)
 
 var player_data_dict: Dictionary = {
 	PlayerActors.CHARACTER: PlayerData.new(preload("res://assets/prefabs/actor/player_character.tscn")),
@@ -38,6 +55,8 @@ var player_data_dict: Dictionary = {
 
 var previous_player_data: PlayerData
 var current_player_data: PlayerData
+
+var current_light_type: LightType = LightType.NORMAL: set = _set_current_light_type
 
 var transitioning: bool = false
 
@@ -68,8 +87,12 @@ func _process(delta: float) -> void:
 	if menu_layer and menu_layer.has_active_menu(): return
 
 	_get_switch_camera_input()
-	current_player_data.get_instance().delegated_process(delta)
-	current_player_data.get_instance().player_input_process(delta)
+
+	if current_player_data.get_instance().has_method("delegated_process"):
+		current_player_data.get_instance().delegated_process(delta)
+	
+	if current_player_data.get_instance().has_method("player_input_process"):
+		current_player_data.get_instance().player_input_process(delta)
 
 # Run the delegated player unhandled input
 func _unhandled_input(event: InputEvent) -> void:
@@ -77,7 +100,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if !current_player_data.get_instance(): return
 	if menu_layer and menu_layer.has_active_menu(): return
 	
-	current_player_data.get_instance().player_unhandled_input(event)
+	if current_player_data.get_instance().has_method("player_unhandled_input"):
+		current_player_data.get_instance().player_unhandled_input(event)
 
 # region Inputs
 
@@ -108,30 +132,46 @@ func change_player_data(new_pd: PlayerData) -> Array:
 
 	transitioning = true
 
+	# Add the instance if its not inside the tree yet.
+	if !new_pd.get_instance().is_inside_tree():
+		add_child.call_deferred(new_pd.get_instance())
+		await new_pd.get_instance().tree_entered
+
+	# if we have a current player data, move it to previous
 	if current_player_data:
 		previous_player_data = current_player_data
 
+	# Set the new_pd as the current player data
 	current_player_data = new_pd
 	
-	# Add the instance if its not inside the tree yet.
-	if !current_player_data.get_instance().is_inside_tree():
-		add_child.call_deferred(current_player_data.get_instance())
-		await current_player_data.get_instance().tree_entered
+	# Update the current game light status
+	if new_pd.get_instance() is SundialManager:
+		current_light_type = LightType.SUNDIAL
+	else:
+		current_light_type = LightType.NORMAL
 
 	# Switch to the new actor's entry camera
 	var entry_cam: VirtualCamera = new_pd.get_camera_manager().get_entry_camera()
 	main_camera.follow_target = entry_cam
 	new_pd.get_camera_manager().set_current_camera(entry_cam)
 
-	# Make ocean switch to follow the new actor
-	ocean_data.target = new_pd.get_instance()
+	# Make ocean switch to follow the new actor if the new instance is a base actor.
+	if new_pd.get_instance() is BaseActor:
+		ocean_data.target = new_pd.get_instance()
 
 	# Wait for all transition to be finished
 	await main_camera.transition_finished
-
+	
 	transitioning = false
 
 	return [true, previous_player_data]
+
+func _set_current_light_type(value: LightType) -> void:
+	current_light_type = value
+
+	for light: Node in Group.all("game_light"):
+		if light.has_method("start_shadow_transition"):
+			(light as SunMoonLight).start_shadow_transition(value)
 
 # region Initialization
 
