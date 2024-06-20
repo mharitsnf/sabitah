@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cwwsx514skmpg"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/toon_shader.gdshader" id="1_h5t75"]
+[ext_resource type="Texture2D" uid="uid://m2xh15raxl0f" path="res://assets/resources/textures/latitude_measure.png" id="2_k5qbk"]
+
+[sub_resource type="Gradient" id="Gradient_1v6w7"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0.489152, 0.524655)
+colors = PackedColorArray(0.33, 0.33, 0.33, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jm8w1"]
+gradient = SubResource("Gradient_1v6w7")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_h5t75")
+shader_parameter/_roughness = 1.0
+shader_parameter/_metallic = null
+shader_parameter/posterize_levels = 10.0
+shader_parameter/albedo_tex = ExtResource("2_k5qbk")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_jm8w1")

@@ -60,7 +60,7 @@ skeleton = NodePath("../..")
 [node name="PlayerActorController" parent="." instance=ExtResource("11_ni3kg")]
 
 [node name="PlayerBoat" parent="PlayerActorController" instance=ExtResource("10_nw3w6")]
-transform = Transform3D(0.0608672, 0.996355, -0.0597692, -0.968876, 0.0445814, -0.243501, -0.239949, 0.0727301, 0.968057, 1480.18, 66.2301, 108.048)
+transform = Transform3D(0.986945, 0.00616818, 0.160939, -0.0060118, 0.999981, -0.00145855, -0.160945, 0.000471974, 0.986963, 9.16344, 1485.57, 0.701164)
 
 [node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
 transform = Transform3D(0.99947, -0.00807827, -0.0315495, 0.00799244, 0.999964, -0.00284574, 0.0315714, 0.00259207, 0.999498, -12.0011, 1485.55, 3.85078)

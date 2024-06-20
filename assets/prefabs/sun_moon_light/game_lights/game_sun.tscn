@@ -4,7 +4,7 @@
 [ext_resource type="Curve" uid="uid://bdnjraoeryfmk" path="res://assets/resources/curves/sun_intensity_curve.tres" id="2_6uu74"]
 [ext_resource type="Script" path="res://assets/prefabs/sun_moon_light/sun_light.gd" id="2_e2lv5"]
 
-[node name="GameSun" instance=ExtResource("1_8h4tl")]
+[node name="GameSun" groups=["game_light"] instance=ExtResource("1_8h4tl")]
 script = ExtResource("2_e2lv5")
 adjust_intensity = true
 intensity_curve = ExtResource("2_6uu74")

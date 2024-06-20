@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://rruwrqnfx0tt"]
 
-[ext_resource type="PackedScene" uid="uid://dt73g81iqoeeu" path="res://assets/resources/meshes/player_boat.glb" id="1_akt8r"]
+[ext_resource type="PackedScene" uid="uid://dt73g81iqoeeu" path="res://assets/resources/models/player_boat.glb" id="1_akt8r"]
 [ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_aj3sy"]
 
 [node name="PlayerBoatMesh" instance=ExtResource("1_akt8r")]
