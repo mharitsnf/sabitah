@@ -28,13 +28,14 @@ func _ready() -> void:
 	ocean_data = Group.first("ocean_data")
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	quaternion = Common.Geometry.recalculate_quaternion(state.transform.basis, global_position.normalized())
-	_calculate_depth_from_ocean_surface(state)
-	_dampen_y_velocity(state)
-	_apply_buoyancy_force()
-	_update_to_water_normal(state)
+	if is_inside_tree():
+		quaternion = Common.Geometry.recalculate_quaternion(state.transform.basis, global_position.normalized())
+		_calculate_depth_from_ocean_surface(state)
+		_dampen_y_velocity(state)
+		_apply_buoyancy_force()
+		_update_to_water_normal(state)
 
-	_clamp_xz_velocity(state)
+		_clamp_xz_velocity(state)
 
 func delegated_process(_delta: float) -> void:
 	pass
@@ -44,6 +45,10 @@ func player_input_process(_delta: float) -> void:
 
 func player_unhandled_input(_event: InputEvent) -> void:
 	pass
+
+func setup_spawn(gpos: Vector3) -> void:
+	global_position = gpos
+	quaternion = Common.Geometry.recalculate_quaternion(basis, gpos.normalized())
 
 # region Horizontal Movement
 # =====

@@ -132,11 +132,6 @@ func change_player_data(new_pd: PlayerData) -> Array:
 
 	transitioning = true
 
-	# Add the instance if its not inside the tree yet.
-	if !new_pd.get_instance().is_inside_tree():
-		add_child.call_deferred(new_pd.get_instance())
-		await new_pd.get_instance().tree_entered
-
 	# if we have a current player data, move it to previous
 	if current_player_data:
 		previous_player_data = current_player_data

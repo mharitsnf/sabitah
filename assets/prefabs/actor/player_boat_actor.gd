@@ -25,7 +25,10 @@ func _get_exit_boat_input() -> void:
 		if State.game_pam.transitioning: return
 		
 		var next_pd: PlayerActorManager.PlayerData = State.game_pam.get_player_data(PlayerActorManager.PlayerActors.CHARACTER)
-		next_pd.get_instance().position = dropoff_point.global_position
+		State.game_pam.add_child.call_deferred(next_pd.get_instance())
+		await next_pd.get_instance().tree_entered
+		(next_pd.get_instance() as BaseActor).setup_spawn(dropoff_point.global_position)
+
 		State.game_pam.change_player_data(next_pd)
 
 func _get_enter_boat_sundial_input() -> void:
