@@ -9,6 +9,7 @@
 
 [node name="BoatSundialManager" type="Node3D" node_paths=PackedStringArray("sundial_center")]
 script = ExtResource("1_eehtv")
+latmes_rotate_speed = 3.0
 sundial_center = NodePath("SundialCenter")
 latitude_measure_pscn = ExtResource("2_2bnag")
 sundial_pscn = ExtResource("3_rthr2")

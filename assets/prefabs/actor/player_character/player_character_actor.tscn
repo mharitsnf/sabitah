@@ -57,6 +57,7 @@ actor = NodePath("..")
 
 [node name="Grounded" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]
 script = ExtResource("6_gidt1")
+variable_time_limit = 0.1
 jump_curve = ExtResource("7_d8cu7")
 actor = NodePath("../..")
 controller = NodePath("..")

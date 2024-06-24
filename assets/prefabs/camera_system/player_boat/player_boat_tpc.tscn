@@ -3,5 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="1_o6msj"]
 
 [node name="PlayerBoatTPC" instance=ExtResource("1_o6msj")]
+offset = Vector3(0, 4, 0)
+spring_arm_collision_mask = 16
 spring_length = 15.0
 adjusting_basis = false

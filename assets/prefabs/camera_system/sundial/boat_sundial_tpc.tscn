@@ -3,5 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="1_ytjvp"]
 
 [node name="BoatSundialTPC" instance=ExtResource("1_ytjvp")]
-spring_length = 2.5
+spring_length = 1.5
 adjusting_basis = false

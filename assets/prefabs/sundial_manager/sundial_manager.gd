@@ -24,33 +24,13 @@ func _ready() -> void:
 
     _initiate_sundial()
 
-func player_input_process(_delta: float) -> void:
-    _get_exit_sundial_input()
-    _get_rotate_sundial_input()
-    _get_rotate_latmes_input()
-
-func _get_exit_sundial_input() -> void:
-    if Input.is_action_just_pressed("toggle_boat_sundial"):
-        if State.game_pam.transitioning: return
-
-        var boat_pd: PlayerActorManager.PlayerData = State.game_pam.get_player_data(PlayerActorManager.PlayerActors.BOAT)
-        State.game_pam.change_player_data(boat_pd)
-
-func _get_rotate_latmes_input() -> void:
-    var amount: float = Input.get_axis("rotate_latmes_left", "rotate_latmes_right")
-    _rotate_latmes(amount)
-
-func _get_rotate_sundial_input() -> void:
-    if Input.is_action_just_pressed("rotate_sundial_left"):
-        _rotate_sundial(-SUNDIAL_ROTATION_STEP)
-    if Input.is_action_just_pressed("rotate_sundial_right"):
-        _rotate_sundial(SUNDIAL_ROTATION_STEP)
-
-func _rotate_latmes(amount: float) -> void:
+## Rotates the latitude measurement.
+func rotate_latmes(amount: float) -> void:
     if amount != 0:
         latitude_measure_mesh.rotate_y(amount * latmes_rotate_speed * get_process_delta_time())
 
-func _rotate_sundial(amount: float) -> void:
+## Rotates the sundial.
+func rotate_sundial(amount: float) -> void:
     if amount != 0:
         sundial.rotate_y(amount)
 
