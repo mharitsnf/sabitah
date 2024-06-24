@@ -1,19 +1,18 @@
 class_name PlayerBoatController extends PlayerController
 
 @export_group("References")
+@export var boat_sundial_manager: SundialManager
 @export var dropoff_marker: Marker3D
-
-var actor: BoatActor
+@export var actor: BoatActor
 
 var gas_input: float = 0.
 var rotate_input: float = 0.
 var brake_input: float = 0.
 
 func _ready() -> void:
-	actor = get_parent()
-	assert(actor)
-	assert(actor is BoatActor)
+	assert(boat_sundial_manager)
 	assert(dropoff_marker)
+	assert(actor)
 
 	State.game_pam.current_player_data_changed.connect(_on_current_player_data_changed)
 
@@ -23,10 +22,19 @@ func _physics_process(_delta: float) -> void:
 	actor.rotate_visuals(rotate_input)
 
 func player_input_process(_delta: float) -> void:
+	_get_enter_sundial_input()
 	_get_exit_ship_input()
 	_get_gas_input()
 	_get_brake_input()
 	_get_rotate_input()
+
+func _get_enter_sundial_input() -> void:
+	if Input.is_action_just_pressed("toggle_boat_sundial"):
+		if (State.game_pam as PlayerActorManager).transitioning: return
+
+		var new_pd: PlayerActorManager.PlayerData = PlayerActorManager.PlayerData.new()
+		new_pd.set_instance(boat_sundial_manager)
+		State.game_pam.change_player_data(new_pd)
 
 func _get_exit_ship_input() -> void:
 	if Input.is_action_just_pressed("switch_boat_character"):

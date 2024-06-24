@@ -50,9 +50,10 @@ script = ExtResource("3_fhnii")
 third_person_camera = NodePath("../PlayerCharacterTPC")
 first_person_camera = NodePath("../PlayerCharacterFPC")
 
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("states")]
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("states", "actor")]
 script = ExtResource("4_y2ps7")
 states = [NodePath("Grounded"), NodePath("Fall"), NodePath("Jump")]
+actor = NodePath("..")
 
 [node name="Grounded" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]
 script = ExtResource("6_gidt1")

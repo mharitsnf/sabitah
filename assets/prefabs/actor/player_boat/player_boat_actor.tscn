@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cra5ftbsbcasb"]
+[gd_scene load_steps=9 format=3 uid="uid://cra5ftbsbcasb"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/boat_actor.gd" id="1_o52qu"]
 [ext_resource type="PackedScene" uid="uid://rruwrqnfx0tt" path="res://assets/resources/models/player_boat_mesh.tscn" id="2_c54yd"]
 [ext_resource type="PackedScene" uid="uid://d1v3pfum3kv2c" path="res://assets/prefabs/camera_system/player_boat/player_boat_tpc.tscn" id="3_euyme"]
+[ext_resource type="PackedScene" uid="uid://dq87rtvicv8an" path="res://assets/prefabs/sundial_manager/boat_sundial_manager.tscn" id="3_sih57"]
 [ext_resource type="PackedScene" uid="uid://1c6vc4mwptwk" path="res://assets/prefabs/camera_system/player_boat/player_boat_fpc.tscn" id="4_gmtxl"]
 [ext_resource type="Script" path="res://assets/prefabs/player_managers/player_camera_manager.gd" id="5_igslx"]
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/player_boat_controller.gd" id="6_mjipi"]
@@ -29,6 +30,9 @@ shape = SubResource("ConvexPolygonShape3D_5coob")
 [node name="DropoffMarker" type="Marker3D" parent="CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.7, 0)
 
+[node name="BoatSundialManager" parent="CollisionShape3D" instance=ExtResource("3_sih57")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4.6)
+
 [node name="PlayerBoatTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_euyme")]
 follow_target = NodePath("..")
 
@@ -40,8 +44,10 @@ script = ExtResource("5_igslx")
 third_person_camera = NodePath("../PlayerBoatTPC")
 first_person_camera = NodePath("../PlayerBoatFPC")
 
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("dropoff_marker")]
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("boat_sundial_manager", "dropoff_marker", "actor")]
 script = ExtResource("6_mjipi")
+boat_sundial_manager = NodePath("../CollisionShape3D/BoatSundialManager")
 dropoff_marker = NodePath("../CollisionShape3D/DropoffMarker")
+actor = NodePath("..")
 
 [editable path="CollisionShape3D/PlayerBoatMesh"]
