@@ -21,9 +21,13 @@ adjust_to_water_normal = true
 normal_target = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
 shape = SubResource("ConvexPolygonShape3D_5coob")
 
 [node name="PlayerBoatMesh" parent="CollisionShape3D" instance=ExtResource("2_c54yd")]
+
+[node name="DropoffMarker" type="Marker3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.7, 0)
 
 [node name="PlayerBoatTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_euyme")]
 follow_target = NodePath("..")
@@ -36,7 +40,8 @@ script = ExtResource("5_igslx")
 third_person_camera = NodePath("../PlayerBoatTPC")
 first_person_camera = NodePath("../PlayerBoatFPC")
 
-[node name="Controller" type="Node" parent="."]
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("dropoff_marker")]
 script = ExtResource("6_mjipi")
+dropoff_marker = NodePath("../CollisionShape3D/DropoffMarker")
 
 [editable path="CollisionShape3D/PlayerBoatMesh"]

@@ -77,9 +77,12 @@ var main_camera: MainCamera
 var ocean_data: OceanData
 var menu_layer: MenuLayer
 
-func _ready() -> void:
+signal current_player_data_changed()
+
+func _enter_tree() -> void:
 	State.game_pam = self
 
+func _ready() -> void:
 	main_camera = Group.first("main_camera")
 	ocean_data = Group.first("ocean_data")
 	menu_layer = Group.first("menu_layer")
@@ -149,6 +152,8 @@ func change_player_data(new_pd: PlayerData) -> Array:
 
 	# Set the new_pd as the current player data
 	current_player_data = new_pd
+
+	current_player_data_changed.emit()
 	
 	# Update the current game light status
 	if new_pd.get_instance() is SundialManager:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hly7xukaj25f"]
+[gd_scene load_steps=9 format=3 uid="uid://hly7xukaj25f"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/character_actor.gd" id="1_s37gg"]
 [ext_resource type="PackedScene" uid="uid://bihp1xu32e3qd" path="res://assets/prefabs/camera_system/player_character/player_character_tpc.tscn" id="1_y3sod"]
@@ -9,6 +9,9 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bjbxt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_244d2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_i27ma"]
+size = Vector3(0.5, 0.25, 0.5)
 
 [node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("visual_node", "normal_target")]
 lock_rotation = true
@@ -24,6 +27,10 @@ shape = SubResource("CapsuleShape3D_bjbxt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/Visuals"]
 mesh = SubResource("CapsuleMesh_244d2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D/Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.3)
+mesh = SubResource("BoxMesh_i27ma")
 
 [node name="PlayerCharacterTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_y3sod")]
 follow_target = NodePath("..")
