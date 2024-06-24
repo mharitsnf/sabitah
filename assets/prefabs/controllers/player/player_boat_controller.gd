@@ -12,6 +12,7 @@ var brake_input: float = 0.
 func _ready() -> void:
 	actor = get_parent()
 	assert(actor)
+	assert(actor is BoatActor)
 	assert(dropoff_marker)
 
 	State.game_pam.current_player_data_changed.connect(_on_current_player_data_changed)
