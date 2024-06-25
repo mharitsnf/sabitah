@@ -1,5 +1,7 @@
 class_name CharacterActor extends BaseActor
 
+@export_group("Slope")
+@export var max_slope_angle: float = .4
 @export_group("Damping")
 @export var water_damp: float = 2.
 @export var ground_damp: float = 6.
@@ -14,11 +16,20 @@ class_name CharacterActor extends BaseActor
 @export var visual_node: Node3D
 @export var ground_checker: RayCast3D
 
+var ground_normal: Vector3
+
 # region Horizontal Movement
 # =====
 
+func _process(_delta: float) -> void:
+	if is_grounded():
+		ground_normal = ground_checker.get_collision_normal()
+
 func is_on_slope() -> bool:
-	return is_grounded()
+	if !is_grounded(): return false
+
+	var angle: float = global_basis.y.dot(ground_checker.get_collision_normal())
+	return angle >= max_slope_angle and angle < .95
 
 func is_grounded() -> bool:
 	return ground_checker.is_colliding()

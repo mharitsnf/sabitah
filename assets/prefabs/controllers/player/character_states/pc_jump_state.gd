@@ -6,6 +6,7 @@ var ignore_time: float = 0.
 
 func enter_state() -> void:
 	actor.linear_damp = actor.air_damp
+	print(controller.jump_variable)
 	actor.jump(controller.jump_variable)
 	controller.jump_variable = 0.
 

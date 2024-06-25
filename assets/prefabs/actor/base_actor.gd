@@ -97,7 +97,7 @@ func _apply_buoyancy_force() -> void:
 
 ## Private. Dampens the flat y velocity of this actor.
 func _dampen_y_velocity(state: PhysicsDirectBodyState3D) -> void:
-	if depth_from_ocean_surface > 0.:
+	if is_submerged():
 		var flat_vel : Vector3 = basis.inverse() * state.linear_velocity
 		flat_vel.y *= 1. - water_drag
 		state.linear_velocity = basis * flat_vel

@@ -32,10 +32,12 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	actor.rotate_visuals(main_camera.global_basis, h_input)
-	print(current_actor_state)
 
 func _physics_process(delta: float) -> void:
-	actor.move(main_camera.global_basis, h_input)
+	var ref_basis: Basis = main_camera.global_basis
+	if actor.is_on_slope():
+		ref_basis = Basis(Common.Geometry.recalculate_quaternion(main_camera.global_basis, actor.ground_normal)).orthonormalized()
+	actor.move(ref_basis, h_input)
 
 	if current_actor_state:
 		current_actor_state.delegated_physics_process(delta)
