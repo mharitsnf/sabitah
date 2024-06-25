@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj1o588sg2xym"]
+
+[ext_resource type="Script" path="res://assets/prefabs/ui_components/input_prompt.gd" id="1_tsy4m"]
+
+[node name="InputPrompt" type="MarginContainer" node_paths=PackedStringArray("button_label", "text_label")]
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("1_tsy4m")
+input_button = "X"
+prompt = "Enter boat"
+button_label = NodePath("HBoxContainer/ButtonToPress")
+text_label = NodePath("HBoxContainer/TextPrompt")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ButtonToPress" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "[X]"
+
+[node name="TextPrompt" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Enter boat"

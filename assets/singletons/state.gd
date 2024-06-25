@@ -43,6 +43,8 @@ var world_dict: Dictionary = {
     LevelType.GLOBE: GameData.new(LevelType.GLOBE)
 }
 
+var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_components/input_prompt.tscn")
+
 # region References
 
 ## Reference to the game scene's PlayerActorManager.

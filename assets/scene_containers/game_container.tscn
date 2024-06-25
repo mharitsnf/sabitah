@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://mmlk171px1r1"]
+[gd_scene load_steps=5 format=3 uid="uid://mmlk171px1r1"]
 
 [ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/subviewports/main_sub_viewport.tscn" id="1_6vokm"]
 [ext_resource type="PackedScene" uid="uid://1cfuft35ap2" path="res://assets/levels/test_level_1.tscn" id="2_h3dnu"]
 [ext_resource type="PackedScene" uid="uid://cghdqxrh3weip" path="res://assets/prefabs/menu_layer/menu_layer.tscn" id="3_4ypjo"]
+[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud_layer/hud_layer.tscn" id="3_rbjwn"]
 
 [node name="GameContainer" type="Node"]
 
@@ -16,5 +17,7 @@ grow_vertical = 2
 [node name="MainSubViewport" parent="MainSVC" instance=ExtResource("1_6vokm")]
 
 [node name="TestLevel1" parent="MainSVC/MainSubViewport" instance=ExtResource("2_h3dnu")]
+
+[node name="HUDLayer" parent="." instance=ExtResource("3_rbjwn")]
 
 [node name="MenuLayer" parent="." instance=ExtResource("3_4ypjo")]

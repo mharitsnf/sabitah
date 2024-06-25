@@ -4,4 +4,5 @@
 
 [node name="BoatSundialTPC" instance=ExtResource("1_ytjvp")]
 spring_length = 1.5
+allow_zoom = true
 adjusting_basis = false

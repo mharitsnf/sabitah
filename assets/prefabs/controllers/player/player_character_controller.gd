@@ -19,8 +19,11 @@ var jump_variable: float = 0.
 var h_input: Vector2
 
 var inside_player_boat_area: bool = false
+var enter_boat_input_prompt: InputPrompt
 
 func _ready() -> void:
+	super()
+
 	actor = get_parent()
 	main_camera = Group.first("main_camera")
 	player_boat_area = Group.first("player_boat_area")
@@ -36,6 +39,19 @@ func _ready() -> void:
 	(player_boat_area as Area3D).body_exited.connect(_on_body_exited_player_boat_area)
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
+
+func enter_controller() -> void:
+	# Instantiate input prompts
+	if input_prompts.is_empty():
+		# Create enter ship input prompt
+		var enter_ship_ip: InputPrompt = State.input_prompt_pscn.instantiate()
+		(enter_ship_ip as InputPrompt).input_button = "F"
+		(enter_ship_ip as InputPrompt).prompt = "Enter ship"
+		input_prompts.append(enter_ship_ip)
+
+func exit_controller() -> void:
+	for ip: InputPrompt in input_prompts:
+		hud_layer.remove_input_prompt(ip)
 
 func _process(_delta: float) -> void:
 	actor.rotate_visuals(main_camera.global_basis, h_input)
@@ -82,7 +98,6 @@ func _get_enter_ship_input() -> void:
 		if res[0]:
 			State.game_pam.remove_child.call_deferred((res[1] as PlayerActorManager.PlayerData).get_instance())
 
-
 func _get_h_input() -> void:
 	h_input = Input.get_vector("character_left", "character_right", "character_backward", "character_forward")
 
@@ -93,7 +108,9 @@ func _on_current_player_data_changed() -> void:
 func _on_body_entered_player_boat_area(body: Node3D) -> void:
 	if body == actor:
 		inside_player_boat_area = true
+		hud_layer.add_input_prompt(input_prompts[0])
 
 func _on_body_exited_player_boat_area(body: Node3D) -> void:
 	if body == actor:
 		inside_player_boat_area = false
+		hud_layer.remove_input_prompt(input_prompts[0])

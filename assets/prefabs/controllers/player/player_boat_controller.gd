@@ -10,11 +10,32 @@ var rotate_input: float = 0.
 var brake_input: float = 0.
 
 func _ready() -> void:
+	super()
+
 	assert(boat_sundial_manager)
 	assert(dropoff_marker)
 	assert(actor)
 
 	State.game_pam.current_player_data_changed.connect(_on_current_player_data_changed)
+
+func enter_controller() -> void:
+	if input_prompts.is_empty():
+		var exit_boat_ip: InputPrompt = State.input_prompt_pscn.instantiate()
+		(exit_boat_ip as InputPrompt).input_button = "F"
+		(exit_boat_ip as InputPrompt).prompt = "Exit boat"
+		input_prompts.append(exit_boat_ip)
+
+		var enter_sundial_ip: InputPrompt = State.input_prompt_pscn.instantiate()
+		(enter_sundial_ip as InputPrompt).input_button = "T"
+		(enter_sundial_ip as InputPrompt).prompt = "Enter sundial"
+		input_prompts.append(enter_sundial_ip)
+	
+	for ip: InputPrompt in input_prompts:
+		hud_layer.add_input_prompt(ip)
+
+func exit_controller() -> void:
+	for ip: InputPrompt in input_prompts:
+		hud_layer.remove_input_prompt(ip)
 
 func _process(_delta: float) -> void:
 	actor.rotate_visuals(rotate_input)
