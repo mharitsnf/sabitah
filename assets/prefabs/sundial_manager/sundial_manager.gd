@@ -1,7 +1,7 @@
 class_name SundialManager extends Node3D
 
 @export_group("Parameters")
-@export var latmes_rotate_speed: float = 5.
+@export var latmes_rotate_speed: float = 2.5
 @export_group("References")
 @export var sundial_center: Marker3D
 @export_subgroup("Packed scenes")

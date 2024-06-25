@@ -22,7 +22,7 @@ var h_input: Vector2
 var inside_player_boat_area: bool = false
 var enter_boat_input_prompt: InputPrompt
 
-var current_local_sundial: SundialManager
+var current_local_sundial: LocalSundialManager
 
 func _ready() -> void:
 	super()
@@ -105,7 +105,7 @@ func switch_state(new_state: ActorState) -> void:
 	new_state.enter_state()
 
 func _get_enter_local_sundial_input() -> void:
-	if Input.is_action_just_pressed("toggle_boat_sundial") and current_local_sundial:
+	if Input.is_action_just_pressed("toggle_sundial") and current_local_sundial:
 		if (State.game_pam as PlayerActorManager).transitioning: return
 
 		var new_pd: PlayerActorManager.PlayerData = PlayerActorManager.PlayerData.new()
@@ -130,9 +130,11 @@ func _on_current_player_data_changed() -> void:
 
 func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:
 	if body == actor:
-		current_local_sundial = area.get_parent()
-		(input_prompts[1] as InputPrompt).active = true
-		hud_layer.add_input_prompt(input_prompts[1])
+		var area_parent: Node = area.get_parent()
+		if area_parent is LocalSundialManager:
+			current_local_sundial = area_parent
+			(input_prompts[1] as InputPrompt).active = true
+			hud_layer.add_input_prompt(input_prompts[1])
 
 func _on_body_exited_local_sundial_area(body: Node3D) -> void:
 	if body == actor:

@@ -43,7 +43,7 @@ func player_input_process(_delta: float) -> void:
 	_get_rotate_sundial_input()
 
 func _get_exit_sundial_input() -> void:
-	if Input.is_action_just_pressed("toggle_boat_sundial"):
+	if Input.is_action_just_pressed("toggle_sundial"):
 		if (State.game_pam as PlayerActorManager).transitioning: return
 
 		var prev_pd: PlayerActorManager.PlayerData = State.game_pam.previous_player_data

@@ -57,7 +57,7 @@ func player_input_process(_delta: float) -> void:
 	_get_rotate_input()
 
 func _get_enter_sundial_input() -> void:
-	if Input.is_action_just_pressed("toggle_boat_sundial"):
+	if Input.is_action_just_pressed("toggle_sundial"):
 		if (State.game_pam as PlayerActorManager).transitioning: return
 
 		var new_pd: PlayerActorManager.PlayerData = PlayerActorManager.PlayerData.new()
