@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dq87rtvicv8an" path="res://assets/prefabs/sundial_manager/boat_sundial_manager.tscn" id="3_sih57"]
 [ext_resource type="PackedScene" uid="uid://dopvoc5yaorpn" path="res://assets/prefabs/actor/player_boat/player_boat_area.tscn" id="4_5csyn"]
 [ext_resource type="PackedScene" uid="uid://1c6vc4mwptwk" path="res://assets/prefabs/camera_system/player_boat/player_boat_fpc.tscn" id="4_gmtxl"]
-[ext_resource type="Script" path="res://assets/prefabs/player_managers/player_camera_manager.gd" id="5_igslx"]
+[ext_resource type="Script" path="res://assets/player_camera_manager/player_camera_manager.gd" id="5_igslx"]
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/player_boat_controller.gd" id="6_mjipi"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5coob"]

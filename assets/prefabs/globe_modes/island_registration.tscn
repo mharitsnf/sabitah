@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj0it3vr13kbv"]
+
+[ext_resource type="Script" path="res://assets/prefabs/globe_modes/island_registration.gd" id="1_vk47k"]
+
+[node name="IslandRegistration" type="Node"]
+script = ExtResource("1_vk47k")

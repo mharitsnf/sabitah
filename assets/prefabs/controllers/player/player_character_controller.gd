@@ -60,6 +60,12 @@ func enter_controller() -> void:
 		(enter_local_sundial_ip as InputPrompt).prompt = "Enter local sundial"
 		input_prompts.append(enter_local_sundial_ip)
 
+		# Create enter ship input prompt
+		var enter_register_island_ip: InputPrompt = State.input_prompt_pscn.instantiate()
+		(enter_register_island_ip as InputPrompt).input_button = "Y"
+		(enter_register_island_ip as InputPrompt).prompt = "Register island"
+		input_prompts.append(enter_register_island_ip)
+
 	for ip: InputPrompt in input_prompts:
 		if ip.active: hud_layer.add_input_prompt(ip)
 
@@ -85,6 +91,7 @@ func delegated_process(delta: float) -> void:
 		current_actor_state.player_input_process(delta)
 
 func player_input_process(_delta: float) -> void:
+	_get_enter_register_island_input()
 	_get_enter_local_sundial_input()
 	_get_enter_ship_input()
 	_get_h_input()
@@ -103,6 +110,11 @@ func switch_state(new_state: ActorState) -> void:
 
 	current_actor_state = new_state
 	new_state.enter_state()
+
+func _get_enter_register_island_input() -> void:
+	if Input.is_action_just_pressed("enter_island_registration") and current_local_sundial:
+		var scene_manager: SceneManager = Group.first("scene_manager")
+		(scene_manager as SceneManager).switch_scene(SceneManager.Scenes.GLOBE)
 
 func _get_enter_local_sundial_input() -> void:
 	if Input.is_action_just_pressed("toggle_sundial") and current_local_sundial:
@@ -134,13 +146,17 @@ func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:
 		if area_parent is LocalSundialManager:
 			current_local_sundial = area_parent
 			(input_prompts[1] as InputPrompt).active = true
+			(input_prompts[2] as InputPrompt).active = true
 			hud_layer.add_input_prompt(input_prompts[1])
+			hud_layer.add_input_prompt(input_prompts[2])
 
 func _on_body_exited_local_sundial_area(body: Node3D) -> void:
 	if body == actor:
 		current_local_sundial = null
 		(input_prompts[1] as InputPrompt).active = false
+		(input_prompts[2] as InputPrompt).active = true
 		hud_layer.remove_input_prompt(input_prompts[1])
+		hud_layer.remove_input_prompt(input_prompts[2])
 
 func _on_body_entered_player_boat_area(body: Node3D) -> void:
 	if body == actor:

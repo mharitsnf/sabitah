@@ -1,11 +1,105 @@
-[gd_scene load_steps=4 format=3 uid="uid://blsm2jgfsebmc"]
+[gd_scene load_steps=8 format=3 uid="uid://blsm2jgfsebmc"]
 
 [ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud_layer/hud_layer.tscn" id="1_d6gpj"]
 [ext_resource type="Texture2D" uid="uid://0sxdw4ms6s7x" path="res://assets/resources/textures/crosshair003.png" id="2_1v113"]
 [ext_resource type="Script" path="res://assets/prefabs/hud_layer/globe_hud_layer.gd" id="2_4juk7"]
 
-[node name="GlobeHUDLayer" node_paths=PackedStringArray("lat_label", "long_label") instance=ExtResource("1_d6gpj")]
+[sub_resource type="Animation" id="Animation_lqo2t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InstructionPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InstructionPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(928, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_q56du"]
+resource_name = "hide_instruction_panel"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InstructionPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.990519), Color(1, 1, 1, 0.924148), Color(1, 1, 1, 0.744), Color(1, 1, 1, 0.406518), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.032), Color(1, 1, 1, 0.00118518), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InstructionPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(928, 32), Vector2(928, 31.6966), Vector2(928, 29.5727), Vector2(928, 23.808), Vector2(928, 13.0086), Vector2(928, 4.74074), Vector2(928, 1.024), Vector2(928, 0.0379257), Vector2(928, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lcss8"]
+resource_name = "show_instruction_panel"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InstructionPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.00948148), Color(1, 1, 1, 0.0758519), Color(1, 1, 1, 0.256), Color(1, 1, 1, 0.593482), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.968), Color(1, 1, 1, 0.998815), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("InstructionPanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(928, 0), Vector2(928, 0.303407), Vector2(928, 2.42726), Vector2(928, 8.192), Vector2(928, 18.9914), Vector2(928, 27.2593), Vector2(928, 30.976), Vector2(928, 31.9621), Vector2(928, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ihms2"]
+_data = {
+"RESET": SubResource("Animation_lqo2t"),
+"hide_instruction_panel": SubResource("Animation_q56du"),
+"show_instruction_panel": SubResource("Animation_lcss8")
+}
+
+[node name="GlobeHUDLayer" node_paths=PackedStringArray("anim", "instruction_label", "lat_label", "long_label") instance=ExtResource("1_d6gpj")]
 script = ExtResource("2_4juk7")
+anim = NodePath("AnimationPlayer")
+instruction_label = NodePath("InstructionPanel/MarginContainer/VBoxContainer/Content")
 lat_label = NodePath("TopHUDContainer/LatLongContainer/HBoxContainer/LatLabel")
 long_label = NodePath("TopHUDContainer/LatLongContainer/HBoxContainer/LongLabel")
 
@@ -44,14 +138,58 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TopHUDContainer/LatLongContainer" index="1"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 60
 
 [node name="LatLabel" type="Label" parent="TopHUDContainer/LatLongContainer/HBoxContainer" index="0"]
 layout_mode = 2
-text = "-80.99"
+text = "-90"
 vertical_alignment = 1
 
 [node name="LongLabel" type="Label" parent="TopHUDContainer/LatLongContainer/HBoxContainer" index="1"]
 layout_mode = 2
-text = "-180.00"
+text = "-90"
 vertical_alignment = 1
+
+[node name="InstructionPanel" type="Panel" parent="." index="3"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 928.0
+offset_right = 1248.0
+offset_bottom = 96.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="InstructionPanel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InstructionPanel/MarginContainer" index="0"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="InstructionPanel/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "Instruction!"
+
+[node name="Content" type="Label" parent="InstructionPanel/MarginContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Press [LMB] to confirm your selection."
+vertical_alignment = 1
+autowrap_mode = 2
+max_lines_visible = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_ihms2")
+}

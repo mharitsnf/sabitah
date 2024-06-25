@@ -53,6 +53,7 @@ var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_components
 
 ## Reference to the game scene's PlayerActorManager.
 var game_pam: PlayerActorManager
+var pgmm: PlayerGlobeModeManager
 
 var game_camera: Camera3D
 var globe_camera: Camera3D

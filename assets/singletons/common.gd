@@ -17,11 +17,11 @@ class Geometry extends RefCounted:
 		return Quaternion(Basis(new_right, new_normal, new_forward).orthonormalized())
 
 	static func get_latitude(dot: float) -> float:
-		return snappedf(remap(dot, -1., 1., -90., 90.), .01)
+		return floorf(remap(dot, -1., 1., -90., 90.))
 	
 	static func get_longitude(angle: float, dot_sign: float) -> float:
 		var long: float = remap(angle, 0., PI, 0., 180.)
-		long = snappedf(long, .01)
+		long = floorf(long)
 		return long if dot_sign > 0. else -long
 
 	## Returns the distance between two vectors, [a] and [b], along a sphere surface of radius [r].

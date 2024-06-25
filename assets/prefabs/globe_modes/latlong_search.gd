@@ -1,17 +1,13 @@
-extends Node
+class_name LatLongSearch extends GlobeMode
 
-var hud_layer: GlobeHUDLayer
-var main_camera: MainCamera
+var lat: float = 0.
+var long: float = 0.
 
-func _ready() -> void:
-	hud_layer = Group.first("hud_layer")
-	main_camera = Group.first("main_camera")
-
-	assert(hud_layer)
-	assert(main_camera)
+func delegated_physics_process(_delta: float) -> void:
+	search_lat_long()
 
 const CAST_RAY_LENGTH: float = 500.
-func _physics_process(_delta: float) -> void:
+func search_lat_long() -> void:
 	var space_state: PhysicsDirectSpaceState3D = State.get_world_3d(State.LevelType.GLOBE).direct_space_state
 
 	var origin: Vector3 = main_camera.global_position
@@ -38,8 +34,8 @@ func _physics_process(_delta: float) -> void:
 	var pm_angle_to_long: float = State.PRIME_MERIDIAN.angle_to(long_vec)
 
 	# Get the lat and long
-	var lat: float = Common.Geometry.get_latitude(north_dot_n)
-	var long: float = Common.Geometry.get_longitude(pm_angle_to_long, dot_sign)
+	lat = Common.Geometry.get_latitude(north_dot_n)
+	long = Common.Geometry.get_longitude(pm_angle_to_long, dot_sign)
 
 	# Set text to the HUD.
 	hud_layer.set_lat_long_text(lat, long)

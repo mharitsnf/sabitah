@@ -21,11 +21,12 @@ var menu_dict: Dictionary = {
     Menus.MAIN_MENU: MenuData.new(preload("res://assets/prefabs/menu_layer/main_menu.tscn"))
 }
 
+var toggle_main_menu_allowed: bool = true
 var transitioning: bool = false
 var history_stack: Array[MenuData] = []
 
 func _input(event: InputEvent) -> void:
-    if event.is_action_pressed("toggle_main_menu"):
+    if event.is_action_pressed("toggle_main_menu") and toggle_main_menu_allowed:
         if history_stack.is_empty(): navigate_to(Menus.MAIN_MENU)
         else: clear()
 

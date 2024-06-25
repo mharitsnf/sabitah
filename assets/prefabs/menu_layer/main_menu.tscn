@@ -107,9 +107,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = 440.0
+offset_top = -280.0
 offset_right = 146.0
-offset_bottom = 576.0
+offset_bottom = -144.0
 grow_vertical = 0
 
 [node name="GenericButton" parent="VBoxContainer" index="0" instance=ExtResource("3_y8qf8")]
