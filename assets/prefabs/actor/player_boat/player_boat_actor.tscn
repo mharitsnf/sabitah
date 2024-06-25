@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cra5ftbsbcasb"]
+[gd_scene load_steps=10 format=3 uid="uid://cra5ftbsbcasb"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/boat_actor.gd" id="1_o52qu"]
 [ext_resource type="PackedScene" uid="uid://rruwrqnfx0tt" path="res://assets/resources/models/player_boat/player_boat_mesh.tscn" id="2_c54yd"]
 [ext_resource type="PackedScene" uid="uid://d1v3pfum3kv2c" path="res://assets/prefabs/camera_system/player_boat/player_boat_tpc.tscn" id="3_euyme"]
 [ext_resource type="PackedScene" uid="uid://dq87rtvicv8an" path="res://assets/prefabs/sundial_manager/boat_sundial_manager.tscn" id="3_sih57"]
+[ext_resource type="PackedScene" uid="uid://dopvoc5yaorpn" path="res://assets/prefabs/actor/player_boat/player_boat_area.tscn" id="4_5csyn"]
 [ext_resource type="PackedScene" uid="uid://1c6vc4mwptwk" path="res://assets/prefabs/camera_system/player_boat/player_boat_fpc.tscn" id="4_gmtxl"]
 [ext_resource type="Script" path="res://assets/prefabs/player_managers/player_camera_manager.gd" id="5_igslx"]
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/player_boat_controller.gd" id="6_mjipi"]
@@ -32,6 +33,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.7, 0)
 
 [node name="BoatSundialManager" parent="CollisionShape3D" instance=ExtResource("3_sih57")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4.6)
+
+[node name="PlayerBoatArea" parent="." instance=ExtResource("4_5csyn")]
 
 [node name="PlayerBoatTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_euyme")]
 follow_target = NodePath("..")

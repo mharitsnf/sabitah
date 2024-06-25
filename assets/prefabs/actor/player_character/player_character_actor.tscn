@@ -21,6 +21,7 @@ friction = 0.0
 size = Vector3(0.5, 0.25, 0.5)
 
 [node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("visual_node", "ground_checker", "normal_target")]
+collision_layer = 33
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_66g8n")
 lock_rotation = true

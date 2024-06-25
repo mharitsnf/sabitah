@@ -9,6 +9,7 @@ enum CharacterStates {
 @export var actor: CharacterActor
 
 var main_camera: MainCamera
+var player_boat_area: Area3D
 
 var prev_actor_state: ActorState
 var current_actor_state: ActorState
@@ -17,16 +18,22 @@ var jump_variable: float = 0.
 
 var h_input: Vector2
 
+var inside_player_boat_area: bool = false
+
 func _ready() -> void:
 	actor = get_parent()
 	main_camera = Group.first("main_camera")
+	player_boat_area = Group.first("player_boat_area")
 
 	assert(actor)
 	assert(actor is CharacterActor)
 	assert(main_camera)
 	assert(main_camera is MainCamera)
+	assert(player_boat_area)
 
 	State.game_pam.current_player_data_changed.connect(_on_current_player_data_changed)
+	(player_boat_area as Area3D).body_entered.connect(_on_body_entered_player_boat_area)
+	(player_boat_area as Area3D).body_exited.connect(_on_body_exited_player_boat_area)
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
@@ -67,7 +74,7 @@ func switch_state(new_state: ActorState) -> void:
 	new_state.enter_state()
 
 func _get_enter_ship_input() -> void:
-	if Input.is_action_just_pressed("switch_boat_character"):
+	if Input.is_action_just_pressed("switch_boat_character") and inside_player_boat_area:
 		if (State.game_pam as PlayerActorManager).transitioning: return
 
 		var boat_pd: PlayerActorManager.PlayerData = State.game_pam.get_player_data(PlayerActorManager.PlayerActors.BOAT)
@@ -82,3 +89,11 @@ func _get_h_input() -> void:
 func _on_current_player_data_changed() -> void:
 	if State.game_pam.current_player_data.get_controller() != self:
 		h_input = Vector2.ZERO
+
+func _on_body_entered_player_boat_area(body: Node3D) -> void:
+	if body == actor:
+		inside_player_boat_area = true
+
+func _on_body_exited_player_boat_area(body: Node3D) -> void:
+	if body == actor:
+		inside_player_boat_area = false
