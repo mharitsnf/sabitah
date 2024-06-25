@@ -17,6 +17,10 @@ const MAIN_TO_NAV_SCALE: float = .05
 ## The scale of radiuses and gravity strength from main level to globe level.
 const MAIN_TO_GLOBE_SCALE: float = .05
 
+## The position of the meridian in world space.
+const PRIME_MERIDIAN: Vector3 = Vector3.RIGHT
+const NORTH: Vector3 = Vector3.UP
+
 enum LevelType {
     MAIN, NAV, GLOBE, NONE
 }
@@ -57,6 +61,9 @@ var game_sun: DirectionalLight3D
 var globe_sun: DirectionalLight3D
 
 # region Setters and getters
+
+func get_world_3d(type: LevelType) -> World3D:
+    return (world_dict[type] as GameData).get_world()
 
 func set_level(type: LevelType, level: Node) -> void:
     (world_dict[type] as GameData).set_level(level)

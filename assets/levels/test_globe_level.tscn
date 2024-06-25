@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
 [ext_resource type="PackedScene" uid="uid://dlwgk43fjx6sh" path="res://assets/prefabs/sun_moon_manager/globe_sun_moon_manager.tscn" id="2_0v6h4"]
-[ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="2_2047r"]
-[ext_resource type="Resource" uid="uid://cs84dcb1uccxs" path="res://assets/resources/camera_clamp_settings/globe_tpc.tres" id="3_0of1s"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
+[ext_resource type="PackedScene" uid="uid://c567ogeducyhi" path="res://assets/prefabs/camera_system/globe/globe_tpc.tscn" id="5_2cjuh"]
+[ext_resource type="Script" path="res://assets/prefabs/latlong_caster/latlong_caster.gd" id="6_3y2lk"]
 
 [sub_resource type="Environment" id="Environment_capf0"]
 background_mode = 1
@@ -35,26 +35,26 @@ level_type = 2
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_capf0")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="PlanetBody" type="StaticBody3D" parent="."]
 
-[node name="Planet" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="PlanetMesh" type="MeshInstance3D" parent="PlanetBody"]
 mesh = SubResource("SphereMesh_gsfuk")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlanetBody"]
 shape = SubResource("SphereShape3D_xhskh")
 
 [node name="PlayerMainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_4fsy1")]
 level_type = 2
-follow_target = NodePath("../Cameras/ThirdPersonCamera")
+follow_target = NodePath("../Cameras/GlobeTPC")
 
 [node name="AtmospherePPQ" parent="PlayerMainCamera" instance=ExtResource("4_le2kd")]
 level_type = 2
 
 [node name="Cameras" type="Node" parent="."]
 
-[node name="ThirdPersonCamera" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("2_2047r")]
-spring_length = 150.0
-adjusting_basis = false
-clamp_settings = ExtResource("3_0of1s")
-follow_target = NodePath("../../StaticBody3D")
+[node name="GlobeTPC" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("5_2cjuh")]
+follow_target = NodePath("../../PlanetBody")
+
+[node name="LatlongCaster" type="Node" parent="."]
+script = ExtResource("6_3y2lk")

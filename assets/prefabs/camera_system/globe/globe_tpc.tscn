@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c567ogeducyhi"]
+
+[ext_resource type="PackedScene" uid="uid://bsnpu4dpbgb15" path="res://assets/prefabs/camera_system/third_person_camera.tscn" id="1_eyj7e"]
+[ext_resource type="Resource" uid="uid://cs84dcb1uccxs" path="res://assets/resources/camera_clamp_settings/globe_tpc_limit.tres" id="2_7yjnr"]
+
+[node name="GlobeTPC" instance=ExtResource("1_eyj7e")]
+spring_length = 150.0
+allow_zoom = true
+adjusting_basis = false
+clamp_settings = ExtResource("2_7yjnr")

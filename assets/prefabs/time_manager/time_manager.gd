@@ -16,4 +16,4 @@ func _process(delta: float) -> void:
 
 ## Transforms the [elapsed_time] to rotation degrees.
 func get_degrees() -> float:
-    return remap(time_elapsed, 0., State.SECONDS_PER_DAY, 0., 360.)
+    return remap(time_elapsed, 0., State.SECONDS_PER_DAY, 360., 0.)

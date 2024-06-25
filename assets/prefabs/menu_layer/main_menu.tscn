@@ -31,7 +31,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(32, 536)]
+"values": [Vector2(0, 440)]
 }
 
 [sub_resource type="Animation" id="Animation_vaj3f"]
@@ -45,10 +45,10 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(-2, -2),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(-2, 1, 1, 1, 1, 1, 1, 1, -2),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.00948148), Color(1, 1, 1, 0.0758519), Color(1, 1, 1, 0.256), Color(1, 1, 1, 0.593482), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.968), Color(1, 1, 1, 0.998815), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -57,10 +57,10 @@ tracks/1/path = NodePath("VBoxContainer:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(-2, -2),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(32, 504), Vector2(64, 504)]
+"values": [Vector2(0, 440), Vector2(0.606815, 440), Vector2(4.85452, 440), Vector2(16.384, 440), Vector2(37.9828, 440), Vector2(54.5185, 440), Vector2(61.952, 440), Vector2(63.9241, 440), Vector2(64, 440)]
 }
 
 [sub_resource type="Animation" id="Animation_ymss3"]
@@ -74,10 +74,10 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(-2, -2),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(-2, 1, 1, 1, 1, 1, 1, 1, -2),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.990519), Color(1, 1, 1, 0.924148), Color(1, 1, 1, 0.744), Color(1, 1, 1, 0.406518), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.032), Color(1, 1, 1, 0.00118518), Color(1, 1, 1, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,10 +86,10 @@ tracks/1/path = NodePath("VBoxContainer:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(-2, -2),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(64, 504), Vector2(32, 504)]
+"values": [Vector2(64, 440), Vector2(63.3932, 440), Vector2(59.1455, 440), Vector2(47.616, 440), Vector2(26.0172, 440), Vector2(9.48148, 440), Vector2(2.048, 440), Vector2(0.0758514, 440), Vector2(0, 440)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_43rfj"]
@@ -107,10 +107,9 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = -184.0
-offset_right = 178.0
-offset_bottom = -48.0
+offset_top = 440.0
+offset_right = 146.0
+offset_bottom = 576.0
 grow_vertical = 0
 
 [node name="GenericButton" parent="VBoxContainer" index="0" instance=ExtResource("3_y8qf8")]

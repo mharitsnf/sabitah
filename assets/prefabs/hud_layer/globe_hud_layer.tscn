@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://blsm2jgfsebmc"]
+
+[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud_layer/hud_layer.tscn" id="1_d6gpj"]
+[ext_resource type="Texture2D" uid="uid://0sxdw4ms6s7x" path="res://assets/resources/textures/crosshair003.png" id="2_1v113"]
+[ext_resource type="Script" path="res://assets/prefabs/hud_layer/globe_hud_layer.gd" id="2_4juk7"]
+
+[node name="GlobeHUDLayer" node_paths=PackedStringArray("lat_label", "long_label") instance=ExtResource("1_d6gpj")]
+script = ExtResource("2_4juk7")
+lat_label = NodePath("TopHUDContainer/LatLongContainer/HBoxContainer/LatLabel")
+long_label = NodePath("TopHUDContainer/LatLongContainer/HBoxContainer/LongLabel")
+
+[node name="CrosshairRect" type="TextureRect" parent="." index="1"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_1v113")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TopHUDContainer" type="VBoxContainer" parent="." index="2"]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 224.0
+offset_bottom = 72.0
+
+[node name="LatLongContainer" type="VBoxContainer" parent="TopHUDContainer" index="0"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TopHUDContainer/LatLongContainer" index="0"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "Latitude and Longitude"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopHUDContainer/LatLongContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="LatLabel" type="Label" parent="TopHUDContainer/LatLongContainer/HBoxContainer" index="0"]
+layout_mode = 2
+text = "-80.99"
+vertical_alignment = 1
+
+[node name="LongLabel" type="Label" parent="TopHUDContainer/LatLongContainer/HBoxContainer" index="1"]
+layout_mode = 2
+text = "-180.00"
+vertical_alignment = 1

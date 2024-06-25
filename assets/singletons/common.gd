@@ -15,7 +15,15 @@ class Geometry extends RefCounted:
 		var new_right : Vector3 = quat * old_basis.x
 		var new_forward : Vector3 = quat * old_basis.z
 		return Quaternion(Basis(new_right, new_normal, new_forward).orthonormalized())
+
+	static func get_latitude(dot: float) -> float:
+		return snappedf(remap(dot, -1., 1., -90., 90.), .01)
 	
+	static func get_longitude(angle: float, dot_sign: float) -> float:
+		var long: float = remap(angle, 0., PI, 0., 180.)
+		long = snappedf(long, .01)
+		return long if dot_sign > 0. else -long
+
 	## Returns the distance between two vectors, [a] and [b], along a sphere surface of radius [r].
 	static func slength(a: Vector3, b: Vector3, r: float) -> float:
 		var n_a: Vector3 = a.normalized()
