@@ -16,10 +16,15 @@ func _ready() -> void:
 
 	State.game_pam.current_player_data_changed.connect(_on_current_player_data_changed)
 
+func _process(_delta: float) -> void:
+	actor.rotate_visuals(rotate_input)
+
+	# Called when this controller is inactive
+	_reset_rotate_input_smooth()
+
 func _physics_process(_delta: float) -> void:
 	actor.move_forward(actor.normal_target.global_basis, gas_input)
 	if brake_input > 0.: actor.brake(brake_input)
-	actor.rotate_visuals(rotate_input)
 
 func player_input_process(_delta: float) -> void:
 	_get_enter_sundial_input()
@@ -60,8 +65,12 @@ func _get_gas_input() -> void:
 func _get_rotate_input() -> void:
 	rotate_input = Input.get_axis("boat_left", "boat_right")
 
+const ROTATION_INPUT_WEIGHT: float = 5.
+func _reset_rotate_input_smooth() -> void:
+	if State.game_pam.current_player_data.get_controller() != self:
+		rotate_input = lerp(rotate_input, 0., get_process_delta_time() * ROTATION_INPUT_WEIGHT)
+
 func _on_current_player_data_changed() -> void:
 	if State.game_pam.current_player_data.get_controller() != self:
 		gas_input = 0.
-		rotate_input = 0.
 		brake_input = 0.

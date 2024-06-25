@@ -152,8 +152,6 @@ func change_player_data(new_pd: PlayerData) -> Array:
 
 	# Set the new_pd as the current player data
 	current_player_data = new_pd
-
-	current_player_data_changed.emit()
 	
 	# Update the current game light status
 	if new_pd.get_instance() is SundialManager:
@@ -174,6 +172,7 @@ func change_player_data(new_pd: PlayerData) -> Array:
 	await main_camera.transition_finished
 	
 	transitioning = false
+	current_player_data_changed.emit()
 
 	return [true, previous_player_data]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=18 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/nav_sub_viewport.tscn" id="4_qbgsx"]
 [ext_resource type="PackedScene" uid="uid://dib7m5a41lrgf" path="res://assets/levels/nav_world.tscn" id="5_jphay"]
+[ext_resource type="PackedScene" uid="uid://bpwy3yt75lyjg" path="res://assets/resources/models/islands/test_platform.tscn" id="5_roqsb"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
@@ -35,6 +36,11 @@ environment = SubResource("Environment_f3y7e")
 [node name="MainGravityArea" parent="Environment" instance=ExtResource("2_jdiks")]
 
 [node name="MainPlanetBody" parent="Environment" instance=ExtResource("3_04ued")]
+
+[node name="Islands" type="Node" parent="."]
+
+[node name="TestPlatform" parent="Islands" instance=ExtResource("5_roqsb")]
+transform = Transform3D(0.34002, 0.935241, -0.0985402, -0.935988, 0.326397, -0.131879, -0.0911751, 0.137074, 0.986356, 1390.33, 485.221, 203.774)
 
 [node name="NavWorld" type="Node" parent="."]
 

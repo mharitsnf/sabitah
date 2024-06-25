@@ -32,6 +32,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	actor.rotate_visuals(main_camera.global_basis, h_input)
+	print(current_actor_state)
 
 func _physics_process(delta: float) -> void:
 	actor.move(main_camera.global_basis, h_input)

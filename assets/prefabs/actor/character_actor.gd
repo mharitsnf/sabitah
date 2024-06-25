@@ -1,5 +1,9 @@
 class_name CharacterActor extends BaseActor
 
+@export_group("Damping")
+@export var water_damp: float = 2.
+@export var ground_damp: float = 6.
+@export var air_damp: float = 1.
 @export_group("Jumping")
 @export var jump_force: float = 5.
 @export_group("Horizontal movement")
@@ -8,9 +12,16 @@ class_name CharacterActor extends BaseActor
 @export var rotation_weight: float = 1.
 @export_group("References")
 @export var visual_node: Node3D
+@export var ground_checker: RayCast3D
 
 # region Horizontal Movement
 # =====
+
+func is_on_slope() -> bool:
+	return is_grounded()
+
+func is_grounded() -> bool:
+	return ground_checker.is_colliding()
 
 ## Jumps the character.
 func jump(variable: float = 1) -> void:

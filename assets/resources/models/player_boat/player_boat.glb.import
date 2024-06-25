@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://0pw2fybolhnv"
-path="res://.godot/imported/latitude_measurement.glb-02949e515b6bc8d28f0165a194f9752b.scn"
+uid="uid://dt73g81iqoeeu"
+path="res://.godot/imported/player_boat.glb-8e023c4962ce07c83245639fdff11d41.scn"
 
 [deps]
 
-source_file="res://assets/resources/models/latitude_measurement.glb"
-dest_files=["res://.godot/imported/latitude_measurement.glb-02949e515b6bc8d28f0165a194f9752b.scn"]
+source_file="res://assets/resources/models/player_boat/player_boat.glb"
+dest_files=["res://.godot/imported/player_boat.glb-8e023c4962ce07c83245639fdff11d41.scn"]
 
 [params]
 

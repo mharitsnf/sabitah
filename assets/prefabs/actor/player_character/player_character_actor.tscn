@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://hly7xukaj25f"]
+[gd_scene load_steps=14 format=3 uid="uid://hly7xukaj25f"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/character_actor.gd" id="1_s37gg"]
 [ext_resource type="PackedScene" uid="uid://bihp1xu32e3qd" path="res://assets/prefabs/camera_system/player_character/player_character_tpc.tscn" id="1_y3sod"]
@@ -10,6 +10,9 @@
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/character_states/pc_fall_state.gd" id="7_ddelc"]
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/character_states/pc_jump_state.gd" id="8_dmf08"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_66g8n"]
+friction = 0.0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bjbxt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_244d2"]
@@ -17,15 +20,21 @@
 [sub_resource type="BoxMesh" id="BoxMesh_i27ma"]
 size = Vector3(0.5, 0.25, 0.5)
 
-[node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("visual_node", "normal_target")]
+[node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("visual_node", "ground_checker", "normal_target")]
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_66g8n")
 lock_rotation = true
+linear_damp_mode = 1
 linear_damp = 2.0
 script = ExtResource("1_s37gg")
-jump_force = 30.0
-move_speed = 15.0
+air_damp = 0.4
+jump_force = 700.0
+move_speed = 2500.0
 rotation_weight = 30.0
 visual_node = NodePath("CollisionShape3D/Visuals")
+ground_checker = NodePath("GroundChecker")
 normal_target = NodePath("CollisionShape3D")
+float_force = 250.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bjbxt")
@@ -38,6 +47,9 @@ mesh = SubResource("CapsuleMesh_244d2")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D/Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.3)
 mesh = SubResource("BoxMesh_i27ma")
+
+[node name="GroundChecker" type="RayCast3D" parent="."]
+target_position = Vector3(0, -1.2, 0)
 
 [node name="PlayerCharacterTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_y3sod")]
 follow_target = NodePath("..")
@@ -57,13 +69,14 @@ actor = NodePath("..")
 
 [node name="Grounded" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]
 script = ExtResource("6_gidt1")
-variable_time_limit = 0.1
+variable_time_limit = 0.04
 jump_curve = ExtResource("7_d8cu7")
 actor = NodePath("../..")
 controller = NodePath("..")
 
 [node name="Fall" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]
 script = ExtResource("7_ddelc")
+coyote_time_limit = 0.15
 actor = NodePath("../..")
 controller = NodePath("..")
 

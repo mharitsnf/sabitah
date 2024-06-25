@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dqun2yywb23g6"
-path="res://.godot/imported/sundial.glb-65b9291205b86faa1659bd1528d0773a.scn"
+path="res://.godot/imported/sundial.glb-c39c73307d0dcdc321ee32c26525567f.scn"
 
 [deps]
 
-source_file="res://assets/resources/models/sundial.glb"
-dest_files=["res://.godot/imported/sundial.glb-65b9291205b86faa1659bd1528d0773a.scn"]
+source_file="res://assets/resources/models/sundial/sundial.glb"
+dest_files=["res://.godot/imported/sundial.glb-c39c73307d0dcdc321ee32c26525567f.scn"]
 
 [params]
 

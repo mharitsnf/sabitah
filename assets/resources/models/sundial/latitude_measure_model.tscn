@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dtt5k2c5jygva"]
 
-[ext_resource type="PackedScene" uid="uid://0pw2fybolhnv" path="res://assets/resources/models/latitude_measurement.glb" id="1_6ria3"]
+[ext_resource type="PackedScene" uid="uid://0pw2fybolhnv" path="res://assets/resources/models/sundial/latitude_measurement.glb" id="1_6ria3"]
 [ext_resource type="Material" uid="uid://cwwsx514skmpg" path="res://assets/resources/materials/m_latitude_measure.tres" id="2_hy7g5"]
 
 [node name="LatitudeMeasureModel" instance=ExtResource("1_6ria3")]

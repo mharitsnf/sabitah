@@ -10,6 +10,16 @@ var variable_time: float = 0.
 var jump_pressed: bool = false
 
 func delegated_process(delta: float) -> void:
+    if actor.is_grounded():
+        actor.linear_damp = actor.ground_damp
+    elif actor.is_submerged():
+        actor.linear_damp = actor.water_damp
+
+    if !actor.is_submerged() and !actor.is_grounded():
+        var next_state: ActorState = controller.get_character_state(PlayerCharacterController.CharacterStates.FALL)
+        controller.switch_state(next_state)
+        return
+
     # Change to grounded if on water
     if Input.is_action_just_pressed("character_jump"):
         jump_pressed = true
@@ -30,10 +40,6 @@ func delegated_process(delta: float) -> void:
             return
         
         variable_time += delta
-
-func _switch_to_jump() -> void:
-    var next_state: ActorState = controller.get_character_state(PlayerCharacterController.CharacterStates.JUMP)
-    controller.switch_state(next_state)
 
 func exit_state() -> void:
     variable_time = 0.
