@@ -14,3 +14,5 @@ var input_button_formatted: String = ""
 @export_group("References")
 @export var button_label: Label
 @export var text_label: Label
+
+var active: bool = false

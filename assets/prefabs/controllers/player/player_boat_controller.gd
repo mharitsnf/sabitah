@@ -21,17 +21,19 @@ func _ready() -> void:
 func enter_controller() -> void:
 	if input_prompts.is_empty():
 		var exit_boat_ip: InputPrompt = State.input_prompt_pscn.instantiate()
+		(exit_boat_ip as InputPrompt).active = true
 		(exit_boat_ip as InputPrompt).input_button = "F"
 		(exit_boat_ip as InputPrompt).prompt = "Exit boat"
 		input_prompts.append(exit_boat_ip)
 
 		var enter_sundial_ip: InputPrompt = State.input_prompt_pscn.instantiate()
+		(enter_sundial_ip as InputPrompt).active = true
 		(enter_sundial_ip as InputPrompt).input_button = "T"
 		(enter_sundial_ip as InputPrompt).prompt = "Enter sundial"
 		input_prompts.append(enter_sundial_ip)
 	
 	for ip: InputPrompt in input_prompts:
-		hud_layer.add_input_prompt(ip)
+		if ip.active: hud_layer.add_input_prompt(ip)
 
 func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts:

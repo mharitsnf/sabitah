@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/character_states/pc_jump_state.gd" id="8_dmf08"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_66g8n"]
-friction = 0.0
+friction = 0.2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bjbxt"]
 
@@ -21,7 +21,7 @@ friction = 0.0
 size = Vector3(0.5, 0.25, 0.5)
 
 [node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("visual_node", "ground_checker", "normal_target")]
-collision_layer = 33
+collision_layer = 97
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_66g8n")
 lock_rotation = true

@@ -8,6 +8,7 @@ enum CharacterStates {
 @export_group("References")
 @export var actor: CharacterActor
 
+# Refs from group
 var main_camera: MainCamera
 var player_boat_area: Area3D
 
@@ -21,15 +22,15 @@ var h_input: Vector2
 var inside_player_boat_area: bool = false
 var enter_boat_input_prompt: InputPrompt
 
+var current_local_sundial: SundialManager
+
 func _ready() -> void:
 	super()
 
-	actor = get_parent()
 	main_camera = Group.first("main_camera")
 	player_boat_area = Group.first("player_boat_area")
 
 	assert(actor)
-	assert(actor is CharacterActor)
 	assert(main_camera)
 	assert(main_camera is MainCamera)
 	assert(player_boat_area)
@@ -37,6 +38,10 @@ func _ready() -> void:
 	State.game_pam.current_player_data_changed.connect(_on_current_player_data_changed)
 	(player_boat_area as Area3D).body_entered.connect(_on_body_entered_player_boat_area)
 	(player_boat_area as Area3D).body_exited.connect(_on_body_exited_player_boat_area)
+
+	for area: Area3D in Group.all("local_sundial_areas"):
+		area.body_entered.connect(_on_body_entered_local_sundial_area.bind(area))
+		area.body_exited.connect(_on_body_exited_local_sundial_area)
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
@@ -48,6 +53,15 @@ func enter_controller() -> void:
 		(enter_ship_ip as InputPrompt).input_button = "F"
 		(enter_ship_ip as InputPrompt).prompt = "Enter ship"
 		input_prompts.append(enter_ship_ip)
+
+		# Create enter ship input prompt
+		var enter_local_sundial_ip: InputPrompt = State.input_prompt_pscn.instantiate()
+		(enter_local_sundial_ip as InputPrompt).input_button = "T"
+		(enter_local_sundial_ip as InputPrompt).prompt = "Enter local sundial"
+		input_prompts.append(enter_local_sundial_ip)
+
+	for ip: InputPrompt in input_prompts:
+		if ip.active: hud_layer.add_input_prompt(ip)
 
 func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts:
@@ -71,6 +85,7 @@ func delegated_process(delta: float) -> void:
 		current_actor_state.player_input_process(delta)
 
 func player_input_process(_delta: float) -> void:
+	_get_enter_local_sundial_input()
 	_get_enter_ship_input()
 	_get_h_input()
 
@@ -89,6 +104,14 @@ func switch_state(new_state: ActorState) -> void:
 	current_actor_state = new_state
 	new_state.enter_state()
 
+func _get_enter_local_sundial_input() -> void:
+	if Input.is_action_just_pressed("toggle_boat_sundial") and current_local_sundial:
+		if (State.game_pam as PlayerActorManager).transitioning: return
+
+		var new_pd: PlayerActorManager.PlayerData = PlayerActorManager.PlayerData.new()
+		new_pd.set_instance(current_local_sundial)
+		State.game_pam.change_player_data(new_pd)
+
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("switch_boat_character") and inside_player_boat_area:
 		if (State.game_pam as PlayerActorManager).transitioning: return
@@ -104,6 +127,18 @@ func _get_h_input() -> void:
 func _on_current_player_data_changed() -> void:
 	if State.game_pam.current_player_data.get_controller() != self:
 		h_input = Vector2.ZERO
+
+func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:
+	if body == actor:
+		current_local_sundial = area.get_parent()
+		(input_prompts[1] as InputPrompt).active = true
+		hud_layer.add_input_prompt(input_prompts[1])
+
+func _on_body_exited_local_sundial_area(body: Node3D) -> void:
+	if body == actor:
+		current_local_sundial = null
+		(input_prompts[1] as InputPrompt).active = false
+		hud_layer.remove_input_prompt(input_prompts[1])
 
 func _on_body_entered_player_boat_area(body: Node3D) -> void:
 	if body == actor:
