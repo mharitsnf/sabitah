@@ -1,7 +1,7 @@
 class_name PlayerGlobeModeManager extends Node
 
 enum GlobeModes {
-	LAT_LONG_SEARCH, ISLAND_REGISTRATION
+	NONE, LAT_LONG_SEARCH, ISLAND_REGISTRATION
 }
 
 class ModeData extends RefCounted:
@@ -63,17 +63,31 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	current_globe_mode.get_instance().delegated_unhandled_input(event)
 
+func get_mode_data(type: GlobeModes) -> ModeData:
+	if type == GlobeModes.NONE:
+		return _create_empty_mode_data()
+	
+	return (globe_mode_dict[type] as ModeData)
+
+func _create_empty_mode_data() -> ModeData:
+	return ModeData.new()
+
 func switch_modes(new_mode: ModeData) -> void:
+	if new_mode == current_globe_mode:
+		push_warning("new_mode is the same as current_globe_mode.")
+		return
+
 	if current_globe_mode:
 		if current_globe_mode.get_instance(): await current_globe_mode.get_instance().exit_mode()
 		prev_globe_mode = current_globe_mode
 
 	current_globe_mode = new_mode
-	if new_mode.get_instance(): new_mode.get_instance().enter_mode()
+	if new_mode.get_instance(): await new_mode.get_instance().enter_mode()
 
 ## Private. Creates mode data based on the packed scenes.
 func _create_mode_data() -> void:
 	for k: GlobeModes in globe_mode_pscns.keys():
+		if k == GlobeModes.NONE: continue
 		if globe_mode_pscns[k] is PackedScene:
 			globe_mode_dict[k] = ModeData.new(globe_mode_pscns[k])
 		
@@ -81,7 +95,6 @@ func _create_mode_data() -> void:
 func _set_existing_instances() -> void:
 	if get_child_count() == 0: return
 
-	var idx: int = 0
 	for c: Node in get_children():
 		if !(c is GlobeMode): continue
 		var existing_data: Array = globe_mode_dict.values().filter(func(_data: ModeData) -> bool:
@@ -89,8 +102,3 @@ func _set_existing_instances() -> void:
 		)
 		if existing_data.is_empty(): continue
 		(existing_data[0] as ModeData).set_instance(c)
-
-		# set the first child as current mode data
-		if idx == 1: switch_modes((existing_data[0] as ModeData))
-
-		idx += 1

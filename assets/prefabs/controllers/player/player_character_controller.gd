@@ -5,6 +5,9 @@ enum CharacterStates {
 }
 
 @export var states: Array[ActorState]
+@export_group("Switch scene commands")
+@export_subgroup("Registering island")
+@export var to_island_registration_cmd: Command
 @export_group("References")
 @export var actor: CharacterActor
 
@@ -30,6 +33,7 @@ func _ready() -> void:
 	main_camera = Group.first("main_camera")
 	player_boat_area = Group.first("player_boat_area")
 
+	assert(to_island_registration_cmd)
 	assert(actor)
 	assert(main_camera)
 	assert(main_camera is MainCamera)
@@ -114,7 +118,11 @@ func switch_state(new_state: ActorState) -> void:
 func _get_enter_register_island_input() -> void:
 	if Input.is_action_just_pressed("enter_island_registration") and current_local_sundial:
 		var scene_manager: SceneManager = Group.first("scene_manager")
-		(scene_manager as SceneManager).switch_scene(SceneManager.Scenes.GLOBE)
+		(scene_manager as SceneManager).switch_scene(
+			SceneManager.Scenes.GLOBE, 
+			null, 
+			to_island_registration_cmd
+		)
 
 func _get_enter_local_sundial_input() -> void:
 	if Input.is_action_just_pressed("toggle_sundial") and current_local_sundial:

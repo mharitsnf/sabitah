@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/menu_layer/base_menu.tscn" id="1_gnp2d"]
 [ext_resource type="Script" path="res://assets/prefabs/menu_layer/main_menu.gd" id="2_qmi3w"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_components/generic_button.tscn" id="3_y8qf8"]
-[ext_resource type="Resource" uid="uid://8qmvemf4jmbm" path="res://assets/resources/commands/scene_navigation/to_globe.tres" id="4_mmdue"]
 [ext_resource type="Resource" uid="uid://dscw7r5absl3p" path="res://assets/resources/commands/scene_navigation/to_game.tres" id="4_o8u73"]
+[ext_resource type="Resource" uid="uid://8qmvemf4jmbm" path="res://assets/resources/commands/scene_navigation/to_globe_latlng_search.tres" id="5_8s2r2"]
 [ext_resource type="Resource" uid="uid://5fh4qnp685m7" path="res://assets/resources/commands/dialogue/example_dialogue.tres" id="6_weedw"]
 
 [sub_resource type="Animation" id="Animation_0dj5e"]
@@ -124,7 +124,7 @@ on_press_command = ExtResource("4_o8u73")
 [node name="GenericButton3" parent="VBoxContainer" index="2" instance=ExtResource("3_y8qf8")]
 layout_mode = 2
 text = "To Globe"
-on_press_command = ExtResource("4_mmdue")
+on_press_command = ExtResource("5_8s2r2")
 
 [node name="GenericButton4" parent="VBoxContainer" index="3" instance=ExtResource("3_y8qf8")]
 layout_mode = 2

@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://hly7xukaj25f"]
+[gd_scene load_steps=15 format=3 uid="uid://hly7xukaj25f"]
 
 [ext_resource type="Script" path="res://assets/prefabs/actor/character_actor.gd" id="1_s37gg"]
 [ext_resource type="PackedScene" uid="uid://bihp1xu32e3qd" path="res://assets/prefabs/camera_system/player_character/player_character_tpc.tscn" id="1_y3sod"]
 [ext_resource type="PackedScene" uid="uid://ji6wwvaddy0" path="res://assets/prefabs/camera_system/player_character/player_character_fpc.tscn" id="2_p2auv"]
 [ext_resource type="Script" path="res://assets/player_camera_manager/player_camera_manager.gd" id="3_fhnii"]
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/player_character_controller.gd" id="4_y2ps7"]
+[ext_resource type="Resource" uid="uid://bfrfbmu5ymh4p" path="res://assets/resources/commands/switch_globe_mode/to_island_registration.tres" id="6_0w8f7"]
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/character_states/pc_grounded_state.gd" id="6_gidt1"]
 [ext_resource type="Curve" uid="uid://ce7hxt2bmvfh5" path="res://assets/resources/curves/jump_variable.tres" id="7_d8cu7"]
 [ext_resource type="Script" path="res://assets/prefabs/controllers/player/character_states/pc_fall_state.gd" id="7_ddelc"]
@@ -66,6 +67,7 @@ first_person_camera = NodePath("../PlayerCharacterFPC")
 [node name="Controller" type="Node" parent="." node_paths=PackedStringArray("states", "actor")]
 script = ExtResource("4_y2ps7")
 states = [NodePath("Grounded"), NodePath("Fall"), NodePath("Jump")]
+to_island_registration_cmd = ExtResource("6_0w8f7")
 actor = NodePath("..")
 
 [node name="Grounded" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]

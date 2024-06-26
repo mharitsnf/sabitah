@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SceneNavigateCommand" load_steps=3 format=3 uid="uid://8qmvemf4jmbm"]
+
+[ext_resource type="Resource" uid="uid://dkwcl6o2hfqh1" path="res://assets/resources/commands/switch_globe_mode/to_latlong_search.tres" id="1_eoqiv"]
+[ext_resource type="Script" path="res://assets/resources/commands/scene_navigation/scene_navigate_command.gd" id="2_dypdb"]
+
+[resource]
+script = ExtResource("2_dypdb")
+target_scene = 1
+after_switch_command = ExtResource("1_eoqiv")

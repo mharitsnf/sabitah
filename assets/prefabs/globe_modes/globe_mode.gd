@@ -14,7 +14,7 @@ func _ready() -> void:
 	assert(main_camera)
 
 func enter_mode() -> void:
-	await get_tree().create_timer(.1).timeout
+	await Common.wait(.1)
 
 func delegated_physics_process(_delta: float) -> void:
 	pass
@@ -29,4 +29,4 @@ func delegated_unhandled_input(_event: InputEvent) -> void:
 	pass
 
 func exit_mode() -> void:
-	await get_tree().create_timer(.1).timeout
+	await Common.wait(.1)

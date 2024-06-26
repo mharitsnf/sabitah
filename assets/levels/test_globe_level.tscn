@@ -61,8 +61,8 @@ follow_target = NodePath("../../PlanetBody")
 [node name="PlayerGlobeModeManager" type="Node" parent="."]
 script = ExtResource("6_v6cm8")
 globe_mode_pscns = {
-0: ExtResource("7_mfl6d"),
-1: ExtResource("8_usr3g")
+1: ExtResource("7_mfl6d"),
+2: ExtResource("8_usr3g")
 }
 
 [node name="LatLongSearch" parent="PlayerGlobeModeManager" instance=ExtResource("7_mfl6d")]
