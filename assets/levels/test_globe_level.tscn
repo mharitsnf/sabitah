@@ -3,17 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
 [ext_resource type="PackedScene" uid="uid://dlwgk43fjx6sh" path="res://assets/prefabs/sun_moon_manager/globe_sun_moon_manager.tscn" id="2_0v6h4"]
+[ext_resource type="Environment" uid="uid://cdj1j2owe1rni" path="res://assets/resources/world_env/default_env.tres" id="3_5gxpi"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
 [ext_resource type="PackedScene" uid="uid://c567ogeducyhi" path="res://assets/prefabs/camera_system/globe/globe_tpc.tscn" id="5_2cjuh"]
 [ext_resource type="Script" path="res://assets/player_globe_mode_manager/player_globe_mode_manager.gd" id="6_v6cm8"]
 [ext_resource type="PackedScene" uid="uid://b1a3t0vk23p4s" path="res://assets/prefabs/globe_modes/lat_long_search.tscn" id="7_mfl6d"]
 [ext_resource type="PackedScene" uid="uid://bj0it3vr13kbv" path="res://assets/prefabs/globe_modes/island_registration.tscn" id="8_usr3g"]
-
-[sub_resource type="Environment" id="Environment_capf0"]
-background_mode = 1
-background_color = Color(0.054, 0.03, 0.15, 1)
-sdfgi_enabled = true
-sdfgi_min_cell_size = 8.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ittsk"]
 albedo_color = Color(0.14902, 0.345098, 0.619608, 1)
@@ -124,7 +119,7 @@ level_type = 2
 [node name="GlobeSunMoonManager" parent="Environment" instance=ExtResource("2_0v6h4")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment_capf0")
+environment = ExtResource("3_5gxpi")
 
 [node name="PlanetBody" type="StaticBody3D" parent="."]
 

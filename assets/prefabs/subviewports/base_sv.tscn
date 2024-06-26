@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://byyvtf6lm73ku"]
+
+[node name="BaseSV" type="SubViewport"]
+size = Vector2i(1280, 720)

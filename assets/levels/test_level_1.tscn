@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c8ywta7cboshe" path="res://assets/prefabs/sun_moon_manager/game_sun_moon_manager.tscn" id="2_46lh5"]
 [ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity_areas/main_gravity_area.tscn" id="2_jdiks"]
 [ext_resource type="PackedScene" uid="uid://bnaadx2owlxa8" path="res://assets/prefabs/planet_bodies/main_planet_body.tscn" id="3_04ued"]
+[ext_resource type="Environment" uid="uid://cdj1j2owe1rni" path="res://assets/resources/world_env/default_env.tres" id="3_72myd"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/nav_sub_viewport.tscn" id="4_qbgsx"]
 [ext_resource type="PackedScene" uid="uid://dib7m5a41lrgf" path="res://assets/levels/nav_world.tscn" id="5_jphay"]
@@ -18,12 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://8rve6jcq5kyi" path="res://assets/prefabs/actor/ai_actor.tscn" id="12_yh4gp"]
 [ext_resource type="PackedScene" uid="uid://dtnook2vegfb2" path="res://assets/prefabs/navigation/target/navigation_target.tscn" id="13_qjase"]
 
-[sub_resource type="Environment" id="Environment_f3y7e"]
-background_mode = 1
-background_color = Color(0.054, 0.03, 0.15, 1)
-sdfgi_enabled = true
-sdfgi_min_cell_size = 8.0
-
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
 script = ExtResource("1_4i1xa")
 
@@ -32,7 +27,7 @@ script = ExtResource("1_4i1xa")
 [node name="GameSunMoonManager" parent="Environment" instance=ExtResource("2_46lh5")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment_f3y7e")
+environment = ExtResource("3_72myd")
 
 [node name="MainGravityArea" parent="Environment" instance=ExtResource("2_jdiks")]
 
@@ -66,6 +61,7 @@ skeleton = NodePath("../..")
 [node name="Camera" type="Node" parent="."]
 
 [node name="PlayerMainCamera" parent="Camera" instance=ExtResource("1_r30bq")]
+transform = Transform3D(0.00870242, 0.880115, 0.47468, -0.999961, 0.00833766, 0.00287347, -0.00142873, -0.474687, 0.880154, 1499.49, 12.9997, 34.9807)
 
 [node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("10_bq821")]
 

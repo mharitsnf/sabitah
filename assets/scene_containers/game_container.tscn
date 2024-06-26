@@ -1,22 +1,181 @@
-[gd_scene load_steps=5 format=3 uid="uid://mmlk171px1r1"]
+[gd_scene load_steps=29 format=3 uid="uid://mmlk171px1r1"]
 
-[ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/subviewports/main_sub_viewport.tscn" id="1_6vokm"]
+[ext_resource type="PackedScene" uid="uid://8b2xo2s75g20" path="res://assets/prefabs/subviewports/svc.tscn" id="1_4ocse"]
+[ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/subviewports/base_sv.tscn" id="2_dx7mt"]
 [ext_resource type="PackedScene" uid="uid://1cfuft35ap2" path="res://assets/levels/test_level_1.tscn" id="2_h3dnu"]
 [ext_resource type="PackedScene" uid="uid://cghdqxrh3weip" path="res://assets/prefabs/menu_layer/menu_layer.tscn" id="3_4ypjo"]
 [ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud_layer/hud_layer.tscn" id="3_rbjwn"]
+[ext_resource type="PackedScene" uid="uid://dfeibnth7x8mn" path="res://assets/prefabs/subviewports/no_mouse_svc.tscn" id="4_ke6kj"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/gaussian_blur_1.gdshader" id="5_5fnho"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_1.gdshader" id="5_aushr"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/gaussian_blur_2.gdshader" id="6_g582i"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_2.gdshader" id="8_rkiwu"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_3.gdshader" id="9_b7j4g"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_4.gdshader" id="10_2akua"]
+[ext_resource type="PackedScene" uid="uid://bo7uei2mgiu0l" path="res://assets/prefabs/subviewports/final_sv.tscn" id="10_r5jq4"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_22ras"]
+viewport_path = NodePath("Level/FinalSV")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d2d71"]
+resource_local_to_scene = true
+shader = ExtResource("5_5fnho")
+shader_parameter/main_tex = SubResource("ViewportTexture_22ras")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gn1wg"]
+viewport_path = NodePath("Blur1/BaseSV")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f7po8"]
+resource_local_to_scene = true
+shader = ExtResource("6_g582i")
+shader_parameter/main_tex = SubResource("ViewportTexture_gn1wg")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ouqln"]
+viewport_path = NodePath("Level/FinalSV")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wmxq"]
+resource_local_to_scene = true
+shader = ExtResource("5_aushr")
+shader_parameter/channel_0 = SubResource("ViewportTexture_ouqln")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_fda5t"]
+viewport_path = NodePath("Blur2/BaseSV")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qj44p"]
+viewport_path = NodePath("Kuwahara1/BaseSV")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k8w5l"]
+resource_local_to_scene = true
+shader = ExtResource("8_rkiwu")
+shader_parameter/blur_amount = 16
+shader_parameter/blur_iterations = 16
+shader_parameter/blur_quality = 4
+shader_parameter/blrd_tex = SubResource("ViewportTexture_fda5t")
+shader_parameter/channel_0 = SubResource("ViewportTexture_qj44p")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wd7wi"]
+viewport_path = NodePath("Level/FinalSV")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x1o22"]
+viewport_path = NodePath("Kuwahara2/BaseSV")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sb560"]
+resource_local_to_scene = true
+shader = ExtResource("9_b7j4g")
+shader_parameter/kuwahara_level = 0.0
+shader_parameter/radius = 8.0
+shader_parameter/q = 12.0
+shader_parameter/alpha = 5.0
+shader_parameter/channel_0 = SubResource("ViewportTexture_wd7wi")
+shader_parameter/channel_1 = SubResource("ViewportTexture_x1o22")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_l0ibr"]
+viewport_path = NodePath("Blur2/BaseSV")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_l6hwl"]
+viewport_path = NodePath("Kuwahara3/BaseSV")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rxiyg"]
+resource_local_to_scene = true
+shader = ExtResource("10_2akua")
+shader_parameter/sigma = 2.0
+shader_parameter/channel_0 = SubResource("ViewportTexture_l0ibr")
+shader_parameter/channel_1 = SubResource("ViewportTexture_l6hwl")
 
 [node name="GameContainer" type="Node"]
 
-[node name="MainSVC" type="SubViewportContainer" parent="."]
+[node name="Level" parent="." instance=ExtResource("1_4ocse")]
+
+[node name="FinalSV" parent="Level" instance=ExtResource("10_r5jq4")]
+handle_input_locally = false
+fsr_sharpness = 0.5
+render_target_update_mode = 4
+
+[node name="TestLevel1" parent="Level/FinalSV" instance=ExtResource("2_h3dnu")]
+
+[node name="Blur1" parent="." instance=ExtResource("4_ke6kj")]
+
+[node name="BaseSV" parent="Blur1" instance=ExtResource("2_dx7mt")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Blur1/BaseSV"]
+material = SubResource("ShaderMaterial_d2d71")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MainSubViewport" parent="MainSVC" instance=ExtResource("1_6vokm")]
+[node name="Blur2" parent="." instance=ExtResource("4_ke6kj")]
 
-[node name="TestLevel1" parent="MainSVC/MainSubViewport" instance=ExtResource("2_h3dnu")]
+[node name="BaseSV" parent="Blur2" instance=ExtResource("2_dx7mt")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Blur2/BaseSV"]
+material = SubResource("ShaderMaterial_f7po8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Kuwahara1" parent="." instance=ExtResource("4_ke6kj")]
+
+[node name="BaseSV" parent="Kuwahara1" instance=ExtResource("2_dx7mt")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Kuwahara1/BaseSV"]
+material = SubResource("ShaderMaterial_7wmxq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Kuwahara2" parent="." instance=ExtResource("4_ke6kj")]
+
+[node name="BaseSV" parent="Kuwahara2" instance=ExtResource("2_dx7mt")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Kuwahara2/BaseSV"]
+material = SubResource("ShaderMaterial_k8w5l")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Kuwahara3" parent="." instance=ExtResource("4_ke6kj")]
+
+[node name="BaseSV" parent="Kuwahara3" instance=ExtResource("2_dx7mt")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Kuwahara3/BaseSV"]
+material = SubResource("ShaderMaterial_sb560")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Kuwahara4" parent="." instance=ExtResource("4_ke6kj")]
+
+[node name="BaseSV" parent="Kuwahara4" instance=ExtResource("2_dx7mt")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="Kuwahara4/BaseSV"]
+material = SubResource("ShaderMaterial_rxiyg")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HUDLayer" parent="." instance=ExtResource("3_rbjwn")]
 

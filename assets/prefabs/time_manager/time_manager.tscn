@@ -4,4 +4,4 @@
 
 [node name="TimeManager" type="Node" groups=["time_manager"]]
 script = ExtResource("1_6rx1h")
-time_elapsed_speed = 800.0
+time_elapsed_speed = 215.0

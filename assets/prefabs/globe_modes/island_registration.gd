@@ -25,7 +25,6 @@ func enter_mode() -> void:
 	hud_layer.show_instruction_panel()
 
 func player_input_process(_delta: float) -> void:
-	print(transitioning)
 	_get_cancel_input()
 	_get_confirm_island_location_input()
 
@@ -89,3 +88,6 @@ func _exit_globe_scene() -> void:
 func exit_mode() -> void:
 	menu_layer.toggle_main_menu_allowed = true
 	await hud_layer.hide_instruction_panel()
+
+func _enter_tree() -> void:
+	transitioning = false

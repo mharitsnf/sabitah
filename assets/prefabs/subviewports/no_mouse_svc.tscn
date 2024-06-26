@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfeibnth7x8mn"]
+
+[ext_resource type="PackedScene" uid="uid://8b2xo2s75g20" path="res://assets/prefabs/subviewports/svc.tscn" id="1_yg81v"]
+
+[node name="NoMouseSVC" instance=ExtResource("1_yg81v")]
+mouse_filter = 2
