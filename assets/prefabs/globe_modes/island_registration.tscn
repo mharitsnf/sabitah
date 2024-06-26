@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj0it3vr13kbv"]
+[gd_scene load_steps=4 format=3 uid="uid://bj0it3vr13kbv"]
 
 [ext_resource type="Script" path="res://assets/prefabs/globe_modes/island_registration.gd" id="1_vk47k"]
 [ext_resource type="Resource" uid="uid://cce625b8062dc" path="res://assets/resources/commands/switch_globe_mode/to_none.tres" id="2_5of33"]
+[ext_resource type="PackedScene" uid="uid://4osuo85pb8cy" path="res://assets/prefabs/markers/globe_first_marker.tscn" id="3_q7wpc"]
 
 [node name="IslandRegistration" type="Node"]
 script = ExtResource("1_vk47k")
 before_cancel_cmd = ExtResource("2_5of33")
+first_marker_pscn = ExtResource("3_q7wpc")

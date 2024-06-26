@@ -4,15 +4,23 @@ class_name IslandRegistration extends LatLongSearch
 @export_subgroup("Canceling")
 @export var before_cancel_cmd: Command
 @export var after_cancel_cmd: Command
+@export_group("References")
+@export var level_anim: AnimationPlayer
+@export_subgroup("Packed scenes")
+@export var first_marker_pscn: PackedScene
 
 ## Margin of error for the player.
-const ISLAND_REGISTRATION_MARGIN_OF_ERROR: float = 1000.
+const ISLAND_REGISTRATION_MARGIN_OF_ERROR: float = 500.
+
+func _ready() -> void:
+	super()
+
+	assert(level_anim)
+	assert(first_marker_pscn)
 
 func enter_mode() -> void:
 	menu_layer.toggle_main_menu_allowed = false
 	hud_layer.show_instruction_panel()
-
-	print(State.local_sundial_data)
 
 func player_input_process(_delta: float) -> void:
 	_get_cancel_input()
@@ -29,23 +37,35 @@ func _get_confirm_island_location_input() -> void:
 			State.PLANET_RADIUS
 		)
 		
-		print(dist)
 		if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
 			State.local_sundial.first_marker_done = true
-			print("correct")
+			level_anim.play("add_first_marker")
+			await level_anim.animation_finished
+			_exit_globe_scene()
+
 		else:
 			print("incorrect")
 
+func add_first_marker() -> void:
+	var marker: Node3D = first_marker_pscn.instantiate()
+	var level: Node = State.get_level(State.LevelType.GLOBE)
+	level.add_child.call_deferred(marker)
+	await marker.tree_entered
+	(marker as Node3D).global_position = State.local_sundial_data['position']
+
 func _get_cancel_input() -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		State.local_sundial_data = {}
+		_exit_globe_scene()
 
-		var scene_manager: SceneManager = Group.first("scene_manager")
-		(scene_manager as SceneManager).switch_scene(
-			SceneManager.Scenes.GAME,
-			before_cancel_cmd, 
-			after_cancel_cmd
-		)
+func _exit_globe_scene() -> void:
+	State.local_sundial_data = {}
+
+	var scene_manager: SceneManager = Group.first("scene_manager")
+	(scene_manager as SceneManager).switch_scene(
+		SceneManager.Scenes.GAME,
+		before_cancel_cmd, 
+		after_cancel_cmd
+	)
 
 func exit_mode() -> void:
 	menu_layer.toggle_main_menu_allowed = true
