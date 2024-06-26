@@ -6,7 +6,7 @@ class_name IslandRegistration extends LatLongSearch
 @export var after_cancel_cmd: Command
 
 ## Margin of error for the player.
-const ISLAND_REGISTRATION_MARGIN_OF_ERROR: float = 450.
+const ISLAND_REGISTRATION_MARGIN_OF_ERROR: float = 1000.
 
 func enter_mode() -> void:
 	menu_layer.toggle_main_menu_allowed = false
@@ -31,6 +31,7 @@ func _get_confirm_island_location_input() -> void:
 		
 		print(dist)
 		if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
+			State.local_sundial.first_marker_done = true
 			print("correct")
 		else:
 			print("incorrect")

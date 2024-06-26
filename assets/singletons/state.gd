@@ -55,6 +55,7 @@ var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_components
 
 # region local sundial data
 
+var local_sundial: LocalSundialManager
 var local_sundial_data: Dictionary = {
 
 }

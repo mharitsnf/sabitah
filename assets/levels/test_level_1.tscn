@@ -47,7 +47,6 @@ transform = Transform3D(0.000563346, 0.999999, -0.00094617, -0.999992, 0.0005670
 transform = Transform3D(1, -2.62844e-10, 0, 2.63753e-11, 1, 2.91038e-10, -2.32831e-09, 2.91038e-10, 1, -7, 4.69983, -6.4)
 
 [node name="TestPlatform" parent="Islands/Node3D" instance=ExtResource("5_roqsb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="NavWorld" type="Node" parent="."]
 

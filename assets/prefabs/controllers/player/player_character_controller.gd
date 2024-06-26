@@ -25,7 +25,8 @@ var h_input: Vector2
 var inside_player_boat_area: bool = false
 var enter_boat_input_prompt: InputPrompt
 
-var current_local_sundial: LocalSundialManager
+func _enter_tree() -> void:
+	_evaluate_register_island_input_prompt()
 
 func _ready() -> void:
 	super()
@@ -70,8 +71,21 @@ func enter_controller() -> void:
 		(enter_register_island_ip as InputPrompt).prompt = "Register island"
 		input_prompts.append(enter_register_island_ip)
 
+	_add_input_prompts()
+
+func _evaluate_register_island_input_prompt() -> void:
+	if input_prompts.is_empty(): return
+
+	if State.local_sundial and State.local_sundial.first_marker_done:
+		if !(input_prompts[2] as InputPrompt).is_inside_tree():
+			await (input_prompts[2] as InputPrompt).tree_entered
+		(input_prompts[2] as InputPrompt).active = false
+		hud_layer.remove_input_prompt((input_prompts[2] as InputPrompt))
+
+func _add_input_prompts() -> void:
 	for ip: InputPrompt in input_prompts:
-		if ip.active: hud_layer.add_input_prompt(ip)
+		if ip.active:
+			hud_layer.add_input_prompt(ip)
 
 func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts:
@@ -116,10 +130,10 @@ func switch_state(new_state: ActorState) -> void:
 	new_state.enter_state()
 
 func _get_enter_register_island_input() -> void:
-	if Input.is_action_just_pressed("enter_island_registration") and current_local_sundial:
-		var latlong: Array = Common.Geometry.point_to_latlng(current_local_sundial.global_position.normalized())
+	if Input.is_action_just_pressed("enter_island_registration") and State.local_sundial and !State.local_sundial.first_marker_done:
+		var latlong: Array = Common.Geometry.point_to_latlng(State.local_sundial.global_position.normalized())
 		State.local_sundial_data = {
-			"normal": current_local_sundial.global_position.normalized(),
+			"normal": State.local_sundial.global_position.normalized(),
 			"lat": latlong[0],
 			"long": latlong[0],
 		}
@@ -132,11 +146,11 @@ func _get_enter_register_island_input() -> void:
 		)
 
 func _get_enter_local_sundial_input() -> void:
-	if Input.is_action_just_pressed("toggle_sundial") and current_local_sundial:
+	if Input.is_action_just_pressed("toggle_sundial") and State.local_sundial:
 		if (State.game_pam as PlayerActorManager).transitioning: return
 
 		var new_pd: PlayerActorManager.PlayerData = PlayerActorManager.PlayerData.new()
-		new_pd.set_instance(current_local_sundial)
+		new_pd.set_instance(State.local_sundial)
 		State.game_pam.change_player_data(new_pd)
 
 func _get_enter_ship_input() -> void:
@@ -156,22 +170,28 @@ func _on_current_player_data_changed() -> void:
 		h_input = Vector2.ZERO
 
 func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:
-	if body == actor:
-		var area_parent: Node = area.get_parent()
-		if area_parent is LocalSundialManager:
-			current_local_sundial = area_parent
-			(input_prompts[1] as InputPrompt).active = true
-			(input_prompts[2] as InputPrompt).active = true
-			hud_layer.add_input_prompt(input_prompts[1])
-			hud_layer.add_input_prompt(input_prompts[2])
+	if body != actor: return
+	
+	var area_parent: Node = area.get_parent()
+	if !(area_parent is LocalSundialManager): return
+	
+	State.local_sundial = area_parent
+	(input_prompts[1] as InputPrompt).active = true
+	hud_layer.add_input_prompt(input_prompts[1])
+	
+	if State.local_sundial.first_marker_done: return
+
+	(input_prompts[2] as InputPrompt).active = true
+	hud_layer.add_input_prompt(input_prompts[2])
 
 func _on_body_exited_local_sundial_area(body: Node3D) -> void:
-	if body == actor:
-		current_local_sundial = null
-		(input_prompts[1] as InputPrompt).active = false
-		(input_prompts[2] as InputPrompt).active = true
-		hud_layer.remove_input_prompt(input_prompts[1])
-		hud_layer.remove_input_prompt(input_prompts[2])
+	if body != actor: return
+	if State.local_sundial_data.is_empty(): State.local_sundial = null
+	(input_prompts[1] as InputPrompt).active = false
+	hud_layer.remove_input_prompt(input_prompts[1])
+
+	(input_prompts[2] as InputPrompt).active = false
+	hud_layer.remove_input_prompt(input_prompts[2])
 
 func _on_body_entered_player_boat_area(body: Node3D) -> void:
 	if body == actor:
