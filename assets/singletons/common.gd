@@ -16,25 +16,41 @@ class Geometry extends RefCounted:
 		var new_forward : Vector3 = quat * old_basis.z
 		return Quaternion(Basis(new_right, new_normal, new_forward).orthonormalized())
 
-	static func get_latitude(dot: float) -> float:
-		return floorf(remap(dot, -1., 1., -90., 90.))
-	
-	static func get_longitude(angle: float, dot_sign: float) -> float:
-		var long: float = remap(angle, 0., PI, 0., 180.)
-		long = floorf(long)
-		return long if dot_sign > 0. else -long
+	static func point_to_latlng(normal: Vector3) -> Array:
+		# Calculate latitude vector and dot product with north pole
+		var lat_vec: Vector3 = normal
+		lat_vec = Vector3(lat_vec.x, lat_vec.y, 0.).normalized() 
+		var north_dot_n: float = State.NORTH.dot(lat_vec)
 
-	## Returns the distance between two vectors, [a] and [b], along a sphere surface of radius [r].
-	static func slength(a: Vector3, b: Vector3, r: float) -> float:
-		var n_a: Vector3 = a.normalized()
-		var n_b: Vector3 = b.normalized()
-		var a_dot_b: float = n_a.dot(n_b)
-		var rad: float = acos(a_dot_b)
-		return r * rad
+		# Calculate longitude vector
+		var long_vec: Vector3 = normal
+		long_vec = Vector3(long_vec.x, 0., long_vec.z).normalized()
 
-	## Returns the maximum possible distance between two vectors along a sphere surface of radius [r].
-	static func max_slength(r: float) -> float:
-		return PI * r
+		# Calculate angle from longitude vector to prime meridian and the sign (west or east of the PM).
+		var rotated_long: Vector3 = long_vec.rotated(Vector3.UP, deg_to_rad(-90.)).normalized()
+		var pm_dot_long: float = State.PRIME_MERIDIAN.dot(rotated_long)
+		var dot_sign: float = signf(pm_dot_long)
+		var pm_angle_to_long: float = State.PRIME_MERIDIAN.angle_to(long_vec)
+
+		var lat: float = floorf(remap(north_dot_n, -1., 1., -90., 90.))
+		var long: float = floorf(remap(pm_angle_to_long, 0., PI, 0., 180.))
+		long = long if dot_sign > 0. else - long
+
+		return [lat, long]
+
+	static func haversine_dist(lat1: float, long1: float, lat2: float, long2: float, r: float) -> float:
+		var lat1_rad: float = deg_to_rad(lat1)
+		var long1_rad: float = deg_to_rad(long1)
+		var lat2_rad: float = deg_to_rad(lat2)
+		var long2_rad: float = deg_to_rad(long2)
+
+		var dlat: float = lat2_rad - lat1_rad
+		var dlong: float = long2_rad - long1_rad
+
+		var a: float = sin(dlat / 2) * sin(dlat / 2) + cos(lat1_rad) * cos(lat2_rad) * sin(dlong / 2) * sin(dlong / 2)
+		var c: float = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+		return r * c
 
 class InputState extends RefCounted:
 	static var current_device: String

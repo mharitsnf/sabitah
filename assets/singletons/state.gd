@@ -25,6 +25,8 @@ enum LevelType {
     MAIN, NAV, GLOBE, NONE
 }
 
+# region Game data
+
 class GameData extends RefCounted:
     var _key: LevelType
     var _level: Node
@@ -47,7 +49,15 @@ var world_dict: Dictionary = {
     LevelType.GLOBE: GameData.new(LevelType.GLOBE)
 }
 
+# region Packed scenes
+
 var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_components/input_prompt.tscn")
+
+# region local sundial data
+
+var local_sundial_data: Dictionary = {
+
+}
 
 # region References
 

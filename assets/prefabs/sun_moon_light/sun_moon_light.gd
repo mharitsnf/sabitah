@@ -47,7 +47,7 @@ const EPS: Vector3 = Vector3(.001, .001, .001)
 func _look_at_origin() -> void:
 	look_at(Vector3.ZERO + EPS)
 
-const SUNSET_ANGLE: float = -.25
+const SUNSET_ANGLE: float = -.30
 ## Private. Adjust this light intensity according to the dot product of the player's actor position
 ## and this light position. Only available if the sun is placed in the main world and if [adjust_intensity]
 ## is true.

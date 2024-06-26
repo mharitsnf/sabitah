@@ -1,7 +1,6 @@
 class_name LatLongSearch extends GlobeMode
 
-var lat: float = 0.
-var long: float = 0.
+var query_res: Dictionary
 
 func delegated_physics_process(_delta: float) -> void:
 	search_lat_long()
@@ -15,27 +14,10 @@ func search_lat_long() -> void:
 	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end)
 	query.collide_with_areas = false
 
-	var result: Dictionary = space_state.intersect_ray(query)
-	if result.is_empty(): return
+	query_res = space_state.intersect_ray(query)
+	if query_res.is_empty(): return
 
-	# Calculate latitude vector and dot product with north pole
-	var lat_vec: Vector3 = result['normal']
-	lat_vec = Vector3(lat_vec.x, lat_vec.y, 0.).normalized() 
-	var north_dot_n: float = State.NORTH.dot(lat_vec)
-
-	# Calculate longitude vector
-	var long_vec: Vector3 = result['normal']
-	long_vec = Vector3(long_vec.x, 0., long_vec.z).normalized()
-
-	# Calculate angle from longitude vector to prime meridian and the sign (west or east of the PM).
-	var rotated_long: Vector3 = long_vec.rotated(Vector3.UP, deg_to_rad(-90.)).normalized()
-	var pm_dot_long: float = State.PRIME_MERIDIAN.dot(rotated_long)
-	var dot_sign: float = signf(pm_dot_long)
-	var pm_angle_to_long: float = State.PRIME_MERIDIAN.angle_to(long_vec)
-
-	# Get the lat and long
-	lat = Common.Geometry.get_latitude(north_dot_n)
-	long = Common.Geometry.get_longitude(pm_angle_to_long, dot_sign)
+	var res: Array = Common.Geometry.point_to_latlng(query_res['normal'])
 
 	# Set text to the HUD.
-	hud_layer.set_lat_long_text(lat, long)
+	hud_layer.set_lat_long_text(res[0], res[1])

@@ -117,6 +117,13 @@ func switch_state(new_state: ActorState) -> void:
 
 func _get_enter_register_island_input() -> void:
 	if Input.is_action_just_pressed("enter_island_registration") and current_local_sundial:
+		var latlong: Array = Common.Geometry.point_to_latlng(current_local_sundial.global_position.normalized())
+		State.local_sundial_data = {
+			"normal": current_local_sundial.global_position.normalized(),
+			"lat": latlong[0],
+			"long": latlong[0],
+		}
+
 		var scene_manager: SceneManager = Group.first("scene_manager")
 		(scene_manager as SceneManager).switch_scene(
 			SceneManager.Scenes.GLOBE, 

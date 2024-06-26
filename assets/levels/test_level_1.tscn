@@ -40,11 +40,14 @@ environment = SubResource("Environment_f3y7e")
 
 [node name="Islands" type="Node" parent="."]
 
-[node name="LocalSundialManager" parent="Islands" instance=ExtResource("5_k3xnn")]
-transform = Transform3D(0.323779, 0.941953, -0.0888346, -0.942187, 0.312437, -0.121108, -0.0863227, 0.122911, 0.988656, 1395.83, 480.515, 198.023)
+[node name="Node3D" type="Node3D" parent="Islands"]
+transform = Transform3D(0.000563346, 0.999999, -0.00094617, -0.999992, 0.000567096, 0.00396803, 0.00396857, 0.000943927, 0.999992, 1485.1, 0.842195, 1.40183)
 
-[node name="TestPlatform" parent="Islands" instance=ExtResource("5_roqsb")]
-transform = Transform3D(0.34002, 0.935241, -0.0985402, -0.935988, 0.326397, -0.131879, -0.0911751, 0.137074, 0.986356, 1390.33, 485.221, 203.774)
+[node name="LocalSundialManager" parent="Islands/Node3D" instance=ExtResource("5_k3xnn")]
+transform = Transform3D(1, -2.62844e-10, 0, 2.63753e-11, 1, 2.91038e-10, -2.32831e-09, 2.91038e-10, 1, -7, 4.69983, -6.4)
+
+[node name="TestPlatform" parent="Islands/Node3D" instance=ExtResource("5_roqsb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="NavWorld" type="Node" parent="."]
 
@@ -70,7 +73,7 @@ skeleton = NodePath("../..")
 [node name="PlayerActorController" parent="." instance=ExtResource("11_ni3kg")]
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
-transform = Transform3D(0.344998, 0.931614, -0.114336, -0.93542, 0.331244, -0.123556, -0.0772337, 0.149579, 0.985729, 1384, 492.096, 222.214)
+transform = Transform3D(0.00971944, 0.999854, -0.0140802, -0.996167, 0.00845757, -0.0870619, -0.0869301, 0.0148724, 0.996103, 1486.38, 12.573, 22.1093)
 
 [node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
 transform = Transform3D(0.99947, -0.00807827, -0.0315495, 0.00799244, 0.999964, -0.00284574, 0.0315714, 0.00259207, 0.999498, -12.0011, 1485.55, 3.85078)
