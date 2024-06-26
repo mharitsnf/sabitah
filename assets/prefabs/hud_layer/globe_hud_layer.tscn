@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://blsm2jgfsebmc"]
+[gd_scene load_steps=10 format=3 uid="uid://blsm2jgfsebmc"]
 
 [ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud_layer/hud_layer.tscn" id="1_d6gpj"]
 [ext_resource type="Texture2D" uid="uid://0sxdw4ms6s7x" path="res://assets/resources/textures/crosshair003.png" id="2_1v113"]
@@ -30,6 +30,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(928, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InstructionPanel/MarginContainer/VBoxContainer/Content:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_q56du"]
 resource_name = "hide_instruction_panel"
@@ -60,6 +72,22 @@ tracks/1/keys = {
 "values": [Vector2(928, 32), Vector2(928, 31.6966), Vector2(928, 29.5727), Vector2(928, 23.808), Vector2(928, 13.0086), Vector2(928, 4.74074), Vector2(928, 1.024), Vector2(928, 0.0379257), Vector2(928, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_av6bv"]
+resource_name = "show_error_status"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InstructionPanel/MarginContainer/VBoxContainer/Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.666667, 0.7, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.25098, 0.25098, 1), Color(1, 0.251091, 0.251091, 1), Color(1, 0.251868, 0.251868, 1), Color(1, 0.253976, 0.253976, 1), Color(1, 0.258082, 0.258082, 1), Color(1, 0.264851, 0.264851, 1), Color(1, 0.274949, 0.274949, 1), Color(1, 0.289042, 0.289042, 1), Color(1, 0.307795, 0.307795, 1), Color(1, 0.331875, 0.331875, 1), Color(1, 0.361946, 0.361946, 1), Color(1, 0.398676, 0.398676, 1), Color(1, 0.442729, 0.442729, 1), Color(1, 0.494772, 0.494772, 1), Color(1, 0.555471, 0.555471, 1), Color(1, 0.62549, 0.62549, 1), Color(1, 0.69551, 0.69551, 1), Color(1, 0.756208, 0.756208, 1), Color(1, 0.808251, 0.808251, 1), Color(1, 0.852304, 0.852304, 1), Color(1, 0.889034, 0.889034, 1), Color(1, 0.919106, 0.919106, 1), Color(1, 0.943185, 0.943185, 1), Color(1, 0.961939, 0.961939, 1), Color(1, 0.976031, 0.976031, 1), Color(1, 0.986129, 0.986129, 1), Color(1, 0.992898, 0.992898, 1), Color(1, 0.997004, 0.997004, 1), Color(1, 0.999112, 0.999112, 1), Color(1, 0.999889, 0.999889, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_lcss8"]
 resource_name = "show_instruction_panel"
 length = 0.25
@@ -88,12 +116,43 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(928, 0), Vector2(928, 0.303407), Vector2(928, 2.42726), Vector2(928, 8.192), Vector2(928, 18.9914), Vector2(928, 27.2593), Vector2(928, 30.976), Vector2(928, 31.9621), Vector2(928, 32)]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset_instruction_text"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_om1di"]
+resource_name = "show_success_status"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InstructionPanel/MarginContainer/VBoxContainer/Content:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.666667, 0.7, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.482353, 0.631373, 0.231373, 1), Color(0.48243, 0.631427, 0.231486, 1), Color(0.482966, 0.631809, 0.232284, 1), Color(0.484424, 0.632847, 0.234447, 1), Color(0.487261, 0.634868, 0.23866, 1), Color(0.491939, 0.638199, 0.245606, 1), Color(0.498918, 0.643169, 0.255969, 1), Color(0.508657, 0.650104, 0.27043, 1), Color(0.521617, 0.659334, 0.289674, 1), Color(0.538259, 0.671184, 0.314384, 1), Color(0.559041, 0.685984, 0.345243, 1), Color(0.584425, 0.70406, 0.382935, 1), Color(0.614871, 0.725741, 0.428141, 1), Color(0.650837, 0.751354, 0.481547, 1), Color(0.692786, 0.781226, 0.543834, 1), Color(0.741176, 0.815686, 0.615686, 1), Color(0.789567, 0.850146, 0.687539, 1), Color(0.831515, 0.880019, 0.749826, 1), Color(0.867482, 0.905631, 0.803231, 1), Color(0.897928, 0.927312, 0.848438, 1), Color(0.923312, 0.945389, 0.886129, 1), Color(0.944094, 0.960188, 0.916988, 1), Color(0.960735, 0.972039, 0.941698, 1), Color(0.973696, 0.981268, 0.960942, 1), Color(0.983435, 0.988204, 0.975404, 1), Color(0.990414, 0.993174, 0.985766, 1), Color(0.995092, 0.996505, 0.992712, 1), Color(0.997929, 0.998526, 0.996925, 1), Color(0.999386, 0.999563, 0.999089, 1), Color(0.999923, 0.999945, 0.999886, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ihms2"]
 _data = {
 "RESET": SubResource("Animation_lqo2t"),
 "hide_instruction_panel": SubResource("Animation_q56du"),
-"show_instruction_panel": SubResource("Animation_lcss8")
+"show_error_status": SubResource("Animation_av6bv"),
+"show_instruction_panel": SubResource("Animation_lcss8"),
+"show_success_status": SubResource("Animation_om1di")
 }
 
 [node name="GlobeHUDLayer" node_paths=PackedStringArray("anim", "instruction_label", "lat_label", "long_label") instance=ExtResource("1_d6gpj")]

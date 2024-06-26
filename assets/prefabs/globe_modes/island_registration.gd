@@ -12,6 +12,8 @@ class_name IslandRegistration extends LatLongSearch
 ## Margin of error for the player.
 const ISLAND_REGISTRATION_MARGIN_OF_ERROR: float = 500.
 
+var transitioning: bool = false
+
 func _ready() -> void:
 	super()
 
@@ -23,11 +25,12 @@ func enter_mode() -> void:
 	hud_layer.show_instruction_panel()
 
 func player_input_process(_delta: float) -> void:
+	print(transitioning)
 	_get_cancel_input()
 	_get_confirm_island_location_input()
 
 func _get_confirm_island_location_input() -> void:
-	if Input.is_action_just_pressed("confirm_island_location"):
+	if Input.is_action_just_pressed("confirm_island_location") and !transitioning:
 		var query_latlong: Array = Common.Geometry.point_to_latlng(query_res['normal'])
 		var dist: float = Common.Geometry.haversine_dist(
 			State.local_sundial_data['lat'],
@@ -38,13 +41,29 @@ func _get_confirm_island_location_input() -> void:
 		)
 		
 		if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
+			transitioning = true
 			State.local_sundial.first_marker_done = true
 			level_anim.play("add_first_marker")
 			await level_anim.animation_finished
-			_exit_globe_scene()
+			await _exit_globe_scene()
+			transitioning = false
 
 		else:
-			print("incorrect")
+			transitioning = true
+			await show_incorrect_message()
+			transitioning = false
+
+func show_correct_message() -> void:
+	hud_layer.set_instruction_text(
+		"Correct!",
+		Common.Status.SUCCESS
+	)
+
+func show_incorrect_message() -> void:
+	await hud_layer.set_instruction_text(
+		"Wrong location, try again or exit with [ESC].",
+		Common.Status.ERROR
+	)
 
 func add_first_marker() -> void:
 	var marker: Node3D = first_marker_pscn.instantiate()
@@ -54,14 +73,14 @@ func add_first_marker() -> void:
 	(marker as Node3D).global_position = State.local_sundial_data['position']
 
 func _get_cancel_input() -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and !transitioning:
 		_exit_globe_scene()
 
 func _exit_globe_scene() -> void:
 	State.local_sundial_data = {}
 
 	var scene_manager: SceneManager = Group.first("scene_manager")
-	(scene_manager as SceneManager).switch_scene(
+	await (scene_manager as SceneManager).switch_scene(
 		SceneManager.Scenes.GAME,
 		before_cancel_cmd, 
 		after_cancel_cmd

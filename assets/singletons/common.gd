@@ -1,5 +1,9 @@
 extends Node
 
+enum Status {
+	NONE, SUCCESS, ERROR
+}
+
 func _ready() -> void:
 	# Input
 	InputState.current_device = InputHelper.guess_device_name()
