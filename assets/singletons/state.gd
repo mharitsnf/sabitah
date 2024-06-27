@@ -21,6 +21,8 @@ const MAIN_TO_GLOBE_SCALE: float = .05
 const PRIME_MERIDIAN: Vector3 = Vector3.RIGHT
 const NORTH: Vector3 = Vector3.UP
 
+const PICTURE_FOLDER_PATH: String = "res://assets/resources/pictures/"
+
 enum LevelType {
     MAIN, NAV, GLOBE, NONE
 }

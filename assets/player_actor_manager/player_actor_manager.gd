@@ -1,5 +1,7 @@
 class_name PlayerActorManager extends Node
 
+# region Enums
+
 enum PlayerActors {
 	CHARACTER, BOAT, SUNDIAL
 }
@@ -7,6 +9,8 @@ enum PlayerActors {
 enum LightType {
 	NORMAL, SUNDIAL
 }
+
+# region Player database
 
 class PlayerData extends RefCounted:
 	var _pscn: PackedScene
@@ -66,6 +70,8 @@ var player_data_dict: Dictionary = {
 	PlayerActors.CHARACTER: null,
 }
 
+# region References
+
 var previous_player_data: PlayerData
 var current_player_data: PlayerData
 
@@ -78,6 +84,8 @@ var ocean_data: OceanData
 var menu_layer: MenuLayer
 
 signal current_player_data_changed()
+
+# region Lifecycle functions
 
 func _enter_tree() -> void:
 	State.game_pam = self
@@ -94,7 +102,7 @@ func _ready() -> void:
 	_create_player_data()
 	_set_existing_instances()
 	_create_actor_instances()
-	_initiate_current_player_data()
+	_init_current_player_data()
 
 # Run the delegated player input process
 func _process(delta: float) -> void:
@@ -135,6 +143,14 @@ func _get_switch_camera_input() -> void:
 ## Returns the player data of the specified [key].
 func get_player_data(key: PlayerActors) -> PlayerData:
 	return player_data_dict[key]
+
+## Private. Setter for current light type.
+func _set_current_light_type(value: LightType) -> void:
+	current_light_type = value
+
+	for light: Node in Group.all("game_light"):
+		if light.has_method("start_shadow_transition"):
+			(light as SunMoonLight).start_shadow_transition(value)
 
 # region Switching actor
 
@@ -178,13 +194,6 @@ func change_player_data(new_pd: PlayerData) -> Array:
 
 	return [true, previous_player_data]
 
-func _set_current_light_type(value: LightType) -> void:
-	current_light_type = value
-
-	for light: Node in Group.all("game_light"):
-		if light.has_method("start_shadow_transition"):
-			(light as SunMoonLight).start_shadow_transition(value)
-
 # region Initialization
 
 func _create_player_data() -> void:
@@ -196,7 +205,6 @@ func _create_player_data() -> void:
 func _set_existing_instances() -> void:
 	if get_child_count() == 0: return
 
-	var idx: int = 0
 	for c: Node in get_children():
 		if !(c is BaseActor): continue
 		var existing_data: Array = player_data_dict.values().filter(func(_data: PlayerData) -> bool:
@@ -205,20 +213,16 @@ func _set_existing_instances() -> void:
 		if existing_data.is_empty(): continue
 		(existing_data[0] as PlayerData).set_instance(c)
 
-		# set the first child as current player data
-		if idx == 0: change_player_data((existing_data[0] as PlayerData))
-
-		idx += 1
-
 func _create_actor_instances() -> void:
 	for pd: PlayerData in player_data_dict.values():
 		if pd.get_instance(): continue
 		pd.create_instance()
 
-func _initiate_current_player_data() -> void:
-	if current_player_data: return
+func _init_current_player_data() -> void:
 	if get_child_count() == 0:
+		# Add boat at a specific location
 		add_child.call_deferred((player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance())
 		await (player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance().tree_entered
 		(player_data_dict[PlayerActors.BOAT] as PlayerData).get_instance().global_position = Vector3(0., State.PLANET_RADIUS, 0.)
-		change_player_data(player_data_dict[PlayerActors.BOAT] as PlayerData)
+
+	change_player_data(player_data_dict[PlayerActors.BOAT] as PlayerData)

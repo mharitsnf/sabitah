@@ -54,6 +54,7 @@ mesh = SubResource("BoxMesh_i27ma")
 target_position = Vector3(0, -1.2, 0)
 
 [node name="PlayerCharacterTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_y3sod")]
+offset = Vector3(0, 2, 0)
 follow_target = NodePath("..")
 
 [node name="PlayerCharacterFPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("2_p2auv")]

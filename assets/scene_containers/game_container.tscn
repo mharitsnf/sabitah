@@ -165,7 +165,7 @@ grow_vertical = 2
 
 [node name="Kuwahara4" parent="." instance=ExtResource("4_ke6kj")]
 
-[node name="BaseSV" parent="Kuwahara4" instance=ExtResource("2_dx7mt")]
+[node name="BaseSV" parent="Kuwahara4" groups=["final_viewport"] instance=ExtResource("2_dx7mt")]
 handle_input_locally = false
 render_target_update_mode = 4
 
