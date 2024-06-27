@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://blsm2jgfsebmc"]
 
-[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud_layer/hud_layer.tscn" id="1_d6gpj"]
+[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud/hud_layer.tscn" id="1_d6gpj"]
 [ext_resource type="Texture2D" uid="uid://0sxdw4ms6s7x" path="res://assets/resources/textures/crosshair003.png" id="2_1v113"]
-[ext_resource type="Script" path="res://assets/prefabs/hud_layer/globe_hud_layer.gd" id="2_4juk7"]
+[ext_resource type="Script" path="res://assets/prefabs/hud/globe_hud_layer.gd" id="2_4juk7"]
 
 [sub_resource type="Animation" id="Animation_lqo2t"]
 length = 0.001

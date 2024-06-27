@@ -3,8 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://8b2xo2s75g20" path="res://assets/prefabs/subviewports/svc.tscn" id="1_4ocse"]
 [ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/subviewports/base_sv.tscn" id="2_dx7mt"]
 [ext_resource type="PackedScene" uid="uid://1cfuft35ap2" path="res://assets/levels/test_level_1.tscn" id="2_h3dnu"]
-[ext_resource type="PackedScene" uid="uid://cghdqxrh3weip" path="res://assets/prefabs/menu_layer/menu_layer.tscn" id="3_4ypjo"]
-[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud_layer/hud_layer.tscn" id="3_rbjwn"]
 [ext_resource type="PackedScene" uid="uid://dfeibnth7x8mn" path="res://assets/prefabs/subviewports/no_mouse_svc.tscn" id="4_ke6kj"]
 [ext_resource type="Shader" path="res://assets/resources/shaders/gaussian_blur_1.gdshader" id="5_5fnho"]
 [ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_1.gdshader" id="5_aushr"]
@@ -13,6 +11,8 @@
 [ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_3.gdshader" id="9_b7j4g"]
 [ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_4.gdshader" id="10_2akua"]
 [ext_resource type="PackedScene" uid="uid://bo7uei2mgiu0l" path="res://assets/prefabs/subviewports/final_sv.tscn" id="10_r5jq4"]
+[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud/hud_layer.tscn" id="12_mys7j"]
+[ext_resource type="PackedScene" uid="uid://tn6uojnnyc44" path="res://assets/prefabs/user_interfaces/game_menu_layer.tscn" id="13_ds028"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_22ras"]
 viewport_path = NodePath("Level/FinalSV")
@@ -70,7 +70,7 @@ shader_parameter/channel_0 = SubResource("ViewportTexture_wd7wi")
 shader_parameter/channel_1 = SubResource("ViewportTexture_x1o22")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_l0ibr"]
-viewport_path = NodePath("Blur2/BaseSV")
+viewport_path = NodePath("Kuwahara2/BaseSV")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_l6hwl"]
 viewport_path = NodePath("Kuwahara3/BaseSV")
@@ -177,6 +177,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HUDLayer" parent="." instance=ExtResource("3_rbjwn")]
+[node name="HUDLayer" parent="." instance=ExtResource("12_mys7j")]
 
-[node name="MenuLayer" parent="." instance=ExtResource("3_4ypjo")]
+[node name="GameMenuLayer" parent="." instance=ExtResource("13_ds028")]

@@ -1,3 +1,4 @@
+## Singleton class for storing global game variables.
 extends Node
 
 # region Constants
@@ -23,8 +24,14 @@ const NORTH: Vector3 = Vector3.UP
 
 const PICTURE_FOLDER_PATH: String = "res://assets/resources/pictures/"
 
+# Enums
+
 enum LevelType {
     MAIN, NAV, GLOBE, NONE
+}
+
+enum UserInterfaces {
+    NONE, MAIN_MENU
 }
 
 # region Game data
@@ -53,7 +60,7 @@ var world_dict: Dictionary = {
 
 # region Packed scenes
 
-var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_components/input_prompt.tscn")
+var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/components/input_prompt.tscn")
 
 # region local sundial data
 

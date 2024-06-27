@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1a3t0vk23p4s"]
+[gd_scene load_steps=3 format=3 uid="uid://b1a3t0vk23p4s"]
 
 [ext_resource type="Script" path="res://assets/prefabs/globe_modes/latlong_search.gd" id="1_f47gb"]
+[ext_resource type="Resource" uid="uid://cce625b8062dc" path="res://assets/resources/commands/switch_globe_mode/globe_none_mode.tres" id="2_dsf3m"]
 
 [node name="LatLongSearch" type="Node"]
 script = ExtResource("1_f47gb")
+before_cancel_cmd = ExtResource("2_dsf3m")

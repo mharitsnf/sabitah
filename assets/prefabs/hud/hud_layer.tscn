@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://de2es0oq380qc"]
 
-[ext_resource type="Script" path="res://assets/prefabs/hud_layer/hud_layer.gd" id="1_xxe7t"]
+[ext_resource type="Script" path="res://assets/prefabs/hud/hud_layer.gd" id="1_xxe7t"]
 
 [node name="HUDLayer" type="CanvasLayer" node_paths=PackedStringArray("input_prompt_container") groups=["hud_layer"]]
 script = ExtResource("1_xxe7t")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ntr3h7s8jo7"]
+
+[ext_resource type="Script" path="res://assets/prefabs/user_interfaces/menu_layer.gd" id="1_vibqv"]
+
+[node name="MenuLayer" type="CanvasLayer" groups=["menu_layer"]]
+layer = 2
+script = ExtResource("1_vibqv")
