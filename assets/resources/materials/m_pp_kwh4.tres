@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bf3o02fjywow8"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_4.gdshader" id="1_5p5e2"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_5p5e2")
+shader_parameter/sigma = 2.0

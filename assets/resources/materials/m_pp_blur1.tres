@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dji34p03bxtdb"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/gaussian_blur_1.gdshader" id="1_w0hi2"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_w0hi2")

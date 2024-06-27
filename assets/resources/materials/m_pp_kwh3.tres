@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bml4tlhh2vrl6"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_3.gdshader" id="1_m8bcy"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_m8bcy")
+shader_parameter/kuwahara_level = null
+shader_parameter/radius = 15.0
+shader_parameter/q = 12.0
+shader_parameter/alpha = 5.0

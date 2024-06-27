@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
-uniform sampler2D channel_0;
-uniform sampler2D channel_1;
+uniform sampler2D kuwahara_2;
+uniform sampler2D kuwahara_3;
 
 uniform float sigma = 2.;
 
@@ -13,7 +13,7 @@ struct lic_t {
 };
 
 void step2(inout lic_t s, vec2 resolution) {
-	vec2 t = texture(channel_0, s.p).xy;
+	vec2 t = texture(kuwahara_2, s.p).xy;
 	if (dot(t, s.t) < 0.0) t = -t;
 	s.t = t;
 
@@ -26,29 +26,29 @@ void step2(inout lic_t s, vec2 resolution) {
 }
 
 void fragment() {
-	vec2 resolution = vec2(textureSize(channel_0, 0));
+	vec2 resolution = vec2(textureSize(kuwahara_2, 0));
 	float twoSigma2 = 2.0 * sigma * sigma;
     float halfWidth = 2.0 * sigma;
 	
-	vec3 c = texture( channel_1, UV ).xyz;
+	vec3 c = texture( kuwahara_3, UV ).xyz;
 	float w = 1.0;
 	
 	lic_t a, b;
 	a.p = b.p = UV;
-	a.t = texture( channel_0, UV ).xy / resolution;
+	a.t = texture( kuwahara_2, UV ).xy / resolution;
 	b.t = -a.t;
 	a.w = b.w = 0.0;
 	
 	while (a.w < halfWidth) {
 		step2(a, resolution);
 		float k = a.dw * exp(-a.w * a.w / twoSigma2);
-		c += k * texture(channel_1, a.p).xyz;
+		c += k * texture(kuwahara_3, a.p).xyz;
 		w += k;
 	}
 	while (b.w < halfWidth) {
 		step2(b, resolution);
 		float k = b.dw * exp(-b.w * b.w / twoSigma2);
-		c += k * texture(channel_1, b.p).xyz;
+		c += k * texture(kuwahara_3, b.p).xyz;
 		w += k;
 	}
 	c /= w;

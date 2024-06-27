@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform sampler2D channel_0;
+uniform sampler2D main_tex;
 uniform sampler2D channel_1;
 uniform float kuwahara_level : hint_range(0., 1.);
 uniform float radius = 15.0;
@@ -8,7 +8,7 @@ uniform float q  = 12.0;
 uniform float alpha = 5.0;
 
 void fragment() {
-	vec2 resolution = vec2(textureSize(channel_0, 0));
+	vec2 resolution = vec2(textureSize(main_tex, 0));
 	
 	vec4 m[4];
 	vec3 s[4];
@@ -38,9 +38,9 @@ void fragment() {
 				vec2 v = SR * vec2(float(i),float(j));
 				float dot_v = dot(v,v);
 				if (dot_v <= 0.99 - (0.98 * kuwahara_level)) {
-					vec4 c0_fix = texture(channel_0, UV + (vec2(float(i), float(j)) / resolution.xy));
+					vec4 c0_fix = texture(main_tex, UV + (vec2(float(i), float(j)) / resolution.xy));
 					vec3 c0 = c0_fix.rgb;
-					vec4 c1_fix = texture(channel_0, UV - (vec2(float(i), float(j)) / resolution.xy));
+					vec4 c1_fix = texture(main_tex, UV - (vec2(float(i), float(j)) / resolution.xy));
 					vec3 c1 = c1_fix.rgb;
 
 					vec3 cc0 = c0 * c0;

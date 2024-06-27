@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bpod4qyoq4i1"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_2.gdshader" id="1_xh5dv"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_xh5dv")
+shader_parameter/blur_amount = 16
+shader_parameter/blur_iterations = 16
+shader_parameter/blur_quality = 4

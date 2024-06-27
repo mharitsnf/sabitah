@@ -1,24 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://6g2vtm8nyp3o"]
+[gd_scene load_steps=6 format=3 uid="uid://6g2vtm8nyp3o"]
 
-[ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/subviewports/base_sv.tscn" id="1_ep22q"]
+[ext_resource type="PackedScene" uid="uid://db0mpws4i73fe" path="res://assets/prefabs/render_stack/render_stack.tscn" id="1_fmal0"]
+[ext_resource type="PackedScene" uid="uid://bo7uei2mgiu0l" path="res://assets/prefabs/subviewports/final_sv.tscn" id="2_7lvpd"]
 [ext_resource type="PackedScene" uid="uid://dllb6gb77txlc" path="res://assets/levels/test_globe_level.tscn" id="2_g28vn"]
 [ext_resource type="PackedScene" uid="uid://blsm2jgfsebmc" path="res://assets/prefabs/hud/globe_hud_layer.tscn" id="3_q4pwr"]
 [ext_resource type="PackedScene" uid="uid://c11o1hnbjo0uw" path="res://assets/prefabs/user_interfaces/globe_menu_layer.tscn" id="4_i3ake"]
 
 [node name="GlobeContainer" type="Node"]
 
-[node name="MainSVC" type="SubViewportContainer" parent="."]
+[node name="RenderStack" parent="." node_paths=PackedStringArray("level_viewport") instance=ExtResource("1_fmal0")]
+level_viewport = NodePath("MainSVC/FinalSV")
+
+[node name="MainSVC" type="SubViewportContainer" parent="RenderStack"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewport" parent="MainSVC" instance=ExtResource("1_ep22q")]
+[node name="FinalSV" parent="RenderStack/MainSVC" instance=ExtResource("2_7lvpd")]
 handle_input_locally = false
 render_target_update_mode = 4
 
-[node name="TestGlobeLevel" parent="MainSVC/SubViewport" instance=ExtResource("2_g28vn")]
+[node name="TestGlobeLevel" parent="RenderStack/MainSVC/FinalSV" instance=ExtResource("2_g28vn")]
 
 [node name="GlobeHUDLayer" parent="." instance=ExtResource("3_q4pwr")]
 

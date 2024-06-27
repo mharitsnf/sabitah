@@ -75,6 +75,34 @@ tracks/1/keys = {
 "update": 0,
 "values": [150.0, 149.993, 149.941, 149.8, 149.526, 149.074, 148.4, 147.459, 146.207, 144.6, 142.593, 140.141, 137.2, 133.726, 129.674, 125.0, 120.326, 116.274, 112.8, 109.859, 107.407, 105.4, 103.793, 102.541, 101.6, 100.926, 100.474, 100.2, 100.059, 100.007, 100.0, 100.0, 100.007, 100.059, 100.2, 100.474, 100.926, 101.6, 102.541, 103.793, 105.4, 107.407, 109.859, 112.8, 116.274, 120.326, 125.0, 129.674, 133.726, 137.2, 140.141, 142.593, 144.6, 146.207, 147.459, 148.4, 149.074, 149.526, 149.8, 149.941, 149.993, 150.0]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerGlobeModeManager/IslandRegistration")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show_correct_message"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerGlobeModeManager/IslandRegistration")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"add_first_marker"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mcoqp"]
 _data = {

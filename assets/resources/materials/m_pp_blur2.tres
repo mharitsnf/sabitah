@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dh0g3n4i6mr14"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/gaussian_blur_2.gdshader" id="1_gug8k"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_gug8k")
