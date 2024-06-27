@@ -1,22 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2qcpktfs3t6p"]
+[gd_scene load_steps=4 format=3 uid="uid://c2qcpktfs3t6p"]
 
 [ext_resource type="PackedScene" uid="uid://bnw1k6gr2u3di" path="res://assets/prefabs/user_interfaces/components/main_menus/main_menu.tscn" id="1_lvg1q"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/components/buttons/generic_button.tscn" id="2_umi6s"]
 [ext_resource type="Resource" uid="uid://dscw7r5absl3p" path="res://assets/resources/commands/scene_navigation/to_game.tres" id="3_g2g1u"]
-[ext_resource type="Resource" uid="uid://5fh4qnp685m7" path="res://assets/resources/commands/dialogue/example_dialogue.tres" id="4_0sf8t"]
 
 [node name="GlobeMainMenu" instance=ExtResource("1_lvg1q")]
-
-[node name="VBoxContainer" parent="." index="0"]
-offset_top = -280.0
-offset_bottom = -144.0
 
 [node name="ToGame" parent="VBoxContainer" index="0" instance=ExtResource("2_umi6s")]
 layout_mode = 2
 text = "Exit globe"
 on_press_command = ExtResource("3_g2g1u")
-
-[node name="OpenDialogue" parent="VBoxContainer" index="1" instance=ExtResource("2_umi6s")]
-layout_mode = 2
-text = "Open dialogue"
-on_press_command = ExtResource("4_0sf8t")

@@ -1,7 +1,7 @@
 class_name PlayerGlobeModeManager extends Node
 
 enum GlobeModes {
-	NONE, LAT_LONG_SEARCH, ISLAND_REGISTRATION
+	NONE, ISLAND_SEARCH, ISLAND_REGISTRATION
 }
 
 class ModeData extends RefCounted:
@@ -25,12 +25,12 @@ class ModeData extends RefCounted:
 		_instance = _pscn.instantiate()
 
 @export var globe_mode_pscns: Dictionary = {
-	GlobeModes.LAT_LONG_SEARCH: null,
+	GlobeModes.ISLAND_SEARCH: null,
 	GlobeModes.ISLAND_REGISTRATION: null,
 }
 
 var globe_mode_dict: Dictionary = {
-	GlobeModes.LAT_LONG_SEARCH: null,
+	GlobeModes.ISLAND_SEARCH: null,
 	GlobeModes.ISLAND_REGISTRATION: null,
 }
 
