@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dllb6gb77txlc"]
+[gd_scene load_steps=17 format=3 uid="uid://dllb6gb77txlc"]
 
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
 [ext_resource type="PackedScene" uid="uid://c567ogeducyhi" path="res://assets/prefabs/camera_system/globe/globe_tpc.tscn" id="5_2cjuh"]
 [ext_resource type="Script" path="res://assets/player_globe_mode_manager/player_globe_mode_manager.gd" id="6_v6cm8"]
+[ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="7_gtsmp"]
 [ext_resource type="PackedScene" uid="uid://f2koi1tmvf0i" path="res://assets/prefabs/globe_modes/island_search.tscn" id="8_5bvlm"]
 [ext_resource type="PackedScene" uid="uid://cc6gex77f4p67" path="res://assets/prefabs/globe_modes/island_registration.tscn" id="8_usr3g"]
 
@@ -38,14 +39,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Cameras/GlobeTPC:spring_length")
+tracks/1/path = NodePath("Cameras/GlobeTPC:allow_zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [150.0]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_evx8e"]
@@ -63,17 +64,19 @@ tracks/0/keys = {
 "update": 1,
 "values": [false, true]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Cameras/GlobeTPC:spring_length")
+tracks/1/path = NodePath("PlayerGlobeModeManager/IslandRegistration")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.666667, 0.7, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 1, 4, 4.03333, 4.06667, 4.1, 4.13333, 4.16667, 4.2, 4.23333, 4.26667, 4.3, 4.33333, 4.36667, 4.4, 4.43333, 4.46667, 4.5, 4.53333, 4.56667, 4.6, 4.63333, 4.66667, 4.7, 4.73333, 4.76667, 4.8, 4.83333, 4.86667, 4.9, 4.93333, 4.96667, 5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [150.0, 149.993, 149.941, 149.8, 149.526, 149.074, 148.4, 147.459, 146.207, 144.6, 142.593, 140.141, 137.2, 133.726, 129.674, 125.0, 120.326, 116.274, 112.8, 109.859, 107.407, 105.4, 103.793, 102.541, 101.6, 100.926, 100.474, 100.2, 100.059, 100.007, 100.0, 100.0, 100.007, 100.059, 100.2, 100.474, 100.926, 101.6, 102.541, 103.793, 105.4, 107.407, 109.859, 112.8, 116.274, 120.326, 125.0, 129.674, 133.726, 137.2, 140.141, 142.593, 144.6, 146.207, 147.459, 148.4, 149.074, 149.526, 149.8, 149.941, 149.993, 150.0]
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show_correct_message"
+}]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -86,22 +89,37 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"show_correct_message"
+"method": &"add_first_marker"
 }]
 }
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PlayerGlobeModeManager/IslandRegistration")
+tracks/3/path = NodePath("Cameras/GlobeTPC")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(2),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
-"method": &"add_first_marker"
+"method": &"tween_fov_to_30"
+}, {
+"args": [],
+"method": &"tween_fov_to_default"
 }]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Cameras/GlobeTPC:allow_zoom")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mcoqp"]
@@ -140,6 +158,7 @@ level_type = 2
 [node name="Cameras" type="Node" parent="."]
 
 [node name="GlobeTPC" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("5_2cjuh")]
+fov_tween_settings = ExtResource("7_gtsmp")
 follow_target = NodePath("../../PlanetBody")
 
 [node name="PlayerGlobeModeManager" type="Node" parent="."]

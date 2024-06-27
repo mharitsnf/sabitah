@@ -30,6 +30,12 @@ func _process(delta: float) -> void:
 	super(delta)
 	_lerp_offset()
 
+func tween_fov_to_30() -> void:
+	await _tween_fov(30.)
+
+func tween_fov_to_default() -> void:
+	await _tween_fov(fov_settings.initial_fov)
+
 func _lerp_offset() -> void:
 	offset_node.position = lerp(offset_node.position, offset, get_process_delta_time() * OFFSET_LERP_WEIGHT)
 

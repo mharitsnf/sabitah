@@ -53,6 +53,7 @@ class FollowData extends RefCounted:
 
 @export_group("FoV")
 @export var allow_zoom: bool = false
+@export var fov_tween_settings: TweenSettings
 @export var fov_settings: CameraFoVSettings:
 	set(value):
 		fov_settings = value
@@ -207,6 +208,11 @@ func _change_follow_target(value: Node3D) -> void:
 
 # region Transition functions
 
+func _tween_fov(target_fov: float) -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "actual_fov", target_fov, fov_tween_settings.tween_duration).set_ease(fov_tween_settings.tween_ease).set_trans(fov_tween_settings.tween_trans)
+	await tween.finished
+
 func _transition_finished() -> void:
 	transitioning = false
 	transition_elapsed_time = 0.
@@ -308,6 +314,7 @@ func get_fov() -> float:
 
 ## Private. Lerps the [actual_fov] to [_fov_input].
 func _on_stop_smooth_fov_input() -> void:
+	if !allow_zoom: return
 	actual_fov = lerp(actual_fov, _fov_input, get_process_delta_time() * 5.)
 
 ## Private. Clamps the FoV values to its limits specified in the [fov_settings] variable.
