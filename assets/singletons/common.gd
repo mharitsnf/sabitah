@@ -20,6 +20,17 @@ class Geometry extends RefCounted:
 		var new_forward : Vector3 = quat * old_basis.z
 		return Quaternion(Basis(new_right, new_normal, new_forward).orthonormalized())
 
+	static func basis_to_euler(basis: Basis) -> Vector3:
+		var orientation: Quaternion = basis.get_rotation_quaternion()
+		return orientation.get_euler()
+
+	static func normal_to_degrees(normal: Vector3) -> Array:
+		var xy: Vector3 = Vector3(normal.x, normal.y, 0.).normalized()
+		var xz: Vector3 = Vector3(normal.x, 0., normal.z).normalized()
+		var y_angle: float = Vector3.UP.angle_to(xz)
+		var x_angle: float = Vector3.RIGHT.angle_to(xy)
+		return [y_angle, x_angle]
+
 	static func point_to_latlng(normal: Vector3) -> Array:
 		# Calculate latitude vector and dot product with north pole
 		var lat_vec: Vector3 = normal
@@ -42,6 +53,7 @@ class Geometry extends RefCounted:
 
 		return [lat, long]
 
+	## Calculate the spherical length between one lat long to another.
 	static func haversine_dist(lat1: float, long1: float, lat2: float, long2: float, r: float) -> float:
 		var lat1_rad: float = deg_to_rad(lat1)
 		var long1_rad: float = deg_to_rad(long1)

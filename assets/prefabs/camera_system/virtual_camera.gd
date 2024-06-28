@@ -304,6 +304,9 @@ func _set_rotation_input(x_amount: float, y_amount: float) -> void:
 	_x_rot_input = lerp(_x_rot_input, x_amount, get_process_delta_time() * 25.)
 	_y_rot_input = lerp(_y_rot_input, y_amount, get_process_delta_time() * 25.)
 
+func get_euler_rotation() -> Array:
+	return []
+
 # region FoV Functions
 
 var _fov_input: float = actual_fov

@@ -11,6 +11,8 @@ height = 2.0
 radius = 1.0
 
 [node name="GlobeFirstMarker" type="StaticBody3D"]
+collision_layer = 128
+collision_mask = 128
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_jrc84")

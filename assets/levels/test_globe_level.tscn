@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dllb6gb77txlc"]
+[gd_scene load_steps=16 format=3 uid="uid://dllb6gb77txlc"]
 
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
 [ext_resource type="PackedScene" uid="uid://c567ogeducyhi" path="res://assets/prefabs/camera_system/globe/globe_tpc.tscn" id="5_2cjuh"]
 [ext_resource type="Script" path="res://assets/player_globe_mode_manager/player_globe_mode_manager.gd" id="6_v6cm8"]
-[ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="7_gtsmp"]
 [ext_resource type="PackedScene" uid="uid://f2koi1tmvf0i" path="res://assets/prefabs/globe_modes/island_search.tscn" id="8_5bvlm"]
 [ext_resource type="PackedScene" uid="uid://cc6gex77f4p67" path="res://assets/prefabs/globe_modes/island_registration.tscn" id="8_usr3g"]
 
@@ -103,7 +102,7 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
-"method": &"tween_fov_to_30"
+"method": &"tween_fov_to_50"
 }, {
 "args": [],
 "method": &"tween_fov_to_default"
@@ -120,6 +119,20 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Cameras/GlobeTPC")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"lerp_euler_rotation_to_target_rotation"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mcoqp"]
@@ -140,6 +153,8 @@ level_type = 2
 environment = ExtResource("3_5gxpi")
 
 [node name="PlanetBody" type="StaticBody3D" parent="."]
+collision_layer = 16
+collision_mask = 16
 
 [node name="PlanetMesh" type="MeshInstance3D" parent="PlanetBody"]
 mesh = SubResource("SphereMesh_gsfuk")
@@ -158,7 +173,6 @@ level_type = 2
 [node name="Cameras" type="Node" parent="."]
 
 [node name="GlobeTPC" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("5_2cjuh")]
-fov_tween_settings = ExtResource("7_gtsmp")
 follow_target = NodePath("../../PlanetBody")
 
 [node name="PlayerGlobeModeManager" type="Node" parent="."]
@@ -168,11 +182,13 @@ globe_mode_pscns = {
 2: ExtResource("8_usr3g")
 }
 
-[node name="IslandSearch" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("level_anim") instance=ExtResource("8_5bvlm")]
+[node name="IslandSearch" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("level_anim", "tpc") instance=ExtResource("8_5bvlm")]
 level_anim = NodePath("../../AnimationPlayer")
+tpc = NodePath("../../Cameras/GlobeTPC")
 
-[node name="IslandRegistration" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("level_anim") instance=ExtResource("8_usr3g")]
+[node name="IslandRegistration" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("level_anim", "tpc") instance=ExtResource("8_usr3g")]
 level_anim = NodePath("../../AnimationPlayer")
+tpc = NodePath("../../Cameras/GlobeTPC")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

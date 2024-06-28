@@ -2,6 +2,7 @@ class_name IslandRegistration extends LatLongSearch
 
 @export_group("References")
 @export var level_anim: AnimationPlayer
+@export var tpc: ThirdPersonCamera
 @export_subgroup("Packed scenes")
 @export var first_marker_pscn: PackedScene
 
@@ -14,6 +15,7 @@ func _ready() -> void:
 	super()
 
 	assert(level_anim)
+	assert(tpc)
 	assert(first_marker_pscn)
 
 func enter_mode() -> void:
@@ -25,7 +27,7 @@ func player_input_process(_delta: float) -> void:
 
 func _get_confirm_island_location_input() -> void:
 	if Input.is_action_just_pressed("confirm_island_location") and !transitioning:
-		var query_latlong: Array = Common.Geometry.point_to_latlng(query_res['normal'])
+		var query_latlong: Array = Common.Geometry.point_to_latlng(planet_query_res['normal'])
 		var dist: float = Common.Geometry.haversine_dist(
 			State.local_sundial_data['lat'],
 			State.local_sundial_data['long'],
@@ -35,6 +37,9 @@ func _get_confirm_island_location_input() -> void:
 		)
 		
 		if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
+			var euler: Array = Common.Geometry.normal_to_degrees(State.local_sundial_data['normal'])
+			tpc.set_euler_rotation(euler[0], euler[1])
+
 			transitioning = true
 			State.local_sundial.first_marker_done = true
 			level_anim.play("add_first_marker")

@@ -135,6 +135,7 @@ func _get_enter_register_island_input() -> void:
 		State.local_sundial_data = {
 			"position": State.local_sundial.global_position.normalized() * State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE,
 			"normal": State.local_sundial.global_position.normalized(),
+			"global_basis": State.local_sundial.global_basis,
 			"lat": latlong[0],
 			"long": latlong[0],
 		}

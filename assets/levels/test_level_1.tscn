@@ -39,7 +39,7 @@ environment = ExtResource("3_72myd")
 transform = Transform3D(0.000563346, 0.999999, -0.00094617, -0.999992, 0.000567096, 0.00396803, 0.00396857, 0.000943927, 0.999992, 1485.1, 0.842195, 1.40183)
 
 [node name="LocalSundialManager" parent="Islands/Node3D" instance=ExtResource("5_k3xnn")]
-transform = Transform3D(1, -2.62844e-10, 0, 2.63753e-11, 1, 2.91038e-10, -2.32831e-09, 2.91038e-10, 1, -7, 4.69983, -6.4)
+transform = Transform3D(0.999863, -0.0165386, -0.000101571, 0.0165385, 0.999782, 0.0127739, -0.000109719, -0.0127738, 0.999918, -8.89306, 4.77844, -5.98451)
 
 [node name="TestPlatform" parent="Islands/Node3D" instance=ExtResource("5_roqsb")]
 

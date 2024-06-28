@@ -5,4 +5,6 @@
 
 [node name="LatLongSearch" type="Node"]
 script = ExtResource("1_f47gb")
+island_collision_mask = 128
+planet_collision_mask = 16
 before_cancel_cmd = ExtResource("2_dsf3m")
