@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5qe5j6rsx0n5"]
 
-[ext_resource type="Script" path="res://assets/prefabs/atmosphere/atmosphere_manager.gd" id="1_8vpco"]
+[ext_resource type="Script" path="res://assets/scripts/atmosphere/atmosphere_manager.gd" id="1_8vpco"]
 
 [node name="AtmosphereManager" type="Node" groups=["atmosphere_manager"]]
 script = ExtResource("1_8vpco")

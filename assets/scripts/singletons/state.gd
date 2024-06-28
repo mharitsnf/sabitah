@@ -60,7 +60,7 @@ var world_dict: Dictionary = {
 
 # region Packed scenes
 
-var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/components/input_prompt.tscn")
+var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
 
 # region local sundial data
 

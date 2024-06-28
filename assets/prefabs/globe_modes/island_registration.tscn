@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cc6gex77f4p67"]
 
 [ext_resource type="PackedScene" uid="uid://b1a3t0vk23p4s" path="res://assets/prefabs/globe_modes/lat_long_search.tscn" id="1_o1a8o"]
-[ext_resource type="Script" path="res://assets/prefabs/globe_modes/island_registration.gd" id="1_vk47k"]
+[ext_resource type="Script" path="res://assets/scripts/globe_modes/island_registration.gd" id="1_vk47k"]
 [ext_resource type="PackedScene" uid="uid://4osuo85pb8cy" path="res://assets/prefabs/markers/globe_first_marker.tscn" id="3_8bdin"]
 
 [node name="IslandRegistration" instance=ExtResource("1_o1a8o")]

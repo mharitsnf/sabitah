@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://db0mpws4i73fe" path="res://assets/prefabs/render_stack/render_stack.tscn" id="1_fmal0"]
 [ext_resource type="PackedScene" uid="uid://bo7uei2mgiu0l" path="res://assets/prefabs/subviewports/final_sv.tscn" id="2_7lvpd"]
 [ext_resource type="PackedScene" uid="uid://dllb6gb77txlc" path="res://assets/levels/test_globe_level.tscn" id="2_g28vn"]
-[ext_resource type="PackedScene" uid="uid://blsm2jgfsebmc" path="res://assets/prefabs/hud/globe_hud_layer.tscn" id="3_q4pwr"]
-[ext_resource type="PackedScene" uid="uid://c11o1hnbjo0uw" path="res://assets/prefabs/user_interfaces/globe_menu_layer.tscn" id="4_i3ake"]
+[ext_resource type="PackedScene" uid="uid://blsm2jgfsebmc" path="res://assets/prefabs/hud/layer/globe_hud_layer.tscn" id="3_q4pwr"]
+[ext_resource type="PackedScene" uid="uid://c11o1hnbjo0uw" path="res://assets/prefabs/user_interfaces/layer/globe_menu_layer.tscn" id="4_i3ake"]
 
 [node name="GlobeContainer" type="Node"]
 

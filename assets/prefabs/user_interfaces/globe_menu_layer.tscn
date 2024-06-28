@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c11o1hnbjo0uw"]
-
-[ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/user_interfaces/menu_layer.tscn" id="1_myqre"]
-[ext_resource type="PackedScene" uid="uid://c2qcpktfs3t6p" path="res://assets/prefabs/user_interfaces/components/main_menus/globe_main_menu.tscn" id="2_x5f4r"]
-
-[node name="GlobeMenuLayer" instance=ExtResource("1_myqre")]
-menu_pscns = {
-1: ExtResource("2_x5f4r")
-}

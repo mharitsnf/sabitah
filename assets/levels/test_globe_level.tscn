@@ -6,7 +6,7 @@
 [ext_resource type="Environment" uid="uid://cdj1j2owe1rni" path="res://assets/resources/world_env/default_env.tres" id="3_5gxpi"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
 [ext_resource type="PackedScene" uid="uid://c567ogeducyhi" path="res://assets/prefabs/camera_system/globe/globe_tpc.tscn" id="5_2cjuh"]
-[ext_resource type="Script" path="res://assets/player_globe_mode_manager/player_globe_mode_manager.gd" id="6_v6cm8"]
+[ext_resource type="Script" path="res://assets/scripts/player_globe_mode_manager/player_globe_mode_manager.gd" id="6_v6cm8"]
 [ext_resource type="PackedScene" uid="uid://f2koi1tmvf0i" path="res://assets/prefabs/globe_modes/island_search.tscn" id="8_5bvlm"]
 [ext_resource type="PackedScene" uid="uid://cc6gex77f4p67" path="res://assets/prefabs/globe_modes/island_registration.tscn" id="8_usr3g"]
 

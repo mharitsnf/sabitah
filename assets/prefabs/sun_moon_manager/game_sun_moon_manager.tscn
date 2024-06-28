@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8ywta7cboshe"]
 
-[ext_resource type="Script" path="res://assets/prefabs/sun_moon_manager/sun_moon_manager.gd" id="1_st3em"]
+[ext_resource type="Script" path="res://assets/scripts/sun_moon_manager/sun_moon_manager.gd" id="1_st3em"]
 [ext_resource type="PackedScene" uid="uid://cy8x4w5smekc2" path="res://assets/prefabs/sun_moon_light/game_lights/game_sun.tscn" id="2_ne4qu"]
 [ext_resource type="PackedScene" uid="uid://djou7nwdry7kn" path="res://assets/prefabs/sun_moon_sprites/game_sprites/game_sun_sprite.tscn" id="3_tl482"]
 [ext_resource type="PackedScene" uid="uid://cgwjyavnkw0h7" path="res://assets/prefabs/sun_moon_light/game_lights/game_moon.tscn" id="3_u1oms"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5vheik6jvc0c"]
 
-[ext_resource type="Script" path="res://assets/prefabs/actor/base_actor.gd" id="1_e5rtm"]
+[ext_resource type="Script" path="res://assets/scripts/actor/base_actor.gd" id="1_e5rtm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0ksat"]
 

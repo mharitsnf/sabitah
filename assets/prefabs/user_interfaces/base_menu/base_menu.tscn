@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://xmwn17ah4e0e"]
 
-[ext_resource type="Script" path="res://assets/prefabs/user_interfaces/components/base_menu.gd" id="1_3bnhi"]
+[ext_resource type="Script" path="res://assets/scripts/ui/base_menu/base_menu.gd" id="1_3bnhi"]
 
 [node name="BaseMenu" type="Control"]
 modulate = Color(1, 1, 1, 0)

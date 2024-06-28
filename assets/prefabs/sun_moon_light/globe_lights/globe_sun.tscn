@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cojme1jiv7anq"]
 
 [ext_resource type="PackedScene" uid="uid://b2w78i20fkt68" path="res://assets/prefabs/sun_moon_light/sun_moon_light.tscn" id="1_srf37"]
-[ext_resource type="Script" path="res://assets/prefabs/sun_moon_light/sun_light.gd" id="2_bwbke"]
+[ext_resource type="Script" path="res://assets/scripts/sun_moon_light/sun_light.gd" id="2_bwbke"]
 
 [node name="GlobeSun" instance=ExtResource("1_srf37")]
 light_energy = 0.6

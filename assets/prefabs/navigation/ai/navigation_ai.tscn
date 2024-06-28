@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://boeroi228cyoe"]
 
-[ext_resource type="Script" path="res://assets/prefabs/navigation/ai/navigation_ai.gd" id="1_f6cdu"]
+[ext_resource type="Script" path="res://assets/scripts/navigation/navigation_ai.gd" id="1_f6cdu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iq5pf"]
 radius = 0.05

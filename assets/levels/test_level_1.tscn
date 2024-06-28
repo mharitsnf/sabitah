@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
-[ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/player_actor_manager/player_actor_manager.tscn" id="11_ni3kg"]
+[ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/scripts/player_actor_manager/player_actor_manager.tscn" id="11_ni3kg"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://8rve6jcq5kyi" path="res://assets/prefabs/actor/ai_actor.tscn" id="12_yh4gp"]
 [ext_resource type="PackedScene" uid="uid://dtnook2vegfb2" path="res://assets/prefabs/navigation/target/navigation_target.tscn" id="13_qjase"]

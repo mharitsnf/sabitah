@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://doq3282mmgwl7"]
 
-[ext_resource type="PackedScene" uid="uid://bnw1k6gr2u3di" path="res://assets/prefabs/user_interfaces/components/main_menus/main_menu.tscn" id="1_vov1y"]
-[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/components/buttons/generic_button.tscn" id="2_ca720"]
+[ext_resource type="PackedScene" uid="uid://bnw1k6gr2u3di" path="res://assets/prefabs/user_interfaces/main_menus/main_menu.tscn" id="1_vov1y"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="2_ca720"]
 [ext_resource type="Resource" uid="uid://8qmvemf4jmbm" path="res://assets/resources/commands/scene_navigation/to_globe_latlng_search.tres" id="3_x4one"]
 [ext_resource type="Resource" uid="uid://5fh4qnp685m7" path="res://assets/resources/commands/dialogue/example_dialogue.tres" id="4_2rj7s"]
 

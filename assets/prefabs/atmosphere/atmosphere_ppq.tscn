@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d683pks54vrf"]
 
 [ext_resource type="Material" uid="uid://bhwk1j6lcw3f2" path="res://assets/resources/materials/m_atmosphere.tres" id="1_1yvjx"]
-[ext_resource type="Script" path="res://assets/prefabs/atmosphere/atmosphere.gd" id="1_3c3ew"]
+[ext_resource type="Script" path="res://assets/scripts/atmosphere/atmosphere.gd" id="1_3c3ew"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_fe8aq"]
 material = ExtResource("1_1yvjx")

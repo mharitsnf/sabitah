@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://8b2xo2s75g20" path="res://assets/prefabs/subviewports/svc.tscn" id="1_4ocse"]
 [ext_resource type="PackedScene" uid="uid://db0mpws4i73fe" path="res://assets/prefabs/render_stack/render_stack.tscn" id="1_spdox"]
 [ext_resource type="PackedScene" uid="uid://1cfuft35ap2" path="res://assets/levels/test_level_1.tscn" id="2_h3dnu"]
+[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud/layer/hud_layer.tscn" id="5_h0oal"]
+[ext_resource type="PackedScene" uid="uid://tn6uojnnyc44" path="res://assets/prefabs/user_interfaces/layer/game_menu_layer.tscn" id="6_hwyun"]
 [ext_resource type="PackedScene" uid="uid://bo7uei2mgiu0l" path="res://assets/prefabs/subviewports/final_sv.tscn" id="10_r5jq4"]
-[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud/hud_layer.tscn" id="12_mys7j"]
-[ext_resource type="PackedScene" uid="uid://tn6uojnnyc44" path="res://assets/prefabs/user_interfaces/game_menu_layer.tscn" id="13_ds028"]
 
 [node name="GameContainer" type="Node"]
 
@@ -20,6 +20,6 @@ render_target_update_mode = 4
 
 [node name="TestLevel1" parent="RenderStack/Level/FinalSV" instance=ExtResource("2_h3dnu")]
 
-[node name="HUDLayer" parent="." instance=ExtResource("12_mys7j")]
+[node name="HUDLayer" parent="." instance=ExtResource("5_h0oal")]
 
-[node name="GameMenuLayer" parent="." instance=ExtResource("13_ds028")]
+[node name="GameMenuLayer" parent="." instance=ExtResource("6_hwyun")]

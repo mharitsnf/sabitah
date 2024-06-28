@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2w78i20fkt68"]
 
-[ext_resource type="Script" path="res://assets/prefabs/sun_moon_light/sun_moon_light.gd" id="1_2idx6"]
+[ext_resource type="Script" path="res://assets/scripts/sun_moon_light/sun_moon_light.gd" id="1_2idx6"]
 [ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="2_maf5x"]
 
 [node name="SunMoonLight" type="DirectionalLight3D"]

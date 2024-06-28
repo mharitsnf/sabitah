@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdffjdvhoedax"]
 
-[ext_resource type="Script" path="res://assets/prefabs/ocean/ocean_data.gd" id="1_muvt0"]
+[ext_resource type="Script" path="res://assets/scripts/ocean/ocean_data.gd" id="1_muvt0"]
 
 [node name="OceanData" type="Node3D" groups=["ocean_data"]]
 script = ExtResource("1_muvt0")
