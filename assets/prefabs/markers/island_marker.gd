@@ -1,0 +1,3 @@
+class_name IslandMarker extends GlobeMarker
+
+var sundial_manager: LocalSundialManager

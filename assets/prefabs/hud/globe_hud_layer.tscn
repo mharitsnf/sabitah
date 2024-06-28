@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://blsm2jgfsebmc"]
+[gd_scene load_steps=12 format=3 uid="uid://blsm2jgfsebmc"]
 
 [ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud/hud_layer.tscn" id="1_d6gpj"]
 [ext_resource type="Texture2D" uid="uid://0sxdw4ms6s7x" path="res://assets/resources/textures/crosshair003.png" id="2_1v113"]
@@ -42,6 +42,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("IslandNamePanel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("IslandNamePanel:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(512, 608)]
+}
 
 [sub_resource type="Animation" id="Animation_q56du"]
 resource_name = "hide_instruction_panel"
@@ -70,6 +94,35 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(928, 32), Vector2(928, 31.6966), Vector2(928, 29.5727), Vector2(928, 23.808), Vector2(928, 13.0086), Vector2(928, 4.74074), Vector2(928, 1.024), Vector2(928, 0.0379257), Vector2(928, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_emnat"]
+resource_name = "hide_island_name_panel"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IslandNamePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IslandNamePanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(512, 576), Vector2(512, 576.593), Vector2(512, 580.741), Vector2(512, 592), Vector2(512, 603.259), Vector2(512, 607.407), Vector2(512, 608)]
 }
 
 [sub_resource type="Animation" id="Animation_av6bv"]
@@ -131,6 +184,34 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_inbrj"]
+resource_name = "show_island_name_panel"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IslandNamePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IslandNamePanel:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(512, 608), Vector2(512, 607.407), Vector2(512, 603.259), Vector2(512, 592), Vector2(512, 580.741), Vector2(512, 576.593), Vector2(512, 576)]
+}
+
 [sub_resource type="Animation" id="Animation_om1di"]
 resource_name = "show_success_status"
 tracks/0/type = "value"
@@ -150,14 +231,17 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_lqo2t"),
 "hide_instruction_panel": SubResource("Animation_q56du"),
+"hide_island_name_panel": SubResource("Animation_emnat"),
 "show_error_status": SubResource("Animation_av6bv"),
 "show_instruction_panel": SubResource("Animation_lcss8"),
+"show_island_name_panel": SubResource("Animation_inbrj"),
 "show_success_status": SubResource("Animation_om1di")
 }
 
-[node name="GlobeHUDLayer" node_paths=PackedStringArray("anim", "instruction_label", "lat_label", "long_label") instance=ExtResource("1_d6gpj")]
+[node name="GlobeHUDLayer" node_paths=PackedStringArray("anim", "island_name_label", "instruction_label", "lat_label", "long_label") instance=ExtResource("1_d6gpj")]
 script = ExtResource("2_4juk7")
 anim = NodePath("AnimationPlayer")
+island_name_label = NodePath("IslandNamePanel/MarginContainer/Content")
 instruction_label = NodePath("InstructionPanel/MarginContainer/VBoxContainer/Content")
 lat_label = NodePath("TopHUDContainer/LatLongContainer/HBoxContainer/LatLabel")
 long_label = NodePath("TopHUDContainer/LatLongContainer/HBoxContainer/LongLabel")
@@ -248,7 +332,39 @@ vertical_alignment = 1
 autowrap_mode = 2
 max_lines_visible = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="IslandNamePanel" type="Panel" parent="." index="4"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 512.0
+offset_top = 608.0
+offset_right = 768.0
+offset_bottom = 672.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="IslandNamePanel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Content" type="Label" parent="IslandNamePanel/MarginContainer" index="0"]
+layout_mode = 2
+text = "Island Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_ihms2")
 }

@@ -130,16 +130,20 @@ func switch_state(new_state: ActorState) -> void:
 	new_state.enter_state()
 
 func _get_enter_register_island_input() -> void:
-	if Input.is_action_just_pressed("enter_island_registration") and State.local_sundial and !State.local_sundial.first_marker_done:
+	if !State.local_sundial: return
+	if State.local_sundial.first_marker_done: return
+
+	if Input.is_action_just_pressed("enter_island_registration"):
+		# Fill local sundial data
 		var latlong: Array = Common.Geometry.point_to_latlng(State.local_sundial.global_position.normalized())
 		State.local_sundial_data = {
 			"position": State.local_sundial.global_position.normalized() * State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE,
 			"normal": State.local_sundial.global_position.normalized(),
-			"global_basis": State.local_sundial.global_basis,
 			"lat": latlong[0],
 			"long": latlong[0],
 		}
 
+		# Switch to globe
 		var scene_manager: SceneManager = Group.first("scene_manager")
 		(scene_manager as SceneManager).switch_scene(
 			SceneManager.Scenes.GLOBE, 

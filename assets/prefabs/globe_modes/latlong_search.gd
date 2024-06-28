@@ -8,8 +8,11 @@ class_name LatLongSearch extends GlobeMode
 @export var before_cancel_cmd: Command
 @export var after_cancel_cmd: Command
 
-var island_query_res: Dictionary
+var marker_query_res: Dictionary
 var planet_query_res: Dictionary
+
+signal marker_hover_entered
+signal marker_hover_exited
 
 func delegated_process(_delta: float) -> void:
 	_update_hud()
@@ -34,7 +37,14 @@ func _query_caster() -> void:
 	island_query.collide_with_areas = false
 
 	planet_query_res = space_state.intersect_ray(planet_query)
-	island_query_res = space_state.intersect_ray(island_query)
+	
+	var new_marker_query_res: Dictionary = space_state.intersect_ray(island_query)
+	if marker_query_res.is_empty() and !new_marker_query_res.is_empty():
+		marker_query_res = new_marker_query_res
+		marker_hover_entered.emit()
+	if !marker_query_res.is_empty() and new_marker_query_res.is_empty():
+		marker_query_res = new_marker_query_res
+		marker_hover_exited.emit()
 
 func _update_hud() -> void:
 	if planet_query_res.is_empty(): return
@@ -55,3 +65,9 @@ func _exit_globe_scene() -> void:
 		before_cancel_cmd, 
 		after_cancel_cmd
 	)
+
+func _on_marker_hover_entered() -> void:
+	pass
+
+func _on_marker_hover_exited() -> void:
+	pass

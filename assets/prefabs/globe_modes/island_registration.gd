@@ -37,6 +37,8 @@ func _get_confirm_island_location_input() -> void:
 		)
 		
 		if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
+			assert(State.local_sundial)
+
 			var euler: Array = Common.Geometry.normal_to_degrees(State.local_sundial_data['normal'])
 			tpc.set_euler_rotation(euler[0], euler[1])
 
@@ -65,7 +67,8 @@ func show_incorrect_message() -> void:
 	)
 
 func add_first_marker() -> void:
-	var marker: Node3D = first_marker_pscn.instantiate()
+	var marker: IslandMarker = first_marker_pscn.instantiate()
+	(marker as IslandMarker).sundial_manager = State.local_sundial
 	var level: Node = State.get_level(State.LevelType.GLOBE)
 	level.add_child.call_deferred(marker)
 	await marker.tree_entered

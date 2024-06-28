@@ -8,3 +8,6 @@ script = ExtResource("1_f47gb")
 island_collision_mask = 128
 planet_collision_mask = 16
 before_cancel_cmd = ExtResource("2_dsf3m")
+
+[connection signal="marker_hover_entered" from="." to="." method="_on_marker_hover_entered"]
+[connection signal="marker_hover_exited" from="." to="." method="_on_marker_hover_exited"]
