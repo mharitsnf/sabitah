@@ -15,7 +15,8 @@ class MenuData extends RefCounted:
 		return _instance
 
 @export var menu_pscns: Dictionary = {
-	State.UserInterfaces.MAIN_MENU: null
+	State.UserInterfaces.MAIN_MENU: null,
+	State.UserInterfaces.ISLAND_MENU: null,
 }
 
 var menu_data_dict: Dictionary = {}

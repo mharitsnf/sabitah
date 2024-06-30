@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://assets/scripts/sundial_manager/local_sundial_manager.gd" id="1_b0hid"]
 [ext_resource type="PackedScene" uid="uid://dtt5k2c5jygva" path="res://assets/resources/models/sundial/latitude_measure_model.tscn" id="2_13a7u"]
 [ext_resource type="PackedScene" uid="uid://c2chpo4bputbe" path="res://assets/prefabs/camera_system/sundial/boat_sundial_tpc.tscn" id="2_bf0ck"]
-[ext_resource type="Script" path="res://assets/scripts/controllers/player/player_sundial_controller.gd" id="3_7xqbc"]
+[ext_resource type="Script" path="res://assets/scripts/controllers/game/player_sundial_controller.gd" id="3_7xqbc"]
 [ext_resource type="PackedScene" uid="uid://24fhn16ls8a0" path="res://assets/resources/models/sundial/sundial_model.tscn" id="3_a2sa5"]
 [ext_resource type="PackedScene" uid="uid://c0txwcwbpghq3" path="res://assets/prefabs/sundial_manager/local_sundial_area.tscn" id="4_v7lvw"]
 [ext_resource type="Script" path="res://assets/scripts/player_camera_manager/player_camera_manager.gd" id="6_o7t0s"]

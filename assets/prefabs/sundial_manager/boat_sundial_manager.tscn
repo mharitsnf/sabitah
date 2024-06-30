@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://24fhn16ls8a0" path="res://assets/resources/models/sundial/sundial_model.tscn" id="3_rthr2"]
 [ext_resource type="PackedScene" uid="uid://c2chpo4bputbe" path="res://assets/prefabs/camera_system/sundial/boat_sundial_tpc.tscn" id="4_87sdj"]
 [ext_resource type="Script" path="res://assets/scripts/player_camera_manager/player_camera_manager.gd" id="5_f4uii"]
-[ext_resource type="Script" path="res://assets/scripts/controllers/player/player_sundial_controller.gd" id="6_oxgf0"]
+[ext_resource type="Script" path="res://assets/scripts/controllers/game/player_sundial_controller.gd" id="6_oxgf0"]
 
 [node name="BoatSundialManager" type="Node3D" node_paths=PackedStringArray("sundial_center")]
 script = ExtResource("1_eehtv")

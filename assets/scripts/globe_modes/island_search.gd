@@ -1,6 +1,7 @@
 class_name IslandSearch extends LatLongSearch
 
 @export_group("References")
+@export var globe_camera_target: GlobeCameraTarget
 @export var level_anim: AnimationPlayer
 @export var tpc: ThirdPersonCamera
 
@@ -11,6 +12,7 @@ func _ready() -> void:
 
 	camera = Group.first("main_camera")
 
+	assert(globe_camera_target)
 	assert(level_anim)
 	assert(tpc)
 	assert(camera)
@@ -40,12 +42,12 @@ func _on_marker_hover_exited() -> void:
 
 func _get_select_location_input() -> void:
 	if Input.is_action_just_pressed("select_location_on_globe"):
-		if marker_query_res:
-			var screen_pos: Vector2 = camera.unproject_position(marker_query_res['position'])
-			print(screen_pos)
+		if !marker_query_res.is_empty():
+			globe_camera_target.move_aside()
+			hud_layer.hide_crosshair()
 			return
 		
-		if planet_query_res:
+		if !planet_query_res.is_empty():
 			var screen_pos: Vector2 = camera.unproject_position(planet_query_res['position'])
 			print(screen_pos)
 			pass

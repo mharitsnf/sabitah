@@ -2,6 +2,7 @@ class_name GlobeHUDLayer extends HUDLayer
 
 @export_group("References")
 @export var anim: AnimationPlayer
+@export var crosshair_tex: TextureRect
 @export var island_name_label: Label
 @export var instruction_label: Label
 @export var lat_label: Label
@@ -37,6 +38,14 @@ func reset_instruction_text() -> void:
 
 func set_island_name_text(value: String) -> void:
 	island_name_label.text = value
+
+func show_crosshair() -> void:
+	anim.play("show_crosshair")
+	await anim.animation_finished
+
+func hide_crosshair() -> void:
+	anim.play("hide_crosshair")
+	await anim.animation_finished
 
 func show_island_name_panel() -> void:
 	anim.play("show_island_name_panel")

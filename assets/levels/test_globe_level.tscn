@@ -1,14 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://dllb6gb77txlc"]
+[gd_scene load_steps=18 format=3 uid="uid://dllb6gb77txlc"]
 
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
 [ext_resource type="PackedScene" uid="uid://dlwgk43fjx6sh" path="res://assets/prefabs/sun_moon_manager/globe_sun_moon_manager.tscn" id="2_0v6h4"]
 [ext_resource type="Environment" uid="uid://cdj1j2owe1rni" path="res://assets/resources/world_env/default_env.tres" id="3_5gxpi"]
+[ext_resource type="Script" path="res://assets/scripts/globe_camera_target/globe_camera_target.gd" id="4_j4o1s"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
 [ext_resource type="PackedScene" uid="uid://c567ogeducyhi" path="res://assets/prefabs/camera_system/globe/globe_tpc.tscn" id="5_2cjuh"]
-[ext_resource type="Script" path="res://assets/scripts/player_globe_mode_manager/player_globe_mode_manager.gd" id="6_v6cm8"]
+[ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="5_kgofy"]
 [ext_resource type="PackedScene" uid="uid://f2koi1tmvf0i" path="res://assets/prefabs/globe_modes/island_search.tscn" id="8_5bvlm"]
 [ext_resource type="PackedScene" uid="uid://cc6gex77f4p67" path="res://assets/prefabs/globe_modes/island_registration.tscn" id="8_usr3g"]
+[ext_resource type="Script" path="res://assets/scripts/controllers/globe/globe_controller.gd" id="9_gdp6x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ittsk"]
 albedo_color = Color(0.14902, 0.345098, 0.619608, 1)
@@ -163,6 +165,11 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlanetBody"]
 shape = SubResource("SphereShape3D_xhskh")
 
+[node name="GlobeCameraTarget" type="Marker3D" parent="PlanetBody"]
+script = ExtResource("4_j4o1s")
+tween_settings = ExtResource("5_kgofy")
+move_distance = 50.0
+
 [node name="PlayerMainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_4fsy1")]
 level_type = 2
 follow_target = NodePath("../Cameras/GlobeTPC")
@@ -173,16 +180,17 @@ level_type = 2
 [node name="Cameras" type="Node" parent="."]
 
 [node name="GlobeTPC" parent="Cameras" node_paths=PackedStringArray("follow_target") instance=ExtResource("5_2cjuh")]
-follow_target = NodePath("../../PlanetBody")
+follow_target = NodePath("../../PlanetBody/GlobeCameraTarget")
 
 [node name="PlayerGlobeModeManager" type="Node" parent="."]
-script = ExtResource("6_v6cm8")
+script = ExtResource("9_gdp6x")
 globe_mode_pscns = {
 1: ExtResource("8_5bvlm"),
 2: ExtResource("8_usr3g")
 }
 
-[node name="IslandSearch" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("level_anim", "tpc") instance=ExtResource("8_5bvlm")]
+[node name="IslandSearch" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("globe_camera_target", "level_anim", "tpc") instance=ExtResource("8_5bvlm")]
+globe_camera_target = NodePath("../../PlanetBody/GlobeCameraTarget")
 level_anim = NodePath("../../AnimationPlayer")
 tpc = NodePath("../../Cameras/GlobeTPC")
 
