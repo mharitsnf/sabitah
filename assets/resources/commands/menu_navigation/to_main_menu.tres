@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MenuNavigateCommand" load_steps=2 format=3 uid="uid://c76p07ugbwp1u"]
 
-[ext_resource type="Script" path="res://assets/resources/commands/menu_navigation/menu_navigate_command.gd" id="1_wnhc1"]
+[ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="1_wnhc1"]
 
 [resource]
 script = ExtResource("1_wnhc1")

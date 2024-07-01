@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv7ho1b5mrr5q"]
+
+[ext_resource type="Script" path="res://assets/scripts/ui/picture_texture_button/picture_texture_button.gd" id="1_kdq5c"]
+
+[node name="PictureTextureButton" type="TextureButton"]
+custom_minimum_size = Vector2(160, 90)
+script = ExtResource("1_kdq5c")

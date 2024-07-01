@@ -21,6 +21,7 @@ func _input(event: InputEvent) -> void:
         game_viewport.set_input_as_handled()
 
 func set_data(new_data: Dictionary) -> void:
+    await Common.wait(1.)
     data = new_data
 
 func about_to_exit() -> void:

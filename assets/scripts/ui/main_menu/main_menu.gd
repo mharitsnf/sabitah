@@ -15,6 +15,9 @@ func _ready() -> void:
 func _on_button_focus_entered(button: Button) -> void:
     active_button = button
 
+func set_data(new_data: Dictionary) -> void:
+    data = new_data
+
 # Overridden
 func about_to_exit() -> void:
     await super()

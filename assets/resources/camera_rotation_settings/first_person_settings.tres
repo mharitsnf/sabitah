@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CameraRotationSettings" load_steps=2 format=3 uid="uid://bfnj1oxrissmk"]
 
-[ext_resource type="Script" path="res://assets/resources/camera_rotation_settings/camera_rotation_settings.gd" id="1_82uym"]
+[ext_resource type="Script" path="res://assets/scripts/camera_rotation_settings/camera_rotation_settings.gd" id="1_82uym"]
 
 [resource]
 script = ExtResource("1_82uym")

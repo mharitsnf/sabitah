@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://blbp8rwvnngn1"]
+[gd_scene load_steps=10 format=3 uid="uid://blbp8rwvnngn1"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_d48g5"]
 [ext_resource type="Script" path="res://assets/scripts/ui/island_gallery/island_gallery.gd" id="2_lpdxh"]
 [ext_resource type="Texture2D" uid="uid://4uny08ikv45m" path="res://assets/resources/textures/arrow.png" id="2_sk02o"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="5_ynwf8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu67o"]
 bg_color = Color(0.15, 0.15, 0.15, 0.498039)
@@ -127,8 +128,10 @@ _data = {
 "tree_exiting": SubResource("Animation_4qsju")
 }
 
-[node name="IslandGallery" node_paths=PackedStringArray("island_name_label", "left_arrow", "right_arrow") instance=ExtResource("1_d48g5")]
+[node name="IslandGallery" node_paths=PackedStringArray("add_picture_button", "pictures_container", "island_name_label", "left_arrow", "right_arrow") instance=ExtResource("1_d48g5")]
 script = ExtResource("2_lpdxh")
+add_picture_button = NodePath("Panel/MarginContainer/VBoxContainer/GenericButton")
+pictures_container = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer")
 island_name_label = NodePath("Panel/MarginContainer/VBoxContainer/IslandNameLabel")
 left_arrow = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/LeftArrowTex")
 right_arrow = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/RightArrowTex")
@@ -183,46 +186,11 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(528, 318)
 layout_mode = 2
 theme_override_constants/h_separation = 24
 theme_override_constants/v_separation = 24
 columns = 3
-
-[node name="ColorRect" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="0"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect2" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="1"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect3" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="2"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect4" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="3"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect5" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="4"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect6" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="5"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect7" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="6"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect8" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="7"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
-
-[node name="ColorRect9" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/GridContainer" index="8"]
-custom_minimum_size = Vector2(160, 90)
-layout_mode = 2
 
 [node name="RightArrowTex" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
 modulate = Color(1, 1, 1, 0)
@@ -232,6 +200,10 @@ texture = ExtResource("2_sk02o")
 expand_mode = 1
 stretch_mode = 5
 flip_h = true
+
+[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer" index="2" instance=ExtResource("5_ynwf8")]
+layout_mode = 2
+text = "Add new pictures"
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

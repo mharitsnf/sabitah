@@ -80,7 +80,7 @@ func _is_navigating_allowed() -> bool:
 
 ## Returns true if the menu layer has an active menu.
 func has_active_menu() -> bool:
-	return !history_stack.is_empty()
+	return !history_stack.is_empty() or switching
 
 ## Function for navigating to the previous menu.
 func back() -> void:
@@ -106,7 +106,7 @@ func navigate_to(ui: State.UserInterfaces, menu_data: Dictionary = {}) -> void:
 
 	var next_data: MenuData = menu_data_dict[ui]
 	if !next_data.get_instance(): next_data.create_instance()
-	(next_data.get_instance() as BaseMenu).set_data(menu_data)
+	await (next_data.get_instance() as BaseMenu).set_data(menu_data)
 
 	# If we have an active menu, remove it from the stack first.
 	if !history_stack.is_empty():

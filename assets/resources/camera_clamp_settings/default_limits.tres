@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CameraClampSettings" load_steps=2 format=3 uid="uid://c5o0j76wwy1ba"]
 
-[ext_resource type="Script" path="res://assets/resources/camera_clamp_settings/camera_clamp_settings.gd" id="1_8pt4k"]
+[ext_resource type="Script" path="res://assets/scripts/camera_clamp_settings/camera_clamp_settings.gd" id="1_8pt4k"]
 
 [resource]
 script = ExtResource("1_8pt4k")

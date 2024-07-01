@@ -1,4 +1,4 @@
-class_name GenericButton extends Button
+class_name GenericButton extends BaseButton
 
 @export var on_press_command: Command
 

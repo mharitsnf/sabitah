@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CameraFoVSettings" load_steps=2 format=3 uid="uid://dpryn8gg66bb2"]
 
-[ext_resource type="Script" path="res://assets/resources/camera_fov_settings/camera_fov_settings.gd" id="1_8eikw"]
+[ext_resource type="Script" path="res://assets/scripts/camera_fov_settings/camera_fov_settings.gd" id="1_8eikw"]
 
 [resource]
 script = ExtResource("1_8eikw")

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SceneNavigateCommand" load_steps=3 format=3 uid="uid://dscw7r5absl3p"]
 
-[ext_resource type="Script" path="res://assets/resources/commands/scene_navigation/scene_navigate_command.gd" id="1_oouq8"]
+[ext_resource type="Script" path="res://assets/scripts/commands/scene_navigate_command.gd" id="1_oouq8"]
 [ext_resource type="Resource" uid="uid://cce625b8062dc" path="res://assets/resources/commands/switch_globe_mode/globe_none_mode.tres" id="1_s7nej"]
 
 [resource]
