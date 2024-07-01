@@ -9,8 +9,6 @@ class_name IslandRegistration extends LatLongSearch
 ## Margin of error for the player.
 const ISLAND_REGISTRATION_MARGIN_OF_ERROR: float = 500.
 
-var transitioning: bool = false
-
 func _ready() -> void:
 	super()
 
@@ -66,6 +64,12 @@ func show_incorrect_message() -> void:
 		Common.Status.ERROR
 	)
 
+func hide_crosshair() -> void:
+	await hud_layer.hide_crosshair()
+
+func show_crosshair() -> void:
+	await hud_layer.show_crosshair()
+
 func add_first_marker() -> void:
 	var marker: IslandMarker = first_marker_pscn.instantiate()
 	(marker as IslandMarker).sundial_manager = State.local_sundial
@@ -73,10 +77,6 @@ func add_first_marker() -> void:
 	level.add_child.call_deferred(marker)
 	await marker.tree_entered
 	(marker as Node3D).global_position = State.local_sundial_data['position']
-
-func _get_cancel_input() -> void:
-	if transitioning: return
-	super()
 
 func _exit_globe_scene() -> void:
 	State.local_sundial_data = {}

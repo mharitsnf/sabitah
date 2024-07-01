@@ -26,8 +26,7 @@ func _on_marker_hover_entered() -> void:
 	var island_name: String = "Unknown Island Name"
 	
 	if marker_query_res['collider'] is IslandMarker:
-		if (marker_query_res['collider'] as IslandMarker).sundial_manager.second_marker_done:
-			island_name = (marker_query_res['collider'] as IslandMarker).sundial_manager.island_name
+		island_name = (marker_query_res['collider'] as IslandMarker).sundial_manager.get_island_name()
 
 	if marker_query_res['collider'] is GlobeMarker:
 		if marker_query_res['collider'].marker_name != "":
@@ -42,22 +41,30 @@ func _on_marker_hover_exited() -> void:
 func _get_select_location_input() -> void:
 	if Input.is_action_just_pressed("select_location_on_globe"):
 		if !marker_query_res.is_empty():
-			globe_camera_target.move_aside()
-			hud_layer.hide_crosshair()
+			var island_data: Dictionary = {
+				"sundial_manager": (marker_query_res['collider'] as IslandMarker).sundial_manager
+			}
+
+			menu_layer.navigate_to(State.UserInterfaces.ISLAND_GALLERY, island_data)
+			
+			transitioning = true
+			await hud_layer.hide_crosshair()
 			hud_layer.hide_island_name_panel()
-			menu_layer.navigate_to(State.UserInterfaces.ISLAND_GALLERY)
+			await globe_camera_target.move_aside()
+			transitioning = false
 			return
 		
 		if !planet_query_res.is_empty():
-			var screen_pos: Vector2 = camera.unproject_position(planet_query_res['position'])
-			print(screen_pos)
+			var _screen_pos: Vector2 = camera.unproject_position(planet_query_res['position'])
 			pass
 
-# func _on_menu_back(old: MenuLayer.MenuData, new: MenuLayer.MenuData) -> void:
-# 	print(old, new)
-
-# func _on_menu_navigate_to(_old: MenuLayer.MenuData, _new: MenuLayer.MenuData) -> void:
-# 	print("navto")
+func _on_menu_exited(data: MenuLayer.MenuData) -> void:
+	match data.get_key():
+		State.UserInterfaces.ISLAND_GALLERY:
+			transitioning = true
+			await hud_layer.show_crosshair()
+			await globe_camera_target.reset_position()
+			transitioning = false
 
 func _create_arbitrary_marker() -> void:
 	pass

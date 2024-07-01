@@ -1,8 +1,15 @@
 class_name GlobeMode extends Node
 
+@export_group("Switch scene commands")
+@export_subgroup("Canceling")
+@export var before_cancel_cmd: Command
+@export var after_cancel_cmd: Command
+
 var menu_layer: MenuLayer
 var hud_layer: GlobeHUDLayer
 var main_camera: MainCamera
+
+var transitioning: bool = false
 
 func _ready() -> void:
 	menu_layer = Group.first("menu_layer")
@@ -13,8 +20,8 @@ func _ready() -> void:
 	assert(hud_layer)
 	assert(main_camera)
 
-	(menu_layer as MenuLayer).menu_back.connect(_on_menu_back)
-	(menu_layer as MenuLayer).menu_navigate_to.connect(_on_menu_navigate_to)
+	(menu_layer as MenuLayer).menu_entered.connect(_on_menu_entered)
+	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
 
 func enter_mode() -> void:
 	await Common.wait(.1)
@@ -28,14 +35,25 @@ func delegated_process(_delta: float) -> void:
 func player_input_process(_delta: float) -> void:
 	pass
 
-func delegated_unhandled_input(_event: InputEvent) -> void:
+func delegated_unhandled_input(event: InputEvent) -> void:
+	if menu_layer.switching: return
+	if transitioning: return
+	if event.is_action_pressed("ui_cancel"):
+		_exit_globe_scene()
+
+func _exit_globe_scene() -> void:
+	var scene_manager: SceneManager = Group.first("scene_manager")
+	await (scene_manager as SceneManager).switch_scene(
+		SceneManager.Scenes.GAME,
+		before_cancel_cmd, 
+		after_cancel_cmd
+	)
+
+func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
 	pass
 
-func _on_menu_back(_old: MenuLayer.MenuData, _new: MenuLayer.MenuData) -> void:
-	print("asdf1")
-
-func _on_menu_navigate_to(_old: MenuLayer.MenuData, _new: MenuLayer.MenuData) -> void:
-	print("asdf2")
+func _on_menu_exited(_data: MenuLayer.MenuData) -> void:
+	pass
 
 func exit_mode() -> void:
 	await Common.wait(.1)

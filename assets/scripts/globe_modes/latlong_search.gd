@@ -3,10 +3,6 @@ class_name LatLongSearch extends GlobeMode
 @export_group("Collision")
 @export_flags_3d_physics var island_collision_mask: int
 @export_flags_3d_physics var planet_collision_mask: int
-@export_group("Switch scene commands")
-@export_subgroup("Canceling")
-@export var before_cancel_cmd: Command
-@export var after_cancel_cmd: Command
 
 var marker_query_res: Dictionary
 var planet_query_res: Dictionary
@@ -19,11 +15,6 @@ func delegated_process(_delta: float) -> void:
 
 func delegated_physics_process(_delta: float) -> void:
 	_query_caster()
-
-func delegated_unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		print("asdf")
-		_exit_globe_scene()
 
 const CAST_RAY_LENGTH: float = 500.
 ## Query caster
@@ -55,18 +46,6 @@ func _update_hud() -> void:
 
 	# Set text to the HUD.
 	hud_layer.set_lat_long_text(res[0], res[1])
-
-func _get_cancel_input() -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		_exit_globe_scene()
-
-func _exit_globe_scene() -> void:
-	var scene_manager: SceneManager = Group.first("scene_manager")
-	await (scene_manager as SceneManager).switch_scene(
-		SceneManager.Scenes.GAME,
-		before_cancel_cmd, 
-		after_cancel_cmd
-	)
 
 func _on_marker_hover_entered() -> void:
 	pass

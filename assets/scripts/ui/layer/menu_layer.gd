@@ -31,10 +31,11 @@ var history_stack: Array[MenuData] = []
 
 # Flags
 var transitioning: bool = false
+var switching: bool = false
 var toggle_main_menu_allowed: bool = true
 
-signal menu_navigate_to(prev_data: MenuData, cur_data: MenuData)
-signal menu_back(prev_data: MenuData, cur_data: MenuData)
+signal menu_entered(data: MenuData)
+signal menu_exited(data: MenuData)
 
 # region Lifecycle functions
 
@@ -42,6 +43,7 @@ func _ready() -> void:
 	_create_menu_data()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if switching: return
 	if has_active_menu(): return
 	if !toggle_main_menu_allowed: return
 	if event.is_action_pressed("toggle_main_menu"):
@@ -50,22 +52,24 @@ func _unhandled_input(event: InputEvent) -> void:
 # region User interface navigation functions
 
 ## Helper function for adding an instance to the menu layer.
-func _instance_enter(instance: BaseMenu) -> void:
-	add_child.call_deferred(instance)
-	await instance.tree_entered
+func _instance_enter(data: MenuData) -> void:
+	add_child.call_deferred(data.get_instance())
+	await data.get_instance().tree_entered
 
 	transitioning = true
-	await instance.after_entering()
+	await data.get_instance().after_entering()
 	transitioning = false
+	menu_entered.emit(data)
 
 ## Helper function for removing an instance from the menu layer.
-func _instance_exit(instance: BaseMenu) -> void:
+func _instance_exit(data: MenuData) -> void:
 	transitioning = true
-	await instance.about_to_exit()
+	await data.get_instance().about_to_exit()
 	transitioning = false
 	
-	remove_child.call_deferred(instance)
-	await instance.tree_exited
+	remove_child.call_deferred(data.get_instance())
+	await data.get_instance().tree_exited
+	menu_exited.emit(data)
 
 ## Helper function for checking if navigation is allowed.
 func _is_navigating_allowed() -> bool:
@@ -82,55 +86,54 @@ func has_active_menu() -> bool:
 func back() -> void:
 	if !_is_navigating_allowed(): return
 
-	var old_data: MenuData = null
-	var new_data: MenuData = null
+	switching = true
 
 	if !history_stack.is_empty():
 		var current_data: MenuData = history_stack.pop_back()
-		old_data = current_data
-		await _instance_exit((current_data as MenuData).get_instance())
+		await _instance_exit((current_data as MenuData))
 
 	if !history_stack.is_empty():
 		var prev_data: MenuData = history_stack.back()
-		new_data = prev_data
-		await _instance_enter((prev_data as MenuData).get_instance())
+		await _instance_enter((prev_data as MenuData))
 
-	menu_back.emit(old_data, new_data)
-	
+	switching = false
+
 ## Function for navigating to another menu.
-func navigate_to(ui: State.UserInterfaces) -> void:
+func navigate_to(ui: State.UserInterfaces, menu_data: Dictionary = {}) -> void:
 	if !_is_navigating_allowed(): return
-	
-	var old_data: MenuData = null
-	var new_data: MenuData = null
+
+	switching = true
 
 	var next_data: MenuData = menu_data_dict[ui]
-	new_data = next_data
 	if !next_data.get_instance(): next_data.create_instance()
+	(next_data.get_instance() as BaseMenu).set_data(menu_data)
 
 	# If we have an active menu, remove it from the stack first.
 	if !history_stack.is_empty():
 		var current_data: MenuData = history_stack.back()
-		old_data = current_data
-		await _instance_exit((current_data as MenuData).get_instance())
+		await _instance_exit((current_data as MenuData))
 
 	# Add the new menu to the stack.
 	history_stack.push_back(next_data)
-	await _instance_enter(next_data.get_instance())
+	await _instance_enter(next_data)
 
-	menu_navigate_to.emit(old_data, new_data)
+	switching = false
 
 ## Function for clearing the history stack (remove all active menus)
 func clear() -> void:
 	if !_is_navigating_allowed(): return
 
+	switching = true
+
 	# If the history stack is not empty, remove the current instance from the tree
 	# and clear the history stack.
 	if !history_stack.is_empty():
 		var current_data: MenuData = history_stack.back()
-		await _instance_exit((current_data as MenuData).get_instance())
+		await _instance_exit((current_data as MenuData))
 	
 		history_stack = []
+
+	switching = false
 
 # region Helper functions
 
