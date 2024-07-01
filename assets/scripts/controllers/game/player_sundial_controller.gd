@@ -44,10 +44,10 @@ func player_input_process(_delta: float) -> void:
 
 func _get_exit_sundial_input() -> void:
 	if Input.is_action_just_pressed("toggle_sundial"):
-		if (State.game_pam as PlayerActorManager).transitioning: return
+		if (State.actor_im as ActorInputManager).transitioning: return
 
-		var prev_pd: PlayerActorManager.PlayerData = State.game_pam.previous_player_data
-		State.game_pam.change_player_data(prev_pd)
+		var prev_pd: ActorData = (State.actor_im as ActorInputManager).previous_data
+		State.actor_im.switch_data(prev_pd)
 
 func _get_rotate_latmes_input() -> void:
 	var amount: float = Input.get_axis("rotate_latmes_left", "rotate_latmes_right")

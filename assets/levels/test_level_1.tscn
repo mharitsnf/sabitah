@@ -14,10 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
-[ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/scripts/player_actor_manager/player_actor_manager.tscn" id="11_ni3kg"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://8rve6jcq5kyi" path="res://assets/prefabs/actor/ai_actor.tscn" id="12_yh4gp"]
 [ext_resource type="PackedScene" uid="uid://dtnook2vegfb2" path="res://assets/prefabs/navigation/target/navigation_target.tscn" id="13_qjase"]
+[ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
 script = ExtResource("1_4i1xa")
@@ -65,7 +65,7 @@ transform = Transform3D(0.00870242, 0.880115, 0.47468, -0.999961, 0.00833766, 0.
 
 [node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("10_bq821")]
 
-[node name="PlayerActorController" parent="." instance=ExtResource("11_ni3kg")]
+[node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
 transform = Transform3D(0.00971944, 0.999854, -0.0140802, -0.996167, 0.00845757, -0.0870619, -0.0869301, 0.0148724, 0.996103, 1486.38, 12.573, 22.1093)

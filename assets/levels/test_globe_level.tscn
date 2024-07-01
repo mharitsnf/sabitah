@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="5_kgofy"]
 [ext_resource type="PackedScene" uid="uid://f2koi1tmvf0i" path="res://assets/prefabs/globe_modes/island_search.tscn" id="8_5bvlm"]
 [ext_resource type="PackedScene" uid="uid://cc6gex77f4p67" path="res://assets/prefabs/globe_modes/island_registration.tscn" id="8_usr3g"]
-[ext_resource type="Script" path="res://assets/scripts/controllers/globe/globe_controller.gd" id="9_gdp6x"]
+[ext_resource type="Script" path="res://assets/scripts/input_managers/globe/globe_input_manager.gd" id="9_gdp6x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ittsk"]
 albedo_color = Color(0.14902, 0.345098, 0.619608, 1)

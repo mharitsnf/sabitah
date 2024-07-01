@@ -71,9 +71,9 @@ var local_sundial_data: Dictionary = {
 
 # region References
 
-## Reference to the game scene's PlayerActorManager.
-var game_pam: PlayerActorManager
-var pgmm: PlayerGlobeModeManager
+## Reference to the game scene's ActorInputManager.
+var actor_im: ActorInputManager
+var globe_im: GlobeInputManager
 
 var game_camera: Camera3D
 var globe_camera: Camera3D

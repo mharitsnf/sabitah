@@ -25,6 +25,8 @@ var h_input: Vector2
 var inside_player_boat_area: bool = false
 var enter_boat_input_prompt: InputPrompt
 
+# region Entry functions
+
 func _enter_tree() -> void:
 	_evaluate_register_island_input_prompt()
 
@@ -40,7 +42,7 @@ func _ready() -> void:
 	assert(main_camera is MainCamera)
 	assert(player_boat_area)
 
-	State.game_pam.current_player_data_changed.connect(_on_current_player_data_changed)
+	(State.actor_im as ActorInputManager).current_data_changed.connect(_on_current_data_changed)
 	(player_boat_area as Area3D).body_entered.connect(_on_body_entered_player_boat_area)
 	(player_boat_area as Area3D).body_exited.connect(_on_body_exited_player_boat_area)
 
@@ -91,6 +93,8 @@ func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts:
 		hud_layer.remove_input_prompt(ip)
 
+# region Lifecycle functions
+
 func _process(_delta: float) -> void:
 	actor.rotate_visuals(main_camera.global_basis, h_input)
 
@@ -118,9 +122,6 @@ func player_unhandled_input(event: InputEvent) -> void:
 	if current_actor_state:
 		current_actor_state.player_unhandled_input(event)
 
-func get_character_state(key: CharacterStates) -> ActorState:
-	return states[key]
-
 func switch_state(new_state: ActorState) -> void:
 	if current_actor_state:
 		current_actor_state.exit_state()
@@ -128,6 +129,13 @@ func switch_state(new_state: ActorState) -> void:
 
 	current_actor_state = new_state
 	new_state.enter_state()
+
+# region Setters and getters
+
+func get_character_state(key: CharacterStates) -> ActorState:
+	return states[key]
+
+# region Input functions
 
 func _get_enter_register_island_input() -> void:
 	if !State.local_sundial: return
@@ -152,27 +160,27 @@ func _get_enter_register_island_input() -> void:
 		)
 
 func _get_enter_local_sundial_input() -> void:
+	if (State.actor_im as ActorInputManager).transitioning: return
 	if Input.is_action_just_pressed("toggle_sundial") and State.local_sundial:
-		if (State.game_pam as PlayerActorManager).transitioning: return
-
-		var new_pd: PlayerActorManager.PlayerData = PlayerActorManager.PlayerData.new()
+		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(State.local_sundial)
-		State.game_pam.change_player_data(new_pd)
+		State.actor_im.switch_data(new_pd)
 
 func _get_enter_ship_input() -> void:
+	if (State.actor_im as ActorInputManager).transitioning: return
 	if Input.is_action_just_pressed("switch_boat_character") and inside_player_boat_area:
-		if (State.game_pam as PlayerActorManager).transitioning: return
-
-		var boat_pd: PlayerActorManager.PlayerData = State.game_pam.get_player_data(PlayerActorManager.PlayerActors.BOAT)
-		var res: Array = await State.game_pam.change_player_data(boat_pd)
+		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
+		var res: Array = await State.actor_im.switch_data(boat_pd)
 		if res[0]:
-			State.game_pam.remove_child.call_deferred((res[1] as PlayerActorManager.PlayerData).get_instance())
+			State.actor_im.remove_child.call_deferred((res[1] as ActorData).get_instance())
 
 func _get_h_input() -> void:
 	h_input = Input.get_vector("character_left", "character_right", "character_backward", "character_forward")
 
-func _on_current_player_data_changed() -> void:
-	if State.game_pam.current_player_data.get_controller() != self:
+# region Signal listener functions.
+
+func _on_current_data_changed() -> void:
+	if State.actor_im.get_current_controller() != self:
 		h_input = Vector2.ZERO
 
 func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:

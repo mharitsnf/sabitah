@@ -26,11 +26,11 @@ func _process(_delta: float) -> void:
 	_adjust_intensity()
 
 ## Switch the shadow distance according to the light type.
-func start_shadow_transition(light_type: PlayerActorManager.LightType) -> void:
+func start_shadow_transition(light_type: ActorInputManager.LightType) -> void:
 	if transitioning:
 		return
 	
-	var final_val: float = normal_distance if light_type == PlayerActorManager.LightType.NORMAL else sundial_distance
+	var final_val: float = normal_distance if light_type == ActorInputManager.LightType.NORMAL else sundial_distance
 	if directional_shadow_max_distance == final_val:
 		return
 	
@@ -62,7 +62,7 @@ func _adjust_intensity() -> void:
 		push_error("Curve is not provided!")
 		return
 
-	var active_actor: Node3D = (State.game_pam as PlayerActorManager).current_player_data.get_instance()
+	var active_actor: Node3D = (State.actor_im as ActorInputManager).current_data.get_instance()
 	if !active_actor:
 		return
 	
