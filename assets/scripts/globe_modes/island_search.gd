@@ -17,8 +17,7 @@ func _ready() -> void:
 	assert(tpc)
 	assert(camera)
 
-func player_input_process(delta: float) -> void:
-	super(delta)
+func player_input_process(_delta: float) -> void:
 	_get_select_location_input()
 
 func _on_marker_hover_entered() -> void:
@@ -45,12 +44,20 @@ func _get_select_location_input() -> void:
 		if !marker_query_res.is_empty():
 			globe_camera_target.move_aside()
 			hud_layer.hide_crosshair()
+			hud_layer.hide_island_name_panel()
+			menu_layer.navigate_to(State.UserInterfaces.ISLAND_GALLERY)
 			return
 		
 		if !planet_query_res.is_empty():
 			var screen_pos: Vector2 = camera.unproject_position(planet_query_res['position'])
 			print(screen_pos)
 			pass
+
+# func _on_menu_back(old: MenuLayer.MenuData, new: MenuLayer.MenuData) -> void:
+# 	print(old, new)
+
+# func _on_menu_navigate_to(_old: MenuLayer.MenuData, _new: MenuLayer.MenuData) -> void:
+# 	print("navto")
 
 func _create_arbitrary_marker() -> void:
 	pass

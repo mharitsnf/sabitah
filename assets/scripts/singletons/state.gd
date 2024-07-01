@@ -31,7 +31,7 @@ enum LevelType {
 }
 
 enum UserInterfaces {
-    NONE, MAIN_MENU, ISLAND_MENU
+    NONE, MAIN_MENU, ISLAND_GALLERY
 }
 
 # region Game data

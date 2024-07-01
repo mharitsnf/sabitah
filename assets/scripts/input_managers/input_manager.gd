@@ -32,13 +32,10 @@ func _set_existing_instances() -> void:
 ## Private. Check if input is allowed.
 func _input_allowed() -> bool:
 	if !current_data: 
-		push_warning("current_data not assigned!")
 		return false
 	if !current_data.get_instance(): 
-		push_warning("current_data has no instance!")
 		return false
 	if menu_layer.has_active_menu(): 
-		push_warning("menu_layer has an active menu!")
 		return false
 	return true
 

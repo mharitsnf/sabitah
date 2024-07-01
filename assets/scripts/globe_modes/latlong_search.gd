@@ -17,11 +17,13 @@ signal marker_hover_exited
 func delegated_process(_delta: float) -> void:
 	_update_hud()
 
-func player_input_process(_delta: float) -> void:
-	_get_cancel_input()
-
 func delegated_physics_process(_delta: float) -> void:
 	_query_caster()
+
+func delegated_unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		print("asdf")
+		_exit_globe_scene()
 
 const CAST_RAY_LENGTH: float = 500.
 ## Query caster

@@ -13,6 +13,9 @@ func _ready() -> void:
 	assert(hud_layer)
 	assert(main_camera)
 
+	(menu_layer as MenuLayer).menu_back.connect(_on_menu_back)
+	(menu_layer as MenuLayer).menu_navigate_to.connect(_on_menu_navigate_to)
+
 func enter_mode() -> void:
 	await Common.wait(.1)
 
@@ -27,6 +30,12 @@ func player_input_process(_delta: float) -> void:
 
 func delegated_unhandled_input(_event: InputEvent) -> void:
 	pass
+
+func _on_menu_back(_old: MenuLayer.MenuData, _new: MenuLayer.MenuData) -> void:
+	print("asdf1")
+
+func _on_menu_navigate_to(_old: MenuLayer.MenuData, _new: MenuLayer.MenuData) -> void:
+	print("asdf2")
 
 func exit_mode() -> void:
 	await Common.wait(.1)

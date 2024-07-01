@@ -8,6 +8,8 @@ class_name GlobeHUDLayer extends HUDLayer
 @export var lat_label: Label
 @export var long_label: Label
 
+var island_name_panel_visible: bool
+
 func _ready() -> void:
 	assert(anim)
 	assert(island_name_label)
@@ -48,12 +50,20 @@ func hide_crosshair() -> void:
 	await anim.animation_finished
 
 func show_island_name_panel() -> void:
-	anim.play("show_island_name_panel")
-	await anim.animation_finished
+	if !island_name_panel_visible:
+		anim.play("show_island_name_panel")
+		await anim.animation_finished
 
 func hide_island_name_panel() -> void:
-	anim.play("hide_island_name_panel")
-	await anim.animation_finished
+	if island_name_panel_visible:
+		anim.play("hide_island_name_panel")
+		await anim.animation_finished
+
+func set_island_name_panel_visible_true() -> void:
+	island_name_panel_visible = true
+
+func set_island_name_panel_visible_false() -> void:
+	island_name_panel_visible = false
 
 func show_instruction_panel() -> void:
 	anim.play("show_instruction_panel")

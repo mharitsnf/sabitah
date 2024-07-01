@@ -3,96 +3,94 @@
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_hxh4l"]
 [ext_resource type="Script" path="res://assets/scripts/ui/main_menu/main_menu.gd" id="2_3ahoq"]
 
-[sub_resource type="Animation" id="Animation_0dj5e"]
+[sub_resource type="Animation" id="Animation_mmga3"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("VBoxContainer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(0, 440)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("VBoxContainer:position")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 440)]
+"values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_vaj3f"]
+[sub_resource type="Animation" id="Animation_aq8hx"]
 resource_name = "tree_entered"
-length = 0.25
-step = 0.01
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
-"transitions": PackedFloat32Array(-2, 1, 1, 1, 1, 1, 1, 1, -2),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.00948148), Color(1, 1, 1, 0.0758519), Color(1, 1, 1, 0.256), Color(1, 1, 1, 0.593482), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.968), Color(1, 1, 1, 0.998815), Color(1, 1, 1, 1)]
+"values": [Vector2(0, 440), Vector2(1.18519, 440), Vector2(9.48148, 440), Vector2(32, 440), Vector2(54.5185, 440), Vector2(62.8148, 440), Vector2(64, 440)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("VBoxContainer:position")
-tracks/1/interp = 2
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 440), Vector2(0.606815, 440), Vector2(4.85452, 440), Vector2(16.384, 440), Vector2(37.9828, 440), Vector2(54.5185, 440), Vector2(61.952, 440), Vector2(63.9241, 440), Vector2(64, 440)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ymss3"]
+[sub_resource type="Animation" id="Animation_bh8q5"]
 resource_name = "tree_exiting"
-length = 0.25
-step = 0.01
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
+tracks/0/path = NodePath("VBoxContainer:position")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
-"transitions": PackedFloat32Array(-2, 1, 1, 1, 1, 1, 1, 1, -2),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.990519), Color(1, 1, 1, 0.924148), Color(1, 1, 1, 0.744), Color(1, 1, 1, 0.406518), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.032), Color(1, 1, 1, 0.00118518), Color(1, 1, 1, 0)]
+"values": [Vector2(64, 440), Vector2(62.8148, 440), Vector2(54.5185, 440), Vector2(32, 440), Vector2(9.48148, 440), Vector2(1.18518, 440), Vector2(0, 440)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("VBoxContainer:position")
-tracks/1/interp = 2
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(64, 440), Vector2(63.3932, 440), Vector2(59.1455, 440), Vector2(47.616, 440), Vector2(26.0172, 440), Vector2(9.48148, 440), Vector2(2.048, 440), Vector2(0.0758514, 440), Vector2(0, 440)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_43rfj"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yd08p"]
 _data = {
-"RESET": SubResource("Animation_0dj5e"),
-"tree_entered": SubResource("Animation_vaj3f"),
-"tree_exiting": SubResource("Animation_ymss3")
+"RESET": SubResource("Animation_mmga3"),
+"tree_entered": SubResource("Animation_aq8hx"),
+"tree_exiting": SubResource("Animation_bh8q5")
 }
 
 [node name="MainMenu" instance=ExtResource("1_hxh4l")]
@@ -109,7 +107,7 @@ offset_bottom = 576.0
 grow_vertical = 0
 alignment = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_43rfj")
+"": SubResource("AnimationLibrary_yd08p")
 }

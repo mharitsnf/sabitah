@@ -15,9 +15,6 @@ var final_viewport: Viewport
 func _ready() -> void:
 	super()
 
-	final_viewport = Group.first("final_viewport")
-	assert(final_viewport)
-
 func player_input_process(delta: float) -> void:
 	super(delta)
 	_get_capture_picture_input()
@@ -27,6 +24,10 @@ func _get_capture_picture_input() -> void:
 		_create_picture()
 
 func _create_picture() -> void:
+	if !final_viewport:
+		final_viewport = Group.first("final_viewport")
+		assert(final_viewport)
+
 	var img: Image = final_viewport.get_texture().get_image()
 	var tex: ImageTexture = ImageTexture.create_from_image(img)
 

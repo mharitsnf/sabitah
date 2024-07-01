@@ -14,7 +14,7 @@ level_viewport = NodePath("Level/FinalSV")
 
 [node name="Level" parent="RenderStack" instance=ExtResource("1_4ocse")]
 
-[node name="FinalSV" parent="RenderStack/Level" groups=["final_viewport"] instance=ExtResource("10_r5jq4")]
+[node name="FinalSV" parent="RenderStack/Level" instance=ExtResource("10_r5jq4")]
 handle_input_locally = false
 render_target_update_mode = 4
 

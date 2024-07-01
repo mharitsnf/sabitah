@@ -2,12 +2,17 @@ class_name MenuLayer extends CanvasLayer
 
 # region Menu data
 class MenuData extends RefCounted:
+	var _key: State.UserInterfaces
 	var _pscn: PackedScene
 	var _instance: BaseMenu
 
-	func _init(__pscn: PackedScene) -> void:
+	func _init(__pscn: PackedScene, __key: State.UserInterfaces) -> void:
 		_pscn = __pscn
+		_key = __key
 	
+	func get_key() -> State.UserInterfaces:
+		return _key
+
 	func create_instance() -> void:
 		_instance = _pscn.instantiate()
 
@@ -16,7 +21,7 @@ class MenuData extends RefCounted:
 
 @export var menu_pscns: Dictionary = {
 	State.UserInterfaces.MAIN_MENU: null,
-	State.UserInterfaces.ISLAND_MENU: null,
+	State.UserInterfaces.ISLAND_GALLERY: null,
 }
 
 var menu_data_dict: Dictionary = {}
@@ -28,15 +33,19 @@ var history_stack: Array[MenuData] = []
 var transitioning: bool = false
 var toggle_main_menu_allowed: bool = true
 
+signal menu_navigate_to(prev_data: MenuData, cur_data: MenuData)
+signal menu_back(prev_data: MenuData, cur_data: MenuData)
+
 # region Lifecycle functions
 
 func _ready() -> void:
 	_create_menu_data()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_main_menu") and toggle_main_menu_allowed:
-		if history_stack.is_empty(): navigate_to(State.UserInterfaces.MAIN_MENU)
-		else: clear()
+	if has_active_menu(): return
+	if !toggle_main_menu_allowed: return
+	if event.is_action_pressed("toggle_main_menu"):
+		navigate_to(State.UserInterfaces.MAIN_MENU)
 
 # region User interface navigation functions
 
@@ -73,29 +82,43 @@ func has_active_menu() -> bool:
 func back() -> void:
 	if !_is_navigating_allowed(): return
 
+	var old_data: MenuData = null
+	var new_data: MenuData = null
+
 	if !history_stack.is_empty():
 		var current_data: MenuData = history_stack.pop_back()
+		old_data = current_data
 		await _instance_exit((current_data as MenuData).get_instance())
 
 	if !history_stack.is_empty():
 		var prev_data: MenuData = history_stack.back()
-		_instance_enter((prev_data as MenuData).get_instance())
+		new_data = prev_data
+		await _instance_enter((prev_data as MenuData).get_instance())
 
+	menu_back.emit(old_data, new_data)
+	
 ## Function for navigating to another menu.
 func navigate_to(ui: State.UserInterfaces) -> void:
 	if !_is_navigating_allowed(): return
 	
+	var old_data: MenuData = null
+	var new_data: MenuData = null
+
 	var next_data: MenuData = menu_data_dict[ui]
+	new_data = next_data
 	if !next_data.get_instance(): next_data.create_instance()
 
 	# If we have an active menu, remove it from the stack first.
 	if !history_stack.is_empty():
 		var current_data: MenuData = history_stack.back()
+		old_data = current_data
 		await _instance_exit((current_data as MenuData).get_instance())
 
 	# Add the new menu to the stack.
 	history_stack.push_back(next_data)
-	_instance_enter(next_data.get_instance())
+	await _instance_enter(next_data.get_instance())
+
+	menu_navigate_to.emit(old_data, new_data)
 
 ## Function for clearing the history stack (remove all active menus)
 func clear() -> void:
@@ -117,4 +140,4 @@ func clear() -> void:
 func _create_menu_data() -> void:
 	for k: State.UserInterfaces in menu_pscns.keys():
 		if !menu_pscns[k] is PackedScene: continue
-		menu_data_dict[k] = MenuData.new(menu_pscns[k])
+		menu_data_dict[k] = MenuData.new(menu_pscns[k], k)

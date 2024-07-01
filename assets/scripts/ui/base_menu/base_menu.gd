@@ -2,8 +2,21 @@ class_name BaseMenu extends Control
 
 @onready var anim: AnimationPlayer = $AnimationPlayer
 
+var menu_layer: MenuLayer
+
+var game_viewport: SubViewport
+
 func _ready() -> void:
     assert(anim)
+    menu_layer = Group.first("menu_layer")
+    assert(menu_layer)
+    game_viewport = Group.first("game_viewport")
+    assert(game_viewport)
+
+func _input(event: InputEvent) -> void:
+    if event.is_action_pressed("ui_cancel"):
+        menu_layer.back()
+        game_viewport.set_input_as_handled()
 
 func about_to_exit() -> void:
     anim.play("tree_exiting")

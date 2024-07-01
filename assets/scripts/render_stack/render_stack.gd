@@ -76,6 +76,7 @@ func _ready() -> void:
 
 	# Kuwahara 4
 	var kwh_4_pass: PostProcessingPass = pp_pass_pscn.instantiate()
+	Group.add("final_viewport", (kwh_4_pass as PostProcessingPass).viewport)
 	mat = ShaderMaterial.new()
 	mat.shader = kuwahara_4_shader
 	mat.resource_local_to_scene = true

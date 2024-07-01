@@ -8,9 +8,7 @@
 [node name="GameMainMenu" instance=ExtResource("1_vov1y")]
 
 [node name="VBoxContainer" parent="." index="0"]
-offset_top = 440.0
 offset_right = 154.0
-offset_bottom = 576.0
 
 [node name="OpenGlobe" parent="VBoxContainer" index="0" instance=ExtResource("2_ca720")]
 layout_mode = 2
