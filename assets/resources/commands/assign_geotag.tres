@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="AssignPictureGeotagCommand" load_steps=2 format=3 uid="uid://btoysbkq1t5w8"]
+
+[ext_resource type="Script" path="res://assets/scripts/commands/assign_picture_geotag_command.gd" id="1_ylj6g"]
+
+[resource]
+script = ExtResource("1_ylj6g")

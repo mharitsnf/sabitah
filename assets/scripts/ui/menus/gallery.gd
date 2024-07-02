@@ -13,21 +13,21 @@ func _ready() -> void:
 	assert(add_filter_button)
 	assert(picture_button_pscn)
 
-func mount_picture_buttons() -> void:
+func _mount_picture_buttons() -> void:
 	for pd: PictureData in State.picture_cache:
 		picture_button_container.add_child.call_deferred(pd.get_picture_button())
 
-func unmount_picture_buttons() -> void:
+func _unmount_picture_buttons() -> void:
 	for pd: PictureData in State.picture_cache:
 		picture_button_container.remove_child.call_deferred(pd.get_picture_button())
 
 func about_to_exit() -> void:
 	await super()
-	unmount_picture_buttons()
+	_unmount_picture_buttons()
 
 # Overridden
 func after_entering() -> void:
 	await picture_button_container.tree_entered
-	mount_picture_buttons()
+	_mount_picture_buttons()
 	await super()
 	add_filter_button.grab_focus()

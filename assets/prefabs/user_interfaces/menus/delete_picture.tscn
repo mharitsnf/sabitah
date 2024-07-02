@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c23lsk514gnx0"]
 
-[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_3yc47"]
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_3yc47"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/delete_picture.gd" id="2_xytj2"]
 [ext_resource type="Texture2D" uid="uid://buf17nslrdiyv" path="res://icon.svg" id="2_yrskj"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="3_jdxve"]

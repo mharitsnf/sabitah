@@ -61,10 +61,11 @@ func _get_select_location_input() -> void:
 func _on_menu_exited(data: MenuLayer.MenuData) -> void:
 	match data.get_key():
 		State.UserInterfaces.ISLAND_GALLERY:
-			transitioning = true
-			await hud_layer.show_crosshair()
-			await globe_camera_target.reset_position()
-			transitioning = false
+			if menu_layer.history_stack.is_empty():
+				transitioning = true
+				await hud_layer.show_crosshair()
+				await globe_camera_target.reset_position()
+				transitioning = false
 
 func _create_arbitrary_marker() -> void:
 	pass

@@ -1,0 +1,127 @@
+[gd_scene load_steps=11 format=3 uid="uid://c2n8eyriru3ko"]
+
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_y76bu"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/full_picture.gd" id="2_pbkno"]
+[ext_resource type="Theme" uid="uid://cmabujpn87njg" path="res://assets/resources/themes/game_theme.tres" id="3_kkm5p"]
+[ext_resource type="Texture2D" uid="uid://buf17nslrdiyv" path="res://icon.svg" id="4_ft24g"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="5_ot1ua"]
+[ext_resource type="Resource" uid="uid://dnv5rra7y1hix" path="res://assets/resources/commands/menu_navigation/to_geotag_picture.tres" id="6_wd3w0"]
+[ext_resource type="Resource" uid="uid://crlc0mkkojv2k" path="res://assets/resources/commands/menu_navigation/to_delete_picture.tres" id="7_xfe6v"]
+
+[sub_resource type="Animation" id="Animation_vq7bl"]
+resource_name = "tree_entered"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pmepo"]
+resource_name = "tree_exiting"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ce252"]
+_data = {
+"tree_entered": SubResource("Animation_vq7bl"),
+"tree_exiting": SubResource("Animation_pmepo")
+}
+
+[node name="FullPicture" node_paths=PackedStringArray("texture_rect", "geotag_label", "to_geotag_picture_btn", "to_delete_picture_btn") instance=ExtResource("1_y76bu")]
+modulate = Color(1, 1, 1, 1)
+script = ExtResource("2_pbkno")
+texture_rect = NodePath("Panel/TextureRect")
+geotag_label = NodePath("Panel/HBoxContainer/VBoxContainer/CurrentTagLabel")
+to_geotag_picture_btn = NodePath("Panel/VBoxContainer/GeotagBtn")
+to_delete_picture_btn = NodePath("Panel/VBoxContainer/DeletePicture")
+
+[node name="Panel" type="Panel" parent="." index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel" index="0"]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.225
+anchor_top = 0.1
+anchor_right = 0.78
+anchor_bottom = 0.656
+offset_right = 0.599976
+offset_bottom = -0.320007
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_kkm5p")
+texture = ExtResource("4_ft24g")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel" index="1"]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 616.0
+offset_right = 813.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="GeotagBtn" parent="Panel/VBoxContainer" index="0" instance=ExtResource("5_ot1ua")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Geotag"
+on_press_command = ExtResource("6_wd3w0")
+
+[node name="DeletePicture" parent="Panel/VBoxContainer" index="1" instance=ExtResource("5_ot1ua")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete picture"
+on_press_command = ExtResource("7_xfe6v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" index="2"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 504.0
+offset_right = 1024.0
+offset_bottom = 576.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer" index="0"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label3" type="Label" parent="Panel/HBoxContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "Current geotag"
+
+[node name="CurrentTagLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 28
+text = "[Tag]"
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_ce252")
+}

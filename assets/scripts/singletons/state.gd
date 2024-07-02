@@ -32,24 +32,52 @@ enum LevelType {
 }
 
 enum UserInterfaces {
-	NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE
+	NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE, GEOTAG_PICTURE
 }
 
-# Picture
-
-var picture_tags: Array[String] = ["Uncategorized"]
-var picture_cache: Array[PictureData] = []
-var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
-
-signal picture_tag_added
-
-func create_picture_tag(lat: float, long: float) -> String:
+func get_island_lat_long_name(lat: float, long: float) -> String:
 	return str(lat) + "°N, " + str(long) + "°S Island"
 
-func add_picture_tag(new_tag: String) -> void:
-	assert(!picture_tags.has(new_tag))
-	picture_tags.append(new_tag)
-	picture_tag_added.emit()
+# region Picture
+
+var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
+var picture_cache: Array[PictureData] = []
+
+func get_geotag_name(id: String) -> String:
+	var tags: Array[Dictionary] = get_geotags()
+
+	var td: Array[Dictionary] = tags.filter(
+		func(data: Dictionary) -> bool:
+			return data["id"] == id
+	)
+
+	if td.is_empty(): return ""
+	return (td[0] as Dictionary)['name']
+
+func get_geotags() -> Array[Dictionary]:
+	var tags: Array[Dictionary] = [{
+		"id": "none",
+		"name": "Uncategorized"
+	}]
+
+	for lsm: Node in Group.all("local_sundial_managers"):
+		if !(lsm is LocalSundialManager): continue
+		tags.append((lsm as LocalSundialManager).get_island_tag_data())
+
+	return tags
+
+func get_available_geotags() -> Array[Dictionary]:
+	var available_tags: Array[Dictionary] = [{
+		"id": "none",
+		"name": "Uncategorized"
+	}]
+
+	for lsm: Node in Group.all("local_sundial_managers"):
+		if !(lsm is LocalSundialManager): continue
+		if !(lsm as LocalSundialManager).first_marker_done: continue
+		available_tags.append((lsm as LocalSundialManager).get_island_tag_data())
+
+	return available_tags
 
 ## Load pictures from the pictures folder and create cache of it.
 func load_pictures() -> void:

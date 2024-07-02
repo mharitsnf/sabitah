@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://ct4alucn1pyxi"]
 
-[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_1go3q"]
-[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="2_4kupu"]
-[ext_resource type="Script" path="res://assets/scripts/ui/menus/gallery.gd" id="2_68h3s"]
-[ext_resource type="PackedScene" uid="uid://b3pxt1qksk7nb" path="res://assets/prefabs/user_interfaces/buttons/picture_button.tscn" id="4_4m2gq"]
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_o1hrx"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/gallery.gd" id="2_ur5vc"]
+[ext_resource type="PackedScene" uid="uid://b3pxt1qksk7nb" path="res://assets/prefabs/user_interfaces/buttons/picture_button.tscn" id="3_fiitt"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="4_vijl3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oprkl"]
 bg_color = Color(0.1, 0.1, 0.1, 0.498039)
@@ -68,11 +68,11 @@ _data = {
 "tree_exiting": SubResource("Animation_xvdnv")
 }
 
-[node name="Gallery" node_paths=PackedStringArray("picture_button_container", "add_filter_button") instance=ExtResource("1_1go3q")]
-script = ExtResource("2_68h3s")
+[node name="Gallery" node_paths=PackedStringArray("picture_button_container", "add_filter_button") instance=ExtResource("1_o1hrx")]
+script = ExtResource("2_ur5vc")
 picture_button_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/GridContainer")
 add_filter_button = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/GenericButton")
-picture_button_pscn = ExtResource("4_4m2gq")
+picture_button_pscn = ExtResource("3_fiitt")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -112,7 +112,7 @@ text = "Gallery"
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="0" instance=ExtResource("2_4kupu")]
+[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="0" instance=ExtResource("4_vijl3")]
 custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
 text = "Add filter"
