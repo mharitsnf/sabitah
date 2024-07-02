@@ -15,7 +15,7 @@ func set_data(new_data: Dictionary) -> void:
 		data = new_data
 
 		assert(texture_rect)
-		texture_rect.texture = data['texture']
+		texture_rect.texture = (data['picture'] as Picture).image_tex
 
 		assert(delete_picture_button)
 		delete_picture_button.args = [data['picture']]

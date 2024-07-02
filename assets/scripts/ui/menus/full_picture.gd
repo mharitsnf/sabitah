@@ -10,19 +10,15 @@ func set_data(new_data: Dictionary) -> void:
 		data = new_data
 
 		assert(texture_rect)
-		texture_rect.texture = data['texture']
+		texture_rect.texture = (data['picture'] as Picture).image_tex
 
 		assert(geotag_label)
 		geotag_label.text = State.get_geotag_name((data['picture'] as Picture).geotag_id)
 
-		var to_geotag_picture_data: Dictionary = {
-			"picture": data['picture'],
-			"texture": data['texture']
-		}
-		to_geotag_picture_btn.args = [to_geotag_picture_data]
-
-		var to_delete_picture_data: Dictionary = to_geotag_picture_data.duplicate()
-		to_delete_picture_btn.args = [to_delete_picture_data]
+		to_geotag_picture_btn.args = [data.duplicate()]
+		to_delete_picture_btn.args = [data.duplicate()]
+	else:
+		geotag_label.text = State.get_geotag_name((data['picture'] as Picture).geotag_id)
 
 func after_entering() -> void:
 	await super()

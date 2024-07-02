@@ -23,7 +23,6 @@ func _on_pressed() -> void:
 	
 	var to_full_picture_data: Dictionary = {
 		"picture": assigned_picture,
-		"texture": assigned_picture.image_tex
 	}
 
 	processing = true
