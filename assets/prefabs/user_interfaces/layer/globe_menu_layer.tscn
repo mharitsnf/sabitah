@@ -1,11 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://c11o1hnbjo0uw"]
+[gd_scene load_steps=6 format=3 uid="uid://c11o1hnbjo0uw"]
 
 [ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/user_interfaces/layer/menu_layer.tscn" id="1_myqre"]
 [ext_resource type="PackedScene" uid="uid://c2qcpktfs3t6p" path="res://assets/prefabs/user_interfaces/main_menus/globe_main_menu.tscn" id="2_4fppy"]
-[ext_resource type="PackedScene" uid="uid://blbp8rwvnngn1" path="res://assets/prefabs/user_interfaces/island_menu/island_menu.tscn" id="3_v5til"]
+[ext_resource type="PackedScene" uid="uid://blbp8rwvnngn1" path="res://assets/prefabs/user_interfaces/island_gallery/island_gallery.tscn" id="3_yl101"]
+[ext_resource type="PackedScene" uid="uid://c2n8eyriru3ko" path="res://assets/prefabs/user_interfaces/full_picture/full_picture.tscn" id="4_401qd"]
+[ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/user_interfaces/delete_picture/delete_picture.tscn" id="5_1636g"]
 
 [node name="GlobeMenuLayer" instance=ExtResource("1_myqre")]
 menu_pscns = {
 1: ExtResource("2_4fppy"),
-2: ExtResource("3_v5til")
+2: ExtResource("3_yl101"),
+3: null,
+4: ExtResource("4_401qd"),
+5: ExtResource("5_1636g")
 }

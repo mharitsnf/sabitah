@@ -6,6 +6,7 @@ func action(args: Array = []) -> void:
 	# erase
 	var pic: Picture = args[0]
 	DirAccess.remove_absolute(pic.resource_path)
+	State.remove_picture_cache(pic)
 
 	var menu_layer: MenuLayer = Group.first("menu_layer")
 	(menu_layer as MenuLayer).remove_last_menu()
