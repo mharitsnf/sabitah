@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0uf80nnwwlff"]
 
-[ext_resource type="Script" path="res://assets/scripts/ui/gallery/pictures_scroll_container.gd" id="1_iyey7"]
+[ext_resource type="Script" path="res://assets/scripts/ui/components/pictures_scroll_container.gd" id="1_iyey7"]
 [ext_resource type="PackedScene" uid="uid://crkulraq3u126" path="res://assets/prefabs/user_interfaces/gallery/pictures_container.tscn" id="1_txk8o"]
 
 [node name="PicturesScrollContainer" type="ScrollContainer" node_paths=PackedStringArray("pictures_container")]

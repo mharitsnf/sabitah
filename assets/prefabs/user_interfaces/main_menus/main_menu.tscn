@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bnw1k6gr2u3di"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_hxh4l"]
-[ext_resource type="Script" path="res://assets/scripts/ui/main_menu/main_menu.gd" id="2_3ahoq"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/main_menu.gd" id="2_3ahoq"]
 
 [sub_resource type="Animation" id="Animation_mmga3"]
 length = 0.001

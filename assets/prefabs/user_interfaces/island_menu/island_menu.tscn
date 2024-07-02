@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://blbp8rwvnngn1"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_d48g5"]
-[ext_resource type="Script" path="res://assets/scripts/ui/island_gallery/island_gallery.gd" id="2_lpdxh"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/island_gallery.gd" id="2_lpdxh"]
 [ext_resource type="Texture2D" uid="uid://4uny08ikv45m" path="res://assets/resources/textures/arrow.png" id="2_sk02o"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="5_ynwf8"]
 

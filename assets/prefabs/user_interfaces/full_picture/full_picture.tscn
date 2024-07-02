@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2n8eyriru3ko"]
+[gd_scene load_steps=9 format=3 uid="uid://c2n8eyriru3ko"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_iwj1y"]
-[ext_resource type="Script" path="res://assets/scripts/ui/full_picture/full_picture.gd" id="2_swsqo"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/full_picture.gd" id="2_swsqo"]
 [ext_resource type="Theme" uid="uid://cmabujpn87njg" path="res://assets/resources/themes/game_theme.tres" id="3_dwhjm"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="4_pqpbw"]
+[ext_resource type="Resource" uid="uid://crlc0mkkojv2k" path="res://assets/resources/commands/menu_navigation/to_delete_picture.tres" id="5_h33f0"]
 
 [sub_resource type="Animation" id="Animation_vq7bl"]
 resource_name = "tree_entered"
@@ -43,11 +44,12 @@ _data = {
 "tree_exiting": SubResource("Animation_pmepo")
 }
 
-[node name="FullPicture" node_paths=PackedStringArray("texture_rect", "geotag_btn") instance=ExtResource("1_iwj1y")]
+[node name="FullPicture" node_paths=PackedStringArray("texture_rect", "geotag_btn", "to_delete_picture_btn") instance=ExtResource("1_iwj1y")]
 modulate = Color(1, 1, 1, 1)
 script = ExtResource("2_swsqo")
 texture_rect = NodePath("Panel/TextureRect")
 geotag_btn = NodePath("Panel/VBoxContainer/GeotagBtn")
+to_delete_picture_btn = NodePath("Panel/VBoxContainer/DeletePicture")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -85,9 +87,10 @@ alignment = 1
 layout_mode = 2
 text = "Geotag"
 
-[node name="EraseImageBtn" parent="Panel/VBoxContainer" index="1" instance=ExtResource("4_pqpbw")]
+[node name="DeletePicture" parent="Panel/VBoxContainer" index="1" instance=ExtResource("4_pqpbw")]
 layout_mode = 2
-text = "Erase image"
+text = "Delete picture"
+on_press_command = ExtResource("5_h33f0")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

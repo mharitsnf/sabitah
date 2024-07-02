@@ -32,7 +32,7 @@ enum LevelType {
 }
 
 enum UserInterfaces {
-    NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE
+    NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE
 }
 
 # Picture tags

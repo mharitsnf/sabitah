@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="DeletePictureCommand" load_steps=2 format=3 uid="uid://f7xy4pw46oun"]
+
+[ext_resource type="Script" path="res://assets/scripts/commands/delete_picture_command.gd" id="1_yy677"]
+
+[resource]
+script = ExtResource("1_yy677")

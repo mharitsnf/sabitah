@@ -24,6 +24,7 @@ class MenuData extends RefCounted:
 	State.UserInterfaces.ISLAND_GALLERY: null,
 	State.UserInterfaces.GALLERY: null,
 	State.UserInterfaces.FULL_PICTURE: null,
+	State.UserInterfaces.DELETE_PICTURE: null,
 }
 
 var menu_data_dict: Dictionary = {}
@@ -121,6 +122,12 @@ func navigate_to(ui: State.UserInterfaces, menu_data: Dictionary = {}) -> void:
 	await _instance_enter(next_data, menu_data)
 
 	switching = false
+
+func remove_last_menu() -> void:
+	if !(history_stack.size() > 2):
+		push_error("History stack size is less than 3!")
+		return
+	history_stack.remove_at(history_stack.size() - 2)
 
 ## Function for clearing the history stack (remove all active menus)
 func clear() -> void:

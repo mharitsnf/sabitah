@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="MenuBackCommand" load_steps=2 format=3 uid="uid://7qll5meunjwb"]
+
+[ext_resource type="Script" path="res://assets/scripts/commands/menu_back_command.gd" id="1_1u6ue"]
+
+[resource]
+script = ExtResource("1_1u6ue")

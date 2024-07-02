@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://tn6uojnnyc44"]
+[gd_scene load_steps=6 format=3 uid="uid://tn6uojnnyc44"]
 
 [ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/user_interfaces/layer/menu_layer.tscn" id="1_vm1ym"]
 [ext_resource type="PackedScene" uid="uid://doq3282mmgwl7" path="res://assets/prefabs/user_interfaces/main_menus/game_main_menu.tscn" id="2_whtkd"]
 [ext_resource type="PackedScene" uid="uid://ct4alucn1pyxi" path="res://assets/prefabs/user_interfaces/gallery/gallery.tscn" id="3_c41v7"]
 [ext_resource type="PackedScene" uid="uid://c2n8eyriru3ko" path="res://assets/prefabs/user_interfaces/full_picture/full_picture.tscn" id="4_63jwe"]
+[ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/user_interfaces/delete_picture/delete_picture.tscn" id="5_n1i47"]
 
 [node name="GameMenuLayer" instance=ExtResource("1_vm1ym")]
 menu_pscns = {
 1: ExtResource("2_whtkd"),
 2: null,
 3: ExtResource("3_c41v7"),
-4: ExtResource("4_63jwe")
+4: ExtResource("4_63jwe"),
+5: ExtResource("5_n1i47")
 }

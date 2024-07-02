@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://c23lsk514gnx0"]
+
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/base_menu/base_menu.tscn" id="1_3yc47"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/delete_picture.gd" id="2_xytj2"]
+[ext_resource type="Texture2D" uid="uid://buf17nslrdiyv" path="res://icon.svg" id="2_yrskj"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="3_jdxve"]
+[ext_resource type="Resource" uid="uid://f7xy4pw46oun" path="res://assets/resources/commands/delete_picture.tres" id="5_kl06y"]
+[ext_resource type="Resource" uid="uid://7qll5meunjwb" path="res://assets/resources/commands/prev_menu.tres" id="6_h1hr7"]
+
+[sub_resource type="Animation" id="Animation_4sf63"]
+resource_name = "tree_entered"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wx1iu"]
+resource_name = "tree_exiting"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qfg2x"]
+_data = {
+"tree_entered": SubResource("Animation_4sf63"),
+"tree_exiting": SubResource("Animation_wx1iu")
+}
+
+[node name="DeletePicture" node_paths=PackedStringArray("texture_rect", "delete_picture_button") instance=ExtResource("1_3yc47")]
+modulate = Color(1, 1, 1, 1)
+script = ExtResource("2_xytj2")
+texture_rect = NodePath("Panel/TextureRect")
+delete_picture_button = NodePath("Panel/HBoxContainer/VBoxContainer/DeletePictureBtn")
+
+[node name="Panel" type="Panel" parent="." index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel" index="0"]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.244
+anchor_right = 0.6
+anchor_bottom = 0.744
+offset_top = 0.319992
+offset_bottom = 0.320007
+texture = ExtResource("2_yrskj")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel" index="1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.4
+anchor_right = 0.9
+anchor_bottom = 0.6
+offset_left = -6.10352e-05
+offset_bottom = -3.05176e-05
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer" index="0"]
+layout_mode = 2
+text = "Delete this picture?"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(96, 9)
+layout_mode = 2
+alignment = 1
+
+[node name="DeletePictureBtn" parent="Panel/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("3_jdxve")]
+layout_mode = 2
+text = "Delete picture"
+on_press_command = ExtResource("5_kl06y")
+
+[node name="CancelBtn" parent="Panel/HBoxContainer/VBoxContainer" index="1" instance=ExtResource("3_jdxve")]
+layout_mode = 2
+text = "Cancel"
+on_press_command = ExtResource("6_h1hr7")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_qfg2x")
+}
