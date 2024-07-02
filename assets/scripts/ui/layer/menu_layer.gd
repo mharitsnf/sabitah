@@ -22,6 +22,8 @@ class MenuData extends RefCounted:
 @export var menu_pscns: Dictionary = {
 	State.UserInterfaces.MAIN_MENU: null,
 	State.UserInterfaces.ISLAND_GALLERY: null,
+	State.UserInterfaces.GALLERY: null,
+	State.UserInterfaces.FULL_PICTURE: null,
 }
 
 var menu_data_dict: Dictionary = {}
@@ -52,9 +54,11 @@ func _unhandled_input(event: InputEvent) -> void:
 # region User interface navigation functions
 
 ## Helper function for adding an instance to the menu layer.
-func _instance_enter(data: MenuData) -> void:
+func _instance_enter(data: MenuData, info_data: Dictionary = {}) -> void:
 	add_child.call_deferred(data.get_instance())
 	await data.get_instance().tree_entered
+
+	await data.get_instance().set_data(info_data)
 
 	transitioning = true
 	await data.get_instance().after_entering()
@@ -106,7 +110,6 @@ func navigate_to(ui: State.UserInterfaces, menu_data: Dictionary = {}) -> void:
 
 	var next_data: MenuData = menu_data_dict[ui]
 	if !next_data.get_instance(): next_data.create_instance()
-	await (next_data.get_instance() as BaseMenu).set_data(menu_data)
 
 	# If we have an active menu, remove it from the stack first.
 	if !history_stack.is_empty():
@@ -115,7 +118,7 @@ func navigate_to(ui: State.UserInterfaces, menu_data: Dictionary = {}) -> void:
 
 	# Add the new menu to the stack.
 	history_stack.push_back(next_data)
-	await _instance_enter(next_data)
+	await _instance_enter(next_data, menu_data)
 
 	switching = false
 

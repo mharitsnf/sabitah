@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3pxt1qksk7nb"]
+
+[ext_resource type="Texture2D" uid="uid://bvqv8dcyo834p" path="res://assets/resources/textures/isa true master.png" id="1_frtnv"]
+[ext_resource type="Theme" uid="uid://cmabujpn87njg" path="res://assets/resources/themes/game_theme.tres" id="1_o2xis"]
+[ext_resource type="Script" path="res://assets/scripts/ui/picture_button/picture_button.gd" id="2_4vjbr"]
+[ext_resource type="Resource" uid="uid://ckll5ex7ta2x8" path="res://assets/resources/commands/menu_navigation/to_full_picture.tres" id="3_x04ky"]
+
+[node name="PictureButton" type="Button" node_paths=PackedStringArray("texture_rect")]
+custom_minimum_size = Vector2(160, 90)
+offset_right = 128.0
+offset_bottom = 64.0
+theme = ExtResource("1_o2xis")
+script = ExtResource("2_4vjbr")
+on_press_command = ExtResource("3_x04ky")
+texture_rect = NodePath("MarginContainer/TextureRect")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_frtnv")
+expand_mode = 1
+stretch_mode = 6
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

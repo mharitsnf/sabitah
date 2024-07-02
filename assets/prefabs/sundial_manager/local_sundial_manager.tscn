@@ -14,7 +14,7 @@ size = Vector3(1.5, 1.5, 1.5)
 [sub_resource type="BoxMesh" id="BoxMesh_1fta5"]
 size = Vector3(1.5, 1.5, 1.5)
 
-[node name="LocalSundialManager" type="Node3D" node_paths=PackedStringArray("sundial_center")]
+[node name="LocalSundialManager" type="Node3D" node_paths=PackedStringArray("sundial_center") groups=["local_sundial_managers"]]
 script = ExtResource("1_b0hid")
 sundial_center = NodePath("SundialCenter")
 latitude_measure_pscn = ExtResource("2_13a7u")

@@ -23,6 +23,7 @@ const PRIME_MERIDIAN: Vector3 = Vector3.RIGHT
 const NORTH: Vector3 = Vector3.UP
 
 const PICTURE_FOLDER_PATH: String = "res://assets/resources/pictures/"
+const PICTURE_UNCATEGORIZED_FOLDER: String = "uncategorized/"
 
 # Enums
 
@@ -31,8 +32,22 @@ enum LevelType {
 }
 
 enum UserInterfaces {
-    NONE, MAIN_MENU, ISLAND_GALLERY
+    NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE
 }
+
+# Picture tags
+
+var picture_tags: Array[String] = ["Uncategorized"]
+
+signal picture_tag_added
+
+func create_picture_tag(lat: float, long: float) -> String:
+    return str(lat) + "°N, " + str(long) + "°S Island"
+
+func add_picture_tag(new_tag: String) -> void:
+    assert(!picture_tags.has(new_tag))
+    picture_tags.append(new_tag)
+    picture_tag_added.emit()
 
 # region Game data
 

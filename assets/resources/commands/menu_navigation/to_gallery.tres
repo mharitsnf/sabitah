@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MenuNavigateCommand" load_steps=2 format=3 uid="uid://bnb3j1w4vm8jn"]
+
+[ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="1_nvqsc"]
+
+[resource]
+script = ExtResource("1_nvqsc")
+target_menu = 3

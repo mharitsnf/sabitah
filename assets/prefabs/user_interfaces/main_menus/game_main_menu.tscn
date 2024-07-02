@@ -1,21 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://doq3282mmgwl7"]
+[gd_scene load_steps=6 format=3 uid="uid://doq3282mmgwl7"]
 
 [ext_resource type="PackedScene" uid="uid://bnw1k6gr2u3di" path="res://assets/prefabs/user_interfaces/main_menus/main_menu.tscn" id="1_vov1y"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="2_ca720"]
 [ext_resource type="Resource" uid="uid://8qmvemf4jmbm" path="res://assets/resources/commands/scene_navigation/to_globe_latlng_search.tres" id="3_x4one"]
 [ext_resource type="Resource" uid="uid://5fh4qnp685m7" path="res://assets/resources/commands/dialogue/example_dialogue.tres" id="4_2rj7s"]
+[ext_resource type="Resource" uid="uid://bnb3j1w4vm8jn" path="res://assets/resources/commands/menu_navigation/to_gallery.tres" id="4_jdbes"]
 
 [node name="GameMainMenu" instance=ExtResource("1_vov1y")]
 
 [node name="VBoxContainer" parent="." index="0"]
+offset_top = -280.0
 offset_right = 154.0
+offset_bottom = -144.0
 
 [node name="OpenGlobe" parent="VBoxContainer" index="0" instance=ExtResource("2_ca720")]
 layout_mode = 2
 text = "Open globe"
 on_press_command = ExtResource("3_x4one")
 
-[node name="OpenDialogue" parent="VBoxContainer" index="1" instance=ExtResource("2_ca720")]
+[node name="OpenGallery" parent="VBoxContainer" index="1" instance=ExtResource("2_ca720")]
+layout_mode = 2
+text = "To Gallery"
+on_press_command = ExtResource("4_jdbes")
+
+[node name="OpenDialogue" parent="VBoxContainer" index="2" instance=ExtResource("2_ca720")]
 layout_mode = 2
 text = "Open dialogue box"
 on_press_command = ExtResource("4_2rj7s")

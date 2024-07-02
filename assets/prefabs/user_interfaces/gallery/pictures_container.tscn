@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://crkulraq3u126"]
+
+[node name="PicturesContainer" type="GridContainer"]
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 6
