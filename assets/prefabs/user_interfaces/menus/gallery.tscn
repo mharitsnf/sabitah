@@ -1,16 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ct4alucn1pyxi"]
+[gd_scene load_steps=9 format=3 uid="uid://ct4alucn1pyxi"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_o1hrx"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/gallery.gd" id="2_ur5vc"]
 [ext_resource type="PackedScene" uid="uid://b3pxt1qksk7nb" path="res://assets/prefabs/user_interfaces/buttons/picture_button.tscn" id="3_fiitt"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="4_vijl3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oprkl"]
-bg_color = Color(0.1, 0.1, 0.1, 0.498039)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
 
 [sub_resource type="Animation" id="Animation_84niw"]
 length = 0.001
@@ -79,13 +72,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 64.0
-offset_top = 64.0
-offset_right = -64.0
-offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_oprkl")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
 layout_mode = 1

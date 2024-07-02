@@ -18,7 +18,7 @@ func _create_island_tag() -> void:
 
 func _assign_island_alias() -> void:
 	var latlong: Array = Common.Geometry.point_to_latlng(global_position.normalized())
-	island_alias = State.get_island_lat_long_name(latlong[0], latlong[1])
+	island_alias = str(latlong[0]) + "°N, " + str(latlong[1]) + "°S Island"
 
 func get_island_tag_data() -> Dictionary:
 	return {

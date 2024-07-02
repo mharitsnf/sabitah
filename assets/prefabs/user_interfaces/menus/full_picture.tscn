@@ -50,9 +50,9 @@ _data = {
 modulate = Color(1, 1, 1, 1)
 script = ExtResource("2_pbkno")
 texture_rect = NodePath("Panel/TextureRect")
-geotag_label = NodePath("Panel/HBoxContainer/VBoxContainer/CurrentTagLabel")
-to_geotag_picture_btn = NodePath("Panel/VBoxContainer/GeotagBtn")
-to_delete_picture_btn = NodePath("Panel/VBoxContainer/DeletePicture")
+geotag_label = NodePath("Panel/VBoxContainer/VBoxContainer/CurrentTagLabel")
+to_geotag_picture_btn = NodePath("Panel/VBoxContainer/VBoxContainer2/GeotagBtn")
+to_delete_picture_btn = NodePath("Panel/VBoxContainer/VBoxContainer2/DeletePicture")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -66,12 +66,14 @@ grow_vertical = 2
 custom_minimum_size = Vector2(320, 180)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.225
-anchor_top = 0.1
-anchor_right = 0.78
-anchor_bottom = 0.656
-offset_right = 0.599976
-offset_bottom = -0.320007
+anchor_left = 0.031
+anchor_top = 0.122
+anchor_right = 0.787
+anchor_bottom = 0.878
+offset_left = 0.32
+offset_top = 0.159996
+offset_right = -0.360107
+offset_bottom = -0.160034
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_kkm5p")
@@ -79,47 +81,52 @@ texture = ExtResource("4_ft24g")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Panel" index="1"]
-layout_mode = 0
-offset_left = 472.0
-offset_top = 616.0
-offset_right = 813.0
-offset_bottom = 648.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" index="1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.812
+anchor_top = 0.122
+anchor_right = 0.969
+anchor_bottom = 0.878
+offset_left = 0.639893
+offset_top = 0.159996
+offset_right = -0.320068
+offset_bottom = -0.160034
+theme_override_constants/separation = 64
 alignment = 1
 
-[node name="GeotagBtn" parent="Panel/VBoxContainer" index="0" instance=ExtResource("5_ot1ua")]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Geotag"
-on_press_command = ExtResource("6_wd3w0")
-
-[node name="DeletePicture" parent="Panel/VBoxContainer" index="1" instance=ExtResource("5_ot1ua")]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Delete picture"
-on_press_command = ExtResource("7_xfe6v")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel" index="2"]
-layout_mode = 0
-offset_left = 256.0
-offset_top = 504.0
-offset_right = 1024.0
-offset_bottom = 576.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer" index="0"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label3" type="Label" parent="Panel/HBoxContainer/VBoxContainer" index="0"]
+[node name="Label3" type="Label" parent="Panel/VBoxContainer/VBoxContainer" index="0"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 text = "Current geotag"
 
-[node name="CurrentTagLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer" index="1"]
+[node name="CurrentTagLabel" type="Label" parent="Panel/VBoxContainer/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 28
 text = "[Tag]"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer" index="1"]
+layout_mode = 2
+alignment = 1
+
+[node name="GeotagBtn" parent="Panel/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("5_ot1ua")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Assign new geotag"
+on_press_command = ExtResource("6_wd3w0")
+
+[node name="DeletePicture" parent="Panel/VBoxContainer/VBoxContainer2" index="1" instance=ExtResource("5_ot1ua")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "Delete picture"
+on_press_command = ExtResource("7_xfe6v")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

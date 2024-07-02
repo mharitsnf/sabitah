@@ -6,7 +6,7 @@
 
 [node name="GlobeMainMenu" instance=ExtResource("1_lvg1q")]
 
-[node name="ToGame" parent="VBoxContainer" index="0" instance=ExtResource("2_umi6s")]
+[node name="ToGame" parent="Panel/VBoxContainer" index="0" instance=ExtResource("2_umi6s")]
 layout_mode = 2
 text = "Exit globe"
 on_press_command = ExtResource("3_g2g1u")

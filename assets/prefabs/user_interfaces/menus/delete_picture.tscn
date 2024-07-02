@@ -90,18 +90,20 @@ layout_mode = 2
 text = "Delete this picture?"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer" index="1"]
 custom_minimum_size = Vector2(96, 9)
 layout_mode = 2
 alignment = 1
 
 [node name="DeletePictureBtn" parent="Panel/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("3_jdxve")]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Delete picture"
 on_press_command = ExtResource("5_kl06y")
 
 [node name="CancelBtn" parent="Panel/HBoxContainer/VBoxContainer" index="1" instance=ExtResource("3_jdxve")]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Cancel"
 on_press_command = ExtResource("6_h1hr7")
 
