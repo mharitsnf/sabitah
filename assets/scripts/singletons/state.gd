@@ -35,27 +35,7 @@ enum UserInterfaces {
 	NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE, GEOTAG_PICTURE, FILTER_GALLERY
 }
 
-func get_island_lat_long_name(lat: float, long: float) -> String:
-	return str(lat) + "°N, " + str(long) + "°S Island"
-
 # region Game data
-
-class GameData extends RefCounted:
-	var _key: LevelType
-	var _level: Node
-	var _world: World3D
-	func _init(__key: LevelType) -> void:
-		_key = __key
-	func get_key() -> LevelType:
-		return _key
-	func get_level() -> Node:
-		return _level
-	func set_level(__level: Node3D) -> void:
-		_level = __level
-		_world = __level.get_world_3d()
-	func get_world() -> World3D:
-		return _world
-
 var world_dict: Dictionary = {
 	LevelType.MAIN: GameData.new(LevelType.MAIN),
 	LevelType.NAV: GameData.new(LevelType.NAV),
@@ -69,9 +49,10 @@ var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/input_pro
 # region local sundial data
 
 var local_sundial: LocalSundialManager
-var local_sundial_data: Dictionary = {
+var local_sundial_data: Dictionary = {}
 
-}
+func get_island_lat_long_name(lat: float, long: float) -> String:
+	return str(lat) + "°N, " + str(long) + "°S Island"
 
 # region References
 

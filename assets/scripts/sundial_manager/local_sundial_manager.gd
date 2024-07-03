@@ -9,13 +9,15 @@ var second_marker_done: bool = false
 
 func _ready() -> void:
 	super()
-	_create_island_tag()
+	_assign_island_tag()
 	_assign_island_alias()
 
-func _create_island_tag() -> void:
+## Create island tag (called on ready).
+func _assign_island_tag() -> void:
 	var latlong: Array = Common.Geometry.point_to_latlng(global_position.normalized())
 	island_tag = "(" + str(latlong[0]) + "," + str(latlong[1]) + ")"
 
+## Create island alias (called on ready).
 func _assign_island_alias() -> void:
 	var latlong: Array = Common.Geometry.point_to_latlng(global_position.normalized())
 	island_alias = str(latlong[0]) + "°N, " + str(latlong[1]) + "°S Island"

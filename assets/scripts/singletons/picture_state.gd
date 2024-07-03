@@ -7,10 +7,22 @@ var gallery_active_filters: Array[FilterData] = []
 var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
 var picture_cache: Array[PictureData] = []
 
+signal active_filter_added(filter_data: FilterData)
+signal active_filter_removed(filter_data: FilterData)
+
 func _ready() -> void:
 	update_gallery_filters()
-	print(gallery_filters)
 	load_pictures()
+
+func add_active_filter(fd: FilterData) -> void:
+	if !gallery_active_filters.has(fd):
+		gallery_active_filters.append(fd)
+		active_filter_added.emit(fd)
+
+func remove_active_filter(fd: FilterData) -> void:
+	if gallery_active_filters.has(fd):
+		gallery_active_filters.erase(fd)
+		active_filter_removed.emit(fd)
 
 func get_filter_data(geotag_id: String) -> FilterData:
 	var filtered_fd: Array[FilterData] = gallery_filters.filter(
