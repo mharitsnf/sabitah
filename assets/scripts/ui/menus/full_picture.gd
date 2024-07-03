@@ -7,12 +7,10 @@ class_name FullPicture extends BaseMenu
 
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
+		assert(new_data.has('picture'))
+
 		data = new_data
-
-		assert(texture_rect)
 		texture_rect.texture = (data['picture'] as Picture).image_tex
-
-		assert(geotag_label)
 		geotag_label.text = PictureState.get_geotag_name((data['picture'] as Picture).geotag_id)
 
 		to_geotag_picture_btn.args = [data.duplicate()]

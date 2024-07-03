@@ -3,7 +3,6 @@ class_name DeletePicture extends BaseMenu
 @export var texture_rect: TextureRect
 @export var delete_picture_button: GenericButton
 
-var assigned_picture: Picture
 
 func _ready() -> void:
 	super()
@@ -12,12 +11,9 @@ func _ready() -> void:
 
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
+		assert(new_data.has('picture'))
 		data = new_data
-
-		assert(texture_rect)
 		texture_rect.texture = (data['picture'] as Picture).image_tex
-
-		assert(delete_picture_button)
 		delete_picture_button.args = [data['picture']]
 
 func after_entering() -> void:
