@@ -48,7 +48,7 @@ modulate = Color(1, 1, 1, 1)
 script = ExtResource("2_43o8b")
 texture_rect = NodePath("Panel/TextureRect")
 current_tag_label = NodePath("Panel/VBoxContainer/VBoxContainer/CurrentTagLabel")
-geotag_button_container = NodePath("Panel/VBoxContainer/VBoxContainer2/ScrollContainer/VBoxContainer")
+geotag_button_container = NodePath("Panel/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer/VBoxContainer")
 geotag_button_pscn = ExtResource("3_3pcqe")
 
 [node name="Panel" type="Panel" parent="." index="0"]
@@ -114,7 +114,15 @@ text = "Select new tag:"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/VBoxContainer2/ScrollContainer" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer2/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

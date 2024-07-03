@@ -1,11 +1,17 @@
 extends Node
 
+const PICTURE_FOLDER_PATH: String = "res://assets/resources/pictures/"
+const PICTURE_UNCATEGORIZED_FOLDER: String = "uncategorized/"
+
 var filter_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/generic_toggle_button.tscn")
 var all_filters: Array[FilterData] = []
 var active_filters: Array[FilterData] = []
 
 var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
+var picture_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_toggle_button.tscn")
 var picture_cache: Array[PictureData] = []
+
+var pictures_to_be_geotagged: Array[Picture] = []
 
 signal active_filter_added(filter_data: FilterData)
 signal active_filter_removed(filter_data: FilterData)
@@ -13,11 +19,13 @@ signal active_filter_removed(filter_data: FilterData)
 func _ready() -> void:
 	load_pictures()
 
+## Adds an filter to the active filter array.
 func add_active_filter(fd: FilterData) -> void:
 	if !active_filters.has(fd):
 		active_filters.append(fd)
 		active_filter_added.emit(fd)
 
+## Removes an active filter.
 func remove_active_filter(fd: FilterData) -> void:
 	if active_filters.has(fd):
 		active_filters.erase(fd)
@@ -32,6 +40,7 @@ func get_filter_data(geotag_id: String) -> FilterData:
 	if filtered_fd.is_empty(): return null
 	return filtered_fd[0]
 
+## update the [all_filters] array.
 func update_all_filters() -> void:
 	var available_tags: Array[Dictionary] = get_available_geotags()
 
@@ -47,6 +56,7 @@ func update_all_filters() -> void:
 		var new_fd: FilterData = create_filter_data(geotag_data)
 		all_filters.append(new_fd)
 
+## Creates a new filter data based on the geotag data.
 func create_filter_data(geotag_data: Dictionary) -> FilterData:
 	var new_fd: FilterData = FilterData.new(geotag_data['id'])
 	var toggle_btn: GenericToggleButton = filter_toggle_button_pscn.instantiate()
@@ -55,9 +65,9 @@ func create_filter_data(geotag_data: Dictionary) -> FilterData:
 	new_fd.set_button(toggle_btn)
 	return new_fd
 
+## Get the geotag name based on the geotag id.
 func get_geotag_name(id: String) -> String:
-	var tags: Array[Dictionary] = get_geotags()
-	print(tags)
+	var tags: Array[Dictionary] = get_all_geotags()
 
 	var td: Array[Dictionary] = tags.filter(
 		func(data: Dictionary) -> bool:
@@ -67,7 +77,9 @@ func get_geotag_name(id: String) -> String:
 	if td.is_empty(): return ""
 	return (td[0] as Dictionary)['name']
 
-func get_geotags() -> Array[Dictionary]:
+## Get an array of all geotags (which indcludes all sundial managers).
+## Dictionary looks like this: { "id": [value], "name": [value] }
+func get_all_geotags() -> Array[Dictionary]:
 	var tags: Array[Dictionary] = [{
 		"id": "none",
 		"name": "Uncategorized"
@@ -79,6 +91,8 @@ func get_geotags() -> Array[Dictionary]:
 
 	return tags
 
+## Get an array of available geotags (which includes all local sundial managers that has first_marker_done set as true).
+## Dictionary looks like this: { "id": [value], "name": [value] }
 func get_available_geotags() -> Array[Dictionary]:
 	var available_tags: Array[Dictionary] = [{
 		"id": "none",
@@ -92,7 +106,8 @@ func get_available_geotags() -> Array[Dictionary]:
 
 	return available_tags
 
-func get_pictures_data(filter: Array[FilterData]) -> Array[PictureData]:
+## Get pictures from the cache, filtered based on the [filter] parameter.
+func get_filtered_pictures(filter: Array[FilterData]) -> Array[PictureData]:
 	if filter.is_empty():
 		return picture_cache
 
@@ -109,7 +124,7 @@ func get_pictures_data(filter: Array[FilterData]) -> Array[PictureData]:
 
 ## Load pictures from the pictures folder and create cache of it.
 func load_pictures() -> void:
-	var dir: DirAccess = DirAccess.open(State.PICTURE_FOLDER_PATH)
+	var dir: DirAccess = DirAccess.open(PICTURE_FOLDER_PATH)
 	if !dir:
 		push_error("Cannot load files!") 
 		return
@@ -118,9 +133,10 @@ func load_pictures() -> void:
 	var file_name: String = dir.get_next()
 	while file_name != "":
 		if !dir.current_is_dir():
-			create_picture_cache(State.PICTURE_FOLDER_PATH + file_name)
+			create_picture_cache(PICTURE_FOLDER_PATH + file_name)
 		file_name = dir.get_next()
 
+## Creates a new picture cache.
 func create_picture_cache(resource_path: String) -> void:
 	# see if we have this resource inside the cache already.
 	var existing_picture: Array[PictureData] = picture_cache.filter(
@@ -137,8 +153,11 @@ func create_picture_cache(resource_path: String) -> void:
 	var pic_button: PictureButton = picture_button_pscn.instantiate()
 	(pic_button as PictureButton).assigned_picture = pic
 
+	var pic_toggle: PictureToggleButton = picture_toggle_button_pscn.instantiate()
+	(pic_toggle as PictureToggleButton).assigned_picture = pic
+
 	# add to cache
-	picture_cache.append(PictureData.new(pic, pic_button))
+	picture_cache.append(PictureData.new(pic, pic_button, pic_toggle))
 
 ## Remove a specific picture from the cache.
 func remove_picture_cache(picture: Picture) -> void:

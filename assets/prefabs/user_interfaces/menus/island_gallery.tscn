@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://blbp8rwvnngn1"]
+[gd_scene load_steps=10 format=3 uid="uid://blbp8rwvnngn1"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_g3y7d"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/island_gallery.gd" id="2_e6yc8"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="3_jjpx2"]
+[ext_resource type="Resource" uid="uid://cs87c4y5j8rcs" path="res://assets/resources/commands/menu_navigation/to_geotag_to_island.tres" id="4_imhv7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu67o"]
 bg_color = Color(0.15, 0.15, 0.15, 0.498039)
@@ -162,6 +163,7 @@ columns = 3
 [node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer" index="2" instance=ExtResource("3_jjpx2")]
 layout_mode = 2
 text = "Add new pictures"
+on_press_command = ExtResource("4_imhv7")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

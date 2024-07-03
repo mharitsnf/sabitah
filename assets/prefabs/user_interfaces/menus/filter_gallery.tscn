@@ -63,7 +63,7 @@ _data = {
 
 [node name="FilterGallery" node_paths=PackedStringArray("filter_container") instance=ExtResource("1_p7kn0")]
 script = ExtResource("2_0ss4e")
-filter_container = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer2/ScrollContainer/GridContainer")
+filter_container = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer/GridContainer")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -105,7 +105,14 @@ text = "Select filters"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2/ScrollContainer" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2/ScrollContainer" index="0"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 12

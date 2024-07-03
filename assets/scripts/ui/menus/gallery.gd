@@ -14,7 +14,7 @@ func _ready() -> void:
 	assert(picture_button_pscn)
 
 func _mount_picture_buttons() -> void:
-	for pd: PictureData in PictureState.get_pictures_data(PictureState.active_filters):
+	for pd: PictureData in PictureState.get_filtered_pictures(PictureState.active_filters):
 		picture_button_container.add_child.call_deferred(pd.get_picture_button())
 
 func _unmount_picture_buttons() -> void:

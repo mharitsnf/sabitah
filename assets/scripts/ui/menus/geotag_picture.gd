@@ -30,15 +30,12 @@ func _on_geotag_button_pressed(button: GenericButton) -> void:
 
 func _create_geotag_buttons() -> void:
 	var geotags: Array[Dictionary] = PictureState.get_available_geotags()
-	var last_button: GenericButton
 	for tag: Dictionary in geotags:
 		var btn: GenericButton = geotag_button_pscn.instantiate()
 		(btn as GenericButton).pressed.connect(_on_geotag_button_pressed.bind(btn))
 		(btn as GenericButton).text = tag['name']
 		(btn as GenericButton).args = [tag['id'], current_picture]
 		geotag_button_container.add_child.call_deferred(btn)
-		last_button = btn
-	await last_button.ready
 
 func _free_geotag_buttons() -> void:
 	for c: Node in geotag_button_container.get_children():
@@ -50,6 +47,6 @@ func about_to_exit() -> void:
 	_free_geotag_buttons()
 
 func after_entering() -> void:
-	await _create_geotag_buttons()
+	_create_geotag_buttons()
 	await super()
 	(geotag_button_container.get_child(0) as GenericButton).grab_focus()

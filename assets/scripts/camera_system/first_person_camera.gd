@@ -31,7 +31,7 @@ func _create_picture() -> void:
 	var img: Image = final_viewport.get_texture().get_image()
 	var tex: ImageTexture = ImageTexture.create_from_image(img)
 
-	var final_path: String = State.PICTURE_FOLDER_PATH
+	var final_path: String = PictureState.PICTURE_FOLDER_PATH
 
 	if !DirAccess.dir_exists_absolute(final_path):
 		var res: int = DirAccess.make_dir_absolute(final_path)

@@ -22,9 +22,6 @@ const MAIN_TO_GLOBE_SCALE: float = .05
 const PRIME_MERIDIAN: Vector3 = Vector3.RIGHT
 const NORTH: Vector3 = Vector3.UP
 
-const PICTURE_FOLDER_PATH: String = "res://assets/resources/pictures/"
-const PICTURE_UNCATEGORIZED_FOLDER: String = "uncategorized/"
-
 # Enums
 
 enum LevelType {
@@ -32,7 +29,7 @@ enum LevelType {
 }
 
 enum UserInterfaces {
-	NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE, GEOTAG_PICTURE, FILTER_GALLERY
+	NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE, GEOTAG_PICTURE, FILTER_GALLERY, GEOTAG_TO_ISLAND
 }
 
 # region Game data

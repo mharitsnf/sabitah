@@ -17,12 +17,17 @@ func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
 		data = new_data
 		current_sundial_manager = data["sundial_manager"]
+		add_picture_button.args = [
+			{
+				'geotag_id': current_sundial_manager.get_island_tag_data()['id']
+			}
+		]
 		island_name_label.text = current_sundial_manager.get_island_name()
 
 func _mount_picture_buttons() -> void:
 	var tag_dict: Dictionary = current_sundial_manager.get_island_tag_data()
 	var filter_data: FilterData = PictureState.get_filter_data(tag_dict['id'])
-	var pics: Array[PictureData] = PictureState.get_pictures_data([filter_data])
+	var pics: Array[PictureData] = PictureState.get_filtered_pictures([filter_data])
 	for pd: PictureData in pics:
 		pictures_container.add_child.call_deferred(pd.get_picture_button())
 
@@ -38,4 +43,7 @@ func about_to_exit() -> void:
 func after_entering() -> void:
 	_mount_picture_buttons()
 	await super()
-	add_picture_button.grab_focus()
+	if pictures_container.get_child_count() > 0:
+		(pictures_container.get_child(0) as PictureButton).grab_focus()
+	else:
+		add_picture_button.grab_focus()
