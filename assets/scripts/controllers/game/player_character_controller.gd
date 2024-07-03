@@ -179,9 +179,15 @@ func _get_h_input() -> void:
 
 # region Signal listener functions.
 
+func _reset_inputs() -> void:
+	h_input = Vector2.ZERO
+
+func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
+	_reset_inputs()
+
 func _on_current_data_changed() -> void:
 	if State.actor_im.get_current_controller() != self:
-		h_input = Vector2.ZERO
+		_reset_inputs()
 
 func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:
 	if body != actor: return
