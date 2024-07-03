@@ -1,8 +1,8 @@
 extends Node
 
 var filter_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/generic_toggle_button.tscn")
-var gallery_filters: Array[FilterData] = []
-var gallery_active_filters: Array[FilterData] = []
+var all_filters: Array[FilterData] = []
+var active_filters: Array[FilterData] = []
 
 var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
 var picture_cache: Array[PictureData] = []
@@ -15,17 +15,17 @@ func _ready() -> void:
 	load_pictures()
 
 func add_active_filter(fd: FilterData) -> void:
-	if !gallery_active_filters.has(fd):
-		gallery_active_filters.append(fd)
+	if !active_filters.has(fd):
+		active_filters.append(fd)
 		active_filter_added.emit(fd)
 
 func remove_active_filter(fd: FilterData) -> void:
-	if gallery_active_filters.has(fd):
-		gallery_active_filters.erase(fd)
+	if active_filters.has(fd):
+		active_filters.erase(fd)
 		active_filter_removed.emit(fd)
 
 func get_filter_data(geotag_id: String) -> FilterData:
-	var filtered_fd: Array[FilterData] = gallery_filters.filter(
+	var filtered_fd: Array[FilterData] = all_filters.filter(
 		func(_fd: FilterData) -> bool:
 			return _fd.get_geotag_id() == geotag_id
 	)
@@ -36,7 +36,7 @@ func update_gallery_filters() -> void:
 	var available_tags: Array[Dictionary] = get_available_geotags()
 
 	for geotag_data: Dictionary in available_tags:
-		var current_filter: Array[FilterData] = gallery_filters.filter(
+		var current_filter: Array[FilterData] = all_filters.filter(
 			func(fd: FilterData) -> bool:
 				return fd.get_geotag_id() == geotag_data['id']
 		)
@@ -45,7 +45,7 @@ func update_gallery_filters() -> void:
 		if !current_filter.is_empty(): continue
 
 		var new_fd: FilterData = create_filter_data(geotag_data)
-		gallery_filters.append(new_fd)
+		all_filters.append(new_fd)
 
 func create_filter_data(geotag_data: Dictionary) -> FilterData:
 	var new_fd: FilterData = FilterData.new(geotag_data['id'])
@@ -91,11 +91,11 @@ func get_available_geotags() -> Array[Dictionary]:
 
 	return available_tags
 
-func get_pictures_data(with_filter: bool = false) -> Array[PictureData]:
-	if gallery_active_filters.is_empty() or !with_filter:
+func get_pictures_data(filter: Array[FilterData]) -> Array[PictureData]:
+	if filter.is_empty():
 		return picture_cache
 
-	var active_filter_tag_id: Array = gallery_active_filters.map(
+	var active_filter_tag_id: Array = filter.map(
 		func(fd: FilterData) -> String:
 			return fd.get_geotag_id()
 	)

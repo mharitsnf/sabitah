@@ -6,4 +6,4 @@ func action(args: Array = []) -> void:
 	var tag_id: String = args[0]
 	var fd: FilterData = PictureState.get_filter_data(tag_id)
 
-	PictureState.gallery_active_filters.append(fd)
+	PictureState.active_filters.append(fd)
