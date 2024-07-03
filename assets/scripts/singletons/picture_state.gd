@@ -11,7 +11,6 @@ signal active_filter_added(filter_data: FilterData)
 signal active_filter_removed(filter_data: FilterData)
 
 func _ready() -> void:
-	update_gallery_filters()
 	load_pictures()
 
 func add_active_filter(fd: FilterData) -> void:
@@ -24,6 +23,7 @@ func remove_active_filter(fd: FilterData) -> void:
 		active_filters.erase(fd)
 		active_filter_removed.emit(fd)
 
+## Returns a single filter data based on the [geotag_id].
 func get_filter_data(geotag_id: String) -> FilterData:
 	var filtered_fd: Array[FilterData] = all_filters.filter(
 		func(_fd: FilterData) -> bool:
@@ -32,7 +32,7 @@ func get_filter_data(geotag_id: String) -> FilterData:
 	if filtered_fd.is_empty(): return null
 	return filtered_fd[0]
 
-func update_gallery_filters() -> void:
+func update_all_filters() -> void:
 	var available_tags: Array[Dictionary] = get_available_geotags()
 
 	for geotag_data: Dictionary in available_tags:
@@ -57,6 +57,7 @@ func create_filter_data(geotag_data: Dictionary) -> FilterData:
 
 func get_geotag_name(id: String) -> String:
 	var tags: Array[Dictionary] = get_geotags()
+	print(tags)
 
 	var td: Array[Dictionary] = tags.filter(
 		func(data: Dictionary) -> bool:
@@ -72,7 +73,7 @@ func get_geotags() -> Array[Dictionary]:
 		"name": "Uncategorized"
 	}]
 
-	for lsm: Node in Group.all("local_sundial_managers"):
+	for lsm: Node in State.local_sundials:
 		if !(lsm is LocalSundialManager): continue
 		tags.append((lsm as LocalSundialManager).get_island_tag_data())
 
@@ -84,7 +85,7 @@ func get_available_geotags() -> Array[Dictionary]:
 		"name": "Uncategorized"
 	}]
 
-	for lsm: Node in Group.all("local_sundial_managers"):
+	for lsm: Node in State.local_sundials:
 		if !(lsm is LocalSundialManager): continue
 		if !(lsm as LocalSundialManager).first_marker_done: continue
 		available_tags.append((lsm as LocalSundialManager).get_island_tag_data())

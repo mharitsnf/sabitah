@@ -37,11 +37,12 @@ func _get_confirm_island_location_input() -> void:
 		if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
 			assert(State.local_sundial)
 
+			State.local_sundial.first_marker_done = true
+
 			var euler: Array = Common.Geometry.normal_to_degrees(State.local_sundial_data['normal'])
 			tpc.set_euler_rotation(euler[0], euler[1])
 
 			transitioning = true
-			State.local_sundial.first_marker_done = true
 			level_anim.play("add_first_marker")
 			await level_anim.animation_finished
 			await _exit_globe_scene()

@@ -9,6 +9,7 @@ var second_marker_done: bool = false
 
 func _ready() -> void:
 	super()
+	State.local_sundials.append(self)
 	_assign_island_tag()
 	_assign_island_alias()
 
