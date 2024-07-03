@@ -1,18 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://tn6uojnnyc44"]
+[gd_scene load_steps=8 format=3 uid="uid://tn6uojnnyc44"]
 
 [ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/user_interfaces/layer/menu_layer.tscn" id="1_vm1ym"]
-[ext_resource type="PackedScene" uid="uid://doq3282mmgwl7" path="res://assets/prefabs/user_interfaces/menus/main_menus/game_main_menu.tscn" id="2_lve0p"]
-[ext_resource type="PackedScene" uid="uid://ct4alucn1pyxi" path="res://assets/prefabs/user_interfaces/menus/gallery.tscn" id="3_wjtjy"]
-[ext_resource type="PackedScene" uid="uid://c2n8eyriru3ko" path="res://assets/prefabs/user_interfaces/menus/full_picture.tscn" id="4_ea4ku"]
-[ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/user_interfaces/menus/delete_picture.tscn" id="5_mk5bc"]
-[ext_resource type="PackedScene" uid="uid://dvl8whxut2e76" path="res://assets/prefabs/user_interfaces/menus/geotag_picture.tscn" id="6_q02c0"]
+[ext_resource type="PackedScene" uid="uid://doq3282mmgwl7" path="res://assets/prefabs/user_interfaces/menus/main_menus/game_main_menu.tscn" id="2_xlne7"]
+[ext_resource type="PackedScene" uid="uid://ct4alucn1pyxi" path="res://assets/prefabs/user_interfaces/menus/gallery.tscn" id="3_urna6"]
+[ext_resource type="PackedScene" uid="uid://c2n8eyriru3ko" path="res://assets/prefabs/user_interfaces/menus/full_picture.tscn" id="4_f3nv8"]
+[ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/user_interfaces/menus/delete_picture.tscn" id="5_f2nly"]
+[ext_resource type="PackedScene" uid="uid://dvl8whxut2e76" path="res://assets/prefabs/user_interfaces/menus/geotag_picture.tscn" id="6_j76lq"]
+[ext_resource type="PackedScene" uid="uid://c3njayxvrehws" path="res://assets/prefabs/user_interfaces/menus/filter_gallery.tscn" id="7_udm6b"]
 
 [node name="GameMenuLayer" instance=ExtResource("1_vm1ym")]
 menu_pscns = {
-1: ExtResource("2_lve0p"),
+1: ExtResource("2_xlne7"),
 2: null,
-3: ExtResource("3_wjtjy"),
-4: ExtResource("4_ea4ku"),
-5: ExtResource("5_mk5bc"),
-6: ExtResource("6_q02c0")
+3: ExtResource("3_urna6"),
+4: ExtResource("4_f3nv8"),
+5: ExtResource("5_f2nly"),
+6: ExtResource("6_j76lq"),
+7: ExtResource("7_udm6b")
 }

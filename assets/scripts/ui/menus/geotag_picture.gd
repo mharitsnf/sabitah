@@ -23,13 +23,13 @@ func set_data(new_data: Dictionary) -> void:
 		texture_rect.texture = current_picture.image_tex
 
 		assert(current_tag_label)
-		current_tag_label.text = State.get_geotag_name(current_picture.geotag_id)
+		current_tag_label.text = PictureState.get_geotag_name(current_picture.geotag_id)
 
 func _on_geotag_button_pressed(button: GenericButton) -> void:
 	current_tag_label.text = button.text
 
 func _create_geotag_buttons() -> void:
-	var geotags: Array[Dictionary] = State.get_available_geotags()
+	var geotags: Array[Dictionary] = PictureState.get_available_geotags()
 	var last_button: GenericButton
 	for tag: Dictionary in geotags:
 		var btn: GenericButton = geotag_button_pscn.instantiate()

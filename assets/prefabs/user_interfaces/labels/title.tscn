@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dijulfyrvme8l"]
+
+[node name="Title" type="Label"]
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "[TITLE]"

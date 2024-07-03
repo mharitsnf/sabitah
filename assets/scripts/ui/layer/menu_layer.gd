@@ -26,6 +26,7 @@ class MenuData extends RefCounted:
 	State.UserInterfaces.FULL_PICTURE: null,
 	State.UserInterfaces.DELETE_PICTURE: null,
 	State.UserInterfaces.GEOTAG_PICTURE: null,
+	State.UserInterfaces.FILTER_GALLERY: null,
 }
 
 var menu_data_dict: Dictionary = {}

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgwbftjn5r3ph"]
+
+[ext_resource type="Script" path="res://assets/scripts/ui/components/generic_toggle_button.gd" id="1_05m7c"]
+[ext_resource type="Resource" uid="uid://dlypjupw0inf5" path="res://assets/resources/commands/add_active_filter.tres" id="2_f4qip"]
+[ext_resource type="Resource" uid="uid://e6bqxojlos0" path="res://assets/resources/commands/remove_active_filter.tres" id="3_8b551"]
+
+[node name="GenericToggleButton" type="Button"]
+custom_minimum_size = Vector2(0, 48)
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 3
+toggle_mode = true
+text = "Button"
+script = ExtResource("1_05m7c")
+on_toggle_true_command = ExtResource("2_f4qip")
+on_toggle_false_command = ExtResource("3_8b551")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

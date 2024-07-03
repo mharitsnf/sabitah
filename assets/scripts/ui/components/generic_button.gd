@@ -14,8 +14,5 @@ func _on_pressed() -> void:
 		return
 	
 	processing = true
-	if args.is_empty():
-		await on_press_command.action()
-	else:
-		await on_press_command.action(args)
+	await on_press_command.action(args)
 	processing = false

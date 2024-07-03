@@ -47,7 +47,7 @@ func _create_picture() -> void:
 		push_error("Picture could not be saved")
 		return
 	
-	State.create_picture_cache(pic.resource_path)
+	PictureState.create_picture_cache(pic.resource_path)
 
 func _rotate_camera() -> void:
 	if rotation_target and gimbal: 

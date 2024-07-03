@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ct4alucn1pyxi"]
+[gd_scene load_steps=11 format=3 uid="uid://ct4alucn1pyxi"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_o1hrx"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/gallery.gd" id="2_ur5vc"]
 [ext_resource type="PackedScene" uid="uid://b3pxt1qksk7nb" path="res://assets/prefabs/user_interfaces/buttons/picture_button.tscn" id="3_fiitt"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="4_vijl3"]
+[ext_resource type="Resource" uid="uid://c4a534p764k5o" path="res://assets/resources/commands/menu_navigation/to_filter_gallery.tres" id="5_fktak"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/user_interfaces/labels/title.tscn" id="6_tvr3q"]
 
 [sub_resource type="Animation" id="Animation_84niw"]
 length = 0.001
@@ -61,10 +63,11 @@ _data = {
 "tree_exiting": SubResource("Animation_xvdnv")
 }
 
-[node name="Gallery" node_paths=PackedStringArray("picture_button_container", "add_filter_button") instance=ExtResource("1_o1hrx")]
+[node name="Gallery" node_paths=PackedStringArray("filter_tag_container", "picture_button_container", "add_filter_button") instance=ExtResource("1_o1hrx")]
 script = ExtResource("2_ur5vc")
+filter_tag_container = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/GridContainer")
 picture_button_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/GridContainer")
-add_filter_button = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/GenericButton")
+add_filter_button = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer/GenericButton")
 picture_button_pscn = ExtResource("3_fiitt")
 
 [node name="Panel" type="Panel" parent="." index="0"]
@@ -96,40 +99,33 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Gallery"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 16
 
-[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="0" instance=ExtResource("4_vijl3")]
+[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("4_vijl3")]
 custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
-text = "Add filter"
+size_flags_horizontal = 0
+text = "Change filter"
+on_press_command = ExtResource("5_fktak")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer" index="0"]
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("6_tvr3q")]
+layout_mode = 2
+text = "Include pictures from geotags:"
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2" index="1"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 16
-
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer" index="0"]
-layout_mode = 2
-text = "Uncategorized"
-
-[node name="Label2" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer" index="1"]
-layout_mode = 2
-text = "Uncategorized"
-
-[node name="Label3" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer" index="2"]
-layout_mode = 2
-text = "Uncategorized"
-
-[node name="Label4" type="Label" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer" index="3"]
-layout_mode = 2
-text = "Uncategorized"
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 8
+columns = 10
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2

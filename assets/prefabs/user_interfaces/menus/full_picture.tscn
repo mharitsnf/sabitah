@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2n8eyriru3ko"]
+[gd_scene load_steps=13 format=3 uid="uid://c2n8eyriru3ko"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_y76bu"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/full_picture.gd" id="2_pbkno"]
 [ext_resource type="Theme" uid="uid://cmabujpn87njg" path="res://assets/resources/themes/game_theme.tres" id="3_kkm5p"]
 [ext_resource type="Texture2D" uid="uid://buf17nslrdiyv" path="res://icon.svg" id="4_ft24g"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/user_interfaces/labels/title.tscn" id="5_lqm8q"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="5_ot1ua"]
+[ext_resource type="PackedScene" uid="uid://bgfi4tca6f6yp" path="res://assets/prefabs/user_interfaces/labels/content.tscn" id="6_h6aw0"]
 [ext_resource type="Resource" uid="uid://dnv5rra7y1hix" path="res://assets/resources/commands/menu_navigation/to_geotag_picture.tres" id="6_wd3w0"]
 [ext_resource type="Resource" uid="uid://crlc0mkkojv2k" path="res://assets/resources/commands/menu_navigation/to_delete_picture.tres" id="7_xfe6v"]
 
@@ -50,7 +52,7 @@ _data = {
 modulate = Color(1, 1, 1, 1)
 script = ExtResource("2_pbkno")
 texture_rect = NodePath("Panel/TextureRect")
-geotag_label = NodePath("Panel/VBoxContainer/VBoxContainer/CurrentTagLabel")
+geotag_label = NodePath("Panel/VBoxContainer/VBoxContainer/Content")
 to_geotag_picture_btn = NodePath("Panel/VBoxContainer/VBoxContainer2/GeotagBtn")
 to_delete_picture_btn = NodePath("Panel/VBoxContainer/VBoxContainer2/DeletePicture")
 
@@ -99,16 +101,12 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Label3" type="Label" parent="Panel/VBoxContainer/VBoxContainer" index="0"]
+[node name="Title" parent="Panel/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("5_lqm8q")]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "Current geotag"
+text = "Geotag"
 
-[node name="CurrentTagLabel" type="Label" parent="Panel/VBoxContainer/VBoxContainer" index="1"]
+[node name="Content" parent="Panel/VBoxContainer/VBoxContainer" index="1" instance=ExtResource("6_h6aw0")]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 28
-text = "[Tag]"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer" index="1"]
 layout_mode = 2

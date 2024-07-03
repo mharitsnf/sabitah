@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bgfi4tca6f6yp"]
+
+[node name="Content" type="Label"]
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 28
+text = "[CONTENT]"
