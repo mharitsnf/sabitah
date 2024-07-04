@@ -11,14 +11,14 @@ script = ExtResource("1_st3em")
 sun = NodePath("GameSun")
 moon = NodePath("GameMoon")
 
-[node name="GameSun" parent="." instance=ExtResource("2_ne4qu")]
+[node name="GameSun" parent="." groups=["sun"] instance=ExtResource("2_ne4qu")]
 shadow_bias = 0.05
 shadow_reverse_cull_face = true
 
 [node name="GameSunSprite" parent="GameSun" instance=ExtResource("3_tl482")]
 
 [node name="GameMoon" parent="." instance=ExtResource("3_u1oms")]
-shadow_bias = 1.0
+shadow_bias = 0.01
 shadow_reverse_cull_face = true
 
 [node name="GameMoonSprite" parent="GameMoon" instance=ExtResource("5_7joao")]

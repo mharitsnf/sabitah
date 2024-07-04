@@ -40,11 +40,14 @@ func get_filter_data(geotag_id: String) -> FilterData:
 	if filtered_fd.is_empty(): return null
 	return filtered_fd[0]
 
+func remove_filter_data(fd: FilterData) -> void:
+	all_filters.erase(fd)
+
 ## update the [all_filters] array.
 func update_all_filters() -> void:
-	var available_island_tags: Array[Dictionary] = get_available_geotags()
+	var available_geotags: Array[Dictionary] = get_available_geotags()
 
-	for geotag_data: Dictionary in available_island_tags:
+	for geotag_data: Dictionary in available_geotags:
 		var current_filter: Array[FilterData] = all_filters.filter(
 			func(fd: FilterData) -> bool:
 				return fd.get_geotag_id() == geotag_data['id']

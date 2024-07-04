@@ -1,6 +1,7 @@
 class_name SunMoonLight extends DirectionalLight3D
 
 @export var level_type: State.LevelType
+
 @export_group("Max shadow distance settings")
 @export var normal_distance: float = 100.
 @export var sundial_distance: float = 15.

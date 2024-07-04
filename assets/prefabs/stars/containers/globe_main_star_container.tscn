@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://baissepeg8755"]
+
+[ext_resource type="Script" path="res://assets/scripts/stars/star_container.gd" id="1_lmpni"]
+
+[node name="GlobeMainStarContainer" type="Node3D"]
+script = ExtResource("1_lmpni")
+level_type = 2

@@ -5,6 +5,8 @@
 [ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="2_fyffv"]
 
 [node name="GlobeTPC" instance=ExtResource("1_eyj7e")]
+zoom_with_spring_length = true
+spring_length_change_rate = 20.0
 set_rotation_tween_settings = ExtResource("2_fyffv")
 spring_length = 150.0
 allow_zoom = true

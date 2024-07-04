@@ -1,6 +1,7 @@
 class_name SunMoonManager extends Node3D
 
 @export var level_type: State.LevelType
+
 @export_group("Position")
 @export var sun_initial_position: Vector3 = Vector3.RIGHT
 @export var moon_initial_position: Vector3 = Vector3.LEFT

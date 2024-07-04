@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://6ehhonw8ndo8"]
+
+[ext_resource type="PackedScene" uid="uid://b37cn5qcc4lth" path="res://assets/prefabs/sun_moon_sprites/sky_sprite.tscn" id="1_41b50"]
+[ext_resource type="Script" path="res://assets/scripts/stars/background_star.gd" id="2_xnjwl"]
+
+[node name="GameBackgroundStarSprite" instance=ExtResource("1_41b50")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+modulate = Color(0.5, 0.5, 0.5, 1)
+script = ExtResource("2_xnjwl")

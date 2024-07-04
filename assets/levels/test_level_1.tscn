@@ -1,12 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=21 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
 [ext_resource type="PackedScene" uid="uid://c8ywta7cboshe" path="res://assets/prefabs/sun_moon_manager/game_sun_moon_manager.tscn" id="2_46lh5"]
 [ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity_areas/main_gravity_area.tscn" id="2_jdiks"]
+[ext_resource type="PackedScene" uid="uid://bd8snlvqthnmr" path="res://assets/prefabs/stars/containers/game_main_star_container.tscn" id="2_udhmx"]
 [ext_resource type="PackedScene" uid="uid://bnaadx2owlxa8" path="res://assets/prefabs/planet_bodies/main_planet_body.tscn" id="3_04ued"]
 [ext_resource type="Environment" uid="uid://cdj1j2owe1rni" path="res://assets/resources/world_env/default_env.tres" id="3_72myd"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
+[ext_resource type="PackedScene" uid="uid://cgpup27mwoag2" path="res://assets/prefabs/stars/containers/game_background_star_container.tscn" id="3_lifl5"]
 [ext_resource type="PackedScene" uid="uid://c86ox7unf84kh" path="res://assets/prefabs/subviewports/nav_sub_viewport.tscn" id="4_qbgsx"]
 [ext_resource type="PackedScene" uid="uid://dib7m5a41lrgf" path="res://assets/levels/nav_world.tscn" id="5_jphay"]
 [ext_resource type="PackedScene" uid="uid://b8thbgmp6n3ij" path="res://assets/prefabs/sundial_manager/local_sundial_manager.tscn" id="5_k3xnn"]
@@ -23,6 +25,10 @@
 script = ExtResource("1_4i1xa")
 
 [node name="Environment" type="Node" parent="."]
+
+[node name="GameMainStarContainer" parent="Environment" instance=ExtResource("2_udhmx")]
+
+[node name="GameBackgroundStarContainer" parent="Environment" instance=ExtResource("3_lifl5")]
 
 [node name="GameSunMoonManager" parent="Environment" instance=ExtResource("2_46lh5")]
 

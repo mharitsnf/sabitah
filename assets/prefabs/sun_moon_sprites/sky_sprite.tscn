@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b37cn5qcc4lth"]
+
+[ext_resource type="Texture2D" uid="uid://bnrmlf1qu21kb" path="res://assets/resources/textures/star-512.png" id="1_wms5i"]
+
+[node name="SkySprite" type="Sprite3D"]
+cast_shadow = 0
+gi_mode = 0
+billboard = 1
+double_sided = false
+alpha_cut = 1
+texture = ExtResource("1_wms5i")

@@ -12,6 +12,7 @@ const SECONDS_PER_DAY: float = 86400.
 const GRAVITY_RADIUS_SCALE: float = 2.
 ## Multiply this with [State.PLANET_RADIUS] to find the distance between origin and sun/moon position.
 const SUN_MOON_RADIUS_SCALE: float = 3.
+const STAR_RADIUS_SCALE: float = 3.7
 
 ## The scale of radiuses and gravity strength from main level to nav level.
 const MAIN_TO_NAV_SCALE: float = .05
@@ -23,6 +24,10 @@ const PRIME_MERIDIAN: Vector3 = Vector3.RIGHT
 const NORTH: Vector3 = Vector3.UP
 
 # Enums
+
+enum StarType {
+	MAIN, BACKGROUND
+}
 
 enum LevelType {
 	MAIN, NAV, GLOBE, NONE

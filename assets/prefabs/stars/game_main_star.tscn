@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cesa7umaccwsl"]
+
+[ext_resource type="PackedScene" uid="uid://clw8tv3u807cj" path="res://assets/prefabs/stars/main_star.tscn" id="1_jh3mt"]
+[ext_resource type="PackedScene" uid="uid://crddaq74f4vwy" path="res://assets/prefabs/sun_moon_sprites/star_sprites/game_main_star_sprite.tscn" id="2_fvkav"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_30dbj"]
+radius = 40.0
+
+[node name="GameMainStar" node_paths=PackedStringArray("sprite") instance=ExtResource("1_jh3mt")]
+sprite = NodePath("GameMainStarSprite")
+
+[node name="GameMainStarSprite" parent="." index="0" instance=ExtResource("2_fvkav")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("SphereShape3D_30dbj")

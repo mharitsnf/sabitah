@@ -1,5 +1,9 @@
 class_name ThirdPersonCamera extends VirtualCamera
 
+## If disabled, the camera will zoom with spring length instead of fov.
+@export_group("Spring length zoom")
+@export var zoom_with_spring_length: bool = false
+@export var spring_length_change_rate: float = 10.
 @export_group("Tween")
 @export var set_rotation_tween_settings: TweenSettings
 @export_group("Parameters")
@@ -22,8 +26,11 @@ class_name ThirdPersonCamera extends VirtualCamera
 
 const OFFSET_LERP_WEIGHT: float = 5.
 
+var _spring_length_input: float = spring_length
+
 func _ready() -> void:
 	super()
+	_spring_length_input = spring_length
 	if spring_arm:
 		spring_arm.spring_length = spring_length
 		spring_arm.collision_mask = spring_arm_collision_mask
@@ -31,6 +38,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super(delta)
 	_lerp_offset()
+
+	_on_stop_smooth_spring_length_input()
+	_clamp_spring_length()
 
 func tween_fov_to_50() -> void:
 	await _tween_fov(50.)
@@ -59,6 +69,31 @@ func get_euler_rotation() -> Array:
 		rotation_target.rotation.y,
 		gimbal.rotation.x,
 	]
+
+func _zoom_mouse(event: InputEventMouseButton) -> void:
+	if !allow_zoom: return
+
+	if zoom_with_spring_length:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			_set_spring_length_input(spring_length - spring_length_change_rate)
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			_set_spring_length_input(spring_length + spring_length_change_rate)
+	else:
+		super(event)
+
+func _set_spring_length_input(amount: float) -> void:
+	_spring_length_input = amount
+
+## Private. Lerps the [actual_fov] to [_fov_input].
+func _on_stop_smooth_spring_length_input() -> void:
+	if !allow_zoom: return
+	spring_length = lerp(spring_length, _spring_length_input, get_process_delta_time() * 5.)
+
+## Private. Clamps the FoV values to its limits specified in the [fov_settings] variable.
+func _clamp_spring_length() -> void:
+	if !fov_settings: return
+	spring_length = max(0., spring_length)
+	_spring_length_input = max(0., _spring_length_input)
 
 func _rotate_camera() -> void:
 	if !rotation_target and !gimbal: return

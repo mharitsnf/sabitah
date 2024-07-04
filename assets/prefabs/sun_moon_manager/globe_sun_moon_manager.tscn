@@ -12,7 +12,7 @@ level_type = 2
 sun = NodePath("GlobeSun")
 moon = NodePath("GlobeMoon")
 
-[node name="GlobeSun" parent="." instance=ExtResource("2_yoo04")]
+[node name="GlobeSun" parent="." groups=["sun"] instance=ExtResource("2_yoo04")]
 
 [node name="GlobeSunSprite" parent="GlobeSun" instance=ExtResource("3_jgqx2")]
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://dllb6gb77txlc"]
+[gd_scene load_steps=19 format=3 uid="uid://dllb6gb77txlc"]
 
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
 [ext_resource type="PackedScene" uid="uid://dlwgk43fjx6sh" path="res://assets/prefabs/sun_moon_manager/globe_sun_moon_manager.tscn" id="2_0v6h4"]
+[ext_resource type="PackedScene" uid="uid://baissepeg8755" path="res://assets/prefabs/stars/containers/globe_main_star_container.tscn" id="2_qnno0"]
 [ext_resource type="Environment" uid="uid://cdj1j2owe1rni" path="res://assets/resources/world_env/default_env.tres" id="3_5gxpi"]
 [ext_resource type="Script" path="res://assets/scripts/globe_camera_target/globe_camera_target.gd" id="4_j4o1s"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="4_le2kd"]
@@ -155,6 +156,8 @@ script = ExtResource("1_han2f")
 level_type = 2
 
 [node name="Environment" type="Node" parent="."]
+
+[node name="GlobeMainStarContainer" parent="Environment" instance=ExtResource("2_qnno0")]
 
 [node name="GlobeSunMoonManager" parent="Environment" instance=ExtResource("2_0v6h4")]
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://clw8tv3u807cj"]
+
+[ext_resource type="Script" path="res://assets/scripts/stars/main_star.gd" id="1_rcckb"]
+
+[node name="MainStar" type="Area3D"]
+script = ExtResource("1_rcckb")

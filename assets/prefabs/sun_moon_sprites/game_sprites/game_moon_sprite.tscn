@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cx0fnso7ddxjj"]
 
-[ext_resource type="PackedScene" uid="uid://b37cn5qcc4lth" path="res://assets/prefabs/sun_moon_sprites/sun_moon_sprite.tscn" id="1_fhyiw"]
+[ext_resource type="PackedScene" uid="uid://b37cn5qcc4lth" path="res://assets/prefabs/sun_moon_sprites/sky_sprite.tscn" id="1_fhyiw"]
 
 [node name="GameMoonSprite" instance=ExtResource("1_fhyiw")]
 transform = Transform3D(32, 0, 0, 0, 32, 0, 0, 0, 32, 0, 0, 0)

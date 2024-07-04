@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgpup27mwoag2"]
+
+[ext_resource type="Script" path="res://assets/scripts/stars/star_container.gd" id="1_4mfha"]
+
+[node name="GameBackgroundStarContainer" type="Node3D"]
+script = ExtResource("1_4mfha")
+container_type = 1
