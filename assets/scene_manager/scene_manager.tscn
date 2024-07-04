@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3wcn6ns85pax"]
+[gd_scene load_steps=6 format=3 uid="uid://b3wcn6ns85pax"]
 
 [ext_resource type="Script" path="res://assets/scripts/scene_manager/scene_manager.gd" id="1_2sun5"]
 [ext_resource type="PackedScene" uid="uid://mmlk171px1r1" path="res://assets/scene_containers/game_container.tscn" id="2_ilwv2"]
 [ext_resource type="PackedScene" uid="uid://c20bryruf658d" path="res://assets/prefabs/time_manager/time_manager.tscn" id="3_mr5fn"]
 [ext_resource type="PackedScene" uid="uid://5qe5j6rsx0n5" path="res://assets/prefabs/atmosphere/atmosphere_manager.tscn" id="4_cpfu1"]
+[ext_resource type="PackedScene" uid="uid://ocp31t1jib2" path="res://assets/prefabs/star_manager/star_manager.tscn" id="4_k0ncd"]
 
 [node name="SceneManager" type="Node" groups=["scene_manager"]]
 script = ExtResource("1_2sun5")
@@ -11,5 +12,7 @@ script = ExtResource("1_2sun5")
 [node name="TimeManager" parent="." instance=ExtResource("3_mr5fn")]
 
 [node name="AtmosphereManager" parent="." instance=ExtResource("4_cpfu1")]
+
+[node name="StarManager" parent="." instance=ExtResource("4_k0ncd")]
 
 [node name="GameContainer" parent="." instance=ExtResource("2_ilwv2")]

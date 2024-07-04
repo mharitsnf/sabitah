@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://ocp31t1jib2"]
+
+[node name="StarManager" type="Node" groups=["star_manager"]]

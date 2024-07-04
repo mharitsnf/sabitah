@@ -1,0 +1,136 @@
+[gd_scene load_steps=9 format=3 uid="uid://dr3pa5wcbro7s"]
+
+[ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud/layer/hud_layer.tscn" id="1_uvbxn"]
+[ext_resource type="Script" path="res://assets/scripts/hud/layer/game_hud_layer.gd" id="2_kl3f3"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/user_interfaces/labels/title.tscn" id="3_dmy1o"]
+[ext_resource type="PackedScene" uid="uid://bgfi4tca6f6yp" path="res://assets/prefabs/user_interfaces/labels/content.tscn" id="4_y5p4m"]
+
+[sub_resource type="Animation" id="Animation_e5vrm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimeContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TimeContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 480)]
+}
+
+[sub_resource type="Animation" id="Animation_ml2wk"]
+resource_name = "hide_time_container"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimeContainer:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TimeContainer:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(56, 480), Vector2(54.963, 480), Vector2(47.7037, 480), Vector2(28, 480), Vector2(8.2963, 480), Vector2(1.03704, 480), Vector2(0, 480)]
+}
+
+[sub_resource type="Animation" id="Animation_ut25w"]
+resource_name = "show_time_container"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TimeContainer:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TimeContainer:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 480), Vector2(1.03704, 480), Vector2(8.2963, 480), Vector2(28, 480), Vector2(47.7037, 480), Vector2(54.963, 480), Vector2(56, 480)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j18cy"]
+_data = {
+"RESET": SubResource("Animation_e5vrm"),
+"hide_time_container": SubResource("Animation_ml2wk"),
+"show_time_container": SubResource("Animation_ut25w")
+}
+
+[node name="GameHUDLayer" node_paths=PackedStringArray("time_label", "anim") instance=ExtResource("1_uvbxn")]
+script = ExtResource("2_kl3f3")
+time_label = NodePath("TimeContainer/MarginContainer/VBoxContainer/TimeLabel")
+anim = NodePath("AnimationPlayer")
+
+[node name="TimeContainer" type="MarginContainer" parent="." index="1"]
+modulate = Color(1, 1, 1, 0)
+offset_top = 480.0
+offset_right = 192.0
+offset_bottom = 578.0
+
+[node name="Panel" type="Panel" parent="TimeContainer" index="0"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TimeContainer" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TimeContainer/MarginContainer" index="0"]
+layout_mode = 2
+
+[node name="Title" parent="TimeContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_dmy1o")]
+layout_mode = 2
+text = "Prime meridian time"
+
+[node name="TimeLabel" parent="TimeContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_y5p4m")]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_j18cy")
+}

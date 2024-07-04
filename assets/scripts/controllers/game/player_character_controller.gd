@@ -56,17 +56,13 @@ func enter_controller() -> void:
 	# Instantiate input prompts
 	if input_prompts.is_empty():
 		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-
-		ip_factory.set_input_button("F")
-		ip_factory.set_prompt("Enter ship")
+		ip_factory.set_data("F", "Enter ship")
 		input_prompts.append(ip_factory.get_instance())
 
-		ip_factory.set_input_button("T")
-		ip_factory.set_prompt("Enter local sundial")
+		ip_factory.set_data("T", "Enter local sundial")
 		input_prompts.append(ip_factory.get_instance())
 
-		ip_factory.set_input_button("Y")
-		ip_factory.set_prompt("Register island")
+		ip_factory.set_data("Y", "Register island")
 		input_prompts.append(ip_factory.get_instance())
 
 	for ip: InputPrompt in input_prompts:

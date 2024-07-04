@@ -82,6 +82,10 @@ class InputPromptFactory extends RefCounted:
 	var _instance: InputPrompt
 	func _init() -> void:
 		_instance = _pscn.instantiate()
+	func set_data(_input_button: String, _prompt: String, _active: bool = false) -> void:
+		_instance.input_button = _input_button
+		_instance.prompt = _prompt
+		_instance.active = _active
 	func set_active(value: bool) -> void:
 		_instance.active = value
 	func set_prompt(value: String) -> void:

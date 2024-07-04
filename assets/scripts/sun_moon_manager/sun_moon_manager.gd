@@ -11,21 +11,21 @@ class_name SunMoonManager extends Node3D
 var time_manager: TimeManager
 
 func _ready() -> void:
-    time_manager = Group.first("time_manager")
+	time_manager = Group.first("time_manager")
 
-    assert(time_manager)
-    assert(sun)
-    assert(moon)
+	assert(time_manager)
+	assert(sun)
+	assert(moon)
 
-    _setup_sun_moon_position()
+	_setup_sun_moon_position()
 
 func _setup_sun_moon_position() -> void:
-    var pd: Dictionary = State.get_planet_data(level_type)
-    sun.position = sun_initial_position * pd['sun_moon_distance']
-    moon.position = moon_initial_position * pd['sun_moon_distance']
+	var pd: Dictionary = State.get_planet_data(level_type)
+	sun.position = sun_initial_position * pd['sun_moon_distance']
+	moon.position = moon_initial_position * pd['sun_moon_distance']
 
 func _process(_delta: float) -> void:
-    _rotate_sun_moon()
+	_rotate_sun_moon()
 
 func _rotate_sun_moon() -> void:
-    rotation_degrees.y = time_manager.get_degrees()
+	rotation_degrees.y = (time_manager.get_degrees() + 180.)
