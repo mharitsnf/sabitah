@@ -8,7 +8,6 @@ func _ready() -> void:
 	_assign_geotag_id()
 	_assign_waypoint_name()
 	PictureState.update_all_filters()
-	print(PictureState.all_filters)
 
 func destroy() -> void:
 	State.waypoint_markers.erase(self)

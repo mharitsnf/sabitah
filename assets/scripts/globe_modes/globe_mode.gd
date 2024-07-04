@@ -5,6 +5,8 @@ class_name GlobeMode extends Node
 @export var before_cancel_cmd: Command
 @export var after_cancel_cmd: Command
 
+var input_prompts: Array[InputPrompt]
+
 var menu_layer: MenuLayer
 var hud_layer: GlobeHUDLayer
 var main_camera: MainCamera
@@ -24,7 +26,7 @@ func _ready() -> void:
 	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
 
 func enter_mode() -> void:
-	await Common.wait(.1)
+	if false: await Common.wait(.1)
 
 func delegated_physics_process(_delta: float) -> void:
 	pass
@@ -51,6 +53,20 @@ func _exit_globe_scene() -> void:
 		after_cancel_cmd
 	)
 
+func _is_input_prompt_active(idx: int) -> bool:
+	assert(input_prompts.size() > 0)
+	return (input_prompts[idx] as InputPrompt).active
+
+func _show_input_prompt(idx: int) -> void:
+	assert(input_prompts.size() > 0)
+	(input_prompts[idx] as InputPrompt).active = true
+	hud_layer.add_input_prompt((input_prompts[idx] as InputPrompt))
+
+func _hide_input_prompt(idx: int) -> void:
+	assert(input_prompts.size() > 0)
+	(input_prompts[idx] as InputPrompt).active = false
+	hud_layer.remove_input_prompt((input_prompts[idx] as InputPrompt))
+
 func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
 	pass
 
@@ -58,4 +74,4 @@ func _on_menu_exited(_data: MenuLayer.MenuData) -> void:
 	pass
 
 func exit_mode() -> void:
-	await Common.wait(.1)
+	if false: await Common.wait(.1)
