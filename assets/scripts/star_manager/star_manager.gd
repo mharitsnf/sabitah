@@ -36,11 +36,13 @@ func _load_main_stars() -> void:
 		
 		var main_star_data : Dictionary = json.get_data()
 		main_star_data['distance_from_center'] = (State.PLANET_RADIUS * State.STAR_RADIUS_SCALE)
+		main_star_data['level_type'] = State.LevelType.MAIN
 		var game_inst: MainStar = game_main_star_pscn.instantiate()
 		game_inst.data = main_star_data
 
 		var bg_star_data: Dictionary = main_star_data.duplicate()
 		bg_star_data['distance_from_center'] = (State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE * 2.)
+		bg_star_data['level_type'] = State.LevelType.GLOBE
 		var globe_inst: MainStar = globe_main_star_pscn.instantiate()
 		globe_inst.data = bg_star_data
 

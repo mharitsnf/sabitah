@@ -1,9 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://6ehhonw8ndo8"]
+[gd_scene load_steps=4 format=3 uid="uid://6ehhonw8ndo8"]
 
 [ext_resource type="PackedScene" uid="uid://b37cn5qcc4lth" path="res://assets/prefabs/sun_moon_sprites/sky_sprite.tscn" id="1_41b50"]
 [ext_resource type="Script" path="res://assets/scripts/stars/background_star.gd" id="2_xnjwl"]
+[ext_resource type="Curve" uid="uid://cqupydppg0gt1" path="res://assets/resources/curves/game_star_visibility_curve.tres" id="3_ii2qi"]
 
 [node name="GameBackgroundStarSprite" instance=ExtResource("1_41b50")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 modulate = Color(0.5, 0.5, 0.5, 1)
+alpha_cut = 3
 script = ExtResource("2_xnjwl")
+game_visibility_curve = ExtResource("3_ii2qi")

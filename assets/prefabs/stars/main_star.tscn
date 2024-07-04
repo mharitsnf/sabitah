@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://clw8tv3u807cj"]
+[gd_scene load_steps=4 format=3 uid="uid://clw8tv3u807cj"]
 
 [ext_resource type="Script" path="res://assets/scripts/stars/main_star.gd" id="1_rcckb"]
+[ext_resource type="Curve" uid="uid://cqupydppg0gt1" path="res://assets/resources/curves/game_star_visibility_curve.tres" id="2_hptm2"]
+[ext_resource type="Curve" uid="uid://cgeankha3fw6g" path="res://assets/resources/curves/globe_star_visibility_curve.tres" id="3_onyca"]
 
 [node name="MainStar" type="Area3D"]
 script = ExtResource("1_rcckb")
+game_visibility_curve = ExtResource("2_hptm2")
+globe_visibility_curve = ExtResource("3_onyca")

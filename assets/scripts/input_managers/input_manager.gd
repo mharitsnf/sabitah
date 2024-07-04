@@ -29,6 +29,10 @@ func _create_player_data() -> void:
 func _set_existing_instances() -> void:
 	pass
 
+func get_current_instance() -> Node:
+	if !current_data: return null
+	return current_data.get_instance()
+
 ## Private. Check if input is allowed.
 func _input_allowed() -> bool:
 	if !current_data: 

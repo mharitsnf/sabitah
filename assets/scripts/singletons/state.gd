@@ -23,6 +23,8 @@ const MAIN_TO_GLOBE_SCALE: float = .05
 const PRIME_MERIDIAN: Vector3 = Vector3.RIGHT
 const NORTH: Vector3 = Vector3.UP
 
+const SUNSET_ANGLE: float = -.3
+
 # Enums
 
 enum StarType {
