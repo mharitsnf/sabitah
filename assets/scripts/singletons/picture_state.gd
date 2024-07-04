@@ -42,9 +42,9 @@ func get_filter_data(geotag_id: String) -> FilterData:
 
 ## update the [all_filters] array.
 func update_all_filters() -> void:
-	var available_tags: Array[Dictionary] = get_available_geotags()
+	var available_island_tags: Array[Dictionary] = get_available_geotags()
 
-	for geotag_data: Dictionary in available_tags:
+	for geotag_data: Dictionary in available_island_tags:
 		var current_filter: Array[FilterData] = all_filters.filter(
 			func(fd: FilterData) -> bool:
 				return fd.get_geotag_id() == geotag_data['id']
@@ -87,7 +87,11 @@ func get_all_geotags() -> Array[Dictionary]:
 
 	for lsm: Node in State.local_sundials:
 		if !(lsm is LocalSundialManager): continue
-		tags.append((lsm as LocalSundialManager).get_island_tag_data())
+		tags.append((lsm as LocalSundialManager).get_geotag_data())
+
+	for wp: Node in State.waypoint_markers:
+		if !(wp is WaypointMarker): continue
+		tags.append((wp as WaypointMarker).get_geotag_data())
 
 	return tags
 
@@ -102,7 +106,11 @@ func get_available_geotags() -> Array[Dictionary]:
 	for lsm: Node in State.local_sundials:
 		if !(lsm is LocalSundialManager): continue
 		if !(lsm as LocalSundialManager).first_marker_done: continue
-		available_tags.append((lsm as LocalSundialManager).get_island_tag_data())
+		available_tags.append((lsm as LocalSundialManager).get_geotag_data())
+
+	for wp: Node in State.waypoint_markers:
+		if !(wp is WaypointMarker): continue
+		available_tags.append((wp as WaypointMarker).get_geotag_data())
 
 	return available_tags
 

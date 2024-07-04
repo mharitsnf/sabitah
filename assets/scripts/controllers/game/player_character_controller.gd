@@ -145,7 +145,7 @@ func _get_enter_register_island_input() -> void:
 		# Fill local sundial data
 		var latlong: Array = Common.Geometry.point_to_latlng(State.local_sundial.global_position.normalized())
 		State.local_sundial_data = {
-			"position": State.local_sundial.global_position.normalized() * State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE,
+			"marker_position": State.local_sundial.global_position.normalized() * State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE,
 			"normal": State.local_sundial.global_position.normalized(),
 			"lat": latlong[0],
 			"long": latlong[0],

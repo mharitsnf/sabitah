@@ -13,19 +13,19 @@ func _ready() -> void:
 
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
-		assert(new_data.has("sundial_manager"))
+		assert(new_data.has("geotag_id"))
+		assert(new_data.has("geotag_name"))
 
 		data = new_data
 		add_picture_button.args = [
 			{
-				'geotag_id': (data["sundial_manager"] as LocalSundialManager).get_island_tag_data()['id']
+				'geotag_id': data['geotag_id']
 			}
 		]
-		island_name_label.text = (data["sundial_manager"] as LocalSundialManager).get_island_name()
+		island_name_label.text = data['geotag_name']
 
 func _mount_picture_buttons() -> void:
-	var tag_dict: Dictionary = (data["sundial_manager"] as LocalSundialManager).get_island_tag_data()
-	var filter_data: FilterData = PictureState.get_filter_data(tag_dict['id'])
+	var filter_data: FilterData = PictureState.get_filter_data(data['geotag_id'])
 	var pics: Array[PictureData] = PictureState.get_filtered_pictures([filter_data])
 	for pd: PictureData in pics:
 		pictures_container.add_child.call_deferred(pd.get_picture_button())

@@ -48,8 +48,8 @@ _data = {
 [node name="DeletePicture" node_paths=PackedStringArray("texture_rect", "delete_picture_button") instance=ExtResource("1_3yc47")]
 modulate = Color(1, 1, 1, 1)
 script = ExtResource("2_xytj2")
-texture_rect = NodePath("Panel/TextureRect")
-delete_picture_button = NodePath("Panel/HBoxContainer/VBoxContainer/DeletePictureBtn")
+texture_rect = NodePath("Panel/MarginContainer/HBoxContainer/TextureRect")
+delete_picture_button = NodePath("Panel/MarginContainer/HBoxContainer/HBoxContainer/VBoxContainer/DeletePictureBtn")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -59,49 +59,53 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel" index="0"]
-custom_minimum_size = Vector2(320, 180)
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.244
-anchor_right = 0.6
-anchor_bottom = 0.744
-offset_top = 0.319992
-offset_bottom = 0.320007
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("2_yrskj")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Panel" index="1"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.7
-anchor_top = 0.4
-anchor_right = 0.9
-anchor_bottom = 0.6
-offset_left = -6.10352e-05
-offset_bottom = -3.05176e-05
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Label" type="Label" parent="Panel/HBoxContainer" index="0"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/HBoxContainer" index="0"]
 layout_mode = 2
 text = "Delete this picture?"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/HBoxContainer" index="1"]
 custom_minimum_size = Vector2(96, 9)
 layout_mode = 2
 alignment = 1
 
-[node name="DeletePictureBtn" parent="Panel/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("3_jdxve")]
+[node name="DeletePictureBtn" parent="Panel/MarginContainer/HBoxContainer/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("3_jdxve")]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Delete picture"
 on_press_command = ExtResource("5_kl06y")
 
-[node name="CancelBtn" parent="Panel/HBoxContainer/VBoxContainer" index="1" instance=ExtResource("3_jdxve")]
+[node name="CancelBtn" parent="Panel/MarginContainer/HBoxContainer/HBoxContainer/VBoxContainer" index="1" instance=ExtResource("3_jdxve")]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cancel"

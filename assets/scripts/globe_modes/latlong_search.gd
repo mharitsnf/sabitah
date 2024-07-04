@@ -26,12 +26,12 @@ func _query_caster() -> void:
 	
 	var planet_query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end, planet_collision_mask)
 	planet_query.collide_with_areas = false
-	var island_query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end, island_collision_mask)
-	island_query.collide_with_areas = false
+	var marker_query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end, island_collision_mask)
+	marker_query.collide_with_areas = false
 
 	planet_query_res = space_state.intersect_ray(planet_query)
 	
-	var new_marker_query_res: Dictionary = space_state.intersect_ray(island_query)
+	var new_marker_query_res: Dictionary = space_state.intersect_ray(marker_query)
 	if marker_query_res.is_empty() and !new_marker_query_res.is_empty():
 		marker_query_res = new_marker_query_res
 		marker_hover_entered.emit()

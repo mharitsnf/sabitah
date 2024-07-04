@@ -20,38 +20,43 @@ func enter_mode() -> void:
 	menu_layer.toggle_main_menu_allowed = false
 	hud_layer.show_instruction_panel()
 
-func player_input_process(_delta: float) -> void:
-	_get_confirm_island_location_input()
+func delegated_unhandled_input(event: InputEvent) -> bool:
+	if !super(event): return false
+	
+	if event.is_action_pressed("confirm_island_location") and !transitioning:
+		_confirm_island_location()
+		return false
 
-func _get_confirm_island_location_input() -> void:
-	if Input.is_action_just_pressed("confirm_island_location") and !transitioning:
-		var query_latlong: Array = Common.Geometry.point_to_latlng(planet_query_res['normal'])
-		var dist: float = Common.Geometry.haversine_dist(
-			State.local_sundial_data['lat'],
-			State.local_sundial_data['long'],
-			query_latlong[0],
-			query_latlong[1],
-			State.PLANET_RADIUS
-		)
-		
-		if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
-			assert(State.local_sundial)
+	return true
 
-			State.local_sundial.first_marker_done = true
+func _confirm_island_location() -> void:
+	var query_latlong: Array = Common.Geometry.point_to_latlng(planet_query_res['normal'])
+	var dist: float = Common.Geometry.haversine_dist(
+		State.local_sundial_data['lat'],
+		State.local_sundial_data['long'],
+		query_latlong[0],
+		query_latlong[1],
+		State.PLANET_RADIUS
+	)
+	
+	if dist < ISLAND_REGISTRATION_MARGIN_OF_ERROR:
+		assert(State.local_sundial)
 
-			var euler: Array = Common.Geometry.normal_to_degrees(State.local_sundial_data['normal'])
-			tpc.set_euler_rotation(euler[0], euler[1])
+		State.local_sundial.first_marker_done = true
 
-			transitioning = true
-			level_anim.play("add_first_marker")
-			await level_anim.animation_finished
-			await _exit_globe_scene()
-			transitioning = false
+		var euler: Array = Common.Geometry.normal_to_degrees(State.local_sundial_data['normal'])
+		tpc.set_euler_rotation(euler[0], euler[1])
 
-		else:
-			transitioning = true
-			await show_incorrect_message()
-			transitioning = false
+		transitioning = true
+		level_anim.play("add_first_marker")
+		await level_anim.animation_finished
+		await _exit_globe_scene()
+		transitioning = false
+
+	else:
+		transitioning = true
+		await show_incorrect_message()
+		transitioning = false
 
 func show_correct_message() -> void:
 	hud_layer.set_instruction_text(
@@ -77,7 +82,7 @@ func add_first_marker() -> void:
 	var level: Node = State.get_level(State.LevelType.GLOBE)
 	level.add_child.call_deferred(marker)
 	await marker.tree_entered
-	(marker as Node3D).global_position = State.local_sundial_data['position']
+	(marker as Node3D).global_position = State.local_sundial_data['marker_position']
 
 func _exit_globe_scene() -> void:
 	State.local_sundial_data = {}

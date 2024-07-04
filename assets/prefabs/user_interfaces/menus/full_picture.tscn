@@ -51,10 +51,10 @@ _data = {
 [node name="FullPicture" node_paths=PackedStringArray("texture_rect", "geotag_label", "to_geotag_picture_btn", "to_delete_picture_btn") instance=ExtResource("1_y76bu")]
 modulate = Color(1, 1, 1, 1)
 script = ExtResource("2_pbkno")
-texture_rect = NodePath("Panel/TextureRect")
-geotag_label = NodePath("Panel/VBoxContainer/VBoxContainer/Content")
-to_geotag_picture_btn = NodePath("Panel/VBoxContainer/VBoxContainer2/GeotagBtn")
-to_delete_picture_btn = NodePath("Panel/VBoxContainer/VBoxContainer2/DeletePicture")
+texture_rect = NodePath("Panel/MarginContainer/HBoxContainer/TextureRect")
+geotag_label = NodePath("Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/Content")
+to_geotag_picture_btn = NodePath("Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2/GeotagBtn")
+to_delete_picture_btn = NodePath("Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2/DeletePicture")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -64,62 +64,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel" index="0"]
-custom_minimum_size = Vector2(320, 180)
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.031
-anchor_top = 0.122
-anchor_right = 0.787
-anchor_bottom = 0.878
-offset_left = 0.32
-offset_top = 0.159996
-offset_right = -0.360107
-offset_bottom = -0.160034
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("3_kkm5p")
 texture = ExtResource("4_ft24g")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" index="1"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.812
-anchor_top = 0.122
-anchor_right = 0.969
-anchor_bottom = 0.878
-offset_left = 0.639893
-offset_top = 0.159996
-offset_right = -0.320068
-offset_bottom = -0.160034
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer" index="1"]
+layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" index="0"]
 layout_mode = 2
 alignment = 1
 
-[node name="Title" parent="Panel/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("5_lqm8q")]
+[node name="Title" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("5_lqm8q")]
 layout_mode = 2
 text = "Geotag"
 
-[node name="Content" parent="Panel/VBoxContainer/VBoxContainer" index="1" instance=ExtResource("6_h6aw0")]
+[node name="Content" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" index="1" instance=ExtResource("6_h6aw0")]
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer" index="1"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="GeotagBtn" parent="Panel/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("5_ot1ua")]
+[node name="GeotagBtn" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("5_ot1ua")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 text = "Assign new geotag"
 on_press_command = ExtResource("6_wd3w0")
 
-[node name="DeletePicture" parent="Panel/VBoxContainer/VBoxContainer2" index="1" instance=ExtResource("5_ot1ua")]
+[node name="DeletePicture" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2" index="1" instance=ExtResource("5_ot1ua")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4

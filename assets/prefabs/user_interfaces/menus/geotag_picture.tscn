@@ -46,9 +46,9 @@ _data = {
 [node name="GeotagPicture" node_paths=PackedStringArray("texture_rect", "current_tag_label", "geotag_button_container") instance=ExtResource("1_5tpgc")]
 modulate = Color(1, 1, 1, 1)
 script = ExtResource("2_43o8b")
-texture_rect = NodePath("Panel/TextureRect")
-current_tag_label = NodePath("Panel/VBoxContainer/VBoxContainer/CurrentTagLabel")
-geotag_button_container = NodePath("Panel/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer/VBoxContainer")
+texture_rect = NodePath("Panel/MarginContainer/HBoxContainer/TextureRect")
+current_tag_label = NodePath("Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/CurrentTagLabel")
+geotag_button_container = NodePath("Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer/VBoxContainer")
 geotag_button_pscn = ExtResource("3_3pcqe")
 
 [node name="Panel" type="Panel" parent="." index="0"]
@@ -59,62 +59,65 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel" index="0"]
-custom_minimum_size = Vector2(320, 180)
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.244
-anchor_right = 0.6
-anchor_bottom = 0.744
-offset_top = 0.319992
-offset_bottom = 0.320007
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(320, 180)
+layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("3_2cmnk")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" index="1"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.7
-anchor_top = 0.244
-anchor_right = 0.9
-anchor_bottom = 0.744
-offset_left = -6.10352e-05
-offset_top = 0.319992
-offset_bottom = 0.320007
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" index="0"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer" index="0"]
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" index="0"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 text = "Current geotag"
 
-[node name="CurrentTagLabel" type="Label" parent="Panel/VBoxContainer/VBoxContainer" index="1"]
+[node name="CurrentTagLabel" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 28
 text = "[Tag]"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer" index="1"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label2" type="Label" parent="Panel/VBoxContainer/VBoxContainer2" index="0"]
+[node name="Label2" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2" index="0"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
 text = "Select new tag:"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/VBoxContainer2" index="1"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2" index="1"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer2/ScrollContainer" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2/ScrollContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -122,7 +125,7 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
