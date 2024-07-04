@@ -28,7 +28,7 @@ var enter_boat_input_prompt: InputPrompt
 # region Entry functions
 
 func _enter_tree() -> void:
-	_evaluate_register_island_input_prompt()
+	_remove_register_island_input_prompt()
 
 func _ready() -> void:
 	super()
@@ -55,27 +55,25 @@ func _ready() -> void:
 func enter_controller() -> void:
 	# Instantiate input prompts
 	if input_prompts.is_empty():
-		# Create enter ship input prompt
-		var enter_ship_ip: InputPrompt = State.input_prompt_pscn.instantiate()
-		(enter_ship_ip as InputPrompt).input_button = "F"
-		(enter_ship_ip as InputPrompt).prompt = "Enter ship"
-		input_prompts.append(enter_ship_ip)
+		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
 
-		# Create enter ship input prompt
-		var enter_local_sundial_ip: InputPrompt = State.input_prompt_pscn.instantiate()
-		(enter_local_sundial_ip as InputPrompt).input_button = "T"
-		(enter_local_sundial_ip as InputPrompt).prompt = "Enter local sundial"
-		input_prompts.append(enter_local_sundial_ip)
+		ip_factory.set_input_button("F")
+		ip_factory.set_prompt("Enter ship")
+		input_prompts.append(ip_factory.get_instance())
 
-		# Create enter ship input prompt
-		var enter_register_island_ip: InputPrompt = State.input_prompt_pscn.instantiate()
-		(enter_register_island_ip as InputPrompt).input_button = "Y"
-		(enter_register_island_ip as InputPrompt).prompt = "Register island"
-		input_prompts.append(enter_register_island_ip)
+		ip_factory.set_input_button("T")
+		ip_factory.set_prompt("Enter local sundial")
+		input_prompts.append(ip_factory.get_instance())
 
-	_add_input_prompts()
+		ip_factory.set_input_button("Y")
+		ip_factory.set_prompt("Register island")
+		input_prompts.append(ip_factory.get_instance())
 
-func _evaluate_register_island_input_prompt() -> void:
+	for ip: InputPrompt in input_prompts:
+		if ip.active:
+			hud_layer.add_input_prompt(ip)
+
+func _remove_register_island_input_prompt() -> void:
 	if input_prompts.is_empty(): return
 
 	if State.local_sundial and State.local_sundial.first_marker_done:
@@ -83,11 +81,6 @@ func _evaluate_register_island_input_prompt() -> void:
 			await (input_prompts[2] as InputPrompt).tree_entered
 		(input_prompts[2] as InputPrompt).active = false
 		hud_layer.remove_input_prompt((input_prompts[2] as InputPrompt))
-
-func _add_input_prompts() -> void:
-	for ip: InputPrompt in input_prompts:
-		if ip.active:
-			hud_layer.add_input_prompt(ip)
 
 func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts:

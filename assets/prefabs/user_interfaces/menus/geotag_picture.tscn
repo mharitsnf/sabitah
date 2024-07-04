@@ -100,9 +100,7 @@ layout_mode = 2
 text = "Current geotag"
 
 [node name="Content" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" index="1" instance=ExtResource("6_qvogq")]
-custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-autowrap_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" index="1"]
 layout_mode = 2

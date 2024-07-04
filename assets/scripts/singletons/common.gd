@@ -77,6 +77,22 @@ class InputState extends RefCounted:
 	static func _on_input_device_changed(device: String, _device_index: int) -> void:
 		current_device = device
 
+class InputPromptFactory extends RefCounted:
+	var _pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
+	var _instance: InputPrompt
+	func _init() -> void:
+		_instance = _pscn.instantiate()
+	func set_active(value: bool) -> void:
+		_instance.active = value
+	func set_prompt(value: String) -> void:
+		_instance.prompt = value
+	func set_input_button(value: String) -> void:
+		_instance.input_button = value
+	func get_instance() -> InputPrompt:
+		var inst: InputPrompt = _instance
+		_instance = _pscn.instantiate()
+		return inst
+
 class Promise extends RefCounted:
 	signal completed
 	func _init() -> void: completed.emit()

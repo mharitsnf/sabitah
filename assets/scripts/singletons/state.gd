@@ -39,7 +39,7 @@ var world_dict: Dictionary = {
 	LevelType.GLOBE: GameData.new(LevelType.GLOBE)
 }
 
-# region Packed scenes
+# region Input prompts
 
 var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
 

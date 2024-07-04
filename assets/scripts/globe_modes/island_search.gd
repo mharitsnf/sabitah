@@ -22,22 +22,20 @@ func _ready() -> void:
 func enter_mode() -> void:
 	# Instantiate input prompts
 	if input_prompts.is_empty():
-		# Create enter ship input prompt
-		var enter_ship_ip: InputPrompt = State.input_prompt_pscn.instantiate()
-		(enter_ship_ip as InputPrompt).input_button = "E"
-		(enter_ship_ip as InputPrompt).active = true
-		(enter_ship_ip as InputPrompt).prompt = "Add waypoint"
-		input_prompts.append(enter_ship_ip)
+		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
+		
+		ip_factory.set_input_button("E")
+		ip_factory.set_prompt("Add waypoint")
+		ip_factory.set_active(true)
+		input_prompts.append(ip_factory.get_instance())
 
-		var open_marker_ip: InputPrompt = State.input_prompt_pscn.instantiate()
-		(open_marker_ip as InputPrompt).input_button = "LMB"
-		(open_marker_ip as InputPrompt).prompt = "Open marker"
-		input_prompts.append(open_marker_ip)
+		ip_factory.set_input_button("LMB")
+		ip_factory.set_prompt("Open marker")
+		input_prompts.append(ip_factory.get_instance())
 
-		var erase_marker_ip: InputPrompt = State.input_prompt_pscn.instantiate()
-		(erase_marker_ip as InputPrompt).input_button = "R"
-		(erase_marker_ip as InputPrompt).prompt = "Erase waypoint"
-		input_prompts.append(erase_marker_ip)
+		ip_factory.set_input_button("R")
+		ip_factory.set_prompt("Erase waypoint")
+		input_prompts.append(ip_factory.get_instance())
 
 	_add_input_prompts()
 
