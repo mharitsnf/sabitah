@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="QuitGameCommand" load_steps=2 format=3 uid="uid://dw8yc07ww2bkp"]
+
+[ext_resource type="Script" path="res://assets/scripts/commands/quit_game_command.gd" id="1_1h8sj"]
+
+[resource]
+script = ExtResource("1_1h8sj")

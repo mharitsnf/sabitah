@@ -7,11 +7,11 @@ func _ready() -> void:
 	State.waypoint_markers.append(self)
 	_assign_geotag_id()
 	_assign_waypoint_name()
-	PictureState.update_all_filters()
+	PictureState.load_all_filters()
 
 func destroy() -> void:
-	var fd: FilterData = PictureState.get_filter_data(geotag_id)
-	PictureState.remove_filter_data(fd)
+	var fd: FilterData = PictureState.get_filter(geotag_id)
+	PictureState.remove_filter(fd)
 	State.waypoint_markers.erase(self)
 	queue_free()
 

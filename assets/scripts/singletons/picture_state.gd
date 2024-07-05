@@ -10,6 +10,7 @@ var active_filters: Array[FilterData] = []
 var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
 var picture_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_toggle_button.tscn")
 var picture_cache: Array[PictureData] = []
+var pictures_to_delete: Array[Picture] = []
 
 var pictures_to_be_geotagged: Array[Picture] = []
 
@@ -18,6 +19,32 @@ signal active_filter_removed(filter_data: FilterData)
 
 func _ready() -> void:
 	load_pictures()
+
+func _exit_tree() -> void:
+	print("exit")
+
+## Load pictures from the pictures folder and create cache of it.
+func load_pictures() -> void:
+	var dir: DirAccess = DirAccess.open(PICTURE_FOLDER_PATH)
+	if !dir:
+		push_error("Cannot load files!") 
+		return
+
+	dir.list_dir_begin()
+	var file_name: String = dir.get_next()
+	while file_name != "":
+		if !dir.current_is_dir():
+			var picture: Picture = load(PICTURE_FOLDER_PATH + file_name)
+			create_picture_cache(picture)
+		file_name = dir.get_next()
+
+func save_pictures() -> void:
+	for pd: PictureData in picture_cache:
+		var pic: Picture = pd.get_picture()
+		ResourceSaver.save(pic)
+
+	for pic: Picture in pictures_to_delete:
+		DirAccess.remove_absolute(pic.resource_path)
 
 ## Adds an filter to the active filter array.
 func add_active_filter(fd: FilterData) -> void:
@@ -32,7 +59,7 @@ func remove_active_filter(fd: FilterData) -> void:
 		active_filter_removed.emit(fd)
 
 ## Returns a single filter data based on the [geotag_id].
-func get_filter_data(geotag_id: String) -> FilterData:
+func get_filter(geotag_id: String) -> FilterData:
 	var filtered_fd: Array[FilterData] = all_filters.filter(
 		func(_fd: FilterData) -> bool:
 			return _fd.get_geotag_id() == geotag_id
@@ -40,11 +67,11 @@ func get_filter_data(geotag_id: String) -> FilterData:
 	if filtered_fd.is_empty(): return null
 	return filtered_fd[0]
 
-func remove_filter_data(fd: FilterData) -> void:
+func remove_filter(fd: FilterData) -> void:
 	all_filters.erase(fd)
 
 ## update the [all_filters] array.
-func update_all_filters() -> void:
+func load_all_filters() -> void:
 	var available_geotags: Array[Dictionary] = get_available_geotags()
 
 	for geotag_data: Dictionary in available_geotags:
@@ -133,26 +160,12 @@ func get_filtered_pictures(filter: Array[FilterData]) -> Array[PictureData]:
 
 	return filtered_picture_cache
 
-## Load pictures from the pictures folder and create cache of it.
-func load_pictures() -> void:
-	var dir: DirAccess = DirAccess.open(PICTURE_FOLDER_PATH)
-	if !dir:
-		push_error("Cannot load files!") 
-		return
-
-	dir.list_dir_begin()
-	var file_name: String = dir.get_next()
-	while file_name != "":
-		if !dir.current_is_dir():
-			create_picture_cache(PICTURE_FOLDER_PATH + file_name)
-		file_name = dir.get_next()
-
 ## Creates a new picture cache.
-func create_picture_cache(resource_path: String) -> void:
+func create_picture_cache(picture: Picture) -> void:
 	# see if we have this resource inside the cache already.
 	var existing_picture: Array[PictureData] = picture_cache.filter(
 		func(_pd: PictureData) -> bool:
-			return _pd.get_picture().resource_path == resource_path
+			return _pd.get_picture().resource_path == picture.resource_path
 	)
 	
 	# if we have the picture resource inside the cache, return
@@ -160,15 +173,14 @@ func create_picture_cache(resource_path: String) -> void:
 		return
 
 	# create a new button and picture
-	var pic: Resource = load(resource_path)
 	var pic_button: PictureButton = picture_button_pscn.instantiate()
-	(pic_button as PictureButton).assigned_picture = pic
+	(pic_button as PictureButton).assigned_picture = picture
 
 	var pic_toggle: PictureToggleButton = picture_toggle_button_pscn.instantiate()
-	(pic_toggle as PictureToggleButton).assigned_picture = pic
+	(pic_toggle as PictureToggleButton).assigned_picture = picture
 
 	# add to cache
-	picture_cache.append(PictureData.new(pic, pic_button, pic_toggle))
+	picture_cache.append(PictureData.new(picture, pic_button, pic_toggle))
 
 ## Remove a specific picture from the cache.
 func remove_picture_cache(picture: Picture) -> void:
@@ -185,16 +197,6 @@ func remove_picture_cache(picture: Picture) -> void:
 	var existing_pd: PictureData = existing_picture[0]
 	if existing_pd.get_picture_button():
 		existing_pd.get_picture_button().queue_free()
+	if existing_pd.get_picture_toggle_button():
+		existing_pd.get_picture_toggle_button().queue_free()
 	picture_cache.erase(existing_pd)
-
-## Look for Picture files that have been deleted inside [picture_cache], and then remove them from the cache.
-func remove_invalid_caches() -> void:
-	var to_be_erased: Array[PictureData] = []
-	
-	for pd: PictureData in picture_cache:
-		var exists: bool = FileAccess.file_exists(pd.get_picture().resource_path)
-		if !exists: to_be_erased.append(pd)
-	
-	for epd: PictureData in to_be_erased:
-		if epd.get_picture_button(): epd.get_picture_button().queue_free()
-		picture_cache.erase(epd)

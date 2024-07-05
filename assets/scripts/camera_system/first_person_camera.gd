@@ -42,12 +42,13 @@ func _create_picture() -> void:
 	var pic: Picture = Picture.new()
 	pic.resource_path = final_path + str(floor(Time.get_unix_time_from_system())) + ".tres"
 	pic.image_tex = tex
-	var save_state: int = ResourceSaver.save(pic)
-	if save_state != Error.OK:
-		push_error("Picture could not be saved")
-		return
 	
-	PictureState.create_picture_cache(pic.resource_path)
+	# var save_state: int = ResourceSaver.save(pic)
+	# if save_state != Error.OK:
+	# 	push_error("Picture could not be saved")
+	# 	return
+	
+	PictureState.create_picture_cache(pic)
 
 func _rotate_camera() -> void:
 	if rotation_target and gimbal: 

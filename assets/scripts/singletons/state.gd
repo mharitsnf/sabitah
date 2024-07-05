@@ -25,6 +25,9 @@ const NORTH: Vector3 = Vector3.UP
 
 const SUNSET_ANGLE: float = -.3
 
+func _ready() -> void:
+	tree = get_tree()
+
 # Enums
 
 enum StarType {
@@ -64,6 +67,8 @@ func get_island_lat_long_name(lat: float, long: float) -> String:
 # region References
 
 ## Reference to the game scene's ActorInputManager.
+var tree: SceneTree
+
 var actor_im: ActorInputManager
 var globe_im: GlobeInputManager
 

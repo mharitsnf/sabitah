@@ -7,4 +7,4 @@ func action(args: Array = []) -> void:
 	var pic: Picture = args[1]
 
 	pic.geotag_id = tag
-	ResourceSaver.save(pic)
+	# ResourceSaver.save(pic)
