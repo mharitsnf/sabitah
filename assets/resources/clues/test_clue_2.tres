@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://tpnqbvpbwiiq"]
+
+[ext_resource type="Script" path="res://assets/scripts/clue/clue.gd" id="1_8m0fs"]
+
+[resource]
+script = ExtResource("1_8m0fs")
+id = "test_c2"
+title = "Clue 2"
+status = 0
+description = ""
+destination = Vector3(0, 0, 0)

@@ -18,7 +18,6 @@ var background_stars: Array[StarData] = []
 signal stars_loaded(type: State.StarType)
 
 func _ready() -> void:
-	print(name)
 	_load_main_stars()
 	if use_background_star:
 		_load_background_stars()

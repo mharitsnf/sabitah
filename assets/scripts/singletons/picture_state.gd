@@ -144,21 +144,34 @@ func get_available_geotags() -> Array[Dictionary]:
 
 	return available_tags
 
+func get_clue_pictures(clue_id: String) -> Array[PictureData]:
+	var clue_pics: Array[PictureData] = picture_cache.filter(
+		func(pd: PictureData) -> bool:
+			return pd.get_picture().clue_id == clue_id
+	)
+
+	return clue_pics
+
 ## Get pictures from the cache, filtered based on the [filter] parameter.
 func get_filtered_pictures(filter: Array[FilterData]) -> Array[PictureData]:
+	var no_clue_pics: Array[PictureData] = picture_cache.filter(
+		func(pd: PictureData) -> bool:
+			return pd.get_picture().clue_id == "none"
+	)
+
 	if filter.is_empty():
-		return picture_cache
+		return no_clue_pics
 
 	var active_filter_tag_id: Array = filter.map(
 		func(fd: FilterData) -> String:
 			return fd.get_geotag_id()
 	)
-	var filtered_picture_cache: Array[PictureData] = picture_cache.filter(
+	var filtered_pics: Array[PictureData] = no_clue_pics.filter(
 		func(pd: PictureData) -> bool:
 			return active_filter_tag_id.has(pd.get_picture().geotag_id)
 	)
 
-	return filtered_picture_cache
+	return filtered_pics
 
 ## Creates a new picture cache.
 func create_picture_cache(picture: Picture) -> void:

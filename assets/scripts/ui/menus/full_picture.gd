@@ -1,5 +1,6 @@
 class_name FullPicture extends BaseMenu
 
+@export var details_container: VBoxContainer
 @export var texture_rect: TextureRect
 @export var geotag_label: Label
 @export var to_geotag_picture_btn: GenericButton
@@ -12,6 +13,8 @@ func set_data(new_data: Dictionary) -> void:
 		data = new_data
 		texture_rect.texture = (data['picture'] as Picture).image_tex
 		geotag_label.text = PictureState.get_geotag_name((data['picture'] as Picture).geotag_id)
+
+		details_container.visible = (data['picture'] as Picture).clue_id == "none"
 
 		to_geotag_picture_btn.args = [data.duplicate()]
 		to_delete_picture_btn.args = [data.duplicate()]
