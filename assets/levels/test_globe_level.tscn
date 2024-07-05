@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dllb6gb77txlc"]
+[gd_scene load_steps=21 format=3 uid="uid://dllb6gb77txlc"]
 
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_4fsy1"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_han2f"]
@@ -112,10 +112,10 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
-"method": &"tween_fov_to_50"
+"method": &"tween_spring_length_to_100"
 }, {
 "args": [],
-"method": &"tween_fov_to_default"
+"method": &"tween_spring_length_to_default"
 }]
 }
 tracks/4/type = "value"
@@ -145,10 +145,64 @@ tracks/5/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_e08tg"]
+resource_name = "move_camera_target_aside"
+length = 0.75
+step = 0.01
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlanetBody/GlobeCameraTarget")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"move_aside"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Cameras/GlobeTPC")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"tween_spring_length_to_default"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_x5ijv"]
+resource_name = "move_camera_target_default"
+length = 0.75
+step = 0.01
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlanetBody/GlobeCameraTarget")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"reset_position"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mcoqp"]
 _data = {
 "RESET": SubResource("Animation_0k3dv"),
-"add_first_marker": SubResource("Animation_evx8e")
+"add_first_marker": SubResource("Animation_evx8e"),
+"move_camera_target_aside": SubResource("Animation_e08tg"),
+"move_camera_target_default": SubResource("Animation_x5ijv")
 }
 
 [node name="TestGlobeLevel" type="Node3D"]

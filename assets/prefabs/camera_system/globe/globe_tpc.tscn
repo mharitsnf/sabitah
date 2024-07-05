@@ -7,6 +7,7 @@
 [node name="GlobeTPC" instance=ExtResource("1_eyj7e")]
 zoom_with_spring_length = true
 spring_length_change_rate = 20.0
+spring_length_limit = Vector2(100, 250)
 set_rotation_tween_settings = ExtResource("2_fyffv")
 spring_length = 150.0
 allow_zoom = true

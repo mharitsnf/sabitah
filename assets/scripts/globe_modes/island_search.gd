@@ -24,6 +24,11 @@ func enter_mode() -> void:
 	if input_prompts.is_empty():
 		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
 		
+		ip_factory.set_input_button("Q")
+		ip_factory.set_prompt("Exit")
+		ip_factory.set_active(true)
+		input_prompts.append(ip_factory.get_instance())
+
 		ip_factory.set_input_button("E")
 		ip_factory.set_prompt("Add waypoint")
 		ip_factory.set_active(true)
@@ -73,7 +78,7 @@ func delegated_unhandled_input(event: InputEvent) -> bool:
 func _on_marker_hover_entered() -> void:
 	if marker_query_res.is_empty(): return
 
-	_show_input_prompt(1)
+	_show_input_prompt(2)
 
 	var island_name: String = "Unknown Island Name"
 	
@@ -82,16 +87,16 @@ func _on_marker_hover_entered() -> void:
 
 	if marker_query_res['collider'] is WaypointMarker:
 		island_name = (marker_query_res['collider'] as WaypointMarker).get_geotag_data()['name']
-		_show_input_prompt(2)
+		_show_input_prompt(3)
 
 	hud_layer.set_island_name_text(island_name)
 	hud_layer.show_island_name_panel()
 
 func _on_marker_hover_exited() -> void:
 	if _is_input_prompt_active(2):
-		_hide_input_prompt(2)
+		_hide_input_prompt(3)
 
-	_hide_input_prompt(1)
+	_hide_input_prompt(2)
 
 	hud_layer.hide_island_name_panel()
 
@@ -115,7 +120,8 @@ func _open_island_marker() -> void:
 	transitioning = true
 	await hud_layer.hide_crosshair()
 	hud_layer.hide_island_name_panel()
-	await globe_camera_target.move_aside()
+	level_anim.play("move_camera_target_aside")
+	await level_anim.animation_finished
 	transitioning = false
 
 func _add_waypoint() -> void:
@@ -148,5 +154,6 @@ func _on_menu_exited(data: MenuLayer.MenuData) -> void:
 			if menu_layer.history_stack.is_empty():
 				transitioning = true
 				await hud_layer.show_crosshair()
-				await globe_camera_target.reset_position()
+				level_anim.play("move_camera_target_default")
+				await level_anim.animation_finished
 				transitioning = false

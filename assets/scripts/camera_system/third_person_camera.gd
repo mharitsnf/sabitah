@@ -4,6 +4,7 @@ class_name ThirdPersonCamera extends VirtualCamera
 @export_group("Spring length zoom")
 @export var zoom_with_spring_length: bool = false
 @export var spring_length_change_rate: float = 10.
+@export var spring_length_limit: Vector2 = Vector2(0., 100.)
 @export_group("Tween")
 @export var set_rotation_tween_settings: TweenSettings
 @export_group("Parameters")
@@ -42,11 +43,17 @@ func _process(delta: float) -> void:
 	_on_stop_smooth_spring_length_input()
 	_clamp_spring_length()
 
-func tween_fov_to_50() -> void:
-	await _tween_fov(50.)
+func _tween_spring_length(target: float) -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "spring_length", target, fov_tween_settings.tween_duration).set_ease(fov_tween_settings.tween_ease).set_trans(fov_tween_settings.tween_trans)
+	await tween.finished
+	_spring_length_input = spring_length
 
-func tween_fov_to_default() -> void:
-	await _tween_fov(fov_settings.initial_fov)
+func tween_spring_length_to_100() -> void:
+	await _tween_spring_length(100.)
+
+func tween_spring_length_to_default() -> void:
+	await _tween_spring_length(150.)
 
 func _lerp_offset() -> void:
 	offset_node.position = lerp(offset_node.position, offset, get_process_delta_time() * OFFSET_LERP_WEIGHT)
@@ -92,8 +99,8 @@ func _on_stop_smooth_spring_length_input() -> void:
 ## Private. Clamps the FoV values to its limits specified in the [fov_settings] variable.
 func _clamp_spring_length() -> void:
 	if !fov_settings: return
-	spring_length = max(0., spring_length)
-	_spring_length_input = max(0., _spring_length_input)
+	spring_length = clamp(spring_length, spring_length_limit.x, spring_length_limit.y)
+	_spring_length_input = clamp(_spring_length_input, spring_length_limit.x, spring_length_limit.y)
 
 func _rotate_camera() -> void:
 	if !rotation_target and !gimbal: return
