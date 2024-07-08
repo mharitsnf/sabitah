@@ -60,14 +60,14 @@ func player_input_process(_delta: float) -> void:
 
 func _get_enter_sundial_input() -> void:
 	if (State.actor_im as ActorInputManager).transitioning: return
-	if Input.is_action_just_pressed("toggle_sundial"):
+	if Input.is_action_just_pressed("actor__toggle_sundial"):
 		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(boat_sundial_manager)
 		State.actor_im.switch_data(new_pd)
 
 func _get_exit_ship_input() -> void:
 	if (State.actor_im as ActorInputManager).transitioning: return
-	if Input.is_action_just_pressed("switch_boat_character"):
+	if Input.is_action_just_pressed("actor__toggle_boat"):
 		# get actor data for character
 		var char_pd: ActorData = (State.actor_im as ActorInputManager).get_player_data(ActorInputManager.PlayerActors.CHARACTER)
 		
@@ -82,13 +82,13 @@ func _get_exit_ship_input() -> void:
 		State.actor_im.switch_data(char_pd)
 
 func _get_brake_input() -> void:
-	brake_input = Input.get_action_strength("boat_backward")
+	brake_input = Input.get_action_strength("boat__brake")
 
 func _get_gas_input() -> void:
-	gas_input = Input.get_action_strength("boat_forward")
+	gas_input = Input.get_action_strength("boat__move_forward")
 
 func _get_rotate_input() -> void:
-	rotate_input = Input.get_axis("boat_left", "boat_right")
+	rotate_input = Input.get_axis("boat__turn_left", "boat__turn_right")
 
 # region Signal listener functions
 

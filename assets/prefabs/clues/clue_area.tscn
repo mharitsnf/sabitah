@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyiqif0icpmex"]
+
+[ext_resource type="Script" path="res://assets/scripts/clue/clue_area.gd" id="1_svioy"]
+
+[node name="ClueArea" type="Area3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_svioy")

@@ -8,7 +8,7 @@ func enter_state() -> void:
 	actor.linear_damp = actor.air_damp
 
 func delegated_process(delta: float) -> void:
-	if coyote_time < coyote_time_limit and Input.is_action_just_pressed("character_jump") and controller.prev_actor_state == controller.get_character_state(PlayerCharacterController.CharacterStates.GROUNDED):
+	if coyote_time < coyote_time_limit and Input.is_action_just_pressed("character__jump") and controller.prev_actor_state == controller.get_character_state(PlayerCharacterController.CharacterStates.GROUNDED):
 		controller.jump_variable = 1.
 		_switch_to_jump()
 		return

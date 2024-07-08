@@ -130,7 +130,7 @@ func _get_enter_register_island_input() -> void:
 	if !State.local_sundial: return
 	if State.local_sundial.first_marker_done: return
 
-	if Input.is_action_just_pressed("enter_island_registration"):
+	if Input.is_action_just_pressed("globe__enter_island_registration_mode"):
 		# Fill local sundial data
 		var latlong: Array = Common.Geometry.point_to_latlng(State.local_sundial.global_position.normalized())
 		State.local_sundial_data = {
@@ -150,21 +150,21 @@ func _get_enter_register_island_input() -> void:
 
 func _get_enter_local_sundial_input() -> void:
 	if (State.actor_im as ActorInputManager).transitioning: return
-	if Input.is_action_just_pressed("toggle_sundial") and State.local_sundial:
+	if Input.is_action_just_pressed("actor__toggle_sundial") and State.local_sundial:
 		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(State.local_sundial)
 		State.actor_im.switch_data(new_pd)
 
 func _get_enter_ship_input() -> void:
 	if (State.actor_im as ActorInputManager).transitioning: return
-	if Input.is_action_just_pressed("switch_boat_character") and inside_player_boat_area:
+	if Input.is_action_just_pressed("actor__toggle_boat") and inside_player_boat_area:
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
 		var res: Array = await State.actor_im.switch_data(boat_pd)
 		if res[0]:
 			State.actor_im.remove_child.call_deferred((res[1] as ActorData).get_instance())
 
 func _get_h_input() -> void:
-	h_input = Input.get_vector("character_left", "character_right", "character_backward", "character_forward")
+	h_input = Input.get_vector("character__move_left", "character__move_right", "character__move_backward", "character__move_forward")
 
 # region Signal listener functions.
 

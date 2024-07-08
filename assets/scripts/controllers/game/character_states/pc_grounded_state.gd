@@ -21,12 +21,12 @@ func delegated_process(delta: float) -> void:
         return
 
     # Change to grounded if on water
-    if Input.is_action_just_pressed("character_jump"):
+    if Input.is_action_just_pressed("character__jump"):
         jump_pressed = true
     
     if jump_pressed:
         # Player release the input earlier than the time limit
-        if Input.is_action_just_released("character_jump"):
+        if Input.is_action_just_released("character__jump"):
             var jump_x: float = remap(variable_time, 0., variable_time_limit, 0., 1.)
             controller.jump_variable = jump_curve.sample(jump_x)
             _switch_to_jump()

@@ -23,7 +23,7 @@ func enter_mode() -> void:
 func delegated_unhandled_input(event: InputEvent) -> bool:
 	if !super(event): return false
 	
-	if event.is_action_pressed("confirm_island_location") and !transitioning:
+	if event.is_action_pressed("globe__confirm_island_registration") and !transitioning:
 		_confirm_island_location()
 		return false
 

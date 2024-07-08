@@ -6,14 +6,13 @@ enum ClueStatus {
 
 const CLUE_FOLDER_PATH: String = "res://assets/resources/clues/"
 
-var clue_destination_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_destination_area.tscn")
+var clue_destination_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_area.tscn")
 var clue_menu_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/clue_menu_button.tscn")
 
 var clue_cache: Array[ClueData] = []
 
 func _ready() -> void:
 	load_clues()
-	print(clue_cache)
 
 func load_clues() -> void:
 	var dir: DirAccess = DirAccess.open(CLUE_FOLDER_PATH)
@@ -41,7 +40,7 @@ func create_clue_cache(clue: Clue) -> void:
 		return
 
 	# create a new button and picture
-	var clue_destination_area: ClueDestinationArea = clue_destination_area_pscn.instantiate()
+	var clue_destination_area: ClueArea = clue_destination_area_pscn.instantiate()
 	clue_destination_area.data = {
 		'global_position': clue.destination
 	}

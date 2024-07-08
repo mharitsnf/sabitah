@@ -61,15 +61,15 @@ func exit_mode() -> void:
 func delegated_unhandled_input(event: InputEvent) -> bool:
 	if !super(event): return false
 	
-	if event.is_action_pressed("select_location_on_globe"):
+	if event.is_action_pressed("globe__select_location"):
 		_open_island_marker()
 		return false
 
-	if event.is_action_pressed("add_waypoint"):
+	if event.is_action_pressed("globe__add_waypoint"):
 		_add_waypoint()
 		return false
 
-	if event.is_action_pressed("erase_waypoint"):
+	if event.is_action_pressed("globe__erase_waypoint"):
 		_erase_waypoint()
 		return false
 

@@ -1,10 +1,10 @@
 class_name ClueData extends RefCounted
 
 var _clue: Clue
-var _clue_area: ClueDestinationArea
+var _clue_area: ClueArea
 var _clue_menu_button: GenericButton
 
-func _init(__clue: Clue, __clue_area: ClueDestinationArea, __clue_menu_button: GenericButton) -> void:
+func _init(__clue: Clue, __clue_area: ClueArea, __clue_menu_button: GenericButton) -> void:
 	_clue = __clue
 	_clue_area = __clue_area
 	_clue_menu_button = __clue_menu_button
@@ -12,7 +12,7 @@ func _init(__clue: Clue, __clue_area: ClueDestinationArea, __clue_menu_button: G
 func get_clue() -> Clue:
 	return _clue
 
-func get_clue_area() -> ClueDestinationArea:
+func get_clue_area() -> ClueArea:
 	return _clue_area
 
 func get_clue_menu_button() -> GenericButton:

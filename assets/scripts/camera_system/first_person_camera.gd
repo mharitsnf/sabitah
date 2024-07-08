@@ -20,7 +20,7 @@ func player_input_process(delta: float) -> void:
 	_get_capture_picture_input()
 
 func _get_capture_picture_input() -> void:
-	if Input.is_action_just_pressed("capture_picture"):
+	if Input.is_action_just_pressed("camera__capture_picture"):
 		_create_picture()
 
 func _create_picture() -> void:

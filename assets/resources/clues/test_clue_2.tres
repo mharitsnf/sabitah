@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_8m0fs")
-id = "test_c2"
+id = "clue_2_test"
 title = "Clue 2"
 status = 0
 description = ""

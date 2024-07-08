@@ -145,7 +145,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Private. Switches to another camera.
 func _get_switch_camera_input() -> void:
-	if Input.is_action_just_pressed("switch_camera"):
+	if Input.is_action_just_pressed("actor__switch_camera"):
 		if main_camera.transitioning:
 			push_warning("Main camera is still transitioning!")
 			return
