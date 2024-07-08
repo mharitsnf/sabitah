@@ -61,10 +61,11 @@ _data = {
 "tree_exiting": SubResource("Animation_1yct2")
 }
 
-[node name="CluesMenu" node_paths=PackedStringArray("active_clues_container", "completed_clues_container") instance=ExtResource("1_2fr8y")]
+[node name="CluesMenu" node_paths=PackedStringArray("active_clues_container", "completed_clues_container", "completed_category") instance=ExtResource("1_2fr8y")]
 script = ExtResource("2_0uws2")
-active_clues_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/VBoxContainer/ActiveCluesContainer")
-completed_clues_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/VBoxContainer2/CompletedCluesContainer")
+active_clues_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/ActiveCategory/ActiveCluesContainer")
+completed_clues_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/CompletedCategory/CompletedCluesContainer")
+completed_category = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/CompletedCategory")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -111,29 +112,29 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" index="0"]
+[node name="ActiveCategory" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" index="0"]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="Title" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("3_fg7ch")]
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/ActiveCategory" index="0" instance=ExtResource("3_fg7ch")]
 layout_mode = 2
 text = "Active clues"
 
-[node name="ActiveCluesContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/VBoxContainer" index="1"]
+[node name="ActiveCluesContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/ActiveCategory" index="1"]
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" index="1"]
+[node name="CompletedCategory" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="Title2" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("3_fg7ch")]
+[node name="Title2" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/CompletedCategory" index="0" instance=ExtResource("3_fg7ch")]
 layout_mode = 2
 text = "Completed clues"
 
-[node name="CompletedCluesContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/VBoxContainer2" index="1"]
+[node name="CompletedCluesContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer/CompletedCategory" index="1"]
 layout_mode = 2
 columns = 6
 

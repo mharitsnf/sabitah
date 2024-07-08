@@ -3,18 +3,34 @@ class_name CluesMenu extends BaseMenu
 @export_group("References")
 @export var active_clues_container: GridContainer
 @export var completed_clues_container: GridContainer
+@export var completed_category: VBoxContainer
 
 func _ready() -> void:
 	super()
 	assert(active_clues_container)
 	assert(completed_clues_container)
 
+func set_data(new_data: Dictionary) -> void:
+	if !new_data.is_empty():
+		assert(new_data.has('is_confirmation'))
+
+		data = new_data
+		completed_category.visible = !data['is_confirmation']
+
 func _mount_clues_menu_buttons() -> void:
-	for cd: ClueData in ClueState.clue_cache:
-		var clue: Clue = cd.get_clue()
-		match clue.status:
-			ClueState.ClueStatus.COMPLETED: completed_clues_container.add_child.call_deferred(cd.get_clue_menu_button())
-			_: active_clues_container.add_child.call_deferred(cd.get_clue_menu_button())
+	if !data['is_confirmation']:
+		for cd: ClueData in ClueState.clue_cache:
+			var clue: Clue = cd.get_clue()
+			var clue_menu_button: GenericButton = cd.get_clue_menu_button()
+			(clue_menu_button.args[0] as Dictionary).is_confirmation = false
+			match clue.status:
+				ClueState.ClueStatus.COMPLETED: completed_clues_container.add_child.call_deferred(clue_menu_button)
+				_: active_clues_container.add_child.call_deferred(clue_menu_button)
+	else:
+		for cd: ClueData in ClueState.get_clues_by_status(ClueState.ClueStatus.ACTIVE):
+			var clue_menu_button: GenericButton = cd.get_clue_menu_button()
+			(clue_menu_button.args[0] as Dictionary).is_confirmation = true
+			active_clues_container.add_child.call_deferred(clue_menu_button)
 
 func _unmount_clues_menu_buttons() -> void:
 	for n: Node in active_clues_container.get_children():

@@ -1,12 +1,17 @@
 class_name ClueDetailsMenu extends BaseMenu
 
+@export var confirm_button: GenericButton
 @export var pictures_container: GridContainer
+@export var confirm_button_container: HBoxContainer
 @export var menu_header: Label
 @export var status_label: Label
 @export var description_label: Label
 
 func _ready() -> void:
 	super()
+	assert(confirm_button)
+	assert(pictures_container)
+	assert(confirm_button_container)
 	assert(menu_header)
 	assert(status_label)
 	assert(description_label)
@@ -14,11 +19,21 @@ func _ready() -> void:
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
 		assert(new_data.has('clue'))
+		assert(new_data.has('is_confirmation'))
 
 		data = new_data
+
+		# set arguments
+		if confirm_button.args.size() == 0:
+			confirm_button.args.append((data['clue'] as Clue))
+		else:
+			confirm_button.args[0] = (data['clue'] as Clue)
+
 		menu_header.text = (data['clue'] as Clue).title
 		status_label.text = ClueState.ClueStatus.keys()[(data['clue'] as Clue).status]
 		description_label.text = (data['clue'] as Clue).description
+
+		confirm_button_container.visible = new_data['is_confirmation'] as bool
 
 func _mount_picture_buttons() -> void:
 	var clue_pics: Array[PictureData] = PictureState.get_clue_pictures((data['clue'] as Clue).id)

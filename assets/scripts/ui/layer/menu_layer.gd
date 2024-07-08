@@ -43,6 +43,7 @@ var toggle_main_menu_allowed: bool = true
 
 signal menu_entered(data: MenuData)
 signal menu_exited(data: MenuData)
+signal menu_cleared
 
 # region Lifecycle functions
 
@@ -148,6 +149,7 @@ func clear() -> void:
 		history_stack = []
 
 	switching = false
+	menu_cleared.emit()
 
 # region Helper functions
 

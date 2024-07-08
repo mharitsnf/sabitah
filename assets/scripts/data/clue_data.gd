@@ -13,10 +13,14 @@ func save_clue() -> void:
 
 func set_clue_status(new_status: ClueState.ClueStatus) -> void:
 	_clue.status = new_status
+	match new_status:
+		ClueState.ClueStatus.COMPLETED: _clue_area.monitorable = false
+		_: _clue_area.monitorable = true
 
 func set_clue_area(__clue_area: ClueArea) -> void:
 	assert(__clue_area)
 	_clue_area = __clue_area
+	_clue_area.monitorable = _clue.status != ClueState.ClueStatus.COMPLETED
 
 func get_clue() -> Clue:
 	return _clue

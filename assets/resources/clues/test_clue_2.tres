@@ -6,6 +6,6 @@
 script = ExtResource("1_8m0fs")
 id = "clue_2_test"
 title = "Clue 2"
-status = 0
-description = ""
-destination = Vector3(0, 0, 0)
+status = 1
+description = "This is clue 2."
+reward_id = ""
