@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dvl8whxut2e76"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_5tpgc"]
-[ext_resource type="Script" path="res://assets/scripts/ui/menus/geotag_picture.gd" id="2_43o8b"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/geotag_picture_menu.gd" id="2_43o8b"]
 [ext_resource type="Texture2D" uid="uid://buf17nslrdiyv" path="res://icon.svg" id="3_2cmnk"]
 [ext_resource type="PackedScene" uid="uid://dr1i2bbky8n2g" path="res://assets/prefabs/user_interfaces/buttons/assign_geotag_button.tscn" id="3_3pcqe"]
 [ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/user_interfaces/labels/title.tscn" id="5_ah7by"]

@@ -1,4 +1,4 @@
-class_name ClueDetails extends BaseMenu
+class_name ClueDetailsMenu extends BaseMenu
 
 @export var pictures_container: GridContainer
 @export var menu_header: Label

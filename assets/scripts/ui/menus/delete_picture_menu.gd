@@ -1,4 +1,4 @@
-class_name DeletePicture extends BaseMenu
+class_name DeletePictureMenu extends BaseMenu
 
 @export var texture_rect: TextureRect
 @export var delete_picture_button: GenericButton

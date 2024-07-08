@@ -1,4 +1,4 @@
-class_name FilterGallery extends BaseMenu
+class_name FilterGalleryMenu extends BaseMenu
 
 @export_group("References")
 @export var filter_container: GridContainer

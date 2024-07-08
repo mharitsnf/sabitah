@@ -14,6 +14,14 @@ var clue_cache: Array[ClueData] = []
 func _ready() -> void:
 	load_clues()
 
+## Returns true if all clue has its own area instantiated
+func all_areas_instantiated() -> bool:
+	for cd: ClueData in clue_cache:
+		if !cd.get_clue_area():
+			push_error('clue ', cd.get_clue().id, " has no area!")
+			return false
+	return true
+
 func load_clues() -> void:
 	var dir: DirAccess = DirAccess.open(CLUE_FOLDER_PATH)
 	if !dir:
@@ -59,12 +67,6 @@ func create_clue_cache(clue: Clue) -> void:
 	# if we have the picture resource inside the cache, return
 	if !existing_clue.is_empty():
 		return
-
-	# var clue_destination_area: ClueArea = clue_area_pscn.instantiate()
-	# (clue_destination_area as ClueArea).clue = clue
-	# (clue_destination_area as ClueArea).init_data = {
-	# 	'global_position': clue.destination
-	# }
 
 	var clue_menu_button: GenericButton = clue_menu_button_pscn.instantiate()
 	(clue_menu_button as GenericButton).text = clue.title

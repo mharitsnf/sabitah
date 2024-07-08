@@ -1,4 +1,4 @@
-class_name IslandGallery extends BaseMenu
+class_name IslandGalleryMenu extends BaseMenu
 
 @export_group("References")
 @export var add_picture_button: GenericButton

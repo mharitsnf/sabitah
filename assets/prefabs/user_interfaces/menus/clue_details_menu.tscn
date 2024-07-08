@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_udwnn"]
 [ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/user_interfaces/labels/menu_header.tscn" id="2_j8fwf"]
-[ext_resource type="Script" path="res://assets/scripts/ui/menus/clue_details.gd" id="2_ugq3e"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/clue_details_menu.gd" id="2_ugq3e"]
 [ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/user_interfaces/labels/title.tscn" id="5_ytqkw"]
 [ext_resource type="PackedScene" uid="uid://bgfi4tca6f6yp" path="res://assets/prefabs/user_interfaces/labels/content.tscn" id="6_o0vp3"]
 

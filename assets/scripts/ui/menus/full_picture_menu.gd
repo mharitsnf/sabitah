@@ -1,4 +1,4 @@
-class_name FullPicture extends BaseMenu
+class_name FullPictureMenu extends BaseMenu
 
 @export var details_container: VBoxContainer
 @export var texture_rect: TextureRect

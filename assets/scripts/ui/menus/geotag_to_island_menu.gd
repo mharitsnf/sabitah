@@ -1,4 +1,4 @@
-class_name GeotagToIsland extends BaseMenu
+class_name GeotagToIslandMenu extends BaseMenu
 
 @export var confirm_button: GenericButton
 @export var pictures_container: GridContainer

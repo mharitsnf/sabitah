@@ -1,4 +1,4 @@
-class_name GeotagPicture extends BaseMenu
+class_name GeotagPictureMenu extends BaseMenu
 
 @export var texture_rect: TextureRect
 @export var current_tag_label: Label
