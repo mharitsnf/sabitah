@@ -41,6 +41,13 @@ float_force = 250.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_bjbxt")
 
+[node name="AreaSearcher" type="Area3D" parent="CollisionShape3D"]
+collision_layer = 0
+collision_mask = 98
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/AreaSearcher"]
+shape = SubResource("CapsuleShape3D_bjbxt")
+
 [node name="Visuals" type="Node3D" parent="CollisionShape3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/Visuals"]
@@ -88,3 +95,6 @@ controller = NodePath("..")
 script = ExtResource("8_dmf08")
 actor = NodePath("../..")
 controller = NodePath("..")
+
+[connection signal="area_entered" from="CollisionShape3D/AreaSearcher" to="Controller" method="_on_area_checker_area_entered"]
+[connection signal="area_exited" from="CollisionShape3D/AreaSearcher" to="Controller" method="_on_area_checker_area_exited"]

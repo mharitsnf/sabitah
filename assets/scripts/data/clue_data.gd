@@ -4,10 +4,19 @@ var _clue: Clue
 var _clue_area: ClueArea
 var _clue_menu_button: GenericButton
 
-func _init(__clue: Clue, __clue_area: ClueArea, __clue_menu_button: GenericButton) -> void:
+func _init(__clue: Clue, __clue_menu_button: GenericButton) -> void:
 	_clue = __clue
-	_clue_area = __clue_area
 	_clue_menu_button = __clue_menu_button
+
+func save_clue() -> void:
+	ResourceSaver.save(_clue)
+
+func set_clue_status(new_status: ClueState.ClueStatus) -> void:
+	_clue.status = new_status
+
+func set_clue_area(__clue_area: ClueArea) -> void:
+	assert(__clue_area)
+	_clue_area = __clue_area
 
 func get_clue() -> Clue:
 	return _clue

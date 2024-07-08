@@ -6,7 +6,7 @@ enum ClueStatus {
 
 const CLUE_FOLDER_PATH: String = "res://assets/resources/clues/"
 
-var clue_destination_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_area.tscn")
+var clue_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_area.tscn")
 var clue_menu_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/clue_menu_button.tscn")
 
 var clue_cache: Array[ClueData] = []
@@ -28,6 +28,27 @@ func load_clues() -> void:
 			create_clue_cache(clue)
 		file_name = dir.get_next()
 
+
+func get_clue_data_from_id(clue_id: String) -> ClueData:
+	var cd: Array[ClueData] = clue_cache.filter(
+		func(_cd: ClueData) -> bool:
+			return _cd.get_clue().id == clue_id
+	)
+	if cd.is_empty(): return null
+	return cd[0]
+
+func get_clue_data_from_resource(clue: Clue) -> ClueData:
+	var cd: Array[ClueData] = clue_cache.filter(
+		func(_cd: ClueData) -> bool:
+			return _cd.get_clue() == clue
+	)
+	if cd.is_empty(): return null
+	return cd[0]
+
+func create_clue_area() -> ClueArea:
+	var ca: ClueArea = clue_area_pscn.instantiate()
+	return ca
+
 func create_clue_cache(clue: Clue) -> void:
 	# see if we have this resource inside the cache already.
 	var existing_clue: Array[ClueData] = clue_cache.filter(
@@ -39,14 +60,14 @@ func create_clue_cache(clue: Clue) -> void:
 	if !existing_clue.is_empty():
 		return
 
-	# create a new button and picture
-	var clue_destination_area: ClueArea = clue_destination_area_pscn.instantiate()
-	clue_destination_area.data = {
-		'global_position': clue.destination
-	}
+	# var clue_destination_area: ClueArea = clue_area_pscn.instantiate()
+	# (clue_destination_area as ClueArea).clue = clue
+	# (clue_destination_area as ClueArea).init_data = {
+	# 	'global_position': clue.destination
+	# }
 
 	var clue_menu_button: GenericButton = clue_menu_button_pscn.instantiate()
 	(clue_menu_button as GenericButton).text = clue.title
 	(clue_menu_button as GenericButton).args = [{ "clue": clue }]
 
-	clue_cache.append(ClueData.new(clue, clue_destination_area, clue_menu_button))
+	clue_cache.append(ClueData.new(clue, clue_menu_button))

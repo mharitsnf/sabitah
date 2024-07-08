@@ -14,6 +14,7 @@ enum CharacterStates {
 # Refs from group
 var main_camera: MainCamera
 var player_boat_area: Area3D
+var clue_areas: Array[ClueArea]
 
 var prev_actor_state: ActorState
 var current_actor_state: ActorState
@@ -41,14 +42,6 @@ func _ready() -> void:
 	assert(main_camera)
 	assert(main_camera is MainCamera)
 	assert(player_boat_area)
-
-	(State.actor_im as ActorInputManager).current_data_changed.connect(_on_current_data_changed)
-	(player_boat_area as Area3D).body_entered.connect(_on_body_entered_player_boat_area)
-	(player_boat_area as Area3D).body_exited.connect(_on_body_exited_player_boat_area)
-
-	for area: Area3D in Group.all("local_sundial_areas"):
-		area.body_entered.connect(_on_body_entered_local_sundial_area.bind(area))
-		area.body_exited.connect(_on_body_exited_local_sundial_area)
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
@@ -178,9 +171,7 @@ func _on_current_data_changed() -> void:
 	if State.actor_im.get_current_controller() != self:
 		_reset_inputs()
 
-func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:
-	if body != actor: return
-	
+func _on_local_sundial_area_entered(area: Node3D) -> void:
 	var area_parent: Node = area.get_parent()
 	if !(area_parent is LocalSundialManager): return
 	
@@ -193,8 +184,7 @@ func _on_body_entered_local_sundial_area(body: Node3D, area: Node3D) -> void:
 	(input_prompts[2] as InputPrompt).active = true
 	hud_layer.add_input_prompt(input_prompts[2])
 
-func _on_body_exited_local_sundial_area(body: Node3D) -> void:
-	if body != actor: return
+func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
 	(input_prompts[1] as InputPrompt).active = false
 	hud_layer.remove_input_prompt(input_prompts[1])
@@ -202,12 +192,36 @@ func _on_body_exited_local_sundial_area(body: Node3D) -> void:
 	(input_prompts[2] as InputPrompt).active = false
 	hud_layer.remove_input_prompt(input_prompts[2])
 
-func _on_body_entered_player_boat_area(body: Node3D) -> void:
-	if body == actor:
-		inside_player_boat_area = true
-		hud_layer.add_input_prompt(input_prompts[0])
+func _on_player_boat_area_entered() -> void:
+	inside_player_boat_area = true
+	hud_layer.add_input_prompt(input_prompts[0])
 
-func _on_body_exited_player_boat_area(body: Node3D) -> void:
-	if body == actor:
-		inside_player_boat_area = false
-		hud_layer.remove_input_prompt(input_prompts[0])
+func _on_player_boat_area_exited() -> void:
+	inside_player_boat_area = false
+	hud_layer.remove_input_prompt(input_prompts[0])
+
+func _on_area_checker_area_entered(area: Area3D) -> void:
+	if area.is_in_group("clue_areas"):
+		clue_areas.append(area)
+		return
+
+	if area.is_in_group("local_sundial_areas"):
+		_on_local_sundial_area_entered(area)
+		return
+
+	if area.is_in_group("player_boat_area"):
+		_on_player_boat_area_entered()
+		return
+
+func _on_area_checker_area_exited(area: Area3D) -> void:
+	if area.is_in_group("clue_areas"):
+		clue_areas.erase(area)
+		return
+
+	if area.is_in_group("local_sundial_areas"):
+		_on_local_sundial_area_exited(area)
+		return
+
+	if area.is_in_group("player_boat_area"):
+		_on_player_boat_area_exited()
+		return

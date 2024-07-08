@@ -8,10 +8,11 @@ var menu_layer: MenuLayer
 var game_viewport: SubViewport
 
 func _ready() -> void:
-	assert(anim)
 	menu_layer = Group.first("menu_layer")
-	assert(menu_layer)
 	game_viewport = Group.first("game_viewport")
+	
+	assert(anim)
+	assert(menu_layer)
 	assert(game_viewport)
 
 func _input(event: InputEvent) -> void:

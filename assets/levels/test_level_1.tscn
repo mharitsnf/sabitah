@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=22 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bpwy3yt75lyjg" path="res://assets/resources/models/islands/test_platform.tscn" id="5_roqsb"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
+[ext_resource type="PackedScene" uid="uid://cmo4ka3wa54y0" path="res://assets/prefabs/clues/clue_marker.tscn" id="10_w4adh"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://8rve6jcq5kyi" path="res://assets/prefabs/actor/ai_actor.tscn" id="12_yh4gp"]
@@ -49,6 +50,16 @@ transform = Transform3D(0.999863, -0.0165386, -0.000101571, 0.0165385, 0.999782,
 
 [node name="TestPlatform" parent="Islands/Node3D" instance=ExtResource("5_roqsb")]
 
+[node name="ClueAreas" type="Node" parent="." groups=["clue_areas"]]
+
+[node name="ClueMarker" parent="ClueAreas" instance=ExtResource("10_w4adh")]
+transform = Transform3D(-0.00680137, 0.999884, 0.0136368, -0.924393, -0.0114877, 0.381268, 0.38138, -0.0100126, 0.924364, 1488.41, -0.758339, -2.1055)
+clue_id = "clue_1_test"
+
+[node name="ClueMarker2" parent="ClueAreas" instance=ExtResource("10_w4adh")]
+transform = Transform3D(0.00389969, 0.999964, -0.0075796, -0.999962, 0.00384074, -0.00777844, -0.00774905, 0.00760965, 0.999941, 1486.55, 5.70946, 11.3125)
+clue_id = "clue_2_test"
+
 [node name="NavWorld" type="Node" parent="."]
 
 [node name="NavSubViewport" parent="NavWorld" instance=ExtResource("4_qbgsx")]
@@ -76,17 +87,19 @@ transform = Transform3D(0.00870242, 0.880115, 0.47468, -0.999961, 0.00833766, 0.
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
 transform = Transform3D(0.00971944, 0.999854, -0.0140802, -0.996167, 0.00845757, -0.0870619, -0.0869301, 0.0148724, 0.996103, 1486.38, 12.573, 22.1093)
 
-[node name="StaticActor" parent="." instance=ExtResource("11_h16q6")]
+[node name="Actors" type="Node" parent="."]
+
+[node name="StaticActor" parent="Actors" instance=ExtResource("11_h16q6")]
 transform = Transform3D(0.99947, -0.00807827, -0.0315495, 0.00799244, 0.999964, -0.00284574, 0.0315714, 0.00259207, 0.999498, -12.0011, 1485.55, 3.85078)
 
-[node name="NavigationTarget" parent="." instance=ExtResource("13_qjase")]
+[node name="NavigationTarget" parent="Actors" instance=ExtResource("13_qjase")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
 
-[node name="AIActor" parent="." node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
+[node name="AIActor" parent="Actors" node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
 transform = Transform3D(0.980675, -0.195623, 0.00273777, 0.195598, 0.980656, 0.00746314, -0.00414477, -0.00678342, 0.999968, -290.617, 1456.86, -10.0774)
 nav_target = NodePath("../NavigationTarget")
 
-[node name="AIActor2" parent="." node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
+[node name="AIActor2" parent="Actors" node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
 transform = Transform3D(0.97651, -0.21547, -0.000898805, 0.215471, 0.976484, 0.00717475, -0.000668273, -0.00719988, 0.999974, -320.102, 1450.66, -10.6961)
 nav_target = NodePath("../NavigationTarget")
 move_speed = 30.0
