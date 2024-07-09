@@ -126,3 +126,18 @@ func _reset_inputs() -> void:
 func _on_current_data_changed() -> void:
 	if State.actor_im.get_current_controller() != self:
 		_reset_inputs()
+
+func _on_area_checker_area_entered(area: Area3D) -> void:
+	if area.is_in_group("island_areas"):
+		if State.actor_im.get_current_controller() != self: return
+
+		assert(area.get_parent() is LocalSundialManager)
+		var lsm: LocalSundialManager = area.get_parent()
+		if !(lsm as LocalSundialManager).first_marker_done: return
+
+		(hud_layer as GameHUDLayer).set_island_name_label_text((lsm as LocalSundialManager).get_island_name())
+		(hud_layer as GameHUDLayer).show_island_name()
+
+func _on_area_checker_area_exited(area: Area3D) -> void:
+	if area.is_in_group("island_areas"):
+		pass

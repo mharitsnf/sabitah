@@ -5,5 +5,5 @@
 [node name="PlayerBoatTPC" instance=ExtResource("1_o6msj")]
 offset = Vector3(0, 4, 0)
 spring_arm_collision_mask = 16
-spring_length = 15.0
+spring_length = 17.5
 adjusting_basis = false

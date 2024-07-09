@@ -10,10 +10,11 @@ var check_dialogue: DialogueResource = preload("res://assets/dialogues/clue_chec
 var clue_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_area.tscn")
 var clue_menu_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/clue_menu_button.tscn")
 
-var clue_data_to_confirm: ClueData
+var clue_id_to_confirm: String
 var confirm_data: Dictionary = {
 	'status': false,
 	'has_reward': false,
+	'type': '',
 	'string': ""
 }
 
@@ -48,23 +49,29 @@ func load_clues() -> void:
 			create_clue_cache(clue)
 		file_name = dir.get_next()
 
-func complete_selected_clue_data() -> void:
-	clue_data_to_confirm.set_clue_status(ClueState.ClueStatus.COMPLETED)
+func unlock_reward() -> void:
+	var cd: ClueData = get_clue_data_from_id(clue_id_to_confirm)
 
-	# check if reward is a clue
-	var reward_cd: ClueData = get_clue_data_from_id(clue_data_to_confirm.get_clue().reward_id)
+	# check if reward is another clue
+	var reward_cd: ClueData = get_clue_data_from_id(cd.get_clue().reward_id)
 	if reward_cd and reward_cd.get_clue().status == ClueState.ClueStatus.HIDDEN:
 		reward_cd.set_clue_status(ClueState.ClueStatus.ACTIVE)
 		confirm_data['has_reward'] = true
-		confirm_data['string'] = "new clue, " + reward_cd.get_clue().title
+		confirm_data['type'] = 'clue'
+		confirm_data['string'] = reward_cd.get_clue().title
 		return
 	
 	# no reward
 	confirm_data['has_reward'] = false
+	confirm_data['type'] = ""
 	confirm_data['string'] = ""
 
-	# clear [clue_data_to_confirm]
-	clue_data_to_confirm = null
+	# clear [clue_id_to_confirm]
+	clue_id_to_confirm = ""
+
+func change_clue_status(id: String, new_status: ClueStatus) -> void:
+	var cd: ClueData = get_clue_data_from_id(id)
+	cd.set_clue_status(new_status)
 
 func get_clues_by_status(status: ClueStatus) -> Array[ClueData]:
 	var filtered_clues: Array[ClueData] = clue_cache.filter(

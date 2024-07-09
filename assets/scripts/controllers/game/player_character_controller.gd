@@ -27,6 +27,9 @@ var h_input: Vector2
 var inside_player_boat_area: bool = false
 var enter_boat_input_prompt: InputPrompt
 
+var ignore_area_check_time_elapsed: float = 0.
+const IGNORE_AREA_CHECK_DURATION: float = .25
+
 # region Entry functions
 
 func _enter_tree() -> void:
@@ -61,6 +64,7 @@ func _remove_register_island_input_prompt() -> void:
 func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts.values():
 		hud_layer.remove_input_prompt(ip)
+	ignore_area_check_time_elapsed = 0.
 
 func _add_input_prompts() -> void:
 	super()
@@ -96,6 +100,9 @@ func _physics_process(delta: float) -> void:
 		current_actor_state.delegated_physics_process(delta)
 
 func delegated_process(delta: float) -> void:
+	if ignore_area_check_time_elapsed < IGNORE_AREA_CHECK_DURATION:
+		ignore_area_check_time_elapsed += delta
+
 	if current_actor_state:
 		current_actor_state.delegated_process(delta)
 		current_actor_state.player_input_process(delta)
@@ -168,11 +175,12 @@ func _get_check_clues_input() -> void:
 		menu_layer.navigate_to(State.UserInterfaces.CLUES_MENU, { 'is_confirmation': true })
 		await (menu_layer as MenuLayer).menu_cleared
 		
-		var area: ClueArea = (ClueState.clue_data_to_confirm as ClueData).get_clue_area()
+		var area: ClueArea = (ClueState.get_clue_data_from_id(ClueState.clue_id_to_confirm) as ClueData).get_clue_area()
 		
 		if (clue_areas.has(area)):
 			ClueState.confirm_data.status = true
-			ClueState.complete_selected_clue_data()
+			ClueState.change_clue_status(ClueState.clue_id_to_confirm, ClueState.ClueStatus.COMPLETED)
+			ClueState.unlock_reward()
 		else: ClueState.confirm_data.status = false
 
 		print("asdf")
@@ -245,6 +253,18 @@ func _on_area_checker_area_entered(area: Area3D) -> void:
 
 	if area.is_in_group("player_boat_area"):
 		_on_player_boat_area_entered()
+		return
+
+	if area.is_in_group("island_areas"):
+		if ignore_area_check_time_elapsed < IGNORE_AREA_CHECK_DURATION: return
+		if State.actor_im.get_current_controller() != self: return
+
+		assert(area.get_parent() is LocalSundialManager)
+		var lsm: LocalSundialManager = area.get_parent()
+		if !(lsm as LocalSundialManager).first_marker_done: return
+
+		(hud_layer as GameHUDLayer).set_island_name_label_text((lsm as LocalSundialManager).get_island_name())
+		(hud_layer as GameHUDLayer).show_island_name()
 		return
 
 func _on_area_checker_area_exited(area: Area3D) -> void:

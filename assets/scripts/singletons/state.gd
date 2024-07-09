@@ -63,6 +63,8 @@ var local_sundial: LocalSundialManager
 var node_sundial: LocalSundialManager
 var local_sundial_data: Dictionary = {}
 
+var inside_island_areas: Dictionary = {}
+
 signal teleport_to_node_sundial
 
 func get_island_lat_long_name(lat: float, long: float) -> String:

@@ -35,6 +35,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.7, 0)
 [node name="BoatSundialManager" parent="CollisionShape3D" instance=ExtResource("3_sih57")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4.6)
 
+[node name="AreaChecker" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaChecker"]
+shape = SubResource("ConvexPolygonShape3D_5coob")
+
 [node name="PlayerBoatArea" parent="." instance=ExtResource("4_5csyn")]
 
 [node name="PlayerBoatTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("3_euyme")]
@@ -54,5 +62,8 @@ boat_sundial_manager = NodePath("../CollisionShape3D/BoatSundialManager")
 dropoff_marker = NodePath("../CollisionShape3D/DropoffMarker")
 actor = NodePath("..")
 node_sundial_dialogue = ExtResource("9_5f0qw")
+
+[connection signal="area_entered" from="AreaChecker" to="Controller" method="_on_area_checker_area_entered"]
+[connection signal="area_exited" from="AreaChecker" to="Controller" method="_on_area_checker_area_exited"]
 
 [editable path="CollisionShape3D/PlayerBoatMesh"]
