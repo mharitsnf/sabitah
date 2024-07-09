@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=21 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -19,8 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://cmo4ka3wa54y0" path="res://assets/prefabs/clues/clue_marker.tscn" id="10_w4adh"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
-[ext_resource type="PackedScene" uid="uid://8rve6jcq5kyi" path="res://assets/prefabs/actor/ai_actor.tscn" id="12_yh4gp"]
-[ext_resource type="PackedScene" uid="uid://dtnook2vegfb2" path="res://assets/prefabs/navigation/target/navigation_target.tscn" id="13_qjase"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
@@ -93,16 +91,3 @@ transform = Transform3D(0.00971944, 0.999854, -0.0140802, -0.996167, 0.00845757,
 
 [node name="StaticActor" parent="Actors" instance=ExtResource("11_h16q6")]
 transform = Transform3D(0.99947, -0.00807827, -0.0315495, 0.00799244, 0.999964, -0.00284574, 0.0315714, 0.00259207, 0.999498, -12.0011, 1485.55, 3.85078)
-
-[node name="NavigationTarget" parent="Actors" instance=ExtResource("13_qjase")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1485.6, 0)
-
-[node name="AIActor" parent="Actors" node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
-transform = Transform3D(0.980675, -0.195623, 0.00273777, 0.195598, 0.980656, 0.00746314, -0.00414477, -0.00678342, 0.999968, -290.617, 1456.86, -10.0774)
-nav_target = NodePath("../NavigationTarget")
-
-[node name="AIActor2" parent="Actors" node_paths=PackedStringArray("nav_target") instance=ExtResource("12_yh4gp")]
-transform = Transform3D(0.97651, -0.21547, -0.000898805, 0.215471, 0.976484, 0.00717475, -0.000668273, -0.00719988, 0.999974, -320.102, 1450.66, -10.6961)
-nav_target = NodePath("../NavigationTarget")
-move_speed = 30.0
-xz_speed_limit = 15.0

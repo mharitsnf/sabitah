@@ -13,8 +13,12 @@ func _ready() -> void:
 	assert(menu_layer)
 
 	(menu_layer as MenuLayer).menu_entered.connect(_on_menu_entered)
+	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
 
 func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
+	pass
+
+func _on_menu_exited(_data: MenuLayer.MenuData) -> void:
 	pass
 
 ## Runs when the controller is entered.

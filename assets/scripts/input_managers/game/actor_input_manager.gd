@@ -120,6 +120,8 @@ func switch_data(new_data: PlayerData) -> Array:
 
 func _input_allowed() -> bool:
 	if !super(): return false
+	if transitioning:
+		return false
 	if !(current_data as ActorData).get_controller():
 		return false
 	return true

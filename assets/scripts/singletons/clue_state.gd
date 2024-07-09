@@ -1,15 +1,21 @@
 extends Node
 
 enum ClueStatus {
-	ACTIVE, COMPLETED
+	HIDDEN, ACTIVE, COMPLETED
 }
 
 const CLUE_FOLDER_PATH: String = "res://assets/resources/clues/"
 
+var check_dialogue: DialogueResource = preload("res://assets/dialogues/clue_checking.dialogue")
 var clue_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_area.tscn")
 var clue_menu_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/clue_menu_button.tscn")
 
-var clue_to_confirm: Clue
+var clue_data_to_confirm: ClueData
+var confirm_data: Dictionary = {
+	'status': false,
+	'has_reward': false,
+	'string': ""
+}
 
 var clue_cache: Array[ClueData] = []
 
@@ -41,6 +47,21 @@ func load_clues() -> void:
 			var clue: Clue = load(CLUE_FOLDER_PATH + file_name)
 			create_clue_cache(clue)
 		file_name = dir.get_next()
+
+func complete_selected_clue_data() -> void:
+	clue_data_to_confirm.set_clue_status(ClueState.ClueStatus.COMPLETED)
+
+	# check if reward is a clue
+	var reward_cd: ClueData = get_clue_data_from_id(clue_data_to_confirm.get_clue().reward_id)
+	if reward_cd and reward_cd.get_clue().status == ClueState.ClueStatus.HIDDEN:
+		reward_cd.set_clue_status(ClueState.ClueStatus.ACTIVE)
+		confirm_data['has_reward'] = true
+		confirm_data['string'] = "new clue, " + reward_cd.get_clue().title
+		return
+	
+	# no reward
+	confirm_data['has_reward'] = false
+	confirm_data['string'] = ""
 
 func get_clues_by_status(status: ClueStatus) -> Array[ClueData]:
 	var filtered_clues: Array[ClueData] = clue_cache.filter(

@@ -95,7 +95,6 @@ func delegated_process(delta: float) -> void:
 		current_actor_state.player_input_process(delta)
 
 func player_input_process(_delta: float) -> void:
-	if (State.actor_im as ActorInputManager).transitioning: return
 	_get_enter_register_island_input()
 	_get_enter_local_sundial_input()
 	_get_check_clues_input()
@@ -143,17 +142,20 @@ func _get_enter_register_island_input() -> void:
 			to_island_registration_cmd
 		)
 
+## Input for checking if clue is corect or not
 func _get_check_clues_input() -> void:
 	if Input.is_action_just_pressed("clue__check_area"):
 		menu_layer.navigate_to(State.UserInterfaces.CLUES_MENU, { 'is_confirmation': true })
 		await (menu_layer as MenuLayer).menu_cleared
-		var cd: ClueData = ClueState.get_clue_data_from_id((ClueState.clue_to_confirm as Clue).id)
-		var area: ClueArea = cd.get_clue_area()
+		
+		var area: ClueArea = (ClueState.clue_data_to_confirm as ClueData).get_clue_area()
+		
 		if (clue_areas.has(area)):
-			(cd as ClueData).set_clue_status(ClueState.ClueStatus.COMPLETED)
-			print("Correct!")
-		else:
-			print("Incorrect...")
+			ClueState.confirm_data.status = true
+			ClueState.complete_selected_clue_data()
+		else: ClueState.confirm_data.status = false
+
+		Common.DialogueWrapper.start_dialogue(ClueState.check_dialogue, "start")
 
 func _get_enter_local_sundial_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_sundial") and State.local_sundial:

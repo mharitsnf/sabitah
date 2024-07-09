@@ -1,0 +1,12 @@
+~ start
+Narrator: You checked if the your position aligns with the clue.
+Narrator: And the result is...
+
+if ClueState.confirm_data.status:
+	Narrator: Correct![wait=0.5] You have arrived at the clue's location!
+	if ClueState.confirm_data.has_reward:
+		Narrator: Here's some reward for you. You got a {{ClueState.confirm_data.string}}!
+	Narrator: The clue has been set to completed.
+else:
+	Narrator: Incorrect! You are not at the correct location. Try again!
+=> END

@@ -41,6 +41,8 @@ func _input_allowed() -> bool:
 		return false
 	if menu_layer.has_active_menu(): 
 		return false
+	if Common.DialogueWrapper.is_dialogue_active():
+		return false
 	return true
 
 ## Switch current_data to a new one [_new_data].

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://dcjefkcjw651f"
+path="res://.godot/imported/clue_checking.dialogue-0d9b04f8c75aad3e2592afc1b33e566f.tres"
+
+[deps]
+
+source_file="res://assets/dialogues/clue_checking.dialogue"
+dest_files=["res://.godot/imported/clue_checking.dialogue-0d9b04f8c75aad3e2592afc1b33e566f.tres"]
+
+[params]
+
+defaults=true

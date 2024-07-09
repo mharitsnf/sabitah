@@ -6,11 +6,23 @@ enum Status {
 
 func _ready() -> void:
 	# Input
-	InputState.current_device = InputHelper.guess_device_name()
+	InputState._current_device = InputHelper.guess_device_name()
 	InputHelper.device_changed.connect(InputState._on_input_device_changed)
 
 func wait(sec: float) -> void:
 	await get_tree().create_timer(sec).timeout
+
+class DialogueWrapper extends RefCounted:
+	static var _dialogue_active: bool = false
+
+	static func is_dialogue_active() -> bool:
+		return _dialogue_active
+
+	static func start_dialogue(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
+		_dialogue_active = true
+		DialogueManager.show_dialogue_balloon(dialogue_resource, title, extra_game_states)
+		await DialogueManager.dialogue_ended
+		_dialogue_active = false
 
 class Geometry extends RefCounted:
 	static func recalculate_quaternion(old_basis: Basis, new_normal: Vector3) -> Quaternion:
@@ -69,13 +81,13 @@ class Geometry extends RefCounted:
 		return r * c
 
 class InputState extends RefCounted:
-	static var current_device: String
+	static var _current_device: String
 
 	static func is_keyboard_active() -> bool:
-		return current_device == InputHelper.DEVICE_KEYBOARD
+		return _current_device == InputHelper.DEVICE_KEYBOARD
 	
 	static func _on_input_device_changed(device: String, _device_index: int) -> void:
-		current_device = device
+		_current_device = device
 
 class InputPromptFactory extends RefCounted:
 	var _pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
