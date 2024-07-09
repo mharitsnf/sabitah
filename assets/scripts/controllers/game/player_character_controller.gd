@@ -12,7 +12,6 @@ enum CharacterStates {
 @export var actor: CharacterActor
 
 # Refs from group
-var main_camera: MainCamera
 var player_boat_area: Area3D
 var clue_areas: Array[ClueArea]
 
@@ -34,31 +33,16 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	super()
 
-	main_camera = Group.first("main_camera")
 	player_boat_area = Group.first("player_boat_area")
 
 	assert(to_island_registration_cmd)
 	assert(actor)
-	assert(main_camera)
-	assert(main_camera is MainCamera)
 	assert(player_boat_area)
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
 func enter_controller() -> void:
-	# Instantiate input prompts
-	if input_prompts.is_empty():
-		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-		ip_factory.set_data("F", "Enter ship")
-		input_prompts.append(ip_factory.get_instance())
-
-		ip_factory.set_data("T", "Enter local sundial")
-		input_prompts.append(ip_factory.get_instance())
-
-		ip_factory.set_data("Y", "Register island")
-		input_prompts.append(ip_factory.get_instance())
-
-	for ip: InputPrompt in input_prompts:
+	for ip: InputPrompt in input_prompts.values():
 		if ip.active:
 			hud_layer.add_input_prompt(ip)
 
@@ -66,14 +50,30 @@ func _remove_register_island_input_prompt() -> void:
 	if input_prompts.is_empty(): return
 
 	if State.local_sundial and State.local_sundial.first_marker_done:
-		if !(input_prompts[2] as InputPrompt).is_inside_tree():
-			await (input_prompts[2] as InputPrompt).tree_entered
-		(input_prompts[2] as InputPrompt).active = false
-		hud_layer.remove_input_prompt((input_prompts[2] as InputPrompt))
+		if !(input_prompts["Y"] as InputPrompt).is_inside_tree():
+			await (input_prompts["Y"] as InputPrompt).tree_entered
+		(input_prompts["Y"] as InputPrompt).active = false
+		hud_layer.remove_input_prompt((input_prompts["Y"] as InputPrompt))
 
 func exit_controller() -> void:
-	for ip: InputPrompt in input_prompts:
+	for ip: InputPrompt in input_prompts.values():
 		hud_layer.remove_input_prompt(ip)
+
+func _add_input_prompts() -> void:
+	super()
+
+	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
+	ip_factory.set_data("F", "Enter ship")
+	input_prompts['F'] = ip_factory.get_instance()
+
+	ip_factory.set_data("T", "Enter local sundial")
+	input_prompts['T'] = ip_factory.get_instance()
+
+	ip_factory.set_data("Y", "Register island")
+	input_prompts['Y'] = ip_factory.get_instance()
+
+	ip_factory.set_data("C", "Confirm clue", true)
+	input_prompts['C'] = ip_factory.get_instance()
 
 # region Lifecycle functions
 
@@ -190,29 +190,29 @@ func _on_local_sundial_area_entered(area: Node3D) -> void:
 	if !(area_parent is LocalSundialManager): return
 	
 	State.local_sundial = area_parent
-	(input_prompts[1] as InputPrompt).active = true
-	hud_layer.add_input_prompt(input_prompts[1])
+	(input_prompts["T"] as InputPrompt).active = true
+	hud_layer.add_input_prompt(input_prompts["T"])
 	
 	if State.local_sundial.first_marker_done: return
 
-	(input_prompts[2] as InputPrompt).active = true
-	hud_layer.add_input_prompt(input_prompts[2])
+	(input_prompts["Y"] as InputPrompt).active = true
+	hud_layer.add_input_prompt(input_prompts["Y"])
 
 func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
-	(input_prompts[1] as InputPrompt).active = false
-	hud_layer.remove_input_prompt(input_prompts[1])
+	(input_prompts["T"] as InputPrompt).active = false
+	hud_layer.remove_input_prompt(input_prompts["T"])
 
-	(input_prompts[2] as InputPrompt).active = false
-	hud_layer.remove_input_prompt(input_prompts[2])
+	(input_prompts["Y"] as InputPrompt).active = false
+	hud_layer.remove_input_prompt(input_prompts["Y"])
 
 func _on_player_boat_area_entered() -> void:
 	inside_player_boat_area = true
-	hud_layer.add_input_prompt(input_prompts[0])
+	hud_layer.add_input_prompt(input_prompts["F"])
 
 func _on_player_boat_area_exited() -> void:
 	inside_player_boat_area = false
-	hud_layer.remove_input_prompt(input_prompts[0])
+	hud_layer.remove_input_prompt(input_prompts["F"])
 
 func _on_area_checker_area_entered(area: Area3D) -> void:
 	if area.is_in_group("clue_areas"):

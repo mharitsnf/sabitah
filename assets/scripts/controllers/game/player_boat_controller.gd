@@ -21,21 +21,23 @@ func _ready() -> void:
 	(State.actor_im as ActorInputManager).current_data_changed.connect(_on_current_data_changed)
 
 func enter_controller() -> void:
-	if input_prompts.is_empty():
-		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-
-		ip_factory.set_data("F", "Exit boat", true)
-		input_prompts.append(ip_factory.get_instance())
-
-		ip_factory.set_data("T", "Enter sundial", true)
-		input_prompts.append(ip_factory.get_instance())
-	
-	for ip: InputPrompt in input_prompts:
+	for ip: InputPrompt in input_prompts.values():
 		if ip.active: hud_layer.add_input_prompt(ip)
 
 func exit_controller() -> void:
-	for ip: InputPrompt in input_prompts:
+	for ip: InputPrompt in input_prompts.values():
 		hud_layer.remove_input_prompt(ip)
+
+func _add_input_prompts() -> void:
+	super()
+
+	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
+
+	ip_factory.set_data("F", "Exit boat", true)
+	input_prompts['F'] = ip_factory.get_instance()
+
+	ip_factory.set_data("T", "Enter sundial", true)
+	input_prompts['T'] = ip_factory.get_instance()
 
 # region Lifecycle functions
 
@@ -74,7 +76,8 @@ func _get_exit_ship_input() -> void:
 		# Add character to the level
 		var char_inst: Node3D = char_pd.get_instance()
 		State.actor_im.add_child.call_deferred(char_inst)
-		await char_inst.tree_entered
+		if !char_inst.is_node_ready(): await char_inst.ready
+		else: await char_inst.tree_entered
 		char_inst.global_position = dropoff_marker.global_position
 		char_inst.basis = Common.Geometry.recalculate_quaternion(char_inst.basis, char_inst.global_position.normalized())
 

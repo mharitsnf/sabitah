@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dr3pa5wcbro7s"]
+[gd_scene load_steps=10 format=3 uid="uid://dr3pa5wcbro7s"]
 
 [ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/hud/layer/hud_layer.tscn" id="1_uvbxn"]
 [ext_resource type="Script" path="res://assets/scripts/hud/layer/game_hud_layer.gd" id="2_kl3f3"]
@@ -30,6 +30,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 480)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ml2wk"]
@@ -90,11 +102,29 @@ tracks/1/keys = {
 "values": [Vector2(0, 480), Vector2(1.03704, 480), Vector2(8.2963, 480), Vector2(28, 480), Vector2(47.7037, 480), Vector2(54.963, 480), Vector2(56, 480)]
 }
 
+[sub_resource type="Animation" id="Animation_n41iv"]
+resource_name = "take_picture_screen"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.08, 0.12, 0.153333, 0.186667, 0.22, 0.253333, 0.286667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.289352), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.974597), Color(1, 1, 1, 0.796779), Color(1, 1, 1, 0.351166), Color(1, 1, 1, 0.0697048), Color(1, 1, 1, 0.00162578), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j18cy"]
 _data = {
 "RESET": SubResource("Animation_e5vrm"),
 "hide_time_container": SubResource("Animation_ml2wk"),
-"show_time_container": SubResource("Animation_ut25w")
+"show_time_container": SubResource("Animation_ut25w"),
+"take_picture_screen": SubResource("Animation_n41iv")
 }
 
 [node name="GameHUDLayer" node_paths=PackedStringArray("time_label", "anim") instance=ExtResource("1_uvbxn")]
@@ -130,7 +160,17 @@ layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+[node name="ColorRect" type="ColorRect" parent="." index="2"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.705882, 0.705882, 0.705882, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {
 "": SubResource("AnimationLibrary_j18cy")
 }

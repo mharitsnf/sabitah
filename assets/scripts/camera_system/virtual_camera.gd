@@ -90,6 +90,7 @@ var previous_follow_data: FollowData
 var current_follow_data: FollowData
 
 var menu_layer: MenuLayer
+var hud_layer: HUDLayer
 
 signal camera_adjusting_basis_changed(new_value: bool)
 
@@ -97,6 +98,7 @@ signal camera_adjusting_basis_changed(new_value: bool)
 
 func _ready() -> void:
 	menu_layer = Group.first("menu_layer")
+	hud_layer = Group.first("hud_layer")
 
 func _process(delta: float) -> void:
 	_transition(delta)

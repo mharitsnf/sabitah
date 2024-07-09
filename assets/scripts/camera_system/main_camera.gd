@@ -66,7 +66,9 @@ class FollowData extends RefCounted:
 
 var transitioning: bool = false
 var transition_elapsed_time: float = 0.
+
 signal transition_finished
+signal follow_target_changed(new_camera: VirtualCamera)
 
 var previous_follow_data: FollowData
 var current_follow_data: FollowData
@@ -126,6 +128,8 @@ func _change_follow_target(value: VirtualCamera) -> void:
 	
 	# Assigns the new remote transform to the new path
 	current_follow_data.set_remote_path(get_path())
+
+	follow_target_changed.emit(current_follow_data.get_target())
 
 # region Transition functions
 

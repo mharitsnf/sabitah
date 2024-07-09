@@ -54,11 +54,11 @@ script = ExtResource("10_8xekr")
 
 [node name="ClueMarker" parent="ClueAreaContainer" instance=ExtResource("10_w4adh")]
 transform = Transform3D(-0.00680137, 0.999884, 0.0136368, -0.924393, -0.0114877, 0.381268, 0.38138, -0.0100126, 0.924364, 1488.41, -0.758339, -2.1055)
-clue_id = "clue_1_test"
+clue_id = "c_test_1"
 
 [node name="ClueMarker2" parent="ClueAreaContainer" instance=ExtResource("10_w4adh")]
 transform = Transform3D(0.00389969, 0.999964, -0.0075796, -0.999962, 0.00384074, -0.00777844, -0.00774905, 0.00760965, 0.999941, 1486.55, 5.70946, 11.3125)
-clue_id = "clue_2_test"
+clue_id = "c_test_2"
 
 [node name="NavWorld" type="Node" parent="."]
 

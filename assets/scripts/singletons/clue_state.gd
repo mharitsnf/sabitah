@@ -63,6 +63,9 @@ func complete_selected_clue_data() -> void:
 	confirm_data['has_reward'] = false
 	confirm_data['string'] = ""
 
+	# clear [clue_data_to_confirm]
+	clue_data_to_confirm = null
+
 func get_clues_by_status(status: ClueStatus) -> Array[ClueData]:
 	var filtered_clues: Array[ClueData] = clue_cache.filter(
 		func(cd: ClueData) -> bool:

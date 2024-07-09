@@ -18,6 +18,10 @@ func _process(_delta: float) -> void:
 	var time_data: Array = time_manager.get_game_time()
 	time_label.text = time_data[0] + ":" + time_data[1]
 
+func take_picture_screen() -> void:
+	anim.play("take_picture_screen")
+	await anim.animation_finished
+
 func show_time_container() -> void:
 	if !time_container_shown:
 		anim.play("show_time_container")

@@ -55,3 +55,7 @@ func after_entering() -> void:
 	
 	if pictures_container.get_child_count() > 0:
 		(pictures_container.get_child(0) as PictureButton).grab_focus()
+		return
+	
+	if data['is_confirmation'] and pictures_container.get_child_count() == 0:
+		confirm_button.grab_focus()
