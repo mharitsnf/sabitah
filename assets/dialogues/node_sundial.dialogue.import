@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://csvyl6o8ynlf5"
+path="res://.godot/imported/node_sundial.dialogue-2a54b433c456009ed5f7997359f56bc2.tres"
+
+[deps]
+
+source_file="res://assets/dialogues/node_sundial.dialogue"
+dest_files=["res://.godot/imported/node_sundial.dialogue-2a54b433c456009ed5f7997359f56bc2.tres"]
+
+[params]
+
+defaults=true

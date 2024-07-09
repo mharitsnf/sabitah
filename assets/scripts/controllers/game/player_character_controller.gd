@@ -10,6 +10,8 @@ enum CharacterStates {
 @export var to_island_registration_cmd: Command
 @export_group("References")
 @export var actor: CharacterActor
+@export_subgroup("Packed scenes")
+@export var node_sundial_dialogue: DialogueResource
 
 # Refs from group
 var player_boat_area: Area3D
@@ -38,6 +40,7 @@ func _ready() -> void:
 	assert(to_island_registration_cmd)
 	assert(actor)
 	assert(player_boat_area)
+	assert(node_sundial_dialogue)
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
@@ -75,6 +78,9 @@ func _add_input_prompts() -> void:
 	ip_factory.set_data("C", "Confirm clue", true)
 	input_prompts['C'] = ip_factory.get_instance()
 
+	ip_factory.set_data("G", "Register boat waypoint", false)
+	input_prompts['G'] = ip_factory.get_instance()
+
 # region Lifecycle functions
 
 func _process(_delta: float) -> void:
@@ -95,6 +101,7 @@ func delegated_process(delta: float) -> void:
 		current_actor_state.player_input_process(delta)
 
 func player_input_process(_delta: float) -> void:
+	_get_register_boat_waypoint_input()
 	_get_enter_register_island_input()
 	_get_enter_local_sundial_input()
 	_get_check_clues_input()
@@ -142,6 +149,19 @@ func _get_enter_register_island_input() -> void:
 			to_island_registration_cmd
 		)
 
+func _get_register_boat_waypoint_input() -> void:
+	if !State.local_sundial: return
+	if !State.local_sundial.first_marker_done: return
+	if Input.is_action_just_pressed("actor__register_boat_waypoint"):
+		Common.DialogueWrapper.start_dialogue(node_sundial_dialogue, "set_node_sundial")
+
+func _get_enter_local_sundial_input() -> void:
+	if !State.local_sundial: return
+	if Input.is_action_just_pressed("actor__toggle_sundial"):
+		var new_pd: ActorData = ActorData.new()
+		new_pd.set_instance(State.local_sundial)
+		State.actor_im.switch_data(new_pd)
+
 ## Input for checking if clue is corect or not
 func _get_check_clues_input() -> void:
 	if Input.is_action_just_pressed("clue__check_area"):
@@ -155,13 +175,8 @@ func _get_check_clues_input() -> void:
 			ClueState.complete_selected_clue_data()
 		else: ClueState.confirm_data.status = false
 
+		print("asdf")
 		Common.DialogueWrapper.start_dialogue(ClueState.check_dialogue, "start")
-
-func _get_enter_local_sundial_input() -> void:
-	if Input.is_action_just_pressed("actor__toggle_sundial") and State.local_sundial:
-		var new_pd: ActorData = ActorData.new()
-		new_pd.set_instance(State.local_sundial)
-		State.actor_im.switch_data(new_pd)
 
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat") and inside_player_boat_area:
@@ -193,10 +208,12 @@ func _on_local_sundial_area_entered(area: Node3D) -> void:
 	(input_prompts["T"] as InputPrompt).active = true
 	hud_layer.add_input_prompt(input_prompts["T"])
 	
-	if State.local_sundial.first_marker_done: return
-
-	(input_prompts["Y"] as InputPrompt).active = true
-	hud_layer.add_input_prompt(input_prompts["Y"])
+	if !State.local_sundial.first_marker_done:
+		(input_prompts["Y"] as InputPrompt).active = true
+		hud_layer.add_input_prompt(input_prompts["Y"])
+	else:
+		(input_prompts["G"] as InputPrompt).active = true
+		hud_layer.add_input_prompt(input_prompts["G"])
 
 func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
@@ -205,6 +222,9 @@ func _on_local_sundial_area_exited(_area: Node3D) -> void:
 
 	(input_prompts["Y"] as InputPrompt).active = false
 	hud_layer.remove_input_prompt(input_prompts["Y"])
+
+	(input_prompts["G"] as InputPrompt).active = false
+	hud_layer.remove_input_prompt(input_prompts["G"])
 
 func _on_player_boat_area_entered() -> void:
 	inside_player_boat_area = true

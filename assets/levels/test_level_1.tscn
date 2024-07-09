@@ -44,8 +44,12 @@ environment = ExtResource("3_72myd")
 [node name="Node3D" type="Node3D" parent="Islands"]
 transform = Transform3D(0.00519174, 0.999983, -0.00273308, -0.999979, 0.00520241, 0.00391597, 0.00393012, 0.00271269, 0.999989, 1485.57, 7.72877, 4.02998)
 
-[node name="LocalSundialManager" parent="Islands/Node3D" instance=ExtResource("5_k3xnn")]
+[node name="LocalSundialManager" parent="Islands/Node3D" node_paths=PackedStringArray("boat_waypoint") instance=ExtResource("5_k3xnn")]
 transform = Transform3D(0.999863, -0.0165386, -0.000101571, 0.0165385, 0.999782, 0.0127739, -0.000109719, -0.0127738, 0.999918, -8.89306, 4.77844, -5.98451)
+boat_waypoint = NodePath("../BoatWaypoint")
+
+[node name="BoatWaypoint" type="Marker3D" parent="Islands/Node3D"]
+transform = Transform3D(0.999981, 0.00618949, -1.53915e-05, -0.00618949, 0.999954, -0.00721955, -2.92929e-05, 0.0072195, 0.999973, 9.20144, 0.937378, 10.7325)
 
 [node name="TestPlatform" parent="Islands/Node3D" instance=ExtResource("5_roqsb")]
 

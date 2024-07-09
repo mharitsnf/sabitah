@@ -1,6 +1,7 @@
 class_name LocalSundialManager extends SundialManager
 
 @export var island_name: String = "Primarina Island"
+@export var boat_waypoint: Marker3D
 var island_alias: String = ""
 var geotag_id: String = ""
 
@@ -9,6 +10,9 @@ var second_marker_done: bool = false
 
 func _ready() -> void:
 	super()
+
+	assert(boat_waypoint)
+
 	State.local_sundials.append(self)
 	_assign_geotag_id()
 	_assign_island_alias()

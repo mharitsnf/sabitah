@@ -6,5 +6,5 @@
 msaa_3d = 2
 screen_space_aa = 1
 scaling_3d_mode = 2
-scaling_3d_scale = 1.25
+scaling_3d_scale = 0.77
 fsr_sharpness = 2.0

@@ -1,0 +1,15 @@
+~ set_node_sundial
+Narrator: {{State.local_sundial.get_island_name()}} has become the current node island!
+do State.node_sundial = State.local_sundial
+=> END
+
+~ teleport
+if State.has_node_sundial():
+	Narrator: Teleport to the current node island, {{State.node_sundial.get_island_name()}}?
+	- Yes
+		do State.teleport_to_node_sundial.emit()
+	- No
+		=> END
+else:
+	Narrator: You don't have a node island right now! Approach a registered island sundial and press G to register a node island.
+=> END

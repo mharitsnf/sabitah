@@ -60,11 +60,17 @@ var waypoint_markers: Array[WaypointMarker]
 var local_sundials: Array[LocalSundialManager]
 
 var local_sundial: LocalSundialManager
+var node_sundial: LocalSundialManager
 var local_sundial_data: Dictionary = {}
+
+signal teleport_to_node_sundial
 
 func get_island_lat_long_name(lat: float, long: float) -> String:
 	return str(lat) + "°N, " + str(long) + "°S Island"
 
+func has_node_sundial() -> bool:
+	return node_sundial != null
+	
 # region References
 
 ## Reference to the game scene's ActorInputManager.
