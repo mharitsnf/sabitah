@@ -77,10 +77,11 @@ func get_euler_rotation() -> Array:
 
 func _zoom_mouse(event: InputEventMouseButton) -> void:
 	if !allow_zoom: return
-	if spring_length_settings: return
 
 	if zoom_with_spring_length:
+		if !spring_length_settings: return
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			print("asdf")
 			_set_spring_length_input(spring_length - spring_length_settings.change_rate)
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			_set_spring_length_input(spring_length + spring_length_settings.change_rate)

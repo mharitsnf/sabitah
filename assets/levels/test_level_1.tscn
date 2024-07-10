@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=23 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="11_h16q6"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
+[ext_resource type="PackedScene" uid="uid://v7022dbq6wn2" path="res://assets/prefabs/post_processing/outline_ppq.tscn" id="18_3h44h"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4qtmo"]
 radius = 100.0
@@ -96,6 +97,8 @@ skeleton = NodePath("../..")
 transform = Transform3D(0.00870242, 0.880115, 0.47468, -0.999961, 0.00833766, 0.00287347, -0.00142873, -0.474687, 0.880154, 1499.49, 12.9997, 34.9807)
 
 [node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("10_bq821")]
+
+[node name="OutlinePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("18_3h44h")]
 
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 

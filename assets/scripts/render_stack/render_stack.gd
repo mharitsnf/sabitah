@@ -1,5 +1,7 @@
 class_name RenderStack extends Node
 
+@export_group("Parameters")
+@export var noise_tex: Texture2D
 @export_group("References")
 @export var level_viewport: Viewport
 @export_subgroup("Shaders")
@@ -9,6 +11,7 @@ class_name RenderStack extends Node
 @export var kuwahara_2_shader: Shader
 @export var kuwahara_3_shader: Shader
 @export var kuwahara_4_shader: Shader
+@export var grain_shader: Shader
 @export_subgroup("Packed scenes")
 @export var pp_pass_pscn: PackedScene
 
@@ -21,6 +24,7 @@ func _ready() -> void:
 	assert(kuwahara_2_shader)
 	assert(kuwahara_3_shader)
 	assert(kuwahara_4_shader)
+	assert(grain_shader)
 
 	# Group.add("final_viewport", level_viewport)
 
@@ -78,7 +82,6 @@ func _ready() -> void:
 
 	# Kuwahara 4
 	var kwh_4_pass: PostProcessingPass = pp_pass_pscn.instantiate()
-	Group.add("final_viewport", (kwh_4_pass as PostProcessingPass).viewport)
 	mat = ShaderMaterial.new()
 	mat.shader = kuwahara_4_shader
 	mat.resource_local_to_scene = true
@@ -87,3 +90,16 @@ func _ready() -> void:
 	(kwh_4_pass as PostProcessingPass).game_texture.material = mat
 	add_child.call_deferred(kwh_4_pass)
 	await kwh_4_pass.ready
+
+	# grain
+	var grain_pass: PostProcessingPass = pp_pass_pscn.instantiate()
+	Group.add("final_viewport", (grain_pass as PostProcessingPass).viewport)
+	mat = ShaderMaterial.new()
+	mat.shader = grain_shader
+	mat.resource_local_to_scene = true
+	mat.set_shader_parameter("noise_amount", 2)
+	mat.set_shader_parameter("blend_opacity", .2)
+	mat.set_shader_parameter("main_tex", (kwh_4_pass as PostProcessingPass).viewport.get_texture())
+	(grain_pass as PostProcessingPass).game_texture.material = mat
+	add_child.call_deferred(grain_pass)
+	await grain_pass.ready

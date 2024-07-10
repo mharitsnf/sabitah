@@ -1,20 +1,39 @@
-[gd_resource type="Environment" format=3 uid="uid://cdj1j2owe1rni"]
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://cdj1j2owe1rni"]
+
+[sub_resource type="Gradient" id="Gradient_os3fo"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.660131, 1)
+colors = PackedColorArray(0.05, 0.05, 0.05, 1, 0.466901, 0.466901, 0.466901, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j7eoh"]
+gradient = SubResource("Gradient_os3fo")
 
 [resource]
 background_mode = 1
 background_color = Color(0.117647, 0.0705882, 0.34902, 1)
 ambient_light_source = 3
 tonemap_mode = 3
-tonemap_exposure = 0.9
-tonemap_white = 8.0
+tonemap_exposure = 0.85
+tonemap_white = 16.0
 ssao_enabled = true
 ssao_intensity = 8.0
+ssao_detail = 5.0
 ssil_enabled = true
-ssil_radius = 10.0
 sdfgi_enabled = true
+sdfgi_bounce_feedback = 0.3
+sdfgi_cascades = 2
 sdfgi_min_cell_size = 8.0
-glow_intensity = 3.32
+sdfgi_y_scale = 0
+glow_enabled = true
+glow_levels/1 = 1.0
+glow_levels/3 = 0.0
+glow_levels/5 = 0.0
+glow_levels/6 = 0.5
+glow_levels/7 = 2.0
+glow_intensity = 0.2
+glow_bloom = 0.6
 volumetric_fog_density = 0.0001
 adjustment_enabled = true
-adjustment_brightness = 1.2
-adjustment_contrast = 0.9
+adjustment_brightness = 1.1
+adjustment_contrast = 0.85
+adjustment_color_correction = SubResource("GradientTexture1D_j7eoh")

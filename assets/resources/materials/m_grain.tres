@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c4ryy6e8hanl4"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/grain.gdshader" id="1_rjnvm"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f2sig"]
+frequency = 0.0353
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r6nh0"]
+noise = SubResource("FastNoiseLite_f2sig")
+
+[resource]
+shader = ExtResource("1_rjnvm")
+shader_parameter/noise_amount = 1.0
+shader_parameter/blend_opacity = 0.5
+shader_parameter/enabled = true
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_r6nh0")
