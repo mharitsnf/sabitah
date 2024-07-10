@@ -7,7 +7,7 @@ func _ready() -> void:
 	assert(buttons_container)
 
 func _mount_collectible_menu_buttons() -> void:
-	var collectibles: Array[CollectibleData] = CollectibleState.get_collectibles({ 'status': CollectibleState.CollectibleStatus.UNOBTAINED })
+	var collectibles: Array[CollectibleData] = CollectibleState.get_collectibles({ 'status': CollectibleState.CollectibleStatus.OBTAINED })
 	for cd: CollectibleData in collectibles:
 		var menu_button: GenericButton = cd.get_menu_button()
 		buttons_container.add_child.call_deferred(menu_button)
