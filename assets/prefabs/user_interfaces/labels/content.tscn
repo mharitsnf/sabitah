@@ -3,6 +3,6 @@
 [node name="Content" type="Label"]
 custom_minimum_size = Vector2(80, 0)
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 18
 text = "[CONTENT]"
 autowrap_mode = 2

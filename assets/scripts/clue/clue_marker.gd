@@ -5,7 +5,7 @@ class_name ClueMarker extends Marker3D
 func _ready() -> void:
 	assert(clue_id)
 
-	var cd: ClueData = ClueState.get_clue_data_from_id(clue_id)
+	var cd: ClueData = ClueState.get_clue_data_by_id(clue_id)
 	assert(cd)
 
 	var ca: ClueArea = ClueState.create_clue_area()

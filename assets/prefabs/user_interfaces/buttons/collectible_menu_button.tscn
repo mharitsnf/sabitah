@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dprvjs03hj1j7"]
+
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="1_5ec1g"]
+
+[node name="CollectibleMenuButton" instance=ExtResource("1_5ec1g")]
+custom_minimum_size = Vector2(80, 45)
+size_flags_horizontal = 3

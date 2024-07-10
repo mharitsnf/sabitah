@@ -175,7 +175,7 @@ func _get_check_clues_input() -> void:
 		menu_layer.navigate_to(State.UserInterfaces.CLUES_MENU, { 'is_confirmation': true })
 		await (menu_layer as MenuLayer).menu_cleared
 		
-		var area: ClueArea = (ClueState.get_clue_data_from_id(ClueState.clue_id_to_confirm) as ClueData).get_clue_area()
+		var area: ClueArea = (ClueState.get_clue_data_by_id(ClueState.clue_id_to_confirm) as ClueData).get_clue_area()
 		
 		if (clue_areas.has(area)):
 			ClueState.confirm_data.status = true

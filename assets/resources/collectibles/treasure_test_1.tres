@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Collectible" load_steps=2 format=3 uid="uid://c4gp1vqe4ea04"]
+
+[ext_resource type="Script" path="res://assets/scripts/collectible/collectible.gd" id="1_lqhli"]
+
+[resource]
+script = ExtResource("1_lqhli")
+id = "cll_test_1"
+title = "Treasure X"
+description = "A treasure of wonder, hidden by the ancient starbearer Anierie. Represents the unwavering strength of Primarina Island."
+status = 0
+type = 0

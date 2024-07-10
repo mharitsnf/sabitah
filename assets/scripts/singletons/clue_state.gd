@@ -50,10 +50,10 @@ func load_clues() -> void:
 		file_name = dir.get_next()
 
 func unlock_reward() -> void:
-	var cd: ClueData = get_clue_data_from_id(clue_id_to_confirm)
+	var cd: ClueData = get_clue_data_by_id(clue_id_to_confirm)
 
 	# check if reward is another clue
-	var reward_cd: ClueData = get_clue_data_from_id(cd.get_clue().reward_id)
+	var reward_cd: ClueData = get_clue_data_by_id(cd.get_clue().reward_id)
 	if reward_cd and reward_cd.get_clue().status == ClueState.ClueStatus.HIDDEN:
 		reward_cd.set_clue_status(ClueState.ClueStatus.ACTIVE)
 		confirm_data['has_reward'] = true
@@ -70,7 +70,7 @@ func unlock_reward() -> void:
 	clue_id_to_confirm = ""
 
 func change_clue_status(id: String, new_status: ClueStatus) -> void:
-	var cd: ClueData = get_clue_data_from_id(id)
+	var cd: ClueData = get_clue_data_by_id(id)
 	cd.set_clue_status(new_status)
 
 func get_clues_by_status(status: ClueStatus) -> Array[ClueData]:
@@ -80,7 +80,7 @@ func get_clues_by_status(status: ClueStatus) -> Array[ClueData]:
 	)
 	return filtered_clues
 
-func get_clue_data_from_id(clue_id: String) -> ClueData:
+func get_clue_data_by_id(clue_id: String) -> ClueData:
 	var cd: Array[ClueData] = clue_cache.filter(
 		func(_cd: ClueData) -> bool:
 			return _cd.get_clue().id == clue_id

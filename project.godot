@@ -22,6 +22,7 @@ Common="*res://assets/scripts/singletons/common.gd"
 State="*res://assets/scripts/singletons/state.gd"
 PictureState="*res://assets/scripts/singletons/picture_state.gd"
 ClueState="*res://assets/scripts/singletons/clue_state.gd"
+CollectibleState="*res://assets/scripts/singletons/collectible_state.gd"
 InputHelper="*res://addons/input_helper/input_helper.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
@@ -38,7 +39,7 @@ general/balloon_path="res://addons/dialogue_manager/example_balloon/example_ball
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/always_on_top=true
+window/size/mode=3
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=2
 
