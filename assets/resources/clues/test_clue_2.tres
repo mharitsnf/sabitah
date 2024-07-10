@@ -8,4 +8,4 @@ id = "c_test_2"
 title = "Clue 2"
 status = 0
 description = "This is clue 2."
-reward_id = ""
+reward_id = "cll_test_1"

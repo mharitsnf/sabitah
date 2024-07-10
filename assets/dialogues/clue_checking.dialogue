@@ -5,7 +5,9 @@ Narrator: And the result is...
 if ClueState.confirm_data.status:
 	Narrator: Correct![wait=0.5] You have arrived at the clue's location!
 	if ClueState.confirm_data.has_reward:
-		Narrator: The clue reveals a treasure... You got a new {{ClueState.confirm_data.type}},[wait=1] {{ClueState.confirm_data.string}}!
+		Narrator: The clue reveals something... You got a new {{ClueState.confirm_data.type}},[wait=1] {{ClueState.confirm_data.string}}!
+		if ClueState.confirm_data.type == "treasure":
+			Narrator: The {{ClueState.confirm_data.type}} is now stored in your collectible inventory.
 else:
 	Narrator: Incorrect! You are not at the correct location. Try again!
 => END

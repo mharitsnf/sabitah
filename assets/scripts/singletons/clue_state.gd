@@ -61,6 +61,15 @@ func unlock_reward() -> void:
 		confirm_data['string'] = reward_cd.get_clue().title
 		return
 	
+	# check if reward is a collectible
+	var reward_clld: CollectibleData = CollectibleState.get_collectible_data_by_id(cd.get_clue().reward_id)
+	if reward_clld and reward_clld.get_collectible().status == CollectibleState.CollectibleStatus.UNOBTAINED:
+		reward_clld.set_collectible_status(CollectibleState.CollectibleStatus.OBTAINED)
+		confirm_data['has_reward'] = true
+		confirm_data['type'] = 'treasure'
+		confirm_data['string'] = reward_clld.get_collectible().title
+		return
+
 	# no reward
 	confirm_data['has_reward'] = false
 	confirm_data['type'] = ""
