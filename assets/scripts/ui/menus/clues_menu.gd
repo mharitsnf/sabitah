@@ -19,18 +19,18 @@ func set_data(new_data: Dictionary) -> void:
 
 func _mount_clues_menu_buttons() -> void:
 	if !data['is_confirmation']:
-		for cd: ClueData in ClueState.get_clues_by_status(ClueState.ClueStatus.ACTIVE):
+		for cd: ClueData in ClueState.get_clues({ 'status': ClueState.ClueStatus.ACTIVE }):
 			var clue_menu_button: GenericButton = cd.get_clue_menu_button()
 			(clue_menu_button.args[0] as Dictionary).is_confirmation = false
 			active_clues_container.add_child.call_deferred(clue_menu_button)
 		
-		for cd: ClueData in ClueState.get_clues_by_status(ClueState.ClueStatus.COMPLETED):
+		for cd: ClueData in ClueState.get_clues({ 'status': ClueState.ClueStatus.COMPLETED }):
 			var clue_menu_button: GenericButton = cd.get_clue_menu_button()
 			(clue_menu_button.args[0] as Dictionary).is_confirmation = false
 			completed_clues_container.add_child.call_deferred(clue_menu_button)
 
 	else:
-		for cd: ClueData in ClueState.get_clues_by_status(ClueState.ClueStatus.ACTIVE):
+		for cd: ClueData in ClueState.get_clues({ 'status': ClueState.ClueStatus.ACTIVE }):
 			var clue_menu_button: GenericButton = cd.get_clue_menu_button()
 			(clue_menu_button.args[0] as Dictionary).is_confirmation = true
 			active_clues_container.add_child.call_deferred(clue_menu_button)

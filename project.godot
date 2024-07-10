@@ -39,7 +39,7 @@ general/balloon_path="res://addons/dialogue_manager/example_balloon/example_ball
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=3
+window/size/always_on_top=true
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=2
 

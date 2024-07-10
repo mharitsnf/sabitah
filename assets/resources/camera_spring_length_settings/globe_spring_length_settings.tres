@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CameraSpringLengthSettings" load_steps=2 format=3 uid="uid://cq5c8k1c5g8qe"]
+
+[ext_resource type="Script" path="res://assets/scripts/camera_spring_length_settings/camera_spring_length_settings.gd" id="1_c0wj5"]
+
+[resource]
+script = ExtResource("1_c0wj5")
+change_rate = 20.0
+min_length = 100.0
+max_length = 250.0

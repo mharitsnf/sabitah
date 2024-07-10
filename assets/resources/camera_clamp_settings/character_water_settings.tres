@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CameraClampSettings" load_steps=2 format=3 uid="uid://bpipdkuothguc"]
+
+[ext_resource type="Script" path="res://assets/scripts/camera_clamp_settings/camera_clamp_settings.gd" id="1_sekna"]
+
+[resource]
+script = ExtResource("1_sekna")
+limit = Vector2(-10, 80)

@@ -3,8 +3,7 @@ class_name ThirdPersonCamera extends VirtualCamera
 ## If disabled, the camera will zoom with spring length instead of fov.
 @export_group("Spring length zoom")
 @export var zoom_with_spring_length: bool = false
-@export var spring_length_change_rate: float = 10.
-@export var spring_length_limit: Vector2 = Vector2(0., 100.)
+@export var spring_length_settings: CameraSpringLengthSettings
 @export_group("Tween")
 @export var set_rotation_tween_settings: TweenSettings
 @export_group("Parameters")
@@ -78,12 +77,13 @@ func get_euler_rotation() -> Array:
 
 func _zoom_mouse(event: InputEventMouseButton) -> void:
 	if !allow_zoom: return
+	if spring_length_settings: return
 
 	if zoom_with_spring_length:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			_set_spring_length_input(spring_length - spring_length_change_rate)
+			_set_spring_length_input(spring_length - spring_length_settings.change_rate)
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			_set_spring_length_input(spring_length + spring_length_change_rate)
+			_set_spring_length_input(spring_length + spring_length_settings.change_rate)
 	else:
 		super(event)
 
@@ -97,9 +97,9 @@ func _on_stop_smooth_spring_length_input() -> void:
 
 ## Private. Clamps the FoV values to its limits specified in the [fov_settings] variable.
 func _clamp_spring_length() -> void:
-	if !fov_settings: return
-	spring_length = clamp(spring_length, spring_length_limit.x, spring_length_limit.y)
-	_spring_length_input = clamp(_spring_length_input, spring_length_limit.x, spring_length_limit.y)
+	if !spring_length_settings: return
+	spring_length = clamp(spring_length, spring_length_settings.min_length, spring_length_settings.max_length)
+	_spring_length_input = clamp(_spring_length_input, spring_length_settings.min_length, spring_length_settings.max_length)
 
 func _rotate_camera() -> void:
 	if !y_rot_target and !x_rot_target: return

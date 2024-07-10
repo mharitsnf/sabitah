@@ -82,25 +82,22 @@ func change_clue_status(id: String, new_status: ClueStatus) -> void:
 	var cd: ClueData = get_clue_data_by_id(id)
 	cd.set_clue_status(new_status)
 
-func get_clues_by_status(status: ClueStatus) -> Array[ClueData]:
-	var filtered_clues: Array[ClueData] = clue_cache.filter(
-		func(cd: ClueData) -> bool:
-			return cd.get_clue().status == status
-	)
-	return filtered_clues
+func get_clues(filters: Dictionary) -> Array[ClueData]:
+	# example filter:
+	# { 'status': 'ClueStatus.HIDDEN' }
+
+	var result: Array[ClueData] = clue_cache
+	for key: String in filters.keys():
+		result = result.filter(
+			func(cd: ClueData) -> bool:
+				return (cd as ClueData).get_clue().get(key) == filters[key]
+		)
+	return result
 
 func get_clue_data_by_id(clue_id: String) -> ClueData:
 	var cd: Array[ClueData] = clue_cache.filter(
 		func(_cd: ClueData) -> bool:
 			return _cd.get_clue().id == clue_id
-	)
-	if cd.is_empty(): return null
-	return cd[0]
-
-func get_clue_data_from_area(area: ClueArea) -> ClueData:
-	var cd: Array[ClueData] = clue_cache.filter(
-		func(_cd: ClueData) -> bool:
-			return _cd.get_clue_area() == area
 	)
 	if cd.is_empty(): return null
 	return cd[0]

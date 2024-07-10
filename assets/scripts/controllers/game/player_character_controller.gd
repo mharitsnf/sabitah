@@ -5,11 +5,19 @@ enum CharacterStates {
 }
 
 @export var states: Array[ActorState]
-@export_group("Switch scene commands")
+@export_group("Parameters")
+@export_subgroup("First person camera clamp settings")
+@export var ground_clamp_settings: CameraClampSettings
+@export var water_clamp_settings: CameraClampSettings
+@export_subgroup("Camera offset")
+@export var ground_offset: Vector3
+@export var water_offset: Vector3
 @export_subgroup("Registering island")
 @export var to_island_registration_cmd: Command
 @export_group("References")
 @export var actor: CharacterActor
+@export var tpc: ThirdPersonCamera
+@export var fpc: FirstPersonCamera
 @export_subgroup("Packed scenes")
 @export var node_sundial_dialogue: DialogueResource
 
@@ -102,6 +110,13 @@ func _physics_process(delta: float) -> void:
 func delegated_process(delta: float) -> void:
 	if ignore_area_check_time_elapsed < IGNORE_AREA_CHECK_DURATION:
 		ignore_area_check_time_elapsed += delta
+
+	if actor.is_submerged():
+		tpc.offset = water_offset
+		fpc.clamp_settings = water_clamp_settings
+	else:
+		tpc.offset = ground_offset
+		fpc.clamp_settings = ground_clamp_settings
 
 	if current_actor_state:
 		current_actor_state.delegated_process(delta)

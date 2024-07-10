@@ -63,7 +63,7 @@ func player_input_process(_delta: float) -> void:
 	_get_enter_sundial_input()
 	_get_exit_ship_input()
 	_get_gas_input()
-	_get_brake_input()
+	# _get_brake_input()
 	_get_rotate_input()
 
 # region Input functions
