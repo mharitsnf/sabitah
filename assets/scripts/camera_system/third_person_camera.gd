@@ -19,8 +19,7 @@ class_name ThirdPersonCamera extends VirtualCamera
 		if spring_arm: spring_arm.spring_length = value
 
 @export_group("References")
-@export_subgroup("Rotation")
-@export var gimbal: Node3D
+@export_subgroup("Spring arm")
 @export var spring_arm: SpringArm3D
 @export_subgroup("Offset")
 @export var offset_node: Node3D
@@ -67,14 +66,14 @@ func set_euler_rotation(y: float, x: float) -> void:
 func lerp_euler_rotation_to_target_rotation() -> void:
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(rotation_target, 'rotation', Vector3(0., target_y_rotation, 0.), set_rotation_tween_settings.tween_duration).set_ease(set_rotation_tween_settings.tween_ease).set_trans(set_rotation_tween_settings.tween_trans)
-	tween.tween_property(gimbal, 'rotation', Vector3(target_x_rotation, 0., 0.), set_rotation_tween_settings.tween_duration).set_ease(set_rotation_tween_settings.tween_ease).set_trans(set_rotation_tween_settings.tween_trans)
+	tween.tween_property(y_rot_target, 'rotation', Vector3(0., target_y_rotation, 0.), set_rotation_tween_settings.tween_duration).set_ease(set_rotation_tween_settings.tween_ease).set_trans(set_rotation_tween_settings.tween_trans)
+	tween.tween_property(x_rot_target, 'rotation', Vector3(target_x_rotation, 0., 0.), set_rotation_tween_settings.tween_duration).set_ease(set_rotation_tween_settings.tween_ease).set_trans(set_rotation_tween_settings.tween_trans)
 	await tween.finished
 
 func get_euler_rotation() -> Array:
 	return [
-		rotation_target.rotation.y,
-		gimbal.rotation.x,
+		y_rot_target.rotation.y,
+		x_rot_target.rotation.x,
 	]
 
 func _zoom_mouse(event: InputEventMouseButton) -> void:
@@ -103,10 +102,10 @@ func _clamp_spring_length() -> void:
 	_spring_length_input = clamp(_spring_length_input, spring_length_limit.x, spring_length_limit.y)
 
 func _rotate_camera() -> void:
-	if !rotation_target and !gimbal: return
-	rotation_target.rotate_object_local(Vector3.UP, _x_rot_input)
-	gimbal.rotate_object_local(Vector3.RIGHT, _y_rot_input)
+	if !y_rot_target and !x_rot_target: return
+	y_rot_target.rotate_object_local(Vector3.UP, _x_rot_input)
+	x_rot_target.rotate_object_local(Vector3.RIGHT, _y_rot_input)
 
 func _clamp_rotation() -> void:
-	if !clamp_settings or !gimbal: return
-	gimbal.rotation_degrees.x = clamp(gimbal.rotation_degrees.x, clamp_settings.limit.x, clamp_settings.limit.y)
+	if !clamp_settings or !x_rot_target: return
+	x_rot_target.rotation_degrees.x = clamp(x_rot_target.rotation_degrees.x, clamp_settings.limit.x, clamp_settings.limit.y)

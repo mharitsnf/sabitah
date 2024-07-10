@@ -69,7 +69,8 @@ var actual_fov: float
 	set(value):
 		adjusting_basis = value
 		if current_follow_data: current_follow_data.set_update_rotation(!value)
-@export var rotation_target: Node3D
+@export var y_rot_target: Node3D
+@export var x_rot_target: Node3D
 @export var clamp_settings: CameraClampSettings
 
 @export_group("Following")

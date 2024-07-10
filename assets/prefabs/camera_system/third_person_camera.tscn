@@ -6,23 +6,23 @@
 [ext_resource type="Resource" uid="uid://dpryn8gg66bb2" path="res://assets/resources/camera_fov_settings/default_fov.tres" id="3_xpjkl"]
 [ext_resource type="Resource" uid="uid://c5o0j76wwy1ba" path="res://assets/resources/camera_clamp_settings/default_limits.tres" id="4_saf8t"]
 
-[node name="ThirdPersonCamera" type="Node3D" node_paths=PackedStringArray("gimbal", "spring_arm", "offset_node", "camera_target", "rotation_target")]
+[node name="ThirdPersonCamera" type="Node3D" node_paths=PackedStringArray("spring_arm", "offset_node", "camera_target", "y_rot_target", "x_rot_target")]
 script = ExtResource("1_046a1")
-gimbal = NodePath("RotationTarget/SpringArm3D")
-spring_arm = NodePath("RotationTarget/SpringArm3D")
-offset_node = NodePath("RotationTarget")
-camera_target = NodePath("RotationTarget/SpringArm3D")
+spring_arm = NodePath("YRotTarget/SpringArm3D")
+offset_node = NodePath("YRotTarget")
+camera_target = NodePath("YRotTarget/SpringArm3D")
 camera_adjusting_basis = false
 camera_tween_settings = ExtResource("2_tamkl")
 rotation_settings = ExtResource("3_wjig2")
 fov_settings = ExtResource("3_xpjkl")
-rotation_target = NodePath("RotationTarget")
+y_rot_target = NodePath("YRotTarget")
+x_rot_target = NodePath("YRotTarget/SpringArm3D")
 clamp_settings = ExtResource("4_saf8t")
 tween_settings = ExtResource("2_tamkl")
 
-[node name="RotationTarget" type="Node3D" parent="."]
+[node name="YRotTarget" type="Node3D" parent="."]
 
-[node name="SpringArm3D" type="SpringArm3D" parent="RotationTarget"]
+[node name="SpringArm3D" type="SpringArm3D" parent="YRotTarget"]
 collision_mask = 0
 
 [connection signal="transition_finished" from="." to="." method="_transition_finished"]

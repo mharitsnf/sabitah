@@ -156,7 +156,7 @@ class NavigationAIFactory extends RefCounted:
 	func _init(__main_actor: BaseActor) -> void:
 		_main_actor = __main_actor
 		_nav_ai = _nav_ai_pscn.instantiate()
-		(_nav_ai as NavigationAI).max_speed = _main_actor.xz_speed_limit * State.MAIN_TO_NAV_SCALE
+		(_nav_ai as NavigationAI).max_speed = _main_actor.ground_speed_limit * State.MAIN_TO_NAV_SCALE
 		(_nav_ai as NavigationAI).move_speed = (_main_actor as AIActor).move_speed * State.MAIN_TO_NAV_SCALE
 
 	func update_ai_position() -> void:

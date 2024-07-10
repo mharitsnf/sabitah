@@ -6,23 +6,24 @@
 [ext_resource type="Resource" uid="uid://dpryn8gg66bb2" path="res://assets/resources/camera_fov_settings/default_fov.tres" id="3_gsdwc"]
 [ext_resource type="Resource" uid="uid://c5o0j76wwy1ba" path="res://assets/resources/camera_clamp_settings/default_limits.tres" id="4_15tnk"]
 
-[node name="FirstPersonCamera" type="Node3D" node_paths=PackedStringArray("offset_target", "camera_target", "rotation_target")]
+[node name="FirstPersonCamera" type="Node3D" node_paths=PackedStringArray("offset_target", "camera_target", "y_rot_target", "x_rot_target")]
 script = ExtResource("1_7xa68")
-offset_target = NodePath("RotationTarget/Gimbal/Offset")
-camera_target = NodePath("RotationTarget/Gimbal/Offset")
+offset_target = NodePath("YRotTarget/XRotTarget/Offset")
+camera_target = NodePath("YRotTarget/XRotTarget/Offset")
 camera_adjusting_basis = false
 camera_tween_settings = ExtResource("2_b2co1")
 rotation_settings = ExtResource("3_7qp6o")
 allow_zoom = true
 fov_settings = ExtResource("3_gsdwc")
-rotation_target = NodePath("RotationTarget")
+y_rot_target = NodePath("YRotTarget")
+x_rot_target = NodePath("YRotTarget/XRotTarget")
 clamp_settings = ExtResource("4_15tnk")
 tween_settings = ExtResource("2_b2co1")
 
-[node name="RotationTarget" type="Node3D" parent="."]
+[node name="YRotTarget" type="Node3D" parent="."]
 
-[node name="Gimbal" type="Node3D" parent="RotationTarget"]
+[node name="XRotTarget" type="Node3D" parent="YRotTarget"]
 
-[node name="Offset" type="Node3D" parent="RotationTarget/Gimbal"]
+[node name="Offset" type="Node3D" parent="YRotTarget/XRotTarget"]
 
 [connection signal="transition_finished" from="." to="." method="_transition_finished"]

@@ -1,7 +1,8 @@
 class_name BaseActor extends RigidBody3D
 
 @export_group("Horizontal movement")
-@export var xz_speed_limit: float = 7.5
+@export var ground_speed_limit: float = 7.5
+@export var water_speed_limit: float = 7.5
 @export_group("Buoyancy settings")
 @export_subgroup("Water normal settings")
 ## If true, the [normal_target] will adjust its rotation along the water surface normal.
@@ -56,8 +57,9 @@ func _clamp_xz_velocity(state: PhysicsDirectBodyState3D) -> void:
 	var flat_vel: Vector3 = state.transform.basis.inverse() * state.linear_velocity
 	var xz_vel: Vector3 = Vector3(flat_vel.x, 0., flat_vel.z)
 	var speed: float = xz_vel.length()
-	if speed > xz_speed_limit:
-		var limited_vel: Vector3 = xz_vel.normalized() * xz_speed_limit
+	var limit: float = ground_speed_limit if !is_submerged() else water_speed_limit
+	if speed > limit:
+		var limited_vel: Vector3 = xz_vel.normalized() * limit
 		limited_vel.y = flat_vel.y
 		state.linear_velocity = state.transform.basis * limited_vel
 

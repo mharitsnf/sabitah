@@ -91,9 +91,9 @@ func _process(_delta: float) -> void:
 	actor.rotate_visuals(main_camera.global_basis, h_input)
 
 func _physics_process(delta: float) -> void:
-	var ref_basis: Basis = main_camera.global_basis
-	if actor.is_on_slope():
-		ref_basis = Basis(Common.Geometry.recalculate_quaternion(main_camera.global_basis, actor.ground_normal)).orthonormalized()
+	var y_rot_target: Node3D = main_camera.follow_target.y_rot_target
+	var ref_basis: Basis = y_rot_target.global_basis
+	if actor.is_on_slope(): ref_basis = Basis(Common.Geometry.recalculate_quaternion(main_camera.global_basis, actor.ground_normal)).orthonormalized()
 	actor.move(ref_basis, h_input)
 
 	if current_actor_state:

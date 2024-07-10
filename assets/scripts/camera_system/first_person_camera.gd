@@ -8,8 +8,6 @@ class_name FirstPersonCamera extends VirtualCamera
 		offset = value
 		if offset_target: offset_target.position = value
 
-@onready var gimbal: Node3D = $RotationTarget/Gimbal
-
 var final_viewport: Viewport
 
 func _ready() -> void:
@@ -48,10 +46,10 @@ func _create_picture() -> void:
 	PictureState.create_picture_cache(pic)
 
 func _rotate_camera() -> void:
-	if rotation_target and gimbal: 
-		rotation_target.rotate_object_local(Vector3.UP, _x_rot_input)
-		gimbal.rotate_object_local(Vector3.RIGHT, _y_rot_input)
+	if !y_rot_target and !x_rot_target: return
+	y_rot_target.rotate_object_local(Vector3.UP, _x_rot_input)
+	x_rot_target.rotate_object_local(Vector3.RIGHT, _y_rot_input)
 
 func _clamp_rotation() -> void:
-	if !clamp_settings or !gimbal: return
-	gimbal.rotation_degrees.x = clamp(gimbal.rotation_degrees.x, clamp_settings.limit.x, clamp_settings.limit.y)
+	if !clamp_settings or !x_rot_target: return
+	x_rot_target.rotation_degrees.x = clamp(x_rot_target.rotation_degrees.x, clamp_settings.limit.x, clamp_settings.limit.y)

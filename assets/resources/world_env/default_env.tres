@@ -16,5 +16,5 @@ sdfgi_min_cell_size = 8.0
 glow_intensity = 3.32
 volumetric_fog_density = 0.0001
 adjustment_enabled = true
-adjustment_brightness = 1.05
+adjustment_brightness = 1.2
 adjustment_contrast = 0.9

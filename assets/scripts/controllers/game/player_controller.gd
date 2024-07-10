@@ -31,11 +31,11 @@ func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
 	if input_prompts.is_empty(): return
 	if new_vc is FirstPersonCamera:
-		(input_prompts['RMB'] as InputPrompt).active = true
-		hud_layer.add_input_prompt((input_prompts['RMB'] as InputPrompt))
+		(input_prompts['LMB'] as InputPrompt).active = true
+		hud_layer.add_input_prompt((input_prompts['LMB'] as InputPrompt))
 	else:
-		(input_prompts['RMB'] as InputPrompt).active = false
-		hud_layer.remove_input_prompt((input_prompts['RMB'] as InputPrompt))
+		(input_prompts['LMB'] as InputPrompt).active = false
+		hud_layer.remove_input_prompt((input_prompts['LMB'] as InputPrompt))
 
 ## Runs when the controller is entered.
 func enter_controller() -> void:
@@ -43,8 +43,12 @@ func enter_controller() -> void:
 
 func _add_input_prompts() -> void:
 	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-	ip_factory.set_data("RMB", "Take picture")
+
+	ip_factory.set_data("RMB", "Switch camera", true)
 	input_prompts['RMB'] = ip_factory.get_instance()
+	
+	ip_factory.set_data("LMB", "Take picture")
+	input_prompts['LMB'] = ip_factory.get_instance()
 
 func delegated_process(_delta: float) -> void:
 	pass
