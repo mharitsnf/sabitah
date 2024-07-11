@@ -97,6 +97,7 @@ skeleton = NodePath("../..")
 transform = Transform3D(0.00870242, 0.880115, 0.47468, -0.999961, 0.00833766, 0.00287347, -0.00142873, -0.474687, 0.880154, 1499.49, 12.9997, 34.9807)
 
 [node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("10_bq821")]
+visible = true
 
 [node name="OutlinePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("18_3h44h")]
 

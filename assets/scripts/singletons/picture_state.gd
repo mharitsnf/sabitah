@@ -4,8 +4,8 @@ const PICTURE_FOLDER_PATH: String = "res://assets/resources/pictures/"
 const PICTURE_UNCATEGORIZED_FOLDER: String = "uncategorized/"
 
 var filter_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/generic_toggle_button.tscn")
-var all_filters: Array[FilterData] = []
-var active_filters: Array[FilterData] = []
+var all_filters: Array[Dictionary] = []
+var active_filters: Array[Dictionary] = []
 
 var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
 var picture_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_toggle_button.tscn")
@@ -13,9 +13,6 @@ var picture_cache: Array[PictureData] = []
 var pictures_to_delete: Array[Picture] = []
 
 var pictures_to_be_geotagged: Array[Picture] = []
-
-signal active_filter_added(filter_data: FilterData)
-signal active_filter_removed(filter_data: FilterData)
 
 func _ready() -> void:
 	load_pictures()
@@ -47,27 +44,25 @@ func save_pictures() -> void:
 		DirAccess.remove_absolute(pic.resource_path)
 
 ## Adds an filter to the active filter array.
-func add_active_filter(fd: FilterData) -> void:
+func add_active_filter(fd: Dictionary) -> void:
 	if !active_filters.has(fd):
 		active_filters.append(fd)
-		active_filter_added.emit(fd)
 
 ## Removes an active filter.
-func remove_active_filter(fd: FilterData) -> void:
+func remove_active_filter(fd: Dictionary) -> void:
 	if active_filters.has(fd):
 		active_filters.erase(fd)
-		active_filter_removed.emit(fd)
 
 ## Returns a single filter data based on the [geotag_id].
-func get_filter(geotag_id: String) -> FilterData:
-	var filtered_fd: Array[FilterData] = all_filters.filter(
-		func(_fd: FilterData) -> bool:
-			return _fd.get_geotag_id() == geotag_id
+func get_filter(geotag_id: String) -> Dictionary:
+	var filtered_fd: Array[Dictionary] = all_filters.filter(
+		func(_fd: Dictionary) -> bool:
+			return _fd['geotag_id'] == geotag_id
 	)
-	if filtered_fd.is_empty(): return null
+	if filtered_fd.is_empty(): return {}
 	return filtered_fd[0]
 
-func remove_filter(fd: FilterData) -> void:
+func remove_filter(fd: Dictionary) -> void:
 	all_filters.erase(fd)
 
 ## update the [all_filters] array.
@@ -75,25 +70,26 @@ func load_all_filters() -> void:
 	var available_geotags: Array[Dictionary] = get_available_geotags()
 
 	for geotag_data: Dictionary in available_geotags:
-		var current_filter: Array[FilterData] = all_filters.filter(
-			func(fd: FilterData) -> bool:
-				return fd.get_geotag_id() == geotag_data['id']
+		var current_filter: Array[Dictionary] = all_filters.filter(
+			func(fd: Dictionary) -> bool:
+				return fd['geotag_id'] == geotag_data['id']
 		)
 
 		# If filter has been created before, continue
 		if !current_filter.is_empty(): continue
 
-		var new_fd: FilterData = create_filter_data(geotag_data)
+		var new_fd: Dictionary = create_filter_data(geotag_data)
 		all_filters.append(new_fd)
 
 ## Creates a new filter data based on the geotag data.
-func create_filter_data(geotag_data: Dictionary) -> FilterData:
-	var new_fd: FilterData = FilterData.new(geotag_data['id'])
+func create_filter_data(geotag_data: Dictionary) -> Dictionary:
 	var toggle_btn: GenericToggleButton = filter_toggle_button_pscn.instantiate()
 	(toggle_btn as GenericToggleButton).args = [geotag_data['id']]
 	(toggle_btn as GenericToggleButton).text = get_geotag_name(geotag_data['id'])
-	new_fd.set_button(toggle_btn)
-	return new_fd
+	return { 
+		"geotag_id": geotag_data['id'],
+		'button': toggle_btn
+	}
 
 ## Get the geotag name based on the geotag id.
 func get_geotag_name(id: String) -> String:
@@ -153,7 +149,7 @@ func get_clue_pictures(clue_id: String) -> Array[PictureData]:
 	return clue_pics
 
 ## Get pictures from the cache, filtered based on the [filter] parameter.
-func get_filtered_pictures(filter: Array[FilterData]) -> Array[PictureData]:
+func get_filtered_pictures(filter: Array[Dictionary]) -> Array[PictureData]:
 	var no_clue_pics: Array[PictureData] = picture_cache.filter(
 		func(pd: PictureData) -> bool:
 			return pd.get_picture().clue_id == "none"
@@ -163,8 +159,8 @@ func get_filtered_pictures(filter: Array[FilterData]) -> Array[PictureData]:
 		return no_clue_pics
 
 	var active_filter_tag_id: Array = filter.map(
-		func(fd: FilterData) -> String:
-			return fd.get_geotag_id()
+		func(fd: Dictionary) -> String:
+			return fd['geotag_id']
 	)
 	var filtered_pics: Array[PictureData] = no_clue_pics.filter(
 		func(pd: PictureData) -> bool:

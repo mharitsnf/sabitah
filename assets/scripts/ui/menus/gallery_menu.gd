@@ -27,8 +27,8 @@ func _mount_active_filter_labels() -> void:
 		filter_tag_container.add_child.call_deferred(tag_label)
 		return
 
-	for pd: FilterData in PictureState.active_filters:
-		var tag_name: String = PictureState.get_geotag_name(pd.get_geotag_id())
+	for pd: Dictionary in PictureState.active_filters:
+		var tag_name: String = PictureState.get_geotag_name(pd['geotag_id'])
 		var tag_label: Label = _create_geotag_label(tag_name)
 		filter_tag_container.add_child.call_deferred(tag_label)
 

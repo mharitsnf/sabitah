@@ -8,13 +8,13 @@ func _ready() -> void:
 	assert(filter_container)
 
 func _mount_filter_buttons() -> void:
-	for fd: FilterData in PictureState.all_filters:
-		var btn: GenericToggleButton = fd.get_button()
+	for fd: Dictionary in PictureState.all_filters:
+		var btn: GenericToggleButton = fd['button']
 		filter_container.add_child.call_deferred(btn)
 
 func _unmount_filter_buttons() -> void:
-	for fd: FilterData in PictureState.all_filters:
-		var btn: GenericToggleButton = fd.get_button()
+	for fd: Dictionary in PictureState.all_filters:
+		var btn: GenericToggleButton = fd['button']
 		filter_container.remove_child.call_deferred(btn)
 
 func after_entering() -> void:

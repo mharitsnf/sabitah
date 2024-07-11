@@ -9,9 +9,9 @@ func set_data(new_data: Dictionary) -> void:
 	confirm_button.args = [data['geotag_id']]
 
 func _mount_pictures_toggle_button() -> void:
-	var filters: Array[FilterData] = PictureState.all_filters.filter(
-		func(fd: FilterData) -> bool:
-			return fd.get_geotag_id() != data['geotag_id']
+	var filters: Array[Dictionary] = PictureState.all_filters.filter(
+		func(fd: Dictionary) -> bool:
+			return fd['geotag_id'] != data['geotag_id']
 	)
 	var pics: Array[PictureData] = PictureState.get_filtered_pictures(filters)
 	for p: PictureData in pics:

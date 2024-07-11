@@ -9,6 +9,7 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [node name="AtmospherePPQ" type="MeshInstance3D"]
+visible = false
 sorting_offset = -1100.0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_fe8aq")

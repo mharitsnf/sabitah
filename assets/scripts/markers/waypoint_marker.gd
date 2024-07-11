@@ -10,7 +10,7 @@ func _ready() -> void:
 	PictureState.load_all_filters()
 
 func destroy() -> void:
-	var fd: FilterData = PictureState.get_filter(geotag_id)
+	var fd: Dictionary = PictureState.get_filter(geotag_id)
 	PictureState.remove_filter(fd)
 	State.waypoint_markers.erase(self)
 	queue_free()
