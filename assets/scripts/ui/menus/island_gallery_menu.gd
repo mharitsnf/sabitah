@@ -43,6 +43,6 @@ func after_entering() -> void:
 	_mount_picture_buttons()
 	await super()
 	if pictures_container.get_child_count() > 0:
-		(pictures_container.get_child(0) as PictureButton).grab_focus()
+		(pictures_container.get_child(0) as GenericButton).grab_focus()
 	else:
 		add_picture_button.grab_focus()

@@ -182,7 +182,7 @@ func create_picture_cache(picture: Picture) -> void:
 		return
 
 	# create a new button and picture
-	var pic_button: PictureButton = picture_button_pscn.instantiate()
+	var pic_button: GenericButton = picture_button_pscn.instantiate()
 	(pic_button as PictureButton).assigned_picture = picture
 
 	var pic_toggle: PictureToggleButton = picture_toggle_button_pscn.instantiate()
