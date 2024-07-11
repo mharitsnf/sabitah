@@ -216,7 +216,7 @@ func _get_h_input() -> void:
 func _reset_inputs() -> void:
 	h_input = Vector2.ZERO
 
-func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
+func _on_menu_entered(_data: MenuData) -> void:
 	_reset_inputs()
 
 func _on_current_data_changed() -> void:

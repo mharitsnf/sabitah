@@ -21,10 +21,10 @@ func _ready() -> void:
 
 	_add_input_prompts()
 
-func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
+func _on_menu_entered(_data: MenuData) -> void:
 	pass
 
-func _on_menu_exited(_data: MenuLayer.MenuData) -> void:
+func _on_menu_exited(_data: MenuData) -> void:
 	pass
 
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:

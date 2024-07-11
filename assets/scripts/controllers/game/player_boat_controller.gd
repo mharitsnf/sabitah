@@ -116,7 +116,7 @@ func _reset_rotate_input_smooth() -> void:
 	if State.actor_im.get_current_controller() != self:
 		rotate_input = lerp(rotate_input, 0., get_process_delta_time() * ROTATION_INPUT_WEIGHT)
 
-func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
+func _on_menu_entered(_data: MenuData) -> void:
 	_reset_inputs()
 
 func _reset_inputs() -> void:

@@ -140,14 +140,14 @@ func _erase_waypoint() -> void:
 
 	(marker_query_res['collider'] as WaypointMarker).destroy()
 
-func _on_menu_entered(data: MenuLayer.MenuData) -> void:
+func _on_menu_entered(data: MenuData) -> void:
 	match data.get_key():
 		State.UserInterfaces.ISLAND_GALLERY:
 			_hide_input_prompt(0)
 			_hide_input_prompt(1)
 			_hide_input_prompt(2)
 
-func _on_menu_exited(data: MenuLayer.MenuData) -> void:
+func _on_menu_exited(data: MenuData) -> void:
 	match data.get_key():
 		State.UserInterfaces.ISLAND_GALLERY:
 			_show_input_prompt(0)

@@ -67,10 +67,10 @@ func _hide_input_prompt(idx: int) -> void:
 	(input_prompts[idx] as InputPrompt).active = false
 	hud_layer.remove_input_prompt((input_prompts[idx] as InputPrompt))
 
-func _on_menu_entered(_data: MenuLayer.MenuData) -> void:
+func _on_menu_entered(_data: MenuData) -> void:
 	pass
 
-func _on_menu_exited(_data: MenuLayer.MenuData) -> void:
+func _on_menu_exited(_data: MenuData) -> void:
 	pass
 
 func exit_mode() -> void:
