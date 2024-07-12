@@ -198,7 +198,6 @@ func _get_check_clues_input() -> void:
 			ClueState.unlock_reward()
 		else: ClueState.confirm_data.status = false
 
-		print("asdf")
 		Common.DialogueWrapper.start_dialogue(ClueState.check_dialogue, "start")
 
 func _get_enter_ship_input() -> void:

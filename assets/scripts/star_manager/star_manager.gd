@@ -33,17 +33,19 @@ func _load_main_stars() -> void:
 			printerr("JSON parse error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			continue
 		
-		var main_star_data : Dictionary = json.get_data()
-		main_star_data['distance_from_center'] = (State.PLANET_RADIUS * State.STAR_RADIUS_SCALE)
-		main_star_data['level_type'] = State.LevelType.MAIN
+		var game_main_star_data : Dictionary = json.get_data()
+		var main_planet_data: Dictionary = State.get_planet_data(State.LevelType.MAIN)
+		game_main_star_data['distance_from_center'] = main_planet_data['star_distance']
+		game_main_star_data['level_type'] = State.LevelType.MAIN
 		var game_inst: MainStar = game_main_star_pscn.instantiate()
-		game_inst.data = main_star_data
+		game_inst.data = game_main_star_data
 
-		var bg_star_data: Dictionary = main_star_data.duplicate()
-		bg_star_data['distance_from_center'] = (State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE * 2.)
-		bg_star_data['level_type'] = State.LevelType.GLOBE
+		var globe_main_star_data: Dictionary = game_main_star_data.duplicate()
+		var globe_planet_data: Dictionary = State.get_planet_data(State.LevelType.GLOBE)
+		globe_main_star_data['distance_from_center'] = globe_planet_data['star_distance'] * .4
+		globe_main_star_data['level_type'] = State.LevelType.GLOBE
 		var globe_inst: MainStar = globe_main_star_pscn.instantiate()
-		globe_inst.data = bg_star_data
+		globe_inst.data = globe_main_star_data
 
 		main_stars.append(StarData.new(game_inst, globe_inst))
 	

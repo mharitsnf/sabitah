@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_8pt4k")
-limit = Vector2(-60, 60)
+limit = Vector2(-60, 80)

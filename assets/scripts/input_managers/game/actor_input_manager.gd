@@ -63,13 +63,32 @@ func _create_actor_instances() -> void:
 
 ## Private. Assign a default PlayerData to the current one.
 func _init_current_player_data() -> void:
-	if get_child_count() == 0:
-		# Initialize the boat on a specific location
-		add_child.call_deferred((data_dict[PlayerActors.BOAT] as ActorData).get_instance())
-		await (data_dict[PlayerActors.BOAT] as ActorData).get_instance().tree_entered
-		(data_dict[PlayerActors.BOAT] as ActorData).get_instance().global_position = Vector3(0., State.PLANET_RADIUS, 0.)
+	if get_child_count() != 0:
+		var first_ad: ActorData = _get_first_data()
+		if first_ad:
+			switch_data(first_ad)
+		else:
+			_init_new_boat()
+		return
+	
+	_init_new_boat()
 
+func _init_new_boat() -> void:
+	# Initialize the boat on a specific location
+	add_child.call_deferred((data_dict[PlayerActors.BOAT] as ActorData).get_instance())
+	await (data_dict[PlayerActors.BOAT] as ActorData).get_instance().tree_entered
+	(data_dict[PlayerActors.BOAT] as ActorData).get_instance().global_position = Vector3(0., State.PLANET_RADIUS, 0.)
 	switch_data(data_dict[PlayerActors.BOAT] as ActorData)
+
+func _get_first_data() -> ActorData:
+	var first_actor: Node = get_child(0)
+	var first_actor_data: Array = data_dict.values().filter(
+		func(ad: Object) -> bool:
+			if !(ad is ActorData): return false
+			return ad.get_instance() == first_actor
+	)
+	if first_actor_data.is_empty(): return null
+	return first_actor_data[0]
 
 # region Data switching function
 

@@ -2,6 +2,7 @@ class_name MainStar extends Area3D
 
 @export_group("References")
 @export var sprite : Sprite3D
+@export var anim: AnimationPlayer
 @export var game_visibility_curve: Curve
 @export var globe_visibility_curve: Curve
 
@@ -25,6 +26,7 @@ var sun: SunLight
 
 func _ready() -> void:
 	assert(sprite)
+	assert(anim)
 
 	global_position = Vector3( data.np_x, data.np_y, data.np_z, ) * data.distance_from_center
 	pulsating = data.is_pulsating
@@ -33,28 +35,17 @@ func _ready() -> void:
 	color = Color(data.color_r, data.color_g, data.color_b, 1)
 
 	sun = State.game_sun if data['level_type'] == State.LevelType.MAIN else State.globe_sun
+	(sun as SunLight).sunrise_started.connect(_on_sunrise_started)
+	(sun as SunLight).sunset_started.connect(_on_sunset_started)
 	
 	assert(sun)
 	assert(game_visibility_curve)
 	assert(globe_visibility_curve)
 
-func _process(_delta: float) -> void:
-	_adjust_star_visibility()
+func _on_sunrise_started() -> void:
+	if sprite.modulate.a != 0:
+		anim.play("hide_star")
 
-func _adjust_star_visibility() -> void:
-	var planet_radius: float = State.get_planet_data(data['level_type'])['radius']
-	var current_instance: Node3D = (State.actor_im.get_current_instance() as Node3D)
-
-	var normal: Vector3 = sun.global_position.normalized() if data['level_type'] == State.LevelType.GLOBE \
-	else current_instance.global_position.normalized()
-
-	var sun_surface: Vector3 = normal * planet_radius
-	var dir_to_light: Vector3 = (global_position - sun_surface).normalized() if data['level_type'] == State.LevelType.GLOBE \
-	else (sun.global_position - current_instance.global_position).normalized()
-	
-	var ndotl: float = normal.dot(dir_to_light)
-	ndotl = max(ndotl, State.SUNSET_ANGLE)
-	ndotl = remap(ndotl, State.SUNSET_ANGLE, 1., 0., 1.)
-	
-	sprite.modulate.a = globe_visibility_curve.sample(1. - ndotl) if data['level_type'] == State.LevelType.GLOBE \
-	else game_visibility_curve.sample(1. - ndotl)
+func _on_sunset_started() -> void:
+	if sprite.modulate.a == 0:
+		anim.play("show_star")

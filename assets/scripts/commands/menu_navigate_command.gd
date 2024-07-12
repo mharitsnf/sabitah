@@ -9,6 +9,7 @@ func action(args: Array = []) -> void:
 	if args.is_empty():
 		await menu_layer.navigate_to(target_menu, custom_args)
 	else:
-		var menu_navigate_data: Dictionary = args[0] as Dictionary
+		assert(args[0] is Dictionary)
+		var menu_navigate_data: Dictionary = args[0]
 		menu_navigate_data.merge(custom_args, true)
 		await menu_layer.navigate_to(target_menu, menu_navigate_data)

@@ -1,4 +1,4 @@
-class_name  MenuData extends RefCounted
+class_name MenuData extends RefCounted
 
 var _key: State.UserInterfaces
 var _pscn: PackedScene

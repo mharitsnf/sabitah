@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ub57mlyhmdr5"]
+
+[ext_resource type="PackedScene" uid="uid://irpskb4iljqu" path="res://assets/resources/models/environment/house.glb" id="1_6735l"]
+[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_sgpkd"]
+
+[node name="House" instance=ExtResource("1_6735l")]
+
+[node name="House" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_sgpkd")

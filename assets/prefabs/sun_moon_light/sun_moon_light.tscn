@@ -7,5 +7,6 @@
 shadow_enabled = true
 shadow_bias = 0.15
 shadow_normal_bias = 0.8
+directional_shadow_blend_splits = true
 script = ExtResource("1_2idx6")
 tween_transition_settings = ExtResource("2_maf5x")

@@ -1,10 +1,64 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4h4lbmoabbgt"]
+[gd_scene load_steps=8 format=3 uid="uid://b4h4lbmoabbgt"]
 
 [ext_resource type="PackedScene" uid="uid://clw8tv3u807cj" path="res://assets/prefabs/stars/main_star.tscn" id="1_ci4bh"]
 [ext_resource type="PackedScene" uid="uid://dfxqx7ydfxgxb" path="res://assets/prefabs/sun_moon_sprites/star_sprites/globe_main_star_sprite.tscn" id="2_7vgwy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f8v2m"]
-radius = 5.0
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_0c6xt"]
+resource_name = "hide_star"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GlobeMainStarSprite:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8rhvh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GlobeMainStarSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4tfxf"]
+resource_name = "show_star"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GlobeMainStarSprite:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b2fnk"]
+_data = {
+"RESET": SubResource("Animation_8rhvh"),
+"hide_star": SubResource("Animation_0c6xt"),
+"show_star": SubResource("Animation_4tfxf")
+}
 
 [node name="GlobeMainStar" node_paths=PackedStringArray("sprite") instance=ExtResource("1_ci4bh")]
 sprite = NodePath("GlobeMainStarSprite")
@@ -13,3 +67,8 @@ sprite = NodePath("GlobeMainStarSprite")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
 shape = SubResource("SphereShape3D_f8v2m")
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_b2fnk")
+}

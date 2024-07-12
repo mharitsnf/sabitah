@@ -1,4 +1,4 @@
-class_name  GameData extends RefCounted
+class_name GameData extends RefCounted
 
 var _key: State.LevelType
 var _level: Node
