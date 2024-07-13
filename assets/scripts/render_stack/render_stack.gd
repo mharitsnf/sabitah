@@ -97,8 +97,9 @@ func _ready() -> void:
 	mat = ShaderMaterial.new()
 	mat.shader = grain_shader
 	mat.resource_local_to_scene = true
-	mat.set_shader_parameter("noise_amount", 2)
+	mat.set_shader_parameter("noise_amount", 2.5)
 	mat.set_shader_parameter("blend_opacity", .2)
+	mat.set_shader_parameter("noise_tex", noise_tex)
 	mat.set_shader_parameter("main_tex", (kwh_4_pass as PostProcessingPass).viewport.get_texture())
 	(grain_pass as PostProcessingPass).game_texture.material = mat
 	add_child.call_deferred(grain_pass)

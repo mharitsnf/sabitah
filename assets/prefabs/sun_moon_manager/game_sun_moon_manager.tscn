@@ -12,13 +12,9 @@ sun = NodePath("GameSun")
 moon = NodePath("GameMoon")
 
 [node name="GameSun" parent="." groups=["sun"] instance=ExtResource("2_ne4qu")]
-shadow_bias = 0.2
-shadow_normal_bias = 3.0
 
 [node name="GameSunSprite" parent="GameSun" instance=ExtResource("3_tl482")]
 
 [node name="GameMoon" parent="." instance=ExtResource("3_u1oms")]
-shadow_bias = 0.2
-shadow_normal_bias = 2.0
 
 [node name="GameMoonSprite" parent="GameMoon" instance=ExtResource("5_7joao")]

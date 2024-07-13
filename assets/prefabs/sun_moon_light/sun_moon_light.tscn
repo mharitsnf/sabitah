@@ -5,8 +5,11 @@
 
 [node name="SunMoonLight" type="DirectionalLight3D"]
 shadow_enabled = true
-shadow_bias = 0.15
-shadow_normal_bias = 0.8
+shadow_bias = 0.2
+shadow_normal_bias = 5.0
 directional_shadow_blend_splits = true
+directional_shadow_max_distance = 500.0
+directional_shadow_pancake_size = 5.0
 script = ExtResource("1_2idx6")
+normal_distance = 500.0
 tween_transition_settings = ExtResource("2_maf5x")

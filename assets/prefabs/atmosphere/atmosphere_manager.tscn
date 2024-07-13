@@ -16,5 +16,5 @@ m_density_falloff = 200.0
 m_scattering_strength = 0.1
 density_falloff_strength = 0.2
 optical_depth_strength = 3.5
-wavelengths = Vector3(700, 530, 440)
+wavelengths = Vector3(700, 530, 400)
 f_exposure = 2.0
