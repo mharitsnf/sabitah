@@ -12,6 +12,7 @@ var island_name_panel_visible: bool
 var crosshair_visible: bool = true
 
 func _ready() -> void:
+	super()
 	assert(anim)
 	assert(island_name_label)
 	assert(instruction_label)

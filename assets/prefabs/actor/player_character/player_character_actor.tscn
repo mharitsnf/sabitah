@@ -57,7 +57,7 @@ shape = SubResource("CapsuleShape3D_bjbxt")
 
 [node name="AreaSearcher" type="Area3D" parent="CollisionShape3D"]
 collision_layer = 0
-collision_mask = 102
+collision_mask = 110
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/AreaSearcher"]
 shape = SubResource("CapsuleShape3D_bjbxt")

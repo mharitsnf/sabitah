@@ -22,6 +22,8 @@ enum CharacterStates {
 @export var node_sundial_dialogue: DialogueResource
 
 # Refs from group
+var interact_areas: Array[InteractArea]
+
 var player_boat_area: Area3D
 var clue_areas: Array[ClueArea]
 
@@ -93,6 +95,9 @@ func _add_input_prompts() -> void:
 	ip_factory.set_data("G", "Register boat waypoint", false)
 	input_prompts['G'] = ip_factory.get_instance()
 
+	ip_factory.set_data("E", "Interact", false)
+	input_prompts['E'] = ip_factory.get_instance()
+
 # region Lifecycle functions
 
 func _process(_delta: float) -> void:
@@ -131,6 +136,7 @@ func player_input_process(_delta: float) -> void:
 	_get_h_input()
 
 func player_unhandled_input(event: InputEvent) -> void:
+	_get_interact_input(event)
 	if current_actor_state:
 		current_actor_state.player_unhandled_input(event)
 
@@ -207,6 +213,12 @@ func _get_enter_ship_input() -> void:
 		if res[0]:
 			State.actor_im.remove_child.call_deferred((res[1] as ActorData).get_instance())
 
+func _get_interact_input(event: InputEvent) -> void:
+	if event.is_action_pressed("actor__interact"):
+		if interact_areas.is_empty(): return
+		var ia: InteractArea = interact_areas.back()
+		Common.DialogueWrapper.start_dialogue(ia.dialogue_resource, "start")
+
 func _get_h_input() -> void:
 	h_input = Input.get_vector("character__move_left", "character__move_right", "character__move_backward", "character__move_forward")
 
@@ -281,6 +293,12 @@ func _on_area_checker_area_entered(area: Area3D) -> void:
 		(hud_layer as GameHUDLayer).show_island_name()
 		return
 
+	if area.is_in_group("interact_areas"):
+		interact_areas.append(area)
+		(input_prompts["E"] as InputPrompt).active = true
+		hud_layer.add_input_prompt(input_prompts["E"])
+		return
+
 func _on_area_checker_area_exited(area: Area3D) -> void:
 	if area.is_in_group("clue_areas"):
 		clue_areas.erase(area)
@@ -292,4 +310,10 @@ func _on_area_checker_area_exited(area: Area3D) -> void:
 
 	if area.is_in_group("player_boat_area"):
 		_on_player_boat_area_exited()
+		return
+	
+	if area.is_in_group("interact_areas"):
+		interact_areas.erase(area)
+		(input_prompts["E"] as InputPrompt).active = false
+		hud_layer.remove_input_prompt(input_prompts["E"])
 		return

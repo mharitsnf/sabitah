@@ -9,6 +9,7 @@ var time_manager: TimeManager
 var time_container_shown: bool = false
 
 func _ready() -> void:
+	super()
 	time_manager = Group.first("time_manager")
 
 	assert(time_label)

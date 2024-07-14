@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cv0d0se0sxrgl"]
-
-[ext_resource type="PackedScene" uid="uid://bj44e1c8tvvoj" path="res://assets/resources/models/islands/origin_island.glb" id="1_6f56p"]
-
-[node name="OriginIsland" instance=ExtResource("1_6f56p")]

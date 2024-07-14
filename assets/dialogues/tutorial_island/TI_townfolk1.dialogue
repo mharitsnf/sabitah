@@ -1,0 +1,27 @@
+~ start
+if !ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['townfolk_1']['intro']:
+	=> intro
+else:
+	if !ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['townfolk_1']['talked_to_teacher']:
+		=> talk_to_teacher
+	else:
+		=> final_test_ongoing
+=> END
+
+~ intro
+Townfolk 1: Hey, you're finally here! Good morning!
+- Morning...
+- Uh... Yeah...
+Townfolk 1: Wake up and shine! It's your big day! You gonna have your own boat today, remember? All that's left is to complete the final test!
+- Right. I'm fully awake.
+Townfolk 1: Perfect! The teacher is waiting for you in the plaza. Be sure to get there!
+do ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['townfolk_1']['intro'] = true
+=> END
+
+~ talk_to_teacher
+Townfolk 1: What are you doing here? Go find the teacher in the plaza! Just go down the path and you'll see him standing there, alright?
+=> END
+
+~ final_test_ongoing
+Townfolk 1: Good luck with your final test!
+=> END

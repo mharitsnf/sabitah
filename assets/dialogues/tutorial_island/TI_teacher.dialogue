@@ -1,0 +1,105 @@
+~ start
+if !ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['teacher']['intro']:
+	=> intro
+else:
+	=> intro_2
+=> END
+
+~ intro
+Teacher: There you are! You ready to get your own boat and become the world's best treasure hunter?
+- YEEEAAAHHH!!!
+	Teacher: YEEEEEAAAAAHHHHH!!!!!
+- Of course! I'm fully awake now!
+	Teacher: Huh, that's rare... but it's great to hear that!
+Teacher: But first, you know you'll need to complete the final test first, right?
+- Yeah, I know, I remember that.
+Teacher: Good! Cause this test will help you sharpen your treasure hunting and navigation skills so you can go anywhere in the world!
+Teacher: So... The test will be about... REAL TREASURE HUNTING!!!
+- ALRIGHT!!!
+- ...what else is it supposed to be?
+	Teacher: ... yeah you're right.
+Teacher: The test is simple: I will give you a clue that will lead you to a treasure!
+Teacher: All you need to do is to figure out where the treasure is based on the clue I provided.
+Teacher: If you don't remember, I can explain to you how you can find treasures. Would you like me to do that?
+- Yes please!
+	=>< treasure_hunting_tutorial
+- I think I'm good.
+	Teacher: You came prepared, huh? Nice!
+Teacher: I've given you the clue. You can see it in your clues journal.
+do ClueState.change_clue_status('tutorial_1', ClueState.ClueStatus.ACTIVE)
+Teacher: Come back to me when you've found the treasure, and I'll continue with the next test. Good luck!
+do ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['teacher']['intro'] = true
+do ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['townfolk_1']['talked_to_teacher'] = true
+=> END!
+
+~ treasure_hunting_tutorial
+Teacher: First thing first, see which treasure you want to pursue by looking at the Clues Journal. You can access the journal through the main menu, by pressing the TAB key.
+Teacher: Once you selected a clue, you'll see that it will come with pictures and description.
+Teacher: The pictures are your best friend! They are taken exactly on the treasure location, so they can tell you how the environment around the treasure looks like!
+Teacher: Once you figure out where the treasure is, you need to go there to dig it.
+Teacher: Once you've reached the location of the treasure, press C, select which clue you're currently pursuing, and see if your guess is correct or not!
+Teacher: Do you want me to explain this again?
+- Yeah, maybe one more time?
+	Teacher: No worries!
+	=> treasure_hunting_tutorial
+- Nah, I got it!
+	Teacher: Perfect!
+=> END
+
+~ intro_2
+Teacher: Hey buddy! How's it going? Do you need any help?
+- Can you explain to me about treasure hunting again?
+	=>< treasure_hunting_tutorial
+- No, I just wanna say hi to you!
+	Teacher: Well, aren't you nice! But you need to focus on your test first right now.
+Teacher: Good luck with the hunting! I'll be here if you need me.
+=> END!
+
+~ tutorial
+Teacher: Something you wanna know more about?
+- Sundials.
+	=> sundial_tutorial
+- Clues.
+	=> clues_tutorial
+- Eh, I changed my mind.
+	=> END
+	
+~ sundial_tutorial
+Teacher: There are three important parts on the sundial: the pointer, the disc, and the donut.
+Teacher: Which one do you want me to explain first?
+- The pointer.
+	Teacher: The yellow part of the pointer points to the north, while the dark part points to the south. You can use this to figure out direction where you want to go.
+	Teacher: As a reminder, right of the north is east, left of the north is west, while the opposite of north is south.
+	=> sundial_tutorial
+- The donut.
+	Teacher: You can use the donut alongside the pointer to figure out your current latitude. Meaning, you can use it to figure out how far north or how far south you are on the planet.
+	Teacher: For example, when the yellow part of the pointer points directly upwards, it means that you are probably on the north pole!
+	Teacher: Or, when it points directly to the side, meaning you're probably around the equator.
+	Teacher: You can find an estimate of your latitude with the donut. If you align the pointer with A or D so it points on the donut, you can see the latitude you're currently on.
+	Teacher: You'll see that the donut have some points on its surface. The top points with the three dot is 90 degrees. The one with two dots is 60 degrees, The one with one dot is 30 degrees, and the one without the dot is 0 degrees.
+	Teacher: Use it to estimate your current latitude!
+	=> sundial_tutorial
+- The disc.
+	Teacher: You can use the disc alongside the prime meridian time to figure out your current longitude. Meaning, you can use it to figure out how far west or east you currently are.
+	Teacher: The disc is basically used to tell your current time. Each line on the sundial represents one hour, and the degrees from one hour to another is 15 degrees.
+	Teacher: You'll see that the shadow of the pointer will fall somewhere on the disc. When it falls on top of a line, it means that the hour has just started.
+	Teacher: For example, when the shadow points directly down, it's currently 12 PM on your current location.
+	Teacher: Over time, the disc can be misaligned, that is when the lines with the dot does not points directly upwards and downwards anymore.
+	Teacher: You can adjust the disc with Q or E. Make sure that the lines with the dot points directly upwards and downwards!
+	Teacher: This allows you to easily read the time and see when the sunset and sunrise will be, since the 12 PM line is always downwards.
+	Teacher: Now, once you figure out your current time, you can start figuring out where you are!
+	Teacher: For example, your current time is 3 PM, while the prime meridian time is 12 PM. This means you are 3 hours ahead of the prime meridian.
+	Teacher: Since an hour represents 15 degrees, and you have 3 hours of difference, your current latitude is 45 degrees!
+	Teacher: But if your current time is 9 AM and the prime meridian time is 12 PM, your current latitude is -45 degrees!
+	Teacher: But remember, sundial discs can only be used during daytime! You can always use the stars during nighttime.
+	=> sundial_tutorial
+- I think I got it.
+	=> tutorial
+
+~ clues_tutorial
+Teacher: When you talk to people, sometimes they might give you clues to some treasure hidden somewhere in the world.
+Teacher: You can find list of clues you currently have inside the clues journal.
+Teacher: You'll get some description about your clues there, but more importantly you'll also get to see pictures where the treasure is buried.
+Teacher: When you figure out where the treasure is based on the clue, you then need to go there so you can dig it out!
+Teacher: When you arrive at the location of the treasure, press C and select the clue related to the treasure, and see if your guess is right!
+=> tutorial

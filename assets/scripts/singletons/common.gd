@@ -12,16 +12,22 @@ func _ready() -> void:
 func wait(sec: float) -> void:
 	await get_tree().create_timer(sec).timeout
 
+signal dialogue_entered
+signal dialogue_exited
+
 class DialogueWrapper extends RefCounted:
 	static var _dialogue_active: bool = false
 
 	static func is_dialogue_active() -> bool:
 		return _dialogue_active
 
-	static func start_dialogue(dialogue_resource: DialogueResource, title: String, extra_game_states: Array = []) -> void:
+	static func start_dialogue(dialogue_resource: DialogueResource, title: String = "start", extra_game_states: Array = []) -> void:
+		if is_dialogue_active(): return
 		_dialogue_active = true
+		Common.dialogue_entered.emit()
 		DialogueManager.show_dialogue_balloon(dialogue_resource, title, extra_game_states)
 		await DialogueManager.dialogue_ended
+		Common.dialogue_exited.emit()
 		_dialogue_active = false
 
 class Geometry extends RefCounted:

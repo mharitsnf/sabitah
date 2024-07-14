@@ -54,7 +54,7 @@ var world_dict: Dictionary = {
 
 var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
 
-# region local sundial data
+# region Sundial data
 
 var waypoint_markers: Array[WaypointMarker]
 var local_sundials: Array[LocalSundialManager]

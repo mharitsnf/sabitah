@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://bfmr7ag0utnjs"
+path="res://.godot/imported/TI_teacher.dialogue-f546b5980bdfa5fdd6bfc9a9fa0ebb99.tres"
+
+[deps]
+
+source_file="res://assets/dialogues/tutorial_island/TI_teacher.dialogue"
+dest_files=["res://.godot/imported/TI_teacher.dialogue-f546b5980bdfa5fdd6bfc9a9fa0ebb99.tres"]
+
+[params]
+
+defaults=true

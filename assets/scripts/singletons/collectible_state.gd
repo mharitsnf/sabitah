@@ -1,7 +1,7 @@
 extends Node
 
 enum CollectibleStatus {
-	UNOBTAINED, OBTAINED
+	UNOBTAINED, OBTAINED, GIVEN
 }
 
 enum CollectibleType {

@@ -26,8 +26,6 @@ func _ready() -> void:
 	assert(kuwahara_4_shader)
 	assert(grain_shader)
 
-	Group.add("final_viewport", level_viewport)
-
 	# blur 1 
 	var blur_1_pass: PostProcessingPass = pp_pass_pscn.instantiate()
 	var mat: ShaderMaterial = ShaderMaterial.new()

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://chqhin50nvmip"]
+
+[ext_resource type="Script" path="res://assets/scripts/clue/clue.gd" id="1_dv6uo"]
+
+[resource]
+script = ExtResource("1_dv6uo")
+id = "tutorial_2"
+title = "The actual location of the boat key!"
+status = 0
+description = "Now now, I won't give you this key that easy, boy! You still have to complete this clue first if you want that key!"
+reward_id = "tutorial_3"
