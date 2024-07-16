@@ -63,9 +63,7 @@ visible = true
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(-0.0121479, 0.995921, -0.0894139, -0.197955, 0.0852554, 0.976496, 0.980136, 0.0295623, 0.196112, 1490.66, 137.215, 52.9263)
+transform = Transform3D(-0.0225508, 0.988979, -0.146331, -0.199129, 0.138992, 0.970066, 0.979714, 0.0510146, 0.1938, 1475.7, 223.048, 75.8092)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
 transform = Transform3D(0.12875, 0.991099, -0.0338532, -0.933568, 0.109621, -0.341225, -0.334477, 0.075537, 0.939372, 1473.37, 162.962, 112.293)
-
-[node name="Actors" type="Node" parent="."]
