@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckbdcy4ahstqq"]
+
+[ext_resource type="PackedScene" uid="uid://bxgs5ogsptnwi" path="res://assets/resources/models/environment/FlowersA.glb" id="1_77cpu"]
+[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_iw0hq"]
+
+[node name="FlowersA" instance=ExtResource("1_77cpu")]
+
+[node name="Flower_001" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_iw0hq")
+
+[node name="Flower_002" parent="." index="1"]
+surface_material_override/0 = ExtResource("2_iw0hq")
+
+[node name="Flower_003" parent="." index="2"]
+surface_material_override/0 = ExtResource("2_iw0hq")
+
+[node name="Flower_004" parent="." index="3"]
+surface_material_override/0 = ExtResource("2_iw0hq")
+
+[node name="Flower_005" parent="." index="4"]
+surface_material_override/0 = ExtResource("2_iw0hq")
+
+[node name="Flower_006" parent="." index="5"]
+surface_material_override/0 = ExtResource("2_iw0hq")
+
+[node name="Flower_007" parent="." index="6"]
+surface_material_override/0 = ExtResource("2_iw0hq")
+
+[node name="Flower_015" parent="." index="7"]
+surface_material_override/0 = ExtResource("2_iw0hq")

@@ -8,5 +8,6 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [node name="OutlinePPQ" type="MeshInstance3D"]
+sorting_offset = -1200.0
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_t1yku")

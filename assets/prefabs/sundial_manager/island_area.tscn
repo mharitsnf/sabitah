@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ym31rnidvkyt"]
+
+[node name="IslandArea" type="Area3D" groups=["island_areas"]]
+transform = Transform3D(0.9994, -0.0346009, 0.0014001, 0.0346009, 0.996131, -0.0807778, 0.00140031, 0.0807778, 0.996732, -42.5279, -5.20728, 116.274)
+collision_layer = 4
+collision_mask = 0

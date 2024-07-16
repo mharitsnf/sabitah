@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlg4x7syp10xp"]
+
+[ext_resource type="PackedScene" uid="uid://daehtf5s8dmt0" path="res://assets/resources/models/environment/bush.tscn" id="1_kj5el"]
+
+[node name="Bushes" type="Node3D"]
+
+[node name="Bush" parent="." instance=ExtResource("1_kj5el")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0187383, 0, -0.562144)
+
+[node name="Bush2" parent="." instance=ExtResource("1_kj5el")]
+transform = Transform3D(0.628873, 0, -0.777508, 0, 1, 0, 0.777508, 0, 0.628873, 0.918168, 0, 0.143659)
+
+[node name="Bush3" parent="." instance=ExtResource("1_kj5el")]
+transform = Transform3D(0.167182, 0, -0.985926, 0, 1, 0, 0.985926, 0, 0.167182, -0.0124924, 0, 0.537159)
+
+[node name="Bush4" parent="." instance=ExtResource("1_kj5el")]
+transform = Transform3D(-0.896595, 0, 0.442852, 0, 1, 0, -0.442852, 0, -0.896595, -0.8682, 0, -0.106183)
