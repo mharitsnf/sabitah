@@ -310,6 +310,10 @@ func _set_rotation_input(x_amount: float, y_amount: float) -> void:
 func get_euler_rotation() -> Array:
 	return []
 
+func copy_rotation(vc: VirtualCamera) -> void:
+	y_rot_target.rotation.y = vc.y_rot_target.rotation.y
+	x_rot_target.rotation.x = vc.x_rot_target.rotation.x
+
 # region FoV Functions
 
 var _fov_input: float = actual_fov
