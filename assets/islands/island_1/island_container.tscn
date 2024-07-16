@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbu37cg78b0um"]
+
+[ext_resource type="PackedScene" uid="uid://yh25koljfqgg" path="res://assets/islands/island_1/island_1_navigation.tscn" id="1_xr0kc"]
+[ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="2_lsmqr"]
+[ext_resource type="PackedScene" uid="uid://b4rafnmqpk4g3" path="res://assets/prefabs/interaction/area/interact_area.tscn" id="3_4ufr2"]
+[ext_resource type="Resource" uid="uid://bfmr7ag0utnjs" path="res://assets/dialogues/tutorial_island/TI_teacher.dialogue" id="4_qgn8v"]
+[ext_resource type="Resource" uid="uid://csgqt8x5gpipo" path="res://assets/dialogues/tutorial_island/TI_townfolk1.dialogue" id="5_shb7o"]
+
+[node name="IslandContainer" type="Node3D"]
+
+[node name="Island1Navigation" parent="." instance=ExtResource("1_xr0kc")]
+transform = Transform3D(-0.977366, -0.202503, 0.0612228, -0.0512962, -0.053915, -0.997227, 0.205242, -0.977796, 0.0423071, -301.041, -80.1501, -1453.59)
+
+[node name="Actors" type="Node3D" parent="."]
+
+[node name="Teacher" parent="Actors" instance=ExtResource("2_lsmqr")]
+transform = Transform3D(0.506113, -0.19601, 0.839899, -0.858515, -0.0213714, 0.512343, -0.0824745, -0.980369, -0.179094, -288.923, -20.4082, -1465.42)
+
+[node name="InteractArea" parent="Actors/Teacher" instance=ExtResource("3_4ufr2")]
+dialogue_resource = ExtResource("4_qgn8v")
+
+[node name="Townfolk1" parent="Actors" node_paths=PackedStringArray("normal_target") instance=ExtResource("2_lsmqr")]
+transform = Transform3D(0.766482, -0.217077, -0.604469, 0.606107, -0.0668576, 0.792568, -0.212462, -0.973862, 0.0803268, -311.514, -90.0658, -1461.99)
+normal_target = NodePath("../Teacher/CollisionShape3D")
+
+[node name="InteractArea" parent="Actors/Townfolk1" instance=ExtResource("3_4ufr2")]
+dialogue_resource = ExtResource("5_shb7o")

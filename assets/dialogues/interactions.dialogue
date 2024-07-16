@@ -1,0 +1,21 @@
+
+~ set_node_sundial
+: You set {{State.local_sundial.get_island_name()}} to be the node island! You can now teleport back to this island if you're lost in the ocean.
+do State.node_sundial = State.local_sundial
+=> END
+
+~ boat_key_not_given
+: You tried to drive the boat but you don't have the key.
+: Better finish the final test first!
+=> END
+
+~ teleport_to_node_island
+if State.has_node_sundial():
+	: Teleport to the current node island, {{State.node_sundial.get_island_name()}}?
+	- Yes
+		do State.teleport_to_node_sundial.emit()
+	- No
+		=> END
+else:
+	: You don't have a node island right now! Approach a registered island sundial and press G to register a node island.
+=> END

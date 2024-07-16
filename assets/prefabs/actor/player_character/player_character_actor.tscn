@@ -10,9 +10,9 @@
 [ext_resource type="Resource" uid="uid://c5o0j76wwy1ba" path="res://assets/resources/camera_clamp_settings/default_limits.tres" id="6_mcyu7"]
 [ext_resource type="Curve" uid="uid://ce7hxt2bmvfh5" path="res://assets/resources/curves/jump_variable.tres" id="7_d8cu7"]
 [ext_resource type="Script" path="res://assets/scripts/controllers/game/character_states/pc_fall_state.gd" id="7_ddelc"]
-[ext_resource type="Resource" uid="uid://csvyl6o8ynlf5" path="res://assets/dialogues/node_sundial.dialogue" id="7_u7rub"]
 [ext_resource type="Resource" uid="uid://bpipdkuothguc" path="res://assets/resources/camera_clamp_settings/character_water_settings.tres" id="7_vgk8i"]
 [ext_resource type="Script" path="res://assets/scripts/controllers/game/character_states/pc_jump_state.gd" id="8_dmf08"]
+[ext_resource type="Resource" uid="uid://pt3jx53ilouo" path="res://assets/dialogues/interactions.dialogue" id="10_l0d2h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_66g8n"]
 friction = 0.2
@@ -98,7 +98,7 @@ to_island_registration_cmd = ExtResource("6_0w8f7")
 actor = NodePath("..")
 tpc = NodePath("../PlayerCharacterTPC")
 fpc = NodePath("../PlayerCharacterFPC")
-node_sundial_dialogue = ExtResource("7_u7rub")
+interactions_dialogue = ExtResource("10_l0d2h")
 
 [node name="Grounded" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]
 script = ExtResource("6_gidt1")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8thbgmp6n3ij"]
+[gd_scene load_steps=11 format=3 uid="uid://b8thbgmp6n3ij"]
 
 [ext_resource type="Script" path="res://assets/scripts/sundial_manager/local_sundial_manager.gd" id="1_b0hid"]
 [ext_resource type="PackedScene" uid="uid://dtt5k2c5jygva" path="res://assets/resources/models/sundial/latitude_measure_model.tscn" id="2_13a7u"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://24fhn16ls8a0" path="res://assets/resources/models/sundial/sundial_model.tscn" id="3_a2sa5"]
 [ext_resource type="PackedScene" uid="uid://c0txwcwbpghq3" path="res://assets/prefabs/sundial_manager/local_sundial_area.tscn" id="4_v7lvw"]
 [ext_resource type="Script" path="res://assets/scripts/player_camera_manager/player_camera_manager.gd" id="6_o7t0s"]
+[ext_resource type="Resource" uid="uid://pt3jx53ilouo" path="res://assets/dialogues/interactions.dialogue" id="8_p1ttx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2owb4"]
 size = Vector3(1.5, 1.5, 1.5)
@@ -44,3 +45,4 @@ third_person_camera = NodePath("../BoatSundialTPC")
 [node name="Controller" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("3_7xqbc")
 actor = NodePath("..")
+interactions_dialogue = ExtResource("8_p1ttx")

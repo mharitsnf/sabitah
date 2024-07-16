@@ -4,8 +4,6 @@ class_name PlayerBoatController extends PlayerController
 @export var boat_sundial_manager: SundialManager
 @export var dropoff_marker: Marker3D
 @export var actor: BoatActor
-@export_subgroup("Packed Scenes")
-@export var node_sundial_dialogue: DialogueResource
 
 var gas_input: float = 0.
 var rotate_input: float = 0.
@@ -19,7 +17,6 @@ func _ready() -> void:
 	assert(boat_sundial_manager)
 	assert(dropoff_marker)
 	assert(actor)
-	assert(node_sundial_dialogue)
 
 	(State.actor_im as ActorInputManager).current_data_changed.connect(_on_current_data_changed)
 	State.teleport_to_node_sundial.connect(_on_teleport_to_node_sundial)
@@ -93,7 +90,7 @@ func _get_exit_ship_input() -> void:
 
 func _get_teleport_to_waypoint_input() -> void:
 	if Input.is_action_just_pressed("boat__teleport_to_waypoint"):
-		Common.DialogueWrapper.start_dialogue(node_sundial_dialogue, "teleport")
+		Common.DialogueWrapper.start_dialogue(interactions_dialogue, "teleport_to_node_island")
 
 func _get_brake_input() -> void:
 	brake_input = Input.get_action_strength("boat__brake")

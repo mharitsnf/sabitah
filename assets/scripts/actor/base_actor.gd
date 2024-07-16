@@ -25,6 +25,10 @@ var current_normal: Vector3 = Vector3.UP
 ## Reference to ocean_data node.
 var ocean_data: OceanData
 
+# func _enter_tree() -> void:
+# 	if is_node_ready():
+# 		setup_spawn.call_deferred(global_position)
+
 func _ready() -> void:
 	top_level = true
 	ocean_data = Group.first("ocean_data")
@@ -50,7 +54,7 @@ func player_unhandled_input(_event: InputEvent) -> void:
 
 func setup_spawn(gpos: Vector3) -> void:
 	global_position = gpos
-	quaternion = Common.Geometry.recalculate_quaternion(basis, gpos.normalized())
+	quaternion = Common.Geometry.recalculate_quaternion(global_basis, gpos.normalized())
 
 # region Horizontal Movement
 # =====

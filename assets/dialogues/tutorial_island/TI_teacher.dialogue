@@ -1,5 +1,5 @@
 ~ start
-if !ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['teacher']['intro']:
+if !ProgressState.progress[ProgressState.Islands.TUTORIAL]['teacher']['intro']:
 	=> intro
 else:
 	=> intro_2
@@ -28,8 +28,8 @@ Teacher: If you don't remember, I can explain to you how you can find treasures.
 Teacher: I've given you the clue. You can see it in your clues journal.
 do ClueState.change_clue_status('tutorial_1', ClueState.ClueStatus.ACTIVE)
 Teacher: Come back to me when you've found the treasure, and I'll continue with the next test. Good luck!
-do ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['teacher']['intro'] = true
-do ProgressState.dialogue_state[ProgressState.Islands.TUTORIAL]['townfolk_1']['talked_to_teacher'] = true
+do ProgressState.progress[ProgressState.Islands.TUTORIAL]['teacher']['intro'] = true
+do ProgressState.progress[ProgressState.Islands.TUTORIAL]['townfolk1']['talked_to_teacher'] = true
 => END!
 
 ~ treasure_hunting_tutorial

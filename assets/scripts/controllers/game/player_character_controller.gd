@@ -18,8 +18,6 @@ enum CharacterStates {
 @export var actor: CharacterActor
 @export var tpc: ThirdPersonCamera
 @export var fpc: FirstPersonCamera
-@export_subgroup("Packed scenes")
-@export var node_sundial_dialogue: DialogueResource
 
 # Refs from group
 var interact_areas: Array[InteractArea]
@@ -53,7 +51,6 @@ func _ready() -> void:
 	assert(to_island_registration_cmd)
 	assert(actor)
 	assert(player_boat_area)
-	assert(node_sundial_dialogue)
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
@@ -162,13 +159,14 @@ func _get_enter_register_island_input() -> void:
 	if Input.is_action_just_pressed("globe__enter_island_registration_mode"):
 		# Fill local sundial data
 		var latlong: Array = State.local_sundial.latlong
+		var planet_data: Dictionary = State.get_planet_data(State.LevelType.GLOBE)
 		State.local_sundial_data = {
-			"marker_position": State.local_sundial.global_position.normalized() * State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE,
+			"marker_position": State.local_sundial.global_position.normalized() * planet_data['radius'],
 			"normal": State.local_sundial.global_position.normalized(),
 			"lat": latlong[0],
 			"long": latlong[1],
 		}
-
+	
 		# Switch to globe
 		var scene_manager: SceneManager = Group.first("scene_manager")
 		(scene_manager as SceneManager).switch_scene(
@@ -181,7 +179,7 @@ func _get_register_boat_waypoint_input() -> void:
 	if !State.local_sundial: return
 	if !State.local_sundial.first_marker_done: return
 	if Input.is_action_just_pressed("actor__register_boat_waypoint"):
-		Common.DialogueWrapper.start_dialogue(node_sundial_dialogue, "set_node_sundial")
+		Common.DialogueWrapper.start_dialogue(interactions_dialogue, "set_node_sundial")
 
 func _get_enter_local_sundial_input() -> void:
 	if !State.local_sundial: return
@@ -207,7 +205,13 @@ func _get_check_clues_input() -> void:
 		Common.DialogueWrapper.start_dialogue(ClueState.check_dialogue, "start")
 
 func _get_enter_ship_input() -> void:
-	if Input.is_action_just_pressed("actor__toggle_boat") and inside_player_boat_area:
+	if Input.is_action_just_pressed("actor__toggle_boat"):
+		if !inside_player_boat_area: return
+		
+		if !ProgressState.progress[ProgressState.Islands.TUTORIAL]['teacher']['boat_key_given']:
+			Common.DialogueWrapper.start_dialogue(interactions_dialogue, "boat_key_not_given")
+			return
+		
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
 		var res: Array = await State.actor_im.switch_data(boat_pd)
 		if res[0]:

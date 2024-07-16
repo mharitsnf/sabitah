@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dvui4uofhxiw2"]
+[gd_scene load_steps=16 format=3 uid="uid://dvui4uofhxiw2"]
 
 [ext_resource type="PackedScene" uid="uid://u0gusgwp4188" path="res://assets/resources/models/islands/island_1/island_1.glb" id="1_26wnf"]
 [ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_jtf23"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://d4kjk4sori64h" path="res://assets/resources/models/environment/flowers_b.tscn" id="11_ovf06"]
 [ext_resource type="PackedScene" uid="uid://dq4letfysqh8e" path="res://assets/resources/models/environment/message_board.tscn" id="14_4j6ik"]
 [ext_resource type="PackedScene" uid="uid://dt0v2yqarhilx" path="res://assets/resources/models/environment/bench.tscn" id="14_8aj15"]
-[ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="15_sajib"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i0smh"]
 radius = 555.601
@@ -812,7 +811,7 @@ transform = Transform3D(-0.112688, -0.0201449, -0.993426, 0.00604432, 0.999762, 
 
 [node name="LocalSundialManager" parent="." index="1" node_paths=PackedStringArray("boat_waypoint") instance=ExtResource("3_me2ys")]
 transform = Transform3D(0.997059, 0.076623, 0.00135191, -0.076623, 0.996438, 0.0352241, 0.00135188, -0.0352241, 0.999379, 114.597, 0.708915, -54.7456)
-boat_waypoint = NodePath("../Marker3D")
+boat_waypoint = NodePath("../BoatWaypoint")
 
 [node name="IslandArea" parent="LocalSundialManager" index="6" instance=ExtResource("4_udbxw")]
 transform = Transform3D(0.996907, -0.0785142, -0.00348358, 0.0785319, 0.996898, 0.00527015, 0.003059, -0.00552747, 0.99998, -119.046, -5.10782, -19.2056)
@@ -820,10 +819,5 @@ transform = Transform3D(0.996907, -0.0785142, -0.00348358, 0.0785319, 0.996898, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LocalSundialManager/IslandArea" index="0"]
 shape = SubResource("SphereShape3D_i0smh")
 
-[node name="Marker3D" type="Marker3D" parent="." index="2"]
-transform = Transform3D(0.983643, -0.180129, -0.00034237, 0.180129, 0.983636, 0.00377027, -0.000342367, -0.00377027, 0.999993, -63.0872, -3.2683, -1.69494)
-
-[node name="Actors" type="Node3D" parent="." index="3"]
-
-[node name="StaticActor" parent="Actors" index="0" instance=ExtResource("15_sajib")]
-transform = Transform3D(-0.786138, -0.00854347, -0.617991, 0.0131658, 0.999446, -0.030565, 0.61791, -0.0321647, -0.785591, -15.4159, 5.6265, -59.175)
+[node name="BoatWaypoint" type="Marker3D" parent="." index="2"]
+transform = Transform3D(0.015621, -0.180129, 0.983519, -0.000971902, 0.983636, 0.180166, -0.999878, -0.00377027, 0.0151903, -62.235, -3.09665, 2.37082)

@@ -17,7 +17,6 @@ func _ready() -> void:
 	assert(first_marker_pscn)
 
 func enter_mode() -> void:
-	print(State.local_sundial_data)
 	menu_layer.toggle_main_menu_allowed = false
 	hud_layer.show_instruction_panel()
 

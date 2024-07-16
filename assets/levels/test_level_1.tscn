@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
 [ext_resource type="PackedScene" uid="uid://cgpup27mwoag2" path="res://assets/prefabs/stars/containers/game_background_star_container.tscn" id="3_lifl5"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
-[ext_resource type="PackedScene" uid="uid://dvui4uofhxiw2" path="res://assets/resources/models/islands/island_1/island_1.tscn" id="9_vjroc"]
+[ext_resource type="PackedScene" uid="uid://dbu37cg78b0um" path="res://assets/islands/island_1/island_container.tscn" id="8_mr3yb"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
@@ -37,8 +37,7 @@ environment = ExtResource("3_72myd")
 
 [node name="Islands" type="Node" parent="."]
 
-[node name="Island1" parent="Islands" instance=ExtResource("9_vjroc")]
-transform = Transform3D(-0.97772, -0.202467, 0.0554134, -0.0453595, -0.0539678, -0.997512, 0.204953, -0.977801, 0.0435816, -300.987, -80.2282, -1453.6)
+[node name="IslandContainer" parent="Islands" instance=ExtResource("8_mr3yb")]
 
 [node name="Oceans" type="Node" parent="."]
 
@@ -63,7 +62,7 @@ visible = true
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(-0.901069, -0.198679, -0.385489, 0.397777, -0.0245174, -0.917155, 0.172768, -0.979758, 0.101122, -296.004, -24.1098, -1463.59)
+transform = Transform3D(-0.977931, -0.208862, 0.00522191, 0.00945233, -0.069198, -0.997558, 0.208714, -0.975494, 0.0696451, -306.21, -93.9942, -1463.15)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
-transform = Transform3D(0.0946722, -0.160993, 0.982404, -0.995182, -0.040566, 0.0892557, 0.0254827, -0.986122, -0.164057, -239.332, -60.3057, -1465.97)
+transform = Transform3D(0.0965653, -0.160735, 0.982262, -0.994636, -0.0523372, 0.0892175, 0.0370684, -0.985609, -0.164927, -238.948, -77.804, -1465.21)

@@ -6,16 +6,18 @@ enum Islands {
 
 var entities: Dictionary = {
 	Islands.TUTORIAL: {
-		"teacher": null
+		"teacher": null,
+		"townfolk1": null,
 	}
 }
 
-var dialogue_state: Dictionary = {
+var progress: Dictionary = {
 	Islands.TUTORIAL: {
 		"teacher": {
-			"intro": false
+			"intro": false,
+			"boat_key_given": false
 		},
-		"townfolk_1": {
+		"townfolk1": {
 			"intro": false,
 			"talked_to_teacher": false,
 		}
