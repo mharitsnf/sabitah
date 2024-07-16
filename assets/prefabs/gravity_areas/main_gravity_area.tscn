@@ -4,6 +4,8 @@
 radius = 2971.2
 
 [node name="MainGravityArea" type="Area3D"]
+collision_layer = 4096
+collision_mask = 4096
 gravity_space_override = 3
 gravity_point = true
 gravity_point_center = Vector3(0, 0, 0)

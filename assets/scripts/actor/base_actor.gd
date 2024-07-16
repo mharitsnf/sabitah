@@ -26,6 +26,7 @@ var current_normal: Vector3 = Vector3.UP
 var ocean_data: OceanData
 
 func _ready() -> void:
+	top_level = true
 	ocean_data = Group.first("ocean_data")
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:

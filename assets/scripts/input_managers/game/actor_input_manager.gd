@@ -55,7 +55,7 @@ func _set_existing_instances() -> void:
 		if existing_data.is_empty(): continue
 		(existing_data[0] as ActorData).set_instance(c)
 
-## Private. Create actor instances.
+## Private. Create actor instances if the instance has not been made yet.
 func _create_actor_instances() -> void:
 	for pd: ActorData in data_dict.values():
 		if pd.get_instance(): continue

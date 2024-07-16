@@ -1,21 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5vheik6jvc0c"]
+[gd_scene load_steps=6 format=3 uid="uid://b5vheik6jvc0c"]
 
 [ext_resource type="Script" path="res://assets/scripts/actor/base_actor.gd" id="1_e5rtm"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0ksat"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nmtg3"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_kmyyu"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_326lw"]
 
-[node name="StaticActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target", "collision")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqvme"]
+albedo_color = Color(0.7, 0.72, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vva4s"]
+size = Vector3(0.5, 0.25, 0.5)
+
+[node name="StaticActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target")]
+collision_layer = 4096
+mass = 50.0
 lock_rotation = true
 linear_damp = 2.0
 script = ExtResource("1_e5rtm")
 adjust_to_water_normal = true
 normal_target = NodePath("CollisionShape3D")
-collision = NodePath("CollisionShape3D")
+float_force = 250.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_0ksat")
+shape = SubResource("CapsuleShape3D_nmtg3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("BoxMesh_kmyyu")
+mesh = SubResource("CapsuleMesh_326lw")
+surface_material_override/0 = SubResource("StandardMaterial3D_iqvme")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.3)
+mesh = SubResource("BoxMesh_vva4s")
+surface_material_override/0 = SubResource("StandardMaterial3D_iqvme")
