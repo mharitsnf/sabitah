@@ -1,8 +1,8 @@
 ~ start
-if !ProgressState.progress[ProgressState.Islands.TUTORIAL]['townfolk1']['intro']:
+if !ProgressState.progress["tutorial_island"]['townfolk1']['intro']:
 	=> intro
 else:
-	if !ProgressState.progress[ProgressState.Islands.TUTORIAL]['townfolk1']['talked_to_teacher']:
+	if !ProgressState.progress["tutorial_island"]['teacher']['intro']:
 		=> talk_to_teacher
 	else:
 		=> final_test_ongoing
@@ -15,7 +15,7 @@ Townfolk 1: Hey, you're finally here! Good morning!
 Townfolk 1: Wake up and shine! It's your big day! You gonna have your own boat today, remember? All that's left is to complete the final test!
 - Right. I'm fully awake.
 Townfolk 1: Perfect! The teacher is waiting for you in the plaza. Be sure to get there!
-do ProgressState.progress[ProgressState.Islands.TUTORIAL]['townfolk1']['intro'] = true
+do ProgressState.progress["tutorial_island"]['townfolk1']['intro'] = true
 => END
 
 ~ talk_to_teacher

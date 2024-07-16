@@ -208,9 +208,9 @@ func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
 		if !inside_player_boat_area: return
 		
-		if !ProgressState.progress[ProgressState.Islands.TUTORIAL]['teacher']['boat_key_given']:
-			Common.DialogueWrapper.start_dialogue(interactions_dialogue, "boat_key_not_given")
-			return
+		# if !ProgressState.progress["global"]["boat_key_received"]:
+		# 	Common.DialogueWrapper.start_dialogue(interactions_dialogue, "boat_key_not_given")
+		# 	return
 		
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
 		var res: Array = await State.actor_im.switch_data(boat_pd)

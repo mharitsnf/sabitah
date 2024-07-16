@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dt0v2yqarhilx" path="res://assets/resources/models/environment/bench.tscn" id="14_8aj15"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i0smh"]
-radius = 555.601
+radius = 550.0
 
 [node name="Island1" instance=ExtResource("1_26wnf")]
 

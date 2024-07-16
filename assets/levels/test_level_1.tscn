@@ -35,10 +35,6 @@ environment = ExtResource("3_72myd")
 
 [node name="MainPlanetBody" parent="Environment" instance=ExtResource("3_04ued")]
 
-[node name="Islands" type="Node" parent="."]
-
-[node name="IslandContainer" parent="Islands" instance=ExtResource("8_mr3yb")]
-
 [node name="Oceans" type="Node" parent="."]
 
 [node name="OceanData" parent="Oceans" node_paths=PackedStringArray("target") instance=ExtResource("8_gte18")]
@@ -46,6 +42,7 @@ unique_name_in_owner = true
 target = NodePath("../../PlayerActorController/PlayerBoatActor")
 
 [node name="Ocean" parent="Oceans" instance=ExtResource("3_f1v4r")]
+sorting_offset = 2000.0
 skeleton = NodePath("../..")
 
 [node name="Camera" type="Node" parent="."]
@@ -58,6 +55,7 @@ current = true
 visible = true
 
 [node name="OutlinePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("18_3h44h")]
+layers = 2
 
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
@@ -66,3 +64,7 @@ transform = Transform3D(-0.977931, -0.208862, 0.00522191, 0.00945233, -0.069198,
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
 transform = Transform3D(0.0965653, -0.160735, 0.982262, -0.994636, -0.0523372, 0.0892175, 0.0370684, -0.985609, -0.164927, -238.948, -77.804, -1465.21)
+
+[node name="Islands" type="Node" parent="."]
+
+[node name="Island1Container" parent="Islands" instance=ExtResource("8_mr3yb")]

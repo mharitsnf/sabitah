@@ -6,7 +6,10 @@ do State.node_sundial = State.local_sundial
 
 ~ boat_key_not_given
 : You tried to drive the boat but you don't have the key.
-: Better finish the final test first!
+if !ProgressState.progress["tutorial_island"]['teacher']['intro']:
+	: You need to talk to teacher first! He's in the main plaza.
+else:
+	: Better finish the final test first!
 => END
 
 ~ teleport_to_node_island
