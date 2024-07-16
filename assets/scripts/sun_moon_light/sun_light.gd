@@ -1,13 +1,13 @@
 class_name SunLight extends SunMoonLight
 
 enum DayOrNight {
-	DAY, NIGHT
+	START, DAY, NIGHT
 }
 
 signal sunrise_started
 signal sunset_started
 
-var day_or_night: DayOrNight
+var day_or_night: DayOrNight = DayOrNight.START
 var ndotl: float = 1.
 
 func _enter_tree() -> void:

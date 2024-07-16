@@ -131,20 +131,6 @@ tracks/4/keys = {
 "update": 1,
 "values": [false, true]
 }
-tracks/5/type = "method"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Cameras/GlobeTPC")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"lerp_euler_rotation_to_target_rotation"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_e08tg"]
 resource_name = "move_camera_target_aside"

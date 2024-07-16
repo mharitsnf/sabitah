@@ -34,6 +34,7 @@ func _query_caster() -> void:
 	var new_marker_query_res: Dictionary = space_state.intersect_ray(marker_query)
 	if marker_query_res.is_empty() and !new_marker_query_res.is_empty():
 		marker_query_res = new_marker_query_res
+		print(marker_query_res['position'] * 20.)
 		marker_hover_entered.emit()
 	if !marker_query_res.is_empty() and new_marker_query_res.is_empty():
 		marker_query_res = new_marker_query_res

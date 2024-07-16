@@ -38,7 +38,7 @@ environment = ExtResource("3_72myd")
 [node name="Islands" type="Node" parent="."]
 
 [node name="Island1" parent="Islands" instance=ExtResource("9_vjroc")]
-transform = Transform3D(0.034472, 0.994292, 0.100966, 0.0313295, 0.0999017, -0.994504, -0.998914, 0.0374458, -0.0277069, 1478.12, 148.514, 55.667)
+transform = Transform3D(-0.97772, -0.202467, 0.0554134, -0.0453595, -0.0539678, -0.997512, 0.204953, -0.977801, 0.0435816, -300.987, -80.2282, -1453.6)
 
 [node name="Oceans" type="Node" parent="."]
 
@@ -63,7 +63,7 @@ visible = true
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(-0.0225508, 0.988979, -0.146331, -0.199129, 0.138992, 0.970066, 0.979714, 0.0510146, 0.1938, 1475.7, 223.048, 75.8092)
+transform = Transform3D(0.953171, -0.272627, 0.130915, -0.141942, -0.0210371, 0.989651, -0.267052, -0.96189, -0.0587492, -412.474, -31.2795, -1436.61)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
-transform = Transform3D(0.12875, 0.991099, -0.0338532, -0.933568, 0.109621, -0.341225, -0.334477, 0.075537, 0.939372, 1473.37, 162.962, 112.293)
+transform = Transform3D(0.0946722, -0.160993, 0.982404, -0.995182, -0.040566, 0.0892557, 0.0254827, -0.986122, -0.164057, -239.332, -60.3057, -1465.97)

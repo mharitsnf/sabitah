@@ -2,6 +2,7 @@ class_name LocalSundialManager extends SundialManager
 
 @export var island_name: String = "Primarina Island"
 @export var boat_waypoint: Marker3D
+var latlong: Array
 var island_alias: String = ""
 var geotag_id: String = ""
 
@@ -14,17 +15,8 @@ func _ready() -> void:
 	assert(boat_waypoint)
 
 	State.local_sundials.append(self)
-	_assign_geotag_id()
-	_assign_island_alias()
-
-## Create island tag (called on ready).
-func _assign_geotag_id() -> void:
-	var latlong: Array = Common.Geometry.point_to_latlng(global_position.normalized())
+	latlong = Common.Geometry.point_to_latlng(global_position.normalized())
 	geotag_id = "i(" + str(latlong[0]) + "," + str(latlong[1]) + ")"
-
-## Create island alias (called on ready).
-func _assign_island_alias() -> void:
-	var latlong: Array = Common.Geometry.point_to_latlng(global_position.normalized())
 	island_alias = str(latlong[0]) + "°N, " + str(latlong[1]) + "°S Island"
 
 func get_geotag_data() -> Dictionary:

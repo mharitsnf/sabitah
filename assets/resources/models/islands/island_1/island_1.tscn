@@ -813,11 +813,11 @@ transform = Transform3D(-0.112688, -0.0201449, -0.993426, 0.00604432, 0.999762, 
 transform = Transform3D(0.997059, 0.076623, 0.00135191, -0.076623, 0.996438, 0.0352241, 0.00135188, -0.0352241, 0.999379, 114.597, 0.708915, -54.7456)
 boat_waypoint = NodePath("../Marker3D")
 
+[node name="IslandArea" parent="LocalSundialManager" index="6" instance=ExtResource("4_udbxw")]
+transform = Transform3D(0.996907, -0.0785142, -0.00348358, 0.0785319, 0.996898, 0.00527015, 0.003059, -0.00552747, 0.99998, -119.046, -5.10782, -19.2056)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LocalSundialManager/IslandArea" index="0"]
+shape = SubResource("SphereShape3D_i0smh")
+
 [node name="Marker3D" type="Marker3D" parent="." index="2"]
 transform = Transform3D(0.983643, -0.180129, -0.00034237, 0.180129, 0.983636, 0.00377027, -0.000342367, -0.00377027, 0.999993, -63.0872, -3.2683, -1.69494)
-
-[node name="IslandArea" parent="." index="3" instance=ExtResource("4_udbxw")]
-transform = Transform3D(0.999997, -0.00190546, -0.00171764, 0.00197391, 0.999168, 0.0407417, 0.00163858, -0.040745, 0.999169, -4.51623, 4.06445, -73.9203)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="IslandArea" index="0"]
-shape = SubResource("SphereShape3D_i0smh")

@@ -3,14 +3,18 @@ class_name HUDLayer extends CanvasLayer
 @export_group("References")
 @export var input_prompt_container: HBoxContainer
 
+var scene_manager: SceneManager
 var menu_layer: MenuLayer
 
 func _ready() -> void:
+	scene_manager = Group.first("scene_manager")
 	menu_layer = Group.first("menu_layer")
+	assert(scene_manager)
 	assert(menu_layer)
 	(menu_layer as MenuLayer).menu_entered.connect(_on_menu_entered)
 	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
 
+	scene_manager.scene_entered.connect(_show_input_prompt)
 	Common.dialogue_entered.connect(_hide_input_prompt)
 	Common.dialogue_exited.connect(_show_input_prompt)
 

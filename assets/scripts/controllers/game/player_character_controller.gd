@@ -161,12 +161,12 @@ func _get_enter_register_island_input() -> void:
 
 	if Input.is_action_just_pressed("globe__enter_island_registration_mode"):
 		# Fill local sundial data
-		var latlong: Array = Common.Geometry.point_to_latlng(State.local_sundial.global_position.normalized())
+		var latlong: Array = State.local_sundial.latlong
 		State.local_sundial_data = {
 			"marker_position": State.local_sundial.global_position.normalized() * State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE,
 			"normal": State.local_sundial.global_position.normalized(),
 			"lat": latlong[0],
-			"long": latlong[0],
+			"long": latlong[1],
 		}
 
 		# Switch to globe

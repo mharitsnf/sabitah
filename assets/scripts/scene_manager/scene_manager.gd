@@ -36,6 +36,8 @@ var scene_data_dict: Dictionary = {
 var previous_scene_data: SceneData
 var current_scene_data: SceneData
 
+signal scene_entered
+
 func _ready() -> void:
 	_set_existing_instances()
 
@@ -83,3 +85,5 @@ func switch_scene(target_scene: Scenes, before_switch_command: Command = null, a
 
 	if after_switch_command:
 		await after_switch_command.action()
+
+	scene_entered.emit()

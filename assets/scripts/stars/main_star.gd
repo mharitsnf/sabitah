@@ -44,8 +44,16 @@ func _ready() -> void:
 
 func _on_sunrise_started() -> void:
 	if sprite.modulate.a != 0:
-		anim.play("hide_star")
+		var tween: Tween = create_tween()
+		tween.tween_property(
+			sprite, 'modulate', Color(color.r, color.g, color.b, 0), 10.
+		).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
+		await tween.finished
 
 func _on_sunset_started() -> void:
 	if sprite.modulate.a == 0:
-		anim.play("show_star")
+		var tween: Tween = create_tween()
+		tween.tween_property(
+			sprite, 'modulate', Color(color.r, color.g, color.b, 1), 10.
+		).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
+		await tween.finished
