@@ -1,9 +1,0 @@
-[gd_scene load_steps=4 format=3 uid="uid://f2koi1tmvf0i"]
-
-[ext_resource type="PackedScene" uid="uid://b1a3t0vk23p4s" path="res://assets/prefabs/globe_modes/lat_long_search.tscn" id="1_1tc7g"]
-[ext_resource type="Script" path="res://assets/scripts/globe_modes/island_search.gd" id="2_6kwfm"]
-[ext_resource type="PackedScene" uid="uid://bpn371bshxkag" path="res://assets/prefabs/markers/waypoint_marker.tscn" id="3_lucis"]
-
-[node name="IslandSearch" instance=ExtResource("1_1tc7g")]
-script = ExtResource("2_6kwfm")
-waypoint_marker_pscn = ExtResource("3_lucis")

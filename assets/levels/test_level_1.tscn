@@ -2,19 +2,19 @@
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
-[ext_resource type="PackedScene" uid="uid://c8ywta7cboshe" path="res://assets/prefabs/sun_moon_manager/game_sun_moon_manager.tscn" id="2_46lh5"]
-[ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity_areas/main_gravity_area.tscn" id="2_jdiks"]
-[ext_resource type="PackedScene" uid="uid://bd8snlvqthnmr" path="res://assets/prefabs/stars/containers/game_main_star_container.tscn" id="2_udhmx"]
+[ext_resource type="PackedScene" uid="uid://bd8snlvqthnmr" path="res://assets/prefabs/day_night_cycle/stars/containers/game_main_star_container.tscn" id="2_08xdo"]
 [ext_resource type="PackedScene" uid="uid://bnaadx2owlxa8" path="res://assets/prefabs/planet_bodies/main_planet_body.tscn" id="3_04ued"]
 [ext_resource type="Environment" uid="uid://cdj1j2owe1rni" path="res://assets/resources/world_env/default_env.tres" id="3_72myd"]
-[ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/ocean/ocean.tscn" id="3_f1v4r"]
-[ext_resource type="PackedScene" uid="uid://cgpup27mwoag2" path="res://assets/prefabs/stars/containers/game_background_star_container.tscn" id="3_lifl5"]
-[ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/ocean/ocean_data.tscn" id="8_gte18"]
+[ext_resource type="PackedScene" uid="uid://cgpup27mwoag2" path="res://assets/prefabs/day_night_cycle/stars/containers/game_background_star_container.tscn" id="3_xyytu"]
+[ext_resource type="PackedScene" uid="uid://c8ywta7cboshe" path="res://assets/prefabs/day_night_cycle/sun_moon_manager/game_sun_moon_manager.tscn" id="4_8mufc"]
+[ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity/main_gravity_area.tscn" id="6_imehy"]
+[ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/visuals/ocean/ocean_data.tscn" id="8_6a2jn"]
 [ext_resource type="PackedScene" uid="uid://dbu37cg78b0um" path="res://assets/islands/island_1/island_container.tscn" id="8_mr3yb"]
-[ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/atmosphere/atmosphere_ppq.tscn" id="10_bq821"]
+[ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/visuals/ocean/ocean.tscn" id="9_q5hw7"]
+[ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/visuals/atmosphere/atmosphere_ppq.tscn" id="11_r3iet"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
+[ext_resource type="PackedScene" uid="uid://v7022dbq6wn2" path="res://assets/prefabs/visuals/outline/outline_ppq.tscn" id="12_ouxvy"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
-[ext_resource type="PackedScene" uid="uid://v7022dbq6wn2" path="res://assets/prefabs/post_processing/outline_ppq.tscn" id="18_3h44h"]
 [ext_resource type="PackedScene" uid="uid://hly7xukaj25f" path="res://assets/prefabs/actor/player_character/player_character_actor.tscn" id="18_q1k01"]
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
@@ -22,26 +22,26 @@ script = ExtResource("1_4i1xa")
 
 [node name="Environment" type="Node" parent="."]
 
-[node name="GameMainStarContainer" parent="Environment" instance=ExtResource("2_udhmx")]
+[node name="GameMainStarContainer" parent="Environment" instance=ExtResource("2_08xdo")]
 
-[node name="GameBackgroundStarContainer" parent="Environment" instance=ExtResource("3_lifl5")]
+[node name="GameBackgroundStarContainer" parent="Environment" instance=ExtResource("3_xyytu")]
 
-[node name="GameSunMoonManager" parent="Environment" instance=ExtResource("2_46lh5")]
+[node name="GameSunMoonManager" parent="Environment" instance=ExtResource("4_8mufc")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = ExtResource("3_72myd")
 
-[node name="MainGravityArea" parent="Environment" instance=ExtResource("2_jdiks")]
+[node name="MainGravityArea" parent="Environment" instance=ExtResource("6_imehy")]
 
 [node name="MainPlanetBody" parent="Environment" instance=ExtResource("3_04ued")]
 
 [node name="Oceans" type="Node" parent="."]
 
-[node name="OceanData" parent="Oceans" node_paths=PackedStringArray("target") instance=ExtResource("8_gte18")]
+[node name="OceanData" parent="Oceans" node_paths=PackedStringArray("target") instance=ExtResource("8_6a2jn")]
 unique_name_in_owner = true
 target = NodePath("../../PlayerActorController/PlayerBoatActor")
 
-[node name="Ocean" parent="Oceans" instance=ExtResource("3_f1v4r")]
+[node name="Ocean" parent="Oceans" instance=ExtResource("9_q5hw7")]
 sorting_offset = 2000.0
 skeleton = NodePath("../..")
 
@@ -51,10 +51,10 @@ skeleton = NodePath("../..")
 transform = Transform3D(0.00870242, 0.880115, 0.47468, -0.999961, 0.00833766, 0.00287347, -0.00142873, -0.474687, 0.880154, 1499.49, 12.9997, 34.9807)
 current = true
 
-[node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("10_bq821")]
+[node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("11_r3iet")]
 visible = true
 
-[node name="OutlinePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("18_3h44h")]
+[node name="OutlinePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("12_ouxvy")]
 layers = 2
 
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]

@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://assets/scripts/scene_manager/scene_manager.gd" id="1_2sun5"]
 [ext_resource type="PackedScene" uid="uid://mmlk171px1r1" path="res://assets/scene_containers/game_container.tscn" id="2_ilwv2"]
 [ext_resource type="PackedScene" uid="uid://c20bryruf658d" path="res://assets/prefabs/time_manager/time_manager.tscn" id="3_mr5fn"]
-[ext_resource type="PackedScene" uid="uid://5qe5j6rsx0n5" path="res://assets/prefabs/atmosphere/atmosphere_manager.tscn" id="4_cpfu1"]
-[ext_resource type="PackedScene" uid="uid://ocp31t1jib2" path="res://assets/prefabs/star_manager/star_manager.tscn" id="4_k0ncd"]
+[ext_resource type="PackedScene" uid="uid://5qe5j6rsx0n5" path="res://assets/prefabs/visuals/atmosphere/atmosphere_manager.tscn" id="4_cpfu1"]
+[ext_resource type="PackedScene" uid="uid://ocp31t1jib2" path="res://assets/prefabs/day_night_cycle/star_manager/star_manager.tscn" id="4_k0ncd"]
 
 [node name="SceneManager" type="Node" groups=["scene_manager"]]
 script = ExtResource("1_2sun5")

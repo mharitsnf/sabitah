@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgwjyavnkw0h7"]
+
+[ext_resource type="PackedScene" uid="uid://b2w78i20fkt68" path="res://assets/prefabs/day_night_cycle/sun_moon_light/sun_moon_light.tscn" id="1_ua717"]
+[ext_resource type="Curve" uid="uid://bgclyurlji81s" path="res://assets/resources/curves/moon_intensity_curve.tres" id="2_vor0f"]
+
+[node name="GameMoon" instance=ExtResource("1_ua717")]
+adjust_intensity = true
+intensity_curve = ExtResource("2_vor0f")

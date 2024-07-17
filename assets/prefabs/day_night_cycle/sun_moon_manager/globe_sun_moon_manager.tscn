@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlwgk43fjx6sh"]
+
+[ext_resource type="Script" path="res://assets/scripts/sun_moon_manager/sun_moon_manager.gd" id="1_hpoad"]
+[ext_resource type="PackedScene" uid="uid://cojme1jiv7anq" path="res://assets/prefabs/day_night_cycle/sun_moon_light/globe_lights/globe_sun.tscn" id="2_yoo04"]
+[ext_resource type="PackedScene" uid="uid://cg2vcfapkhj0s" path="res://assets/prefabs/day_night_cycle/sun_moon_sprites/globe_sprites/globe_sun_sprite.tscn" id="3_jgqx2"]
+[ext_resource type="PackedScene" uid="uid://b8y4k0gaioprb" path="res://assets/prefabs/day_night_cycle/sun_moon_light/globe_lights/globe_moon.tscn" id="3_mritt"]
+[ext_resource type="PackedScene" uid="uid://bbr0q4uirnaix" path="res://assets/prefabs/day_night_cycle/sun_moon_sprites/globe_sprites/globe_moon_sprite.tscn" id="5_roobg"]
+
+[node name="GlobeSunMoonManager" type="Node3D" node_paths=PackedStringArray("sun", "moon")]
+script = ExtResource("1_hpoad")
+level_type = 2
+sun = NodePath("GlobeSun")
+moon = NodePath("GlobeMoon")
+
+[node name="GlobeSun" parent="." groups=["sun"] instance=ExtResource("2_yoo04")]
+
+[node name="GlobeSunSprite" parent="GlobeSun" instance=ExtResource("3_jgqx2")]
+
+[node name="GlobeMoon" parent="." instance=ExtResource("3_mritt")]
+
+[node name="GlobeMoonSprite" parent="GlobeMoon" instance=ExtResource("5_roobg")]

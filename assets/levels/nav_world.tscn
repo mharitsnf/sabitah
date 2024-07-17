@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/free-look-camera/camera.gd" id="1_3m2mv"]
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_sbdn0"]
-[ext_resource type="PackedScene" uid="uid://d33a0m2ds1m7i" path="res://assets/prefabs/gravity_areas/nav_gravity_area.tscn" id="3_p7s5i"]
+[ext_resource type="PackedScene" uid="uid://d33a0m2ds1m7i" path="res://assets/prefabs/gravity/nav_gravity_area.tscn" id="3_p7s5i"]
 
 [sub_resource type="Environment" id="Environment_pea8y"]
 background_mode = 1

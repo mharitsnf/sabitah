@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpn371bshxkag"]
+
+[ext_resource type="PackedScene" uid="uid://4osuo85pb8cy" path="res://assets/prefabs/globe/markers/globe_first_marker.tscn" id="1_lgc2u"]
+[ext_resource type="Script" path="res://assets/scripts/markers/waypoint_marker.gd" id="2_768ck"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_segta"]
+shading_mode = 0
+albedo_color = Color(0.5, 1, 0.541667, 1)
+
+[node name="GlobeFirstMarker" instance=ExtResource("1_lgc2u")]
+script = ExtResource("2_768ck")
+
+[node name="MeshInstance3D" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_segta")

@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3yrcqyxd62bk"]
+
+[ext_resource type="PackedScene" uid="uid://dfeibnth7x8mn" path="res://assets/prefabs/visuals/subviewports/no_mouse_svc.tscn" id="1_0hj7w"]
+[ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/visuals/subviewports/base_sv.tscn" id="2_sdear"]
+[ext_resource type="Script" path="res://assets/scripts/subviewports/post_processing_pass.gd" id="2_trq4j"]
+[ext_resource type="PackedScene" uid="uid://d2t7pio6quutj" path="res://assets/prefabs/visuals/subviewports/game_texture.tscn" id="3_66ksn"]
+
+[node name="PostProcessingPass" node_paths=PackedStringArray("viewport", "game_texture") instance=ExtResource("1_0hj7w")]
+script = ExtResource("2_trq4j")
+viewport = NodePath("BaseSV")
+game_texture = NodePath("BaseSV/GameTexture")
+
+[node name="BaseSV" parent="." index="0" instance=ExtResource("2_sdear")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="GameTexture" parent="BaseSV" index="0" instance=ExtResource("3_66ksn")]

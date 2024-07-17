@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://ocp31t1jib2"]
+
+[ext_resource type="Script" path="res://assets/scripts/star_manager/star_manager.gd" id="1_68p80"]
+[ext_resource type="PackedScene" uid="uid://cesa7umaccwsl" path="res://assets/prefabs/day_night_cycle/stars/game_main_star.tscn" id="2_1uq4i"]
+[ext_resource type="PackedScene" uid="uid://b4h4lbmoabbgt" path="res://assets/prefabs/day_night_cycle/stars/globe_main_star.tscn" id="3_idcl5"]
+[ext_resource type="PackedScene" uid="uid://6ehhonw8ndo8" path="res://assets/prefabs/day_night_cycle/sun_moon_sprites/star_sprites/game_background_star_sprite.tscn" id="4_ay70l"]
+
+[node name="StarManager" type="Node" groups=["star_manager"]]
+script = ExtResource("1_68p80")
+starmap_filename = "starmap_ver1"
+game_main_star_pscn = ExtResource("2_1uq4i")
+globe_main_star_pscn = ExtResource("3_idcl5")
+background_star_pscn = ExtResource("4_ay70l")

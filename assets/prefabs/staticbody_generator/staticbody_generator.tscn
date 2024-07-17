@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bm5bobj3pa5v3"]
-
-[ext_resource type="Script" path="res://assets/scripts/staticbody_generator/staticbody_generator.gd" id="1_rbgqs"]
-
-[node name="StaticbodyGenerator" type="Node"]
-script = ExtResource("1_rbgqs")

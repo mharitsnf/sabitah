@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfxqx7ydfxgxb"]
-
-[ext_resource type="PackedScene" uid="uid://b37cn5qcc4lth" path="res://assets/prefabs/sun_moon_sprites/sky_sprite.tscn" id="1_d1fqy"]
-
-[node name="GlobeMainStarSprite" instance=ExtResource("1_d1fqy")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
-alpha_cut = 3

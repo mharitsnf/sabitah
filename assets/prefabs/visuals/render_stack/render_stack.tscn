@@ -1,0 +1,29 @@
+[gd_scene load_steps=12 format=3 uid="uid://db0mpws4i73fe"]
+
+[ext_resource type="Script" path="res://assets/scripts/render_stack/render_stack.gd" id="1_0p72x"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/gaussian_blur_1.gdshader" id="2_8ecsq"]
+[ext_resource type="PackedScene" uid="uid://c3yrcqyxd62bk" path="res://assets/prefabs/visuals/subviewports/post_processing_pass.tscn" id="2_ud5lj"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/gaussian_blur_2.gdshader" id="3_2tl6y"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_1.gdshader" id="4_pdthk"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_2.gdshader" id="5_0h3p7"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_3.gdshader" id="6_1ognp"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_4.gdshader" id="7_xcwpi"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/grain.gdshader" id="8_8l8wq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_la81t"]
+frequency = 0.4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sd48e"]
+noise = SubResource("FastNoiseLite_la81t")
+
+[node name="RenderStack" type="Node"]
+script = ExtResource("1_0p72x")
+noise_tex = SubResource("NoiseTexture2D_sd48e")
+blur_1_shader = ExtResource("2_8ecsq")
+blur_2_shader = ExtResource("3_2tl6y")
+kuwahara_1_shader = ExtResource("4_pdthk")
+kuwahara_2_shader = ExtResource("5_0h3p7")
+kuwahara_3_shader = ExtResource("6_1ognp")
+kuwahara_4_shader = ExtResource("7_xcwpi")
+grain_shader = ExtResource("8_8l8wq")
+pp_pass_pscn = ExtResource("2_ud5lj")
