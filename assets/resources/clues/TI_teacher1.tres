@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://8fg1ryuqeloy"]
+
+[ext_resource type="Script" path="res://assets/scripts/clue/clue.gd" id="1_sf42i"]
+
+[resource]
+script = ExtResource("1_sf42i")
+id = "TI_teacher1"
+title = "Final Test!"
+status = 0
+description = "If you're reading this, then you're probably taking the final test right now! Man, you've grown up... Anyway, the reward is buried in the place where I took this picture. Can you figure out where this is?"
+reward_id = "TI_teacher2"

@@ -1,8 +1,19 @@
 ~ start
 if !ProgressState.progress["tutorial_island"]['teacher']['intro']:
-	=> intro
-else:
-	=> intro_2
+	=>< intro
+	=> END
+
+if CollectibleState.get_collectible_status("boat_key") != CollectibleState.CollectibleStatus.OBTAINED:
+	=>< offer_clue_help
+	=> END
+
+if CollectibleState.get_collectible_status("boat_key") == CollectibleState.CollectibleStatus.OBTAINED:
+	if !ProgressState.progress["tutorial_island"]['teacher']['sundial_intro']:
+		=>< sundial_intro
+		=> END
+	else:
+		=>< offer_sundial_help
+		=> END
 => END
 
 ~ intro
@@ -26,10 +37,10 @@ Teacher: If you don't remember, I can explain to you how you can find treasures.
 - I think I'm good.
 	Teacher: You came prepared, huh? Nice!
 Teacher: I've given you the clue. You can see it in your clues journal.
-do ClueState.change_clue_status('tutorial_1', ClueState.ClueStatus.ACTIVE)
+do ClueState.change_clue_status('TI_teacher1', ClueState.ClueStatus.ACTIVE)
 Teacher: Come back to me when you've found the treasure, and I'll continue with the next test. Good luck!
 do ProgressState.progress["tutorial_island"]['teacher']['intro'] = true
-=> END!
+=> END
 
 ~ treasure_hunting_tutorial
 Teacher: First thing first, see which treasure you want to pursue by looking at the Clues Journal. You can access the journal through the main menu, by pressing the TAB key.
@@ -45,14 +56,50 @@ Teacher: Do you want me to explain this again?
 	Teacher: Perfect!
 => END
 
-~ intro_2
+~ offer_clue_help
 Teacher: Hey buddy! How's it going? Do you need any help?
 - Can you explain to me about treasure hunting again?
 	=>< treasure_hunting_tutorial
 - No, I just wanna say hi to you!
 	Teacher: Well, aren't you nice! But you need to focus on your test first right now.
 Teacher: Good luck with the hunting! I'll be here if you need me.
-=> END!
+=> END
+
+~ sundial_intro
+Teacher: Hey, is that what I think it is? You got it!!!
+- Of course!
+Teacher: Oh that's so good! I know you were gonna make it!
+Teacher: But the test is not done yet. You see, if you try to use the key on your boat, it won't work! Because I messed it up a bit, haha!
+- Why would you do that...?
+Teacher: Because the test is not over! I have one more thing for you, and after that, I will fix the key and you'll be good to go.
+Teacher: Do you remember where you got this key? It's on an island called Sundial Park! It's called that because, well, it got a sundial on it.
+Teacher: I hope you know where I'm going with this, because the next test is going to be about sundial practice!
+- Ugh, I should have known...
+Teacher: Hey, sundial is a vital part of treasure hunting! Hunters can travel around thanks to their sundials, after all.
+Teacher: You do know what kind of stuff that you can do with sundials, right?
+- Um... remind me again?
+Teacher: Sheesh... I know this is your least favorite subject, but it's very important, so please keep this in mind!
+Teacher: Firstly, you can figure out your current coordinate on this planet. This is very important because the globe is not going to tell you where you are on the face of the planet!
+Teacher: So, being able to read the sundial and figure out your location is a must-have skill for sailors.
+Teacher: Don't worry, your boat is also equipped with a sundial, so you can always use it whenever you want.
+- Right, right. I got you.
+Teacher: That's not all! Secondly, have you noticed that your globe is empty at the moment? You can check it out later by going into the menu by using the Tab key.
+Teacher: This is because you haven't registered any island on your globe yet.
+Teacher: To register islands, you can approach an island's sundial, and press R to register the island location on your globe!
+Teacher: Of course, you need to know the coordinates of that island first, but you can figure it out beforehand by using the sundial.
+Teacher: On top of that, almost every island in this planet has its own sundial, so you can always register its location by approaching them!
+- Okay. I understand.
+Teacher: Good! Now your final test would be to register this island using the island's sundial.
+Teacher: Figure out our current coordinates first, and then register it!
+Teacher: Good luck! If you need any help, don't hesitate to talk with me, alright?
+do ProgressState.progress["tutorial_island"]['teacher']['sundial_intro'] = true
+=> END
+
+~ offer_sundial_help
+Teacher: Hey! How's the island registration going?
+- I still need some time...
+Teacher: Don't worry about it. Remember to figure out the coordinates first, and then register the island afterwards, alright?
+=> END
 
 ~ tutorial
 Teacher: Something you wanna know more about?

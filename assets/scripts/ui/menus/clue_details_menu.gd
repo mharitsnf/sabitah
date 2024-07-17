@@ -24,10 +24,7 @@ func set_data(new_data: Dictionary) -> void:
 		data = new_data
 
 		# set arguments
-		if confirm_button.args.size() == 0:
-			confirm_button.args.append((data['clue'] as Clue))
-		else:
-			confirm_button.args[0] = (data['clue'] as Clue)
+		confirm_button.args = [(data['clue'] as Clue)]
 
 		menu_header.text = (data['clue'] as Clue).title
 		status_label.text = ClueState.ClueStatus.keys()[(data['clue'] as Clue).status]

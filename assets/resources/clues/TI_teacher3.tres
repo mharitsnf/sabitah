@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://cprp4hii8edo3"]
+
+[ext_resource type="Script" path="res://assets/scripts/clue/clue.gd" id="1_etnfr"]
+
+[resource]
+script = ExtResource("1_etnfr")
+id = "TI_teacher3"
+title = "Final Test 3: Boat Drift"
+status = 0
+description = "You've gotten this far? That's impressive! You're a step closer to the boat key, young man! Figure out where I took this picture and maybe you'll get the key!"
+reward_id = "TI_teacher4"

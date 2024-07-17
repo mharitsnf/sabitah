@@ -16,6 +16,7 @@ Townfolk 1: Wake up and shine! It's your big day! You gonna have your own boat t
 - Right. I'm fully awake.
 Townfolk 1: Perfect! The teacher is waiting for you in the plaza. Be sure to get there!
 do ProgressState.progress["tutorial_island"]['townfolk1']['intro'] = true
+do ProgressState.global_progress['first_introduction'] = true
 => END
 
 ~ talk_to_teacher

@@ -1,6 +1,21 @@
 ## Singleton class for storing global game variables.
 extends Node
 
+# Enums
+
+enum StarType {
+	MAIN, BACKGROUND
+}
+
+enum LevelType {
+	MAIN, NAV, GLOBE, NONE
+}
+
+enum UserInterfaces {
+	NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE, GEOTAG_PICTURE, FILTER_GALLERY, GEOTAG_TO_ISLAND,
+	CLUES_MENU, CLUE_DETAILS, COLLECTIBLES_MENU, COLLECTIBLE_DETAILS
+}
+
 # region Constants
 
 ## The radius of the main planet.
@@ -28,28 +43,6 @@ const SUNSET_ANGLE: float = -.3
 func _ready() -> void:
 	tree = get_tree()
 
-# Enums
-
-enum StarType {
-	MAIN, BACKGROUND
-}
-
-enum LevelType {
-	MAIN, NAV, GLOBE, NONE
-}
-
-enum UserInterfaces {
-	NONE, MAIN_MENU, ISLAND_GALLERY, GALLERY, FULL_PICTURE, DELETE_PICTURE, GEOTAG_PICTURE, FILTER_GALLERY, GEOTAG_TO_ISLAND,
-	CLUES_MENU, CLUE_DETAILS, COLLECTIBLES_MENU, COLLECTIBLE_DETAILS
-}
-
-# region Game data
-var world_dict: Dictionary = {
-	LevelType.MAIN: GameData.new(LevelType.MAIN),
-	LevelType.NAV: GameData.new(LevelType.NAV),
-	LevelType.GLOBE: GameData.new(LevelType.GLOBE)
-}
-
 # region Input prompts
 
 var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
@@ -75,10 +68,11 @@ func has_node_sundial() -> bool:
 	
 # region References
 
-## Reference to the game scene's ActorInputManager.
 var tree: SceneTree
 
+## Reference to the game scene's ActorInputManager.
 var actor_im: ActorInputManager
+## Reference to the globe scene's GlobeInputManager.
 var globe_im: GlobeInputManager
 
 var game_camera: Camera3D
@@ -87,7 +81,12 @@ var globe_camera: Camera3D
 var game_sun: DirectionalLight3D
 var globe_sun: DirectionalLight3D
 
-# region Setters and getters
+# region Game data
+var world_dict: Dictionary = {
+	LevelType.MAIN: GameData.new(LevelType.MAIN),
+	LevelType.NAV: GameData.new(LevelType.NAV),
+	LevelType.GLOBE: GameData.new(LevelType.GLOBE)
+}
 
 func get_world_3d(type: LevelType) -> World3D:
 	return (world_dict[type] as GameData).get_world()

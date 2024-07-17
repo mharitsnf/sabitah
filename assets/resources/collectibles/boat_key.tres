@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Collectible" load_steps=2 format=3 uid="uid://calvn3f8svyea"]
+
+[ext_resource type="Script" path="res://assets/scripts/collectible/collectible.gd" id="1_x8bj1"]
+
+[resource]
+script = ExtResource("1_x8bj1")
+id = "boat_key"
+title = "Boat Key"
+description = "Key to your boat! With this, you can drive your boat around!"
+status = 0
+type = 0

@@ -43,7 +43,8 @@ func _input_allowed() -> bool:
 		return false
 	if Common.DialogueWrapper.is_dialogue_active():
 		return false
-	return true
+	
+	return ProgressState.get_global_progress(['first_introduction'])
 
 ## Switch current_data to a new one [_new_data].
 func switch_data(_new_data: PlayerData) -> Array:

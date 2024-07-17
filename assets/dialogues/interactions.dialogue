@@ -4,12 +4,21 @@
 do State.node_sundial = State.local_sundial
 => END
 
-~ boat_key_not_given
+~ boat_key_not_received
 : You tried to drive the boat but you don't have the key.
 if !ProgressState.progress["tutorial_island"]['teacher']['intro']:
 	: You need to talk to teacher first! He's in the main plaza.
 else:
 	: Better finish the final test first!
+=> END
+
+~ tutorial_island_not_registered
+if !ProgressState.progress["tutorial_island"]["teacher"]["sundial_intro"]:
+	: ... Huh? The boat key seems to be broken!
+	: Maybe teacher know something about this?
+else:
+	: Teacher said that the boat key will be fixed if I successfully registered this island on my globe!
+	: Better go to the Sundial Park and register this island!
 => END
 
 ~ teleport_to_node_island

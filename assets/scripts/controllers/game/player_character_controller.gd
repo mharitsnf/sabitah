@@ -195,6 +195,8 @@ func _get_check_clues_input() -> void:
 		await (menu_layer as MenuLayer).menu_cleared
 		
 		var area: ClueArea = (ClueState.get_clue_data_by_id(ClueState.clue_id_to_confirm) as ClueData).get_clue_area()
+		if !ClueState.is_clue_area_valid(area):
+			return
 		
 		if (clue_areas.has(area)):
 			ClueState.confirm_data.status = true
@@ -202,15 +204,19 @@ func _get_check_clues_input() -> void:
 			ClueState.unlock_reward()
 		else: ClueState.confirm_data.status = false
 
-		Common.DialogueWrapper.start_dialogue(ClueState.check_dialogue, "start")
+		Common.DialogueWrapper.start_dialogue.call_deferred(ClueState.check_dialogue, "start")
 
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
 		if !inside_player_boat_area: return
 		
-		# if !ProgressState.progress["global"]["boat_key_received"]:
-		# 	Common.DialogueWrapper.start_dialogue(interactions_dialogue, "boat_key_not_given")
-		# 	return
+		if CollectibleState.get_collectible_status("boat_key") != CollectibleState.CollectibleStatus.OBTAINED:
+			Common.DialogueWrapper.start_dialogue(interactions_dialogue, "boat_key_not_received")
+			return
+
+		if !ProgressState.get_global_progress(['tutorial_island_registered']):
+			Common.DialogueWrapper.start_dialogue(interactions_dialogue, "tutorial_island_not_registered")
+			return
 		
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
 		var res: Array = await State.actor_im.switch_data(boat_pd)

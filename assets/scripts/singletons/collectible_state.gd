@@ -31,6 +31,10 @@ func load_collectibles() -> void:
 			create_collectible_cache(collectible)
 		file_name = dir.get_next()
 
+func get_collectible_status(id: String) -> CollectibleStatus:
+	var cd: CollectibleData = get_collectible_data_by_id(id)
+	return cd.get_collectible().status
+
 func get_collectibles(filters: Dictionary = {}) -> Array[CollectibleData]:
 	# example filter:
 	# [{ 'status': 'CollectibleStatus.UNOBTAINED' }, { 'type': 'CollectibleType.TREASURE' }]

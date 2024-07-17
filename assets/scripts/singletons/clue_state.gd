@@ -14,8 +14,9 @@ var clue_id_to_confirm: String
 var confirm_data: Dictionary = {
 	'status': false,
 	'has_reward': false,
+	'reward_id': '',
 	'type': '',
-	'string': ""
+	'string': '',
 }
 
 var clue_cache: Array[ClueData] = []
@@ -49,6 +50,18 @@ func load_clues() -> void:
 			create_clue_cache(clue)
 		file_name = dir.get_next()
 
+func is_clue_area_valid(area: ClueArea) -> bool:
+	if !area:
+		push_error("Clue area is null!")
+		return false
+	if !is_instance_valid(area):
+		push_error("Clue area is invalid!")
+		return false
+	if !area.is_inside_tree():
+		push_error("Clue area is not in tree!")
+		return false
+	return true
+
 func unlock_reward() -> void:
 	var cd: ClueData = get_clue_data_by_id(clue_id_to_confirm)
 
@@ -57,6 +70,7 @@ func unlock_reward() -> void:
 	if reward_cd and reward_cd.get_clue().status == ClueState.ClueStatus.HIDDEN:
 		reward_cd.set_clue_status(ClueState.ClueStatus.ACTIVE)
 		confirm_data['has_reward'] = true
+		confirm_data['reward_id'] = reward_cd.get_clue().id
 		confirm_data['type'] = 'clue'
 		confirm_data['string'] = reward_cd.get_clue().title
 		return
@@ -66,12 +80,14 @@ func unlock_reward() -> void:
 	if reward_clld and reward_clld.get_collectible().status == CollectibleState.CollectibleStatus.UNOBTAINED:
 		reward_clld.set_collectible_status(CollectibleState.CollectibleStatus.OBTAINED)
 		confirm_data['has_reward'] = true
+		confirm_data['reward_id'] = reward_clld.get_collectible().id
 		confirm_data['type'] = 'treasure'
 		confirm_data['string'] = reward_clld.get_collectible().title
 		return
 
 	# no reward
 	confirm_data['has_reward'] = false
+	confirm_data['reward_id'] = ""
 	confirm_data['type'] = ""
 	confirm_data['string'] = ""
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbu37cg78b0um"]
+[gd_scene load_steps=7 format=3 uid="uid://dbu37cg78b0um"]
 
 [ext_resource type="PackedScene" uid="uid://yh25koljfqgg" path="res://assets/islands/island_1/island_1_navigation.tscn" id="1_xr0kc"]
 [ext_resource type="PackedScene" uid="uid://b5vheik6jvc0c" path="res://assets/prefabs/actor/static_actor.tscn" id="2_lsmqr"]
 [ext_resource type="PackedScene" uid="uid://b4rafnmqpk4g3" path="res://assets/prefabs/interaction/area/interact_area.tscn" id="3_4ufr2"]
 [ext_resource type="Resource" uid="uid://bfmr7ag0utnjs" path="res://assets/dialogues/tutorial_island/TI_teacher.dialogue" id="4_qgn8v"]
 [ext_resource type="Resource" uid="uid://csgqt8x5gpipo" path="res://assets/dialogues/tutorial_island/TI_townfolk1.dialogue" id="5_shb7o"]
+[ext_resource type="Script" path="res://assets/scripts/clue/clue_marker.gd" id="6_2m2f1"]
 
 [node name="Island1Container" type="Node3D"]
 
@@ -20,8 +21,30 @@ transform = Transform3D(0.506113, -0.19601, 0.839899, -0.858515, -0.0213714, 0.5
 dialogue_resource = ExtResource("4_qgn8v")
 
 [node name="Townfolk1" parent="Actors" node_paths=PackedStringArray("normal_target") instance=ExtResource("2_lsmqr")]
-transform = Transform3D(0.766482, -0.217077, -0.604469, 0.606107, -0.0668576, 0.792568, -0.212462, -0.973862, 0.0803268, -311.514, -90.0658, -1461.99)
+transform = Transform3D(0.348863, -0.217077, -0.911686, 0.926451, -0.0668576, 0.370432, -0.141366, -0.973862, 0.177787, -309.857, -88.8624, -1462.33)
 normal_target = NodePath("../Teacher/CollisionShape3D")
 
 [node name="InteractArea" parent="Actors/Townfolk1" instance=ExtResource("3_4ufr2")]
 dialogue_resource = ExtResource("5_shb7o")
+
+[node name="ClueMarkers" type="Node3D" parent="."]
+
+[node name="TITeacher1" type="Marker3D" parent="ClueMarkers"]
+transform = Transform3D(0.891714, -0.183298, 0.413821, -0.41678, 0.0239344, 0.908692, -0.176466, -0.982766, -0.0550524, -276.37, 36.1074, -1478.67)
+script = ExtResource("6_2m2f1")
+clue_id = "TI_teacher1"
+
+[node name="TITeacher2" type="Marker3D" parent="ClueMarkers"]
+transform = Transform3D(-0.384269, -0.185434, 0.904407, -0.923114, 0.0622161, -0.37946, 0.0140961, -0.980685, -0.195084, -278.442, 93.8103, -1475.77)
+script = ExtResource("6_2m2f1")
+clue_id = "TI_teacher2"
+
+[node name="TITeacher3" type="Marker3D" parent="ClueMarkers"]
+transform = Transform3D(0.967581, -0.252524, 0.00429305, 0.00160436, 0.0231433, 0.999731, -0.252556, -0.967314, 0.0227982, -378.078, 34.0202, -1449.86)
+script = ExtResource("6_2m2f1")
+clue_id = "TI_teacher3"
+
+[node name="TITeacher4" type="Marker3D" parent="ClueMarkers"]
+transform = Transform3D(-0.0336874, -0.278827, -0.95975, 0.999339, -0.0225269, -0.0285324, -0.0136645, -0.960077, 0.279401, -415.202, -31.5257, -1433.47)
+script = ExtResource("6_2m2f1")
+clue_id = "TI_teacher4"
