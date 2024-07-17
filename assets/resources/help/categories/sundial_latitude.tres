@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HelpCategory" load_steps=2 format=3 uid="uid://xluiewbip0wo"]
+
+[ext_resource type="Script" path="res://assets/scripts/help/help_category.gd" id="1_q4c0e"]
+
+[resource]
+script = ExtResource("1_q4c0e")
+id = "sundial_latitude"
+title = "Getting latitude from sundials"

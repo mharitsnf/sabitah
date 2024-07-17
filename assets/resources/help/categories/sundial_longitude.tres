@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HelpCategory" load_steps=2 format=3 uid="uid://dfs43v01l0guo"]
+
+[ext_resource type="Script" path="res://assets/scripts/help/help_category.gd" id="1_vsy0i"]
+
+[resource]
+script = ExtResource("1_vsy0i")
+id = "sundial_longitude"
+title = "Getting longitude from sundials"

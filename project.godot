@@ -49,7 +49,7 @@ project/assembly_name="Sabitah"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/extra_snaps/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/proton_scatter/plugin.cfg")
+enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/extra_snaps/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nv.file_system/plugin.cfg", "res://addons/proton_scatter/plugin.cfg")
 
 [input]
 

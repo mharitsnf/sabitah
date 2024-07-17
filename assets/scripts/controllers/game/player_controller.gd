@@ -48,7 +48,7 @@ func enter_controller() -> void:
 func _add_input_prompts() -> void:
 	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
 
-	ip_factory.set_data("RMB", "Switch camera", true)
+	ip_factory.set_data("RMB", "Enter/exit camera", true)
 	input_prompts['RMB'] = ip_factory.get_instance()
 	
 	ip_factory.set_data("LMB", "Take picture")

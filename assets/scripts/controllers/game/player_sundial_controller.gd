@@ -24,6 +24,8 @@ func exit_controller() -> void:
 func _add_input_prompts() -> void:
 	super()
 
+	(input_prompts['RMB'] as InputPrompt).active = false
+
 	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
 	ip_factory.set_data("T", "Exit sundial", true)
 	input_prompts['T'] = ip_factory.get_instance()

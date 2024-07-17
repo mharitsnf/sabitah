@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="HelpPage" load_steps=2 format=3 uid="uid://cdnc6xsr8330j"]
+
+[ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_2ksnv"]
+
+[resource]
+script = ExtResource("1_2ksnv")
+category_id = "sundial_latitude"
+page = 1
+content = "Each line on the latitude measurement represents an angle. The flat line represents 0 degrees, the one with one dot represents 30 degrees, the one with two dots represents 60 degrees, and the one with three dots represents 90 degrees. To get the latitude, estimate at what angle the pointer is currently pointing at (using the lines as references), and that number is the latitude."

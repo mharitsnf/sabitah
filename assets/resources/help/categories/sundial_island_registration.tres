@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HelpCategory" load_steps=2 format=3 uid="uid://bw7wifuldmf2y"]
+
+[ext_resource type="Script" path="res://assets/scripts/help/help_category.gd" id="1_j3fdm"]
+
+[resource]
+script = ExtResource("1_j3fdm")
+id = "sundial_island_registration"
+title = "Registering Islands"

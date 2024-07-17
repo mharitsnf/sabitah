@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://b48vmfkejsa8w"]
+
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/user_interfaces/menus/base_menu/base_menu.tscn" id="1_j003p"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/help_menu.gd" id="2_waeyu"]
+[ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/user_interfaces/labels/menu_header.tscn" id="3_g0vh2"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/user_interfaces/buttons/generic_button.tscn" id="4_inywu"]
+
+[node name="HelpMenu" instance=ExtResource("1_j003p")]
+modulate = Color(1, 1, 1, 1)
+script = ExtResource("2_waeyu")
+
+[node name="Panel" type="Panel" parent="." index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="MenuHeader" parent="Panel/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_g0vh2")]
+layout_mode = 2
+text = "Help"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 6
+
+[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="0" instance=ExtResource("4_inywu")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GenericButton2" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="1" instance=ExtResource("4_inywu")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GenericButton3" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="2" instance=ExtResource("4_inywu")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GenericButton4" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="3" instance=ExtResource("4_inywu")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GenericButton5" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="4" instance=ExtResource("4_inywu")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GenericButton6" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="5" instance=ExtResource("4_inywu")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GenericButton7" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="6" instance=ExtResource("4_inywu")]
+layout_mode = 2
+size_flags_horizontal = 3
