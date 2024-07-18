@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://tn6uojnnyc44"]
+[gd_scene load_steps=14 format=3 uid="uid://tn6uojnnyc44"]
 
 [ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/ui_menu/layer/menu_layer.tscn" id="1_vm1ym"]
 [ext_resource type="PackedScene" uid="uid://doq3282mmgwl7" path="res://assets/prefabs/ui_menu/menus/main_menus/game_main_menu.tscn" id="2_xlne7"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bxb1j2617lm4a" path="res://assets/prefabs/ui_menu/menus/clue_details_menu.tscn" id="9_74jnm"]
 [ext_resource type="PackedScene" uid="uid://dmp6jymunnrsn" path="res://assets/prefabs/ui_menu/menus/collectibles_menu.tscn" id="10_ixdth"]
 [ext_resource type="PackedScene" uid="uid://bgxes1fst05i6" path="res://assets/prefabs/ui_menu/menus/collectible_details_menu.tscn" id="11_pc0n3"]
+[ext_resource type="PackedScene" uid="uid://b48vmfkejsa8w" path="res://assets/prefabs/ui_menu/menus/help_menu.tscn" id="12_cj45q"]
+[ext_resource type="PackedScene" uid="uid://r1nhv75on6ke" path="res://assets/prefabs/ui_menu/menus/help_page_menu.tscn" id="13_udvxy"]
 
 [node name="GameMenuLayer" instance=ExtResource("1_vm1ym")]
 menu_pscns = {
@@ -25,5 +27,7 @@ menu_pscns = {
 9: ExtResource("8_4hnjk"),
 10: ExtResource("9_74jnm"),
 11: ExtResource("10_ixdth"),
-12: ExtResource("11_pc0n3")
+12: ExtResource("11_pc0n3"),
+13: ExtResource("12_cj45q"),
+14: ExtResource("13_udvxy")
 }

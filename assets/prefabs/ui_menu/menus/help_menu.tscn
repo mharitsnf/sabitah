@@ -1,13 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://b48vmfkejsa8w"]
+[gd_scene load_steps=8 format=3 uid="uid://b48vmfkejsa8w"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_j003p"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/help_menu.gd" id="2_waeyu"]
 [ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="3_g0vh2"]
-[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="4_inywu"]
 
-[node name="HelpMenu" instance=ExtResource("1_j003p")]
-modulate = Color(1, 1, 1, 1)
+[sub_resource type="Animation" id="Animation_elhbb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_f1wtg"]
+resource_name = "tree_entered"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yun78"]
+resource_name = "tree_exiting"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_djdoq"]
+_data = {
+"RESET": SubResource("Animation_elhbb"),
+"tree_entered": SubResource("Animation_f1wtg"),
+"tree_exiting": SubResource("Animation_yun78")
+}
+
+[node name="HelpMenu" node_paths=PackedStringArray("buttons_container") instance=ExtResource("1_j003p")]
 script = ExtResource("2_waeyu")
+buttons_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -45,10 +100,10 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" index="0"]
 layout_mode = 2
@@ -56,30 +111,7 @@ theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 6
 
-[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="0" instance=ExtResource("4_inywu")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="GenericButton2" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="1" instance=ExtResource("4_inywu")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="GenericButton3" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="2" instance=ExtResource("4_inywu")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="GenericButton4" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="3" instance=ExtResource("4_inywu")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="GenericButton5" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="4" instance=ExtResource("4_inywu")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="GenericButton6" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="5" instance=ExtResource("4_inywu")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="GenericButton7" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" index="6" instance=ExtResource("4_inywu")]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_djdoq")
+}

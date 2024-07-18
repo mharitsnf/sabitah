@@ -103,15 +103,16 @@ size_flags_vertical = 3
 theme_override_constants/separation = 32
 
 [node name="ArrowLeft" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 texture = ExtResource("4_74ese")
 expand_mode = 1
 stretch_mode = 3
 
 [node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
-custom_minimum_size = Vector2(640, 360)
+custom_minimum_size = Vector2(720, 405)
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("3_430as")
 expand_mode = 1
 stretch_mode = 6
@@ -119,16 +120,17 @@ stretch_mode = 6
 [node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="Content" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" index="0" instance=ExtResource("4_737lk")]
 layout_mode = 2
 
 [node name="ArrowRight" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="3"]
-custom_minimum_size = Vector2(32, 0)
+custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 texture = ExtResource("4_74ese")
 expand_mode = 1

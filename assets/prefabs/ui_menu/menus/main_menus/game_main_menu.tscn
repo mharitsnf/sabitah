@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://doq3282mmgwl7"]
+[gd_scene load_steps=10 format=3 uid="uid://doq3282mmgwl7"]
 
 [ext_resource type="PackedScene" uid="uid://bnw1k6gr2u3di" path="res://assets/prefabs/ui_menu/menus/main_menus/main_menu.tscn" id="1_vov1y"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="2_ca720"]
@@ -19,10 +19,15 @@ script = ExtResource("5_xjva1")
 custom_args = {}
 target_menu = 11
 
+[sub_resource type="Resource" id="Resource_vhlc5"]
+script = ExtResource("5_xjva1")
+custom_args = {}
+target_menu = 13
+
 [node name="GameMainMenu" instance=ExtResource("1_vov1y")]
 
 [node name="VBoxContainer" parent="Panel" index="0"]
-offset_bottom = 611.0
+offset_bottom = 646.0
 
 [node name="ToGlobe" parent="Panel/VBoxContainer" index="0" instance=ExtResource("2_ca720")]
 layout_mode = 2
@@ -48,7 +53,13 @@ text = "Collectibles"
 alignment = 0
 on_press_command = SubResource("Resource_i3oc1")
 
-[node name="QuitGame" parent="Panel/VBoxContainer" index="4" instance=ExtResource("2_ca720")]
+[node name="Help" parent="Panel/VBoxContainer" index="4" instance=ExtResource("2_ca720")]
+layout_mode = 2
+text = "Help"
+alignment = 0
+on_press_command = SubResource("Resource_vhlc5")
+
+[node name="QuitGame" parent="Panel/VBoxContainer" index="5" instance=ExtResource("2_ca720")]
 layout_mode = 2
 text = "Quit game"
 alignment = 0
