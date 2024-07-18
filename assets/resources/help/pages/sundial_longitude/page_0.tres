@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://c77kllllsxvai"]
+
+[ext_resource type="Texture2D" uid="uid://jtt4fi3ayv3t" path="res://assets/resources/help_pictures/longitude_help_1.png" id="1_4xs34"]
+[ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_cx62r"]
+
+[resource]
+script = ExtResource("1_cx62r")
+category_id = "sundial_longitude"
+page = 0
+image_tex = ExtResource("1_4xs34")
+content = "During the day, you can calculate your longitude using the disk part of the sundial.
+
+Firstly, make sure that one of the lines with the dot on the sundial disk is facing directly down using Q/E.
+
+The line facing directly down will be the 12 PM mark."

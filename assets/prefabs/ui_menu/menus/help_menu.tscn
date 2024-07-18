@@ -107,8 +107,8 @@ theme_override_constants/margin_bottom = 8
 
 [node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" index="0"]
 layout_mode = 2
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 16
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
 columns = 6
 
 [node name="AnimationPlayer" parent="." index="1"]

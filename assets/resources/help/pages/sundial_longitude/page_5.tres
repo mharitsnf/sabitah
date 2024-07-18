@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://gilov4wcq2k4"]
+
+[ext_resource type="Texture2D" uid="uid://bfnxfuob4y1q2" path="res://assets/resources/help_pictures/longitude_help_4.png" id="1_n8at6"]
+[ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="2_bfx6y"]
+
+[resource]
+script = ExtResource("2_bfx6y")
+category_id = "sundial_longitude"
+page = 5
+image_tex = ExtResource("1_n8at6")
+content = "Unfortunately, the sundial will not work during the night because the sun is down. To navigate during night-time, use the stars around you to figure out your location!"

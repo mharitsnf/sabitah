@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://bc75h28f4ldpk"]
+
+[ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_8maup"]
+[ext_resource type="Texture2D" uid="uid://dl8g0hwfpj35u" path="res://assets/resources/help_pictures/register_island_help_1.png" id="1_cg32g"]
+
+[resource]
+script = ExtResource("1_8maup")
+category_id = "sundial_island_registration"
+page = 0
+image_tex = ExtResource("1_cg32g")
+content = "To register an island on the globe, you need to know its coordinates first. You can find it using the sundials or the stars."

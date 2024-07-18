@@ -115,7 +115,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_430as")
 expand_mode = 1
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
 layout_mode = 2
@@ -128,6 +128,8 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Content" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" index="0" instance=ExtResource("4_737lk")]
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 1
 
 [node name="ArrowRight" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="3"]
 custom_minimum_size = Vector2(16, 0)

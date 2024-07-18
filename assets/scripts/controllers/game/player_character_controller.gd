@@ -210,7 +210,7 @@ func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
 		if !inside_player_boat_area: return
 		
-		if CollectibleState.get_collectible_status("boat_key") != CollectibleState.CollectibleStatus.OBTAINED:
+		if !ProgressState.get_global_progress(['boat_key_received']):
 			Common.DialogueWrapper.start_monologue("boat_key_not_received")
 			return
 

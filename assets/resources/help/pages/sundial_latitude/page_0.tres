@@ -1,17 +1,13 @@
 [gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://ddjslo3rae5in"]
 
 [ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_ailuq"]
-[ext_resource type="Texture2D" uid="uid://m2xh15raxl0f" path="res://assets/resources/textures/latitude_measure.png" id="1_o46ip"]
+[ext_resource type="Texture2D" uid="uid://belf17cgl7m58" path="res://assets/resources/help_pictures/latitude_help_1.png" id="1_iy6yi"]
 
 [resource]
 script = ExtResource("1_ailuq")
 category_id = "sundial_latitude"
 page = 0
-image_tex = ExtResource("1_o46ip")
+image_tex = ExtResource("1_iy6yi")
 content = "You can estimate your current latitude using a sundial's gnomon (pointer) and the latitude measurement tool.
 
-Firstly, align the latitude measurement so that the yellow part of the pointer points toward the latitude measurement, so that the lines with the dots are clearly visible from the camera.
-
-Follow the example on the side!
-
-Lorem ipsum dolor sit amet."
+Align the latitude measurement with A/D so that the pointer points toward the latitude measurement, like shown in the image, so that the lines are clearly visible from the camera."
