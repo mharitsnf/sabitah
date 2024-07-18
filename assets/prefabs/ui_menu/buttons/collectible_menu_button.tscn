@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dprvjs03hj1j7"]
+
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="1_5ec1g"]
+[ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="2_f5qkp"]
+
+[sub_resource type="Resource" id="Resource_whdij"]
+script = ExtResource("2_f5qkp")
+custom_args = {}
+target_menu = 12
+
+[node name="CollectibleMenuButton" instance=ExtResource("1_5ec1g")]
+custom_minimum_size = Vector2(80, 45)
+size_flags_horizontal = 3
+on_press_command = SubResource("Resource_whdij")

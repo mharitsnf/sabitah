@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://8b2xo2s75g20" path="res://assets/prefabs/visuals/subviewports/svc.tscn" id="1_4ocse"]
 [ext_resource type="PackedScene" uid="uid://db0mpws4i73fe" path="res://assets/prefabs/visuals/render_stack/render_stack.tscn" id="1_spdox"]
 [ext_resource type="PackedScene" uid="uid://1cfuft35ap2" path="res://assets/levels/test_level_1.tscn" id="2_h3dnu"]
-[ext_resource type="PackedScene" uid="uid://dr3pa5wcbro7s" path="res://assets/prefabs/hud/layer/game_hud_layer.tscn" id="5_2c4kl"]
-[ext_resource type="PackedScene" uid="uid://tn6uojnnyc44" path="res://assets/prefabs/user_interfaces/layer/game_menu_layer.tscn" id="6_hwyun"]
+[ext_resource type="PackedScene" uid="uid://dr3pa5wcbro7s" path="res://assets/prefabs/ui_hud/layer/game_hud_layer.tscn" id="5_2c4kl"]
+[ext_resource type="PackedScene" uid="uid://tn6uojnnyc44" path="res://assets/prefabs/ui_menu/layer/game_menu_layer.tscn" id="6_hwyun"]
 [ext_resource type="PackedScene" uid="uid://bo7uei2mgiu0l" path="res://assets/prefabs/visuals/subviewports/final_sv.tscn" id="10_r5jq4"]
 
 [node name="GameContainer" type="Node"]

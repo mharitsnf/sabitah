@@ -16,10 +16,21 @@ signal dialogue_entered
 signal dialogue_exited
 
 class DialogueWrapper extends RefCounted:
+	static var monologue_res: DialogueResource = preload("res://assets/dialogues/monologues.dialogue")
+
 	static var _dialogue_active: bool = false
 
 	static func is_dialogue_active() -> bool:
 		return _dialogue_active
+
+	static func start_monologue(title: String) -> void:
+		if is_dialogue_active(): return
+		_dialogue_active = true
+		Common.dialogue_entered.emit()
+		DialogueManager.show_dialogue_balloon(monologue_res, title)
+		await DialogueManager.dialogue_ended
+		Common.dialogue_exited.emit()
+		_dialogue_active = false
 
 	static func start_dialogue(dialogue_resource: DialogueResource, title: String = "start", extra_game_states: Array = []) -> void:
 		if is_dialogue_active(): return
@@ -96,7 +107,7 @@ class InputState extends RefCounted:
 		_current_device = device
 
 class InputPromptFactory extends RefCounted:
-	var _pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
+	var _pscn: PackedScene = preload("res://assets/prefabs/ui_hud/input_prompt/input_prompt.tscn")
 	var _instance: InputPrompt
 	func _init() -> void:
 		_instance = _pscn.instantiate()

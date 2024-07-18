@@ -2,6 +2,7 @@ class_name LocalSundialManager extends SundialManager
 
 @export var island_name: String = "Primarina Island"
 @export var boat_waypoint: Marker3D
+@export var tutorial_sundial: bool
 var latlong: Array
 var island_alias: String = ""
 var geotag_id: String = ""

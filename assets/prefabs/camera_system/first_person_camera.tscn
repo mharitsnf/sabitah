@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://assets/scripts/camera_system/first_person_camera.gd" id="1_7xa68"]
 [ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="2_b2co1"]
-[ext_resource type="Resource" uid="uid://bfnj1oxrissmk" path="res://assets/resources/camera_rotation_settings/first_person_settings.tres" id="3_7qp6o"]
-[ext_resource type="Resource" uid="uid://dpryn8gg66bb2" path="res://assets/resources/camera_fov_settings/default_fov.tres" id="3_gsdwc"]
-[ext_resource type="Resource" uid="uid://c5o0j76wwy1ba" path="res://assets/resources/camera_clamp_settings/default_limits.tres" id="4_15tnk"]
+[ext_resource type="Resource" uid="uid://bfnj1oxrissmk" path="res://assets/resources/camera_settings/camera_rotation_settings/first_person_settings.tres" id="3_7qp6o"]
+[ext_resource type="Resource" uid="uid://dpryn8gg66bb2" path="res://assets/resources/camera_settings/camera_fov_settings/default_fov.tres" id="3_gsdwc"]
+[ext_resource type="Resource" uid="uid://c5o0j76wwy1ba" path="res://assets/resources/camera_settings/camera_clamp_settings/default_limits.tres" id="4_15tnk"]
 
 [node name="FirstPersonCamera" type="Node3D" node_paths=PackedStringArray("offset_target", "camera_target", "y_rot_target", "x_rot_target")]
 script = ExtResource("1_7xa68")

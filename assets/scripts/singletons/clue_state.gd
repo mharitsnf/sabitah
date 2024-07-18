@@ -8,7 +8,7 @@ const CLUE_FOLDER_PATH: String = "res://assets/resources/clues/"
 
 var check_dialogue: DialogueResource = preload("res://assets/dialogues/clue_checking.dialogue")
 var clue_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_area.tscn")
-var clue_menu_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/clue_menu_button.tscn")
+var clue_menu_button_pscn: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/clue_menu_button.tscn")
 
 var clue_id_to_confirm: String
 var confirm_data: Dictionary = {

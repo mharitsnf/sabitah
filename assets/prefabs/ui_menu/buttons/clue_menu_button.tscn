@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjp6dkukowavy"]
+
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="1_8fvr6"]
+[ext_resource type="Resource" uid="uid://kvcemdf1spto" path="res://assets/resources/commands/menu_navigation/to_clue_details.tres" id="2_15c1o"]
+
+[node name="ClueMenuButton" instance=ExtResource("1_8fvr6")]
+custom_minimum_size = Vector2(80, 45)
+size_flags_horizontal = 3
+on_press_command = ExtResource("2_15c1o")

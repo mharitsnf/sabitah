@@ -50,6 +50,8 @@ func _confirm_island_location() -> void:
 		transitioning = true
 		level_anim.play("add_first_marker")
 		await level_anim.animation_finished
+		if State.local_sundial.tutorial_sundial:
+			ProgressState.global_progress['tutorial_island_registered'] = true
 		await _exit_globe_scene()
 		transitioning = false
 

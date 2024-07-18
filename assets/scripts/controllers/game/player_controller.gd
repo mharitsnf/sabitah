@@ -1,8 +1,5 @@
 class_name PlayerController extends Node
 
-@export_group("Dialogues")
-@export var interactions_dialogue: DialogueResource
-
 var input_prompts: Dictionary = {}
 var hud_layer: HUDLayer
 var menu_layer: MenuLayer
@@ -16,7 +13,6 @@ func _ready() -> void:
 	assert(hud_layer)
 	assert(menu_layer)
 	assert(main_camera)
-	assert(interactions_dialogue)
 
 	(menu_layer as MenuLayer).menu_entered.connect(_on_menu_entered)
 	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)

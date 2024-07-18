@@ -45,7 +45,7 @@ func _ready() -> void:
 
 # region Input prompts
 
-var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/hud/input_prompt/input_prompt.tscn")
+var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_hud/input_prompt/input_prompt.tscn")
 
 # region Sundial data
 

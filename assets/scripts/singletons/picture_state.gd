@@ -3,12 +3,12 @@ extends Node
 const PICTURE_FOLDER_PATH: String = "res://assets/resources/pictures/"
 const PICTURE_UNCATEGORIZED_FOLDER: String = "uncategorized/"
 
-var filter_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/generic_toggle_button.tscn")
+var filter_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/generic_toggle_button.tscn")
 var all_filters: Array[Dictionary] = []
 var active_filters: Array[Dictionary] = []
 
-var picture_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_button.tscn")
-var picture_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/picture_toggle_button.tscn")
+var picture_button_pscn: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/picture_button.tscn")
+var picture_toggle_button_pscn: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/picture_toggle_button.tscn")
 var picture_cache: Array[PictureData] = []
 var pictures_to_delete: Array[Picture] = []
 

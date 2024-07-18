@@ -10,7 +10,7 @@ enum CollectibleType {
 
 const COLLECTIBLE_FOLDER_PATH: String = "res://assets/resources/collectibles/"
 
-var collectible_menu_button_pscn: PackedScene = preload("res://assets/prefabs/user_interfaces/buttons/collectible_menu_button.tscn")
+var collectible_menu_button_pscn: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/collectible_menu_button.tscn")
 
 var collectible_cache: Array[CollectibleData] = []
 

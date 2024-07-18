@@ -1,0 +1,154 @@
+[gd_scene load_steps=11 format=3 uid="uid://ct4alucn1pyxi"]
+
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_o1hrx"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/gallery_menu.gd" id="2_ur5vc"]
+[ext_resource type="PackedScene" uid="uid://c0cfsi4lyb3g" path="res://assets/prefabs/ui_menu/buttons/picture_button.tscn" id="3_fiitt"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="4_vijl3"]
+[ext_resource type="Resource" uid="uid://c4a534p764k5o" path="res://assets/resources/commands/menu_navigation/to_filter_gallery.tres" id="5_fktak"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="6_tvr3q"]
+
+[sub_resource type="Animation" id="Animation_84niw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mf54x"]
+resource_name = "tree_entered"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xvdnv"]
+resource_name = "tree_exiting"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rohq0"]
+_data = {
+"RESET": SubResource("Animation_84niw"),
+"tree_entered": SubResource("Animation_mf54x"),
+"tree_exiting": SubResource("Animation_xvdnv")
+}
+
+[node name="Gallery" node_paths=PackedStringArray("filter_tag_container", "picture_button_container", "add_filter_button") instance=ExtResource("1_o1hrx")]
+script = ExtResource("2_ur5vc")
+filter_tag_container = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/GridContainer")
+picture_button_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer")
+add_filter_button = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer/GenericButton")
+picture_button_pscn = ExtResource("3_fiitt")
+
+[node name="Panel" type="Panel" parent="." index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Gallery"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("4_vijl3")]
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Change filter"
+on_press_command = ExtResource("5_fktak")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("6_tvr3q")]
+layout_mode = 2
+text = "Include pictures from geotags:"
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 8
+columns = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 6
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_rohq0")
+}

@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr1i2bbky8n2g"]
+
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="1_jashu"]
+[ext_resource type="Resource" uid="uid://btoysbkq1t5w8" path="res://assets/resources/commands/assign_geotag.tres" id="2_8qk31"]
+
+[node name="AssignGeotagButton" instance=ExtResource("1_jashu")]
+size_flags_horizontal = 3
+on_press_command = ExtResource("2_8qk31")

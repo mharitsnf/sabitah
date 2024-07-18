@@ -179,7 +179,7 @@ func _get_register_boat_waypoint_input() -> void:
 	if !State.local_sundial: return
 	if !State.local_sundial.first_marker_done: return
 	if Input.is_action_just_pressed("actor__register_boat_waypoint"):
-		Common.DialogueWrapper.start_dialogue(interactions_dialogue, "set_node_sundial")
+		Common.DialogueWrapper.start_monologue("set_node_sundial")
 
 func _get_enter_local_sundial_input() -> void:
 	if !State.local_sundial: return
@@ -211,11 +211,11 @@ func _get_enter_ship_input() -> void:
 		if !inside_player_boat_area: return
 		
 		if CollectibleState.get_collectible_status("boat_key") != CollectibleState.CollectibleStatus.OBTAINED:
-			Common.DialogueWrapper.start_dialogue(interactions_dialogue, "boat_key_not_received")
+			Common.DialogueWrapper.start_monologue("boat_key_not_received")
 			return
 
 		if !ProgressState.get_global_progress(['tutorial_island_registered']):
-			Common.DialogueWrapper.start_dialogue(interactions_dialogue, "tutorial_island_not_registered")
+			Common.DialogueWrapper.start_monologue("tutorial_island_not_registered")
 			return
 		
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)

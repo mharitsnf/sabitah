@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8thbgmp6n3ij"]
+
+[ext_resource type="Script" path="res://assets/scripts/sundial_manager/local_sundial_manager.gd" id="1_dqi4h"]
+[ext_resource type="PackedScene" uid="uid://dtt5k2c5jygva" path="res://assets/resources/models/sundial/latitude_measure_model.tscn" id="2_1knlg"]
+[ext_resource type="PackedScene" uid="uid://24fhn16ls8a0" path="res://assets/resources/models/sundial/sundial_model.tscn" id="3_womxx"]
+[ext_resource type="PackedScene" uid="uid://c0txwcwbpghq3" path="res://assets/prefabs/actor/sundial/areas/local_sundial_area.tscn" id="4_6umoa"]
+[ext_resource type="PackedScene" uid="uid://c2chpo4bputbe" path="res://assets/prefabs/camera_system/sundial/boat_sundial_tpc.tscn" id="5_eqh28"]
+[ext_resource type="Script" path="res://assets/scripts/player_camera_manager/player_camera_manager.gd" id="6_002n7"]
+[ext_resource type="Script" path="res://assets/scripts/controllers/game/player_sundial_controller.gd" id="7_boplh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2owb4"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1fta5"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[node name="LocalSundialManager" type="Node3D" node_paths=PackedStringArray("sundial_center") groups=["local_sundial_managers"]]
+script = ExtResource("1_dqi4h")
+sundial_center = NodePath("SundialCenter")
+latitude_measure_pscn = ExtResource("2_1knlg")
+sundial_pscn = ExtResource("3_womxx")
+
+[node name="Mount" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mount"]
+shape = SubResource("BoxShape3D_2owb4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mount"]
+mesh = SubResource("BoxMesh_1fta5")
+
+[node name="SundialCenter" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="LocalSundialArea" parent="." instance=ExtResource("4_6umoa")]
+
+[node name="BoatSundialTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("5_eqh28")]
+follow_target = NodePath("../SundialCenter")
+
+[node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera")]
+script = ExtResource("6_002n7")
+third_person_camera = NodePath("../BoatSundialTPC")
+
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("actor")]
+script = ExtResource("7_boplh")
+actor = NodePath("..")
