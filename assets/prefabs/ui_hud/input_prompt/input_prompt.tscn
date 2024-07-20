@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" path="res://assets/scripts/hud/input_prompt/input_prompt.gd" id="1_tsy4m"]
 
-[node name="InputPrompt" type="MarginContainer" node_paths=PackedStringArray("button_label", "text_label")]
+[node name="InputPrompt" type="MarginContainer" node_paths=PackedStringArray("button_label", "text_label", "panel")]
 script = ExtResource("1_tsy4m")
+show_panel = true
 input_button = "X"
 prompt = "Enter boat"
 button_label = NodePath("MarginContainer/HBoxContainer/ButtonToPress")
 text_label = NodePath("MarginContainer/HBoxContainer/TextPrompt")
+panel = NodePath("Panel")
 
 [node name="Panel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0.498039)

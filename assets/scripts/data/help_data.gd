@@ -15,6 +15,9 @@ func get_help_category() -> HelpCategory:
 func get_menu_button() -> GenericButton:
 	return _menu_button
 
+func get_help_pages() -> Array[HelpPage]:
+	return _help_pages
+
 func get_page_count() -> int:
 	return _help_pages.size()
 

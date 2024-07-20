@@ -19,12 +19,17 @@ func _ready() -> void:
 
 	(main_camera as MainCamera).follow_target_changed.connect(_on_follow_target_changed)
 
+	Common.dialogue_entered.connect(_on_dialogue_entered)
+
 	_add_input_prompts()
 
 func _on_menu_entered(_data: MenuData) -> void:
 	pass
 
 func _on_menu_exited(_data: MenuData) -> void:
+	pass
+
+func _on_dialogue_entered() -> void:
 	pass
 
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:

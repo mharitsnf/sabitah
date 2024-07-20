@@ -2,6 +2,10 @@
 class_name InputPrompt extends MarginContainer
 
 var input_button_formatted: String = ""
+@export var show_panel: bool:
+	set(value):
+		show_panel = value
+		if panel: panel.visible = value
 @export var input_button: String:
 	set(value):
 		input_button = value
@@ -14,5 +18,6 @@ var input_button_formatted: String = ""
 @export_group("References")
 @export var button_label: Label
 @export var text_label: Label
+@export var panel: Panel
 
 var active: bool = false

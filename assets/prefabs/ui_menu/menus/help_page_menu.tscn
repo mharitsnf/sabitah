@@ -139,7 +139,7 @@ expand_mode = 1
 stretch_mode = 3
 flip_h = true
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_jq1lo")
 }

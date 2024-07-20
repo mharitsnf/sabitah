@@ -42,6 +42,9 @@ func _ready() -> void:
 	assert(game_visibility_curve)
 	assert(globe_visibility_curve)
 
+# func _process(_delta: float) -> void:
+# 	sprite.modulate.a = sun.get_star_intensity()
+
 func _on_sunrise_started() -> void:
 	if sprite.modulate.a != 0:
 		var tween: Tween = create_tween()

@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bvqv8dcyo834p" path="res://assets/resources/textures/isa true master.png" id="2_44h3s"]
 
 [sub_resource type="Gradient" id="Gradient_1v6w7"]
-interpolation_mode = 2
+interpolation_mode = 1
 interpolation_color_space = 2
-offsets = PackedFloat32Array(0.489152, 0.524655)
-colors = PackedColorArray(0.33, 0.33, 0.33, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.54102)
+colors = PackedColorArray(0.252754, 0.252754, 0.252753, 1, 0.599604, 0.599604, 0.599603, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jm8w1"]
 gradient = SubResource("Gradient_1v6w7")

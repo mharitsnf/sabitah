@@ -19,12 +19,14 @@ func _ready() -> void:
 
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
-		assert(new_data.has('pages'))
-		assert(new_data['pages'] is Array)
-		assert(new_data.has('help_category'))
-		assert(new_data['help_category'] is HelpCategory)
+		assert(new_data.has('help_category_id'))
+		assert(new_data['help_category_id'] is String)
 
 		data = new_data
+		var help_data: HelpData = HelpState.get_help_by_id(data['help_category_id'])
+		data['help_category'] = help_data.get_help_category()
+		data['pages'] = help_data.get_help_pages()
+
 		menu_header.text = (data['help_category'] as HelpCategory).title
 
 		_set_index_content()

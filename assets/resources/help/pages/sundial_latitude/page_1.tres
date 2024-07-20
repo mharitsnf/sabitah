@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://cdnc6xsr8330j"]
+[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://btc7c5qpokxk2"]
 
 [ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_2ksnv"]
 [ext_resource type="Texture2D" uid="uid://belf17cgl7m58" path="res://assets/resources/help_pictures/latitude_help_1.png" id="1_jqa6t"]
@@ -8,8 +8,6 @@ script = ExtResource("1_2ksnv")
 category_id = "sundial_latitude"
 page = 1
 image_tex = ExtResource("1_jqa6t")
-content = "Measure the angle from the horizontal lines on the latitude measure to the sundial pointer. The lines will act as references.
+content = "Firstly, rotate the latitude measurement so that it aligns with the gnomon, as seen in the image.
 
-The horizontal line indicates 0 degrees, and each following thick lines indicates 30 and 60 degrees. The vertical line indicates 90 degrees.
-
-To get the latitude, estimate where the pointer falls on the latitude measure. In the example, the latitude is probably around 15 degrees."
+Make sure that the lines are visible from the camera!"

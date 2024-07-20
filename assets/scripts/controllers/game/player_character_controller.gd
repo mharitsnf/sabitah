@@ -240,6 +240,9 @@ func _reset_inputs() -> void:
 func _on_menu_entered(_data: MenuData) -> void:
 	_reset_inputs()
 
+func _on_dialogue_entered() -> void:
+	_reset_inputs()
+
 func _on_current_data_changed() -> void:
 	if State.actor_im.get_current_controller() != self:
 		_reset_inputs()

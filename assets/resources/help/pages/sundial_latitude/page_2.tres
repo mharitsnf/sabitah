@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://daall3f82quer"]
+[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://ckgqk8yhl5vyc"]
 
-[ext_resource type="Texture2D" uid="uid://65ljgpbab77i" path="res://assets/resources/help_pictures/latitude_help_2.png" id="1_bmy2s"]
-[ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_sdqhk"]
+[ext_resource type="Texture2D" uid="uid://1gwakbcsnys8" path="res://assets/resources/help_pictures/latitude_help_3.png" id="1_pm35y"]
+[ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="2_nq5yk"]
 
 [resource]
-script = ExtResource("1_sdqhk")
+script = ExtResource("2_nq5yk")
 category_id = "sundial_latitude"
 page = 2
-image_tex = ExtResource("1_bmy2s")
-content = "If you're on the northern hemisphere, use the yellow pointer. However, if you're on the southern hemisphere, use the dark gray pointer."
+image_tex = ExtResource("1_pm35y")
+content = "Once the latitude measurement and the gnomon is aligned, you can find your current latitude by measuring the angle of the gnomon.
+
+For reference, there are several lines on the latitude measurement. The horizontal line is for 0 degrees, the vertical line is for 90 degrees, while the remaining thick lines are 30 and 60 degrees each."

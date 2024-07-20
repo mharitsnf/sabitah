@@ -41,3 +41,7 @@ func _calculate_player_dot_sun() -> void:
 		day_or_night = DayOrNight.DAY
 		sunrise_started.emit()
 		print('day')
+
+func get_star_intensity() -> float:
+	return 1. - ndotl
+

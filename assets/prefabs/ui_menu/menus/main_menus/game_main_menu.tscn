@@ -64,3 +64,7 @@ layout_mode = 2
 text = "Quit game"
 alignment = 0
 on_press_command = ExtResource("5_l5pnm")
+
+[node name="HBoxContainer" parent="." index="1"]
+offset_top = -56.0
+offset_bottom = -1.0

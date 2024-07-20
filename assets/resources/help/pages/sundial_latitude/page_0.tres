@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://ddjslo3rae5in"]
+[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://7645n5t8wrga"]
 
 [ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_ailuq"]
 [ext_resource type="Texture2D" uid="uid://belf17cgl7m58" path="res://assets/resources/help_pictures/latitude_help_1.png" id="1_iy6yi"]
@@ -8,6 +8,4 @@ script = ExtResource("1_ailuq")
 category_id = "sundial_latitude"
 page = 0
 image_tex = ExtResource("1_iy6yi")
-content = "You can estimate your current latitude using a sundial's gnomon (pointer) and the latitude measurement tool.
-
-Align the latitude measurement with A/D so that the pointer points toward the latitude measurement, like shown in the image, so that the lines are clearly visible from the camera."
+content = "You can get your current latitude using the sundials' gnomon (the stick) and the latitude measurement (the donut)."

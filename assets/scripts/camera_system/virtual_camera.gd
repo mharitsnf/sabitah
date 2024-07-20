@@ -80,6 +80,8 @@ var actual_fov: float
 	# Meaning, the change follow target will not work immediately because the path does not exist yet.
 	set = _set_follow_target
 
+var main_camera: MainCamera
+
 ## If true, then the camera will transition between different follow targets.
 @export var use_transition: bool = true 
 @export var tween_settings: TweenSettings
@@ -100,21 +102,11 @@ signal camera_adjusting_basis_changed(new_value: bool)
 func _ready() -> void:
 	menu_layer = Group.first("menu_layer")
 	hud_layer = Group.first("hud_layer")
+	main_camera = Group.first("main_camera")
 
 func _process(delta: float) -> void:
 	_transition(delta)
 	_update_basis()
-
-	# FoV functions
-	_on_stop_smooth_fov_input()
-	_clamp_fov()
-
-	# Rotation functions
-	if Common.InputState.is_keyboard_active():
-		_on_stopped_smooth_rotation_input()
-	
-	_clamp_rotation()
-	_rotate_camera()
 
 ## **Private**. Update the basis according to the normal (if [adjusting_basis] is [true]).
 func _update_basis() -> void:
@@ -131,7 +123,16 @@ func _is_player_input_allowed() -> bool:
 
 ## Delegated process to be run from the [MainCamera]
 func delegated_process(_delta: float) -> void:
-	pass
+	# FoV functions
+	_on_stop_smooth_fov_input()
+	_clamp_fov()
+
+	# Rotation functions
+	if Common.InputState.is_keyboard_active():
+		_on_stopped_smooth_rotation_input()
+
+	_clamp_rotation()
+	_rotate_camera()
 
 ## Delegated process specifically for player input (joypad)
 func player_input_process(_delta: float) -> void:

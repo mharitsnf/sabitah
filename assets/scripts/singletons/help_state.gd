@@ -43,7 +43,7 @@ func create_category_cache(help_category: HelpCategory) -> void:
 
 	var help_menu_button: GenericButton = HELP_MENU_BUTTON_PSCN.instantiate()
 	(help_menu_button as GenericButton).text = help_category.title
-	(help_menu_button as GenericButton).args = [{ "help_category": help_category, "pages": help_pages }]
+	(help_menu_button as GenericButton).args = [{ "help_category_id": help_category.id }]
 	
 
 	help_cache.append(HelpData.new(help_category, help_pages, help_menu_button))
@@ -76,3 +76,11 @@ func get_helps(filters: Dictionary = {}) -> Array[HelpData]:
 				return hd.get_help_category().get(key) == filters[key]
 		)
 	return result
+
+func get_help_by_id(id: String) -> HelpData:
+	var hd: Array[HelpData] = help_cache.filter(
+		func(_hd: HelpData) -> bool:
+			return _hd.get_help_category().id == id
+	)
+	if hd.is_empty(): return null
+	return hd[0]

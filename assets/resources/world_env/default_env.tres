@@ -1,8 +1,9 @@
 [gd_resource type="Environment" load_steps=3 format=3 uid="uid://cdj1j2owe1rni"]
 
 [sub_resource type="Gradient" id="Gradient_os3fo"]
-offsets = PackedFloat32Array(0.0849673, 0.418301, 0.673203, 1)
-colors = PackedColorArray(0.05, 0.05, 0.05, 1, 0.21073, 0.21073, 0.21073, 1, 0.466901, 0.466901, 0.466901, 1, 0.843184, 0.843184, 0.843184, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.0849673, 0.4102, 0.673203, 1)
+colors = PackedColorArray(0.0479167, 0.0375, 0.05, 1, 0.2065, 0.168, 0.21, 1, 0.47, 0.3995, 0.47, 1, 0.84, 0.756, 0.8302, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_j7eoh"]
 gradient = SubResource("Gradient_os3fo")
@@ -12,7 +13,6 @@ background_mode = 1
 background_color = Color(0.117647, 0.0705882, 0.34902, 1)
 ambient_light_source = 3
 tonemap_mode = 3
-tonemap_exposure = 0.85
 tonemap_white = 16.0
 ssao_enabled = true
 ssao_intensity = 8.0

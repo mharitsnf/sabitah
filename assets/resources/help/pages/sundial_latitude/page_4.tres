@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HelpPage" load_steps=3 format=3 uid="uid://bkntc5ip7ipw4"]
+
+[ext_resource type="Texture2D" uid="uid://65ljgpbab77i" path="res://assets/resources/help_pictures/latitude_help_2.png" id="1_itlup"]
+[ext_resource type="Script" path="res://assets/scripts/help/help_page.gd" id="1_pivts"]
+
+[resource]
+script = ExtResource("1_pivts")
+category_id = "sundial_latitude"
+page = 4
+image_tex = ExtResource("1_itlup")
+content = "If you're on the southern hemisphere, the dark blue part of the gnomon will be the one pointing at the latitude measurement instead. Use that angle to find the latitude!"

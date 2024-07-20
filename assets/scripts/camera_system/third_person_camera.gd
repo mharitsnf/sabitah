@@ -36,10 +36,13 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	_lerp_offset()
 
 	_on_stop_smooth_spring_length_input()
 	_clamp_spring_length()
+
+func delegated_process(delta: float) -> void:
+	super(delta)
+	_lerp_offset()
 
 func _tween_spring_length(target: float) -> void:
 	var tween: Tween = create_tween()
