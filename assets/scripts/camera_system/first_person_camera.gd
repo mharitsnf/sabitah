@@ -40,7 +40,7 @@ func _create_picture() -> void:
 	hud_layer.take_picture_screen()
 
 	var pic: Picture = Picture.new()
-	pic.resource_path = final_path + str(floor(Time.get_unix_time_from_system())) + ".tres"
+	pic.resource_path = final_path + str(floor(Time.get_unix_time_from_system())) + ".res"
 	pic.image_tex = tex
 	
 	PictureState.create_picture_cache(pic)

@@ -1,6 +1,6 @@
 extends Node
 
-var free_mode: bool = true
+var free_mode: bool = false
 
 var global_progress: Dictionary = {
 	"first_introduction": false,
@@ -28,6 +28,10 @@ func get_global_progress(keys: Array) -> bool:
 	if free_mode: return true
 	return _get_dict_value(global_progress, keys)
 
+func get_progress(keys: Array[String]) -> bool:
+	if free_mode: return true
+	return _get_dict_value(progress, keys)
+
 func _get_dict_value(dict: Dictionary, keys: Array) -> bool:
 	var key: String = keys.pop_front()
 	if !dict.has(key):
@@ -38,4 +42,4 @@ func _get_dict_value(dict: Dictionary, keys: Array) -> bool:
 	if result is bool:
 		return result
 	
-	return _get_dict_value(dict, keys)
+	return _get_dict_value(result, keys)

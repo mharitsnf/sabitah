@@ -72,7 +72,7 @@ func _ready() -> void:
 	mat = ShaderMaterial.new()
 	mat.shader = kuwahara_3_shader
 	mat.resource_local_to_scene = true
-	mat.set_shader_parameter("radius", 8.)
+	mat.set_shader_parameter("radius", 6.)
 	mat.set_shader_parameter("main_tex", level_viewport.get_texture())
 	(kwh_3_pass as PostProcessingPass).game_texture.material = mat
 	add_child.call_deferred(kwh_3_pass)

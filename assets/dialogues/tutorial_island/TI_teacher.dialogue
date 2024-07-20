@@ -18,17 +18,11 @@ if CollectibleState.get_collectible_status("boat_key") == CollectibleState.Colle
 
 ~ intro
 Teacher: There you are! You ready to get your own boat and become the world's best treasure hunter?
-- YEEEAAAHHH!!!
-	Teacher: YEEEEEAAAAAHHHHH!!!!!
 - Of course! I'm fully awake now!
 	Teacher: Huh, that's rare... but it's great to hear that!
 Teacher: But first, you know you'll need to complete the final test first, right?
 - Yeah, I know, I remember that.
 Teacher: Good! Cause this test will help you sharpen your treasure hunting and navigation skills so you can go anywhere in the world!
-Teacher: So... The test will be about... REAL TREASURE HUNTING!!!
-- ALRIGHT!!!
-- ...what else is it supposed to be?
-	Teacher: ... yeah you're right.
 Teacher: The test is simple: I will give you a clue that will lead you to a treasure!
 Teacher: All you need to do is to figure out where the treasure is based on the clue I provided.
 Teacher: If you don't remember, I can explain to you how you can find treasures. Would you like me to do that?
@@ -45,8 +39,8 @@ do ProgressState.progress["tutorial_island"]['teacher']['intro'] = true
 ~ treasure_hunting_tutorial
 Teacher: First thing first, see which treasure you want to pursue by looking at the Clues Journal. You can access the journal through the main menu, by pressing the TAB key.
 Teacher: Once you selected a clue, you'll see that it will come with pictures and description.
-Teacher: The pictures are your best friend! They are taken exactly on the treasure location, so they can tell you how the environment around the treasure looks like!
-Teacher: Once you figure out where the treasure is, you need to go there to dig it.
+Teacher: Try to figure out the treasure based on the pictures and the description!
+Teacher: Of course, if you've figured it out, you need to go there to dig it.
 Teacher: Once you've reached the location of the treasure, press C, select which clue you're currently pursuing, and see if your guess is correct or not!
 Teacher: Do you want me to explain this again?
 - Yeah, maybe one more time?
@@ -79,19 +73,25 @@ Teacher: Hey, sundial is a vital part of treasure hunting! Hunters can travel ar
 Teacher: You do know what kind of stuff that you can do with sundials, right?
 - Um... remind me again?
 Teacher: Sheesh... I know this is your least favorite subject, but it's very important, so please keep this in mind!
-Teacher: Firstly, you can figure out your current coordinate on this planet. This is very important because the globe is not going to tell you where you are on the face of the planet!
-Teacher: So, being able to read the sundial and figure out your location is a must-have skill for sailors.
-Teacher: Don't worry, your boat is also equipped with a sundial, so you can always use it whenever you want.
-- Right, right. I got you.
-Teacher: That's not all! Secondly, have you noticed that your globe is empty at the moment? You can check it out later by going into the menu by using the Tab key.
-Teacher: This is because you haven't registered any island on your globe yet.
-Teacher: To register islands, you can approach an island's sundial, and press R to register the island location on your globe!
-Teacher: Of course, you need to know the coordinates of that island first, but you can figure it out beforehand by using the sundial.
-Teacher: On top of that, almost every island in this planet has its own sundial, so you can always register its location by approaching them!
-- Okay. I understand.
-Teacher: Good! Now your final test would be to register this island using the island's sundial.
-Teacher: Figure out our current coordinates first, and then register it!
-Teacher: Good luck! If you need any help, don't hesitate to talk with me, alright?
+Teacher: There are three main things that you can do with the sundial.
+Teacher: Firstly, sundials can act as a compass! It can tell you where the true north and south are.
+Teacher: Secondly, you can find your current latitude with it as well!
+Teacher: Finallly, you can find your current time, and therefore, your current longitude.
+Teacher: I know sundials can be a bit tricky, but I've given you the instructions on how to use it in the help page. You can open the help page by opening the main menu using the Tab key.
+- Okay... so what is the test?
+Teacher: Your task is to register this island on your globe!
+Teacher: You see, every sailor has a globe filled with interesting locations. But the globes will not fill themselves automatically, you need to know the exact coordinates of those locations first to be able to mark them.
+Teacher: So, as any other newly embarked sailor, you'll have an empty globe at first. But as you explore, you can fill them with islands, landmarks, and many other stuff!
+Teacher: Now, almost every major islands in this planet has its own local sundial similar to the one at Sundial Park. You can use those sundials to register that island on your globe permanently!
+Teacher: Of course, you need to know the coordinates of the island first before registering, so that's why you need to know how to read sundials!
+- Oh alright, makes sense, I guess.
+Teacher: Great! Now try registering this island on your globe. Once this island has been registered, you can set this island as a Node Island.
+- What is that?
+Teacher: You see, it's very easy for sailors to be lost at sea. To avoid that, sailors can register a node island so that if they're lost, they can teleport back to their node island!
+- Oh that's neat!
+Teacher: Exactly, that's why before you ever leave this place, at least set this island as your node island first, so that if you're lost, you can always teleport back!
+- Okay, then I'm ready!
+Teacher: Perfect, go to the Sundial Park, register this island, and set it as your node island! After that, I'll fix your key and you'll be good to go. Good luck!
 do ProgressState.progress["tutorial_island"]['teacher']['sundial_intro'] = true
 => END
 

@@ -153,6 +153,7 @@ func get_character_state(key: CharacterStates) -> ActorState:
 # region Input functions
 
 func _get_enter_register_island_input() -> void:
+	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 	if !State.local_sundial: return
 	if State.local_sundial.first_marker_done: return
 
@@ -176,6 +177,7 @@ func _get_enter_register_island_input() -> void:
 		)
 
 func _get_register_boat_waypoint_input() -> void:
+	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 	if !State.local_sundial: return
 	if !State.local_sundial.first_marker_done: return
 	if Input.is_action_just_pressed("actor__register_boat_waypoint"):
@@ -202,6 +204,7 @@ func _get_check_clues_input() -> void:
 			ClueState.confirm_data.status = true
 			ClueState.change_clue_status(ClueState.clue_id_to_confirm, ClueState.ClueStatus.COMPLETED)
 			ClueState.unlock_reward()
+			print(ClueState.confirm_data)
 		else: ClueState.confirm_data.status = false
 
 		Common.DialogueWrapper.start_dialogue.call_deferred(ClueState.check_dialogue, "start")
@@ -255,6 +258,8 @@ func _on_local_sundial_area_entered(area: Node3D) -> void:
 	(input_prompts["T"] as InputPrompt).active = true
 	hud_layer.add_input_prompt(input_prompts["T"])
 	
+	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
+
 	if !State.local_sundial.first_marker_done:
 		(input_prompts["Y"] as InputPrompt).active = true
 		hud_layer.add_input_prompt(input_prompts["Y"])
@@ -266,6 +271,8 @@ func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
 	(input_prompts["T"] as InputPrompt).active = false
 	hud_layer.remove_input_prompt(input_prompts["T"])
+
+	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 
 	(input_prompts["Y"] as InputPrompt).active = false
 	hud_layer.remove_input_prompt(input_prompts["Y"])
