@@ -4,8 +4,9 @@ var free_mode: bool = false
 
 var global_progress: Dictionary = {
 	"first_introduction": false,
+	"globe_menu_unlocked": false,
+	"help_menu_unlocked": false,
 	"boat_key_received": func () -> bool:
-		if free_mode: return true
 		return CollectibleState.get_collectible_status("boat_key") != CollectibleState.CollectibleStatus.OBTAINED,
 	"tutorial_island_registered": false
 }

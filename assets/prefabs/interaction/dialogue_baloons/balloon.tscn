@@ -24,7 +24,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
-offset_top = -184.0
+offset_top = -248.0
 offset_right = -24.0
 offset_bottom = -24.0
 grow_horizontal = 2
@@ -32,7 +32,7 @@ grow_vertical = 0
 
 [node name="Dialogue" type="MarginContainer" parent="Balloon/Panel2"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -66,6 +66,11 @@ theme_override_font_sizes/bold_italics_font_size = 21
 theme_override_font_sizes/mono_font_size = 21
 text = "Dialogue..."
 
+[node name="NextLabel" type="Label" parent="Balloon/Panel2/Dialogue/VBoxContainer"]
+layout_mode = 2
+text = "[E] Next"
+horizontal_alignment = 2
+
 [node name="Responses" type="MarginContainer" parent="Balloon"]
 layout_mode = 1
 anchors_preset = 7
@@ -73,10 +78,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -152.0
-offset_top = -600.0
-offset_right = 489.0
-offset_bottom = -196.0
+offset_left = -128.0
+offset_top = -672.0
+offset_right = 513.0
+offset_bottom = -268.0
 grow_horizontal = 2
 grow_vertical = 0
 

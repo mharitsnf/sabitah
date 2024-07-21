@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://doq3282mmgwl7"]
+[gd_scene load_steps=11 format=3 uid="uid://doq3282mmgwl7"]
 
 [ext_resource type="PackedScene" uid="uid://bnw1k6gr2u3di" path="res://assets/prefabs/ui_menu/menus/main_menus/main_menu.tscn" id="1_vov1y"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="2_ca720"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/game_main_menu.gd" id="2_xt4r6"]
 [ext_resource type="Resource" uid="uid://8qmvemf4jmbm" path="res://assets/resources/commands/scene_navigation/to_globe_island_search.tres" id="3_sgq2a"]
 [ext_resource type="Resource" uid="uid://bnb3j1w4vm8jn" path="res://assets/resources/commands/menu_navigation/to_gallery.tres" id="4_h012q"]
 [ext_resource type="Resource" uid="uid://dw8yc07ww2bkp" path="res://assets/resources/commands/quit_game.tres" id="5_l5pnm"]
@@ -24,12 +25,15 @@ script = ExtResource("5_xjva1")
 custom_args = {}
 target_menu = 13
 
-[node name="GameMainMenu" instance=ExtResource("1_vov1y")]
+[node name="GameMainMenu" node_paths=PackedStringArray("globe_button", "help_button") instance=ExtResource("1_vov1y")]
+script = ExtResource("2_xt4r6")
+globe_button = NodePath("Panel/VBoxContainer/Globe")
+help_button = NodePath("Panel/VBoxContainer/Help")
 
 [node name="VBoxContainer" parent="Panel" index="0"]
 offset_bottom = 646.0
 
-[node name="ToGlobe" parent="Panel/VBoxContainer" index="0" instance=ExtResource("2_ca720")]
+[node name="Globe" parent="Panel/VBoxContainer" index="0" instance=ExtResource("2_ca720")]
 layout_mode = 2
 text = "Globe"
 alignment = 0

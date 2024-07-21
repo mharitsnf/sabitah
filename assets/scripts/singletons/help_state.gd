@@ -84,3 +84,7 @@ func get_help_by_id(id: String) -> HelpData:
 	)
 	if hd.is_empty(): return null
 	return hd[0]
+
+func change_help_category_visibility(id: String, value: HelpState.HelpCategoryVisibility) -> void:
+	var hd: HelpData = get_help_by_id(id)
+	hd.set_help_category_visibility(value)

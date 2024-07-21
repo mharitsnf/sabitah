@@ -77,7 +77,14 @@ Teacher: There are three main things that you can do with the sundial.
 Teacher: Firstly, sundials can act as a compass! It can tell you where the true north and south are.
 Teacher: Secondly, you can find your current latitude with it as well!
 Teacher: Finallly, you can find your current time, and therefore, your current longitude.
-Teacher: I know sundials can be a bit tricky, but I've given you the instructions on how to use it in the help page. You can open the help page by opening the main menu using the Tab key.
+do HelpState.global_progress['help_menu_unlocked'] = true
+do HelpState.global_progress['globe_menu_unlocked'] = true
+do HelpState.change_help_category_visibility("estimating_latitude", HelpState.HelpCategoryVisibility.VISIBLE)
+do HelpState.change_help_category_visibility("estimating_longitude", HelpState.HelpCategoryVisibility.VISIBLE)
+Teacher: I know sundials can be a bit tricky, but I've given you the instructions on how to use it in the help page.
+: You now have access to Help menu! You can find it in the main menu.
+: You also now have access to your globe! You can find it in the main menu.
+: Use the Tab key to open the main menu.
 - Okay... so what is the test?
 Teacher: Your task is to register this island on your globe!
 Teacher: You see, every sailor has a globe filled with interesting locations. But the globes will not fill themselves automatically, you need to know the exact coordinates of those locations first to be able to mark them.

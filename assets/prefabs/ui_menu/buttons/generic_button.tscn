@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://drigyf33vphlq"]
+[gd_scene load_steps=4 format=3 uid="uid://drigyf33vphlq"]
 
+[ext_resource type="StyleBox" uid="uid://c0yjevorg8n0p" path="res://assets/resources/styles/button_focused.tres" id="1_1dx0y"]
 [ext_resource type="Script" path="res://assets/scripts/ui/components/generic_button.gd" id="1_2by7o"]
 [ext_resource type="Resource" uid="uid://c76p07ugbwp1u" path="res://assets/resources/commands/menu_navigation/to_main_menu.tres" id="2_ov7k5"]
 
 [node name="GenericButton" type="Button"]
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_styles/focus = ExtResource("1_1dx0y")
 text = "Button"
 script = ExtResource("1_2by7o")
 on_press_command = ExtResource("2_ov7k5")

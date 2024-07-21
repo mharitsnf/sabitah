@@ -68,6 +68,6 @@ func create_collectible_cache(collectible: Collectible) -> void:
 
 	var collectible_menu_button: GenericButton = collectible_menu_button_pscn.instantiate()
 	(collectible_menu_button as GenericButton).text = collectible.title
-	(collectible_menu_button as GenericButton).args = [{ "collectible": collectible }]
+	(collectible_menu_button as GenericButton).args = [{ "collectible_id": collectible.id }]
 
 	collectible_cache.append(CollectibleData.new(collectible, collectible_menu_button))

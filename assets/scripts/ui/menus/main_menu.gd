@@ -16,7 +16,12 @@ func _on_button_focus_entered(button: Button) -> void:
 	active_button = button
 
 func set_data(new_data: Dictionary) -> void:
+	if new_data.is_empty(): return
+
 	data = new_data
+
+func set_button_visibilities() -> void:
+	pass
 
 # Overridden
 func about_to_exit() -> void:
@@ -25,5 +30,11 @@ func about_to_exit() -> void:
 
 # Overridden
 func after_entering() -> void:
+	set_button_visibilities()
+	
 	await super()
-	(button_vbox.get_child(0) as Button).grab_focus()
+
+	for c: Node in button_vbox.get_children():
+		if c is Button and c.visible:
+			(c as Button).grab_focus()
+			break

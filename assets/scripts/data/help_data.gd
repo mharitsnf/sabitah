@@ -9,6 +9,9 @@ func _init(__help_category: HelpCategory, __help_pages: Array[HelpPage], __menu_
 	_help_pages = __help_pages
 	_menu_button = __menu_button
 
+func set_help_category_visibility(value: HelpState.HelpCategoryVisibility) -> void:
+	_help_category.visibility = value
+
 func get_help_category() -> HelpCategory:
 	return _help_category
 

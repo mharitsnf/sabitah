@@ -135,6 +135,6 @@ func create_clue_cache(clue: Clue) -> void:
 
 	var clue_menu_button: GenericButton = clue_menu_button_pscn.instantiate()
 	(clue_menu_button as GenericButton).text = clue.title
-	(clue_menu_button as GenericButton).args = [{ "clue": clue, 'is_confirmation': false }]
+	(clue_menu_button as GenericButton).args = [{ "clue_id": clue.id, 'is_confirmation': false }]
 
 	clue_cache.append(ClueData.new(clue, clue_menu_button))

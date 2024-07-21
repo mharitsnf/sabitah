@@ -18,10 +18,12 @@ func _ready() -> void:
 
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
-		assert(new_data.has('clue'))
+		assert(new_data.has('clue_id'))
+		assert(new_data['clue_id'] is String)
 		assert(new_data.has('is_confirmation'))
 
 		data = new_data
+		data['clue'] = (ClueState.get_clue_data_by_id(data['clue_id']) as ClueData).get_clue()
 
 		# set arguments
 		confirm_button.args = [(data['clue'] as Clue)]

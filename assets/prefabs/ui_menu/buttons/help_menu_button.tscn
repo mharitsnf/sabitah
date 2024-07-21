@@ -1,14 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce0mnmcipxkem"]
+[gd_scene load_steps=4 format=3 uid="uid://ce0mnmcipxkem"]
 
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="1_vac3m"]
 [ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="2_5yjy1"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2coe"]
-bg_color = Color(0.40146, 0.40146, 0.40146, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
 [sub_resource type="Resource" id="Resource_n1yfb"]
 script = ExtResource("2_5yjy1")
@@ -19,7 +12,6 @@ target_menu = 14
 clip_contents = true
 custom_minimum_size = Vector2(160, 45)
 size_flags_horizontal = 3
-theme_override_styles/focus = SubResource("StyleBoxFlat_h2coe")
 text = "Button
 "
 on_press_command = SubResource("Resource_n1yfb")
