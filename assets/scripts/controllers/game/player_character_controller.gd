@@ -204,7 +204,6 @@ func _get_check_clues_input() -> void:
 		if (clue_areas.has(area)):
 			ClueState.confirm_data.status = true
 			ClueState.change_clue_status(ClueState.clue_id_to_confirm, ClueState.ClueStatus.COMPLETED)
-			ClueState.unlock_reward()
 		else: ClueState.confirm_data.status = false
 
 		Common.DialogueWrapper.start_dialogue.call_deferred(ClueState.check_dialogue, "start")

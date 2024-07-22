@@ -81,7 +81,7 @@ func unlock_reward() -> void:
 		reward_clld.set_collectible_status(CollectibleState.CollectibleStatus.OBTAINED)
 		confirm_data['has_reward'] = true
 		confirm_data['reward_id'] = reward_clld.get_collectible().id
-		confirm_data['type'] = 'treasure'
+		confirm_data['type'] = 'collectible'
 		confirm_data['string'] = reward_clld.get_collectible().title
 		return
 

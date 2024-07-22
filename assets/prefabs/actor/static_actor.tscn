@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b5vheik6jvc0c"]
+[gd_scene load_steps=7 format=3 uid="uid://b5vheik6jvc0c"]
 
 [ext_resource type="Script" path="res://assets/scripts/actor/base_actor.gd" id="1_e5rtm"]
+[ext_resource type="PackedScene" uid="uid://boqr703si150s" path="res://assets/prefabs/actor/areas/sleeper_area.tscn" id="2_sj1xt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nmtg3"]
 
@@ -33,3 +34,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_iqvme")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.3)
 mesh = SubResource("BoxMesh_vva4s")
 surface_material_override/0 = SubResource("StandardMaterial3D_iqvme")
+
+[node name="SleeperArea" parent="." instance=ExtResource("2_sj1xt")]
