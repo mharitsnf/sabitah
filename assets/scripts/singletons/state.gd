@@ -50,7 +50,7 @@ var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_hud/input_
 # region Sundial data
 
 var waypoint_markers: Array[WaypointMarker]
-var local_sundials: Array[LocalSundialManager]
+var sundial_groups: Dictionary = {}
 
 var local_sundial: LocalSundialManager
 var node_sundial: LocalSundialManager

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dr3pa5wcbro7s"]
+[gd_scene load_steps=12 format=3 uid="uid://dr3pa5wcbro7s"]
 
 [ext_resource type="PackedScene" uid="uid://de2es0oq380qc" path="res://assets/prefabs/ui_hud/layer/hud_layer.tscn" id="1_uvbxn"]
 [ext_resource type="Script" path="res://assets/scripts/hud/layer/game_hud_layer.gd" id="2_kl3f3"]
@@ -67,6 +67,30 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("NotificationPanel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(992, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("NotificationPanel:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ml2wk"]
 resource_name = "hide_time_container"
@@ -126,6 +150,35 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185186), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_mic7y"]
+resource_name = "show_notification"
+length = 3.0
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotificationPanel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 2.8, 2.83333, 2.86667, 2.9, 2.93333, 2.96667, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(992, 0), Vector2(992, 0.592593), Vector2(992, 4.74074), Vector2(992, 16), Vector2(992, 27.2593), Vector2(992, 31.4074), Vector2(992, 32), Vector2(992, 32), Vector2(992, 31.4074), Vector2(992, 27.2593), Vector2(992, 16), Vector2(992, 4.74075), Vector2(992, 0.592594), Vector2(992, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NotificationPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 2.8, 2.83333, 2.86667, 2.9, 2.93333, 2.96667, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185186), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ut25w"]
 resource_name = "show_time_container"
 length = 0.2
@@ -177,12 +230,14 @@ _data = {
 "RESET": SubResource("Animation_e5vrm"),
 "hide_time_container": SubResource("Animation_ml2wk"),
 "show_island_name": SubResource("Animation_lji8h"),
+"show_notification": SubResource("Animation_mic7y"),
 "show_time_container": SubResource("Animation_ut25w"),
 "take_picture_screen": SubResource("Animation_n41iv")
 }
 
-[node name="GameHUDLayer" node_paths=PackedStringArray("time_label", "island_name_label", "anim") instance=ExtResource("1_uvbxn")]
+[node name="GameHUDLayer" node_paths=PackedStringArray("notification_label", "time_label", "island_name_label", "anim") instance=ExtResource("1_uvbxn")]
 script = ExtResource("2_kl3f3")
+notification_label = NodePath("NotificationPanel/MarginContainer/Content")
 time_label = NodePath("TimeContainer/MarginContainer/VBoxContainer/TimeLabel")
 island_name_label = NodePath("IslandNamePanel/MarginContainer/IslandNameLabel")
 anim = NodePath("AnimationPlayer")
@@ -220,8 +275,8 @@ modulate = Color(1, 1, 1, 0)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -128.0
-offset_right = 129.0
+offset_left = 512.0
+offset_right = 769.0
 offset_bottom = 87.9999
 grow_horizontal = 2
 
@@ -243,7 +298,33 @@ theme_override_font_sizes/font_size = 20
 text = "Island XYZ"
 horizontal_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="." index="3"]
+[node name="NotificationPanel" type="MarginContainer" parent="." index="3"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 992.0
+offset_right = 1248.0
+offset_bottom = 72.0
+grow_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Panel" type="Panel" parent="NotificationPanel" index="0"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NotificationPanel" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Content" parent="NotificationPanel/MarginContainer" index="0" instance=ExtResource("4_y5p4m")]
+layout_mode = 2
+text = "Test"
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="." index="4"]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -253,7 +334,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.705882, 0.705882, 0.705882, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_j18cy")
 }

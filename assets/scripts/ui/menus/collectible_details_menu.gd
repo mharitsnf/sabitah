@@ -14,7 +14,7 @@ func set_data(new_data: Dictionary) -> void:
 		assert(new_data['collectible_id'] is String)
 		
 		data = new_data
-		data['collectible'] = (CollectibleState.get_collectible_data_by_id("collectible_id") as CollectibleData).get_collectible()
+		data['collectible'] = (CollectibleState.get_collectible_data_by_id(data["collectible_id"]) as CollectibleData).get_collectible()
 
 		title_label.text = (data['collectible'] as Collectible).title
 		description_label.text = (data['collectible'] as Collectible).description

@@ -177,10 +177,11 @@ func _get_enter_register_island_input() -> void:
 		)
 
 func _get_register_boat_waypoint_input() -> void:
-	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
-	if !State.local_sundial: return
-	if !State.local_sundial.first_marker_done: return
 	if Input.is_action_just_pressed("actor__register_boat_waypoint"):
+		if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
+		if !State.local_sundial: return
+		if !State.local_sundial.first_marker_done: return
+
 		Common.DialogueWrapper.start_monologue("set_node_sundial")
 
 func _get_enter_local_sundial_input() -> void:
@@ -204,7 +205,6 @@ func _get_check_clues_input() -> void:
 			ClueState.confirm_data.status = true
 			ClueState.change_clue_status(ClueState.clue_id_to_confirm, ClueState.ClueStatus.COMPLETED)
 			ClueState.unlock_reward()
-			print(ClueState.confirm_data)
 		else: ClueState.confirm_data.status = false
 
 		Common.DialogueWrapper.start_dialogue.call_deferred(ClueState.check_dialogue, "start")
@@ -220,6 +220,10 @@ func _get_enter_ship_input() -> void:
 		if !ProgressState.get_global_progress(['tutorial_island_registered']):
 			Common.DialogueWrapper.start_monologue("tutorial_island_not_registered")
 			return
+
+		if !ProgressState.get_global_progress(['boat_key_fixed']):
+			Common.DialogueWrapper.start_monologue("boat_key_not_fixed")
+			return
 		
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
 		var res: Array = await State.actor_im.switch_data(boat_pd)
@@ -228,6 +232,7 @@ func _get_enter_ship_input() -> void:
 
 func _get_interact_input(event: InputEvent) -> void:
 	if event.is_action_pressed("actor__interact"):
+		if Common.DialogueWrapper.is_dialogue_active(): return
 		if interact_areas.is_empty(): return
 		var ia: InteractArea = interact_areas.back()
 		Common.DialogueWrapper.start_dialogue(ia.dialogue_resource, "start")

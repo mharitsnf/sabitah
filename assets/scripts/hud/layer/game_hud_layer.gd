@@ -1,5 +1,6 @@
 class_name GameHUDLayer extends HUDLayer
 
+@export var notification_label: Label
 @export var time_label: Label
 @export var island_name_label: Label
 @export var anim: AnimationPlayer
@@ -12,6 +13,7 @@ func _ready() -> void:
 	super()
 	time_manager = Group.first("time_manager")
 
+	assert(notification_label)
 	assert(time_label)
 	assert(anim)
 	assert(time_manager)
@@ -22,6 +24,12 @@ func _process(_delta: float) -> void:
 
 func set_island_name_label_text(value: String) -> void:
 	island_name_label.text = value
+
+func set_notification_text(value: String) -> void:
+	notification_label.text = value
+
+func show_notification() -> void:
+	anim.play("show_notification")
 
 func show_island_name() -> void:
 	anim.play("show_island_name")

@@ -111,7 +111,7 @@ func get_all_geotags() -> Array[Dictionary]:
 		"name": "Uncategorized"
 	}]
 
-	for lsm: Node in State.local_sundials:
+	for lsm: Node in State.sundial_groups['local_sundial_managers']:
 		if !(lsm is LocalSundialManager): continue
 		tags.append((lsm as LocalSundialManager).get_geotag_data())
 
@@ -129,7 +129,7 @@ func get_available_geotags() -> Array[Dictionary]:
 		"name": "Uncategorized"
 	}]
 
-	for lsm: Node in State.local_sundials:
+	for lsm: Node in State.sundial_groups['local_sundial_managers']:
 		if !(lsm is LocalSundialManager): continue
 		if !(lsm as LocalSundialManager).first_marker_done: continue
 		available_tags.append((lsm as LocalSundialManager).get_geotag_data())

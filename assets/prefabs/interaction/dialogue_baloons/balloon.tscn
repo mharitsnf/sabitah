@@ -24,7 +24,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
-offset_top = -248.0
+offset_top = -192.0
 offset_right = -24.0
 offset_bottom = -24.0
 grow_horizontal = 2
@@ -59,11 +59,11 @@ scroll_active = false
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/normal_font_size = 21
-theme_override_font_sizes/bold_font_size = 21
-theme_override_font_sizes/italics_font_size = 21
-theme_override_font_sizes/bold_italics_font_size = 21
-theme_override_font_sizes/mono_font_size = 21
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
+theme_override_font_sizes/italics_font_size = 18
+theme_override_font_sizes/bold_italics_font_size = 18
+theme_override_font_sizes/mono_font_size = 18
 text = "Dialogue..."
 
 [node name="NextLabel" type="Label" parent="Balloon/Panel2/Dialogue/VBoxContainer"]
@@ -79,9 +79,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -128.0
-offset_top = -672.0
+offset_top = -624.0
 offset_right = 513.0
-offset_bottom = -268.0
+offset_bottom = -220.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -95,7 +95,7 @@ response_template = NodePath("ResponseExample")
 
 [node name="ResponseExample" type="Button" parent="Balloon/Responses/ResponsesMenu"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 18
 text = "Response example"
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]

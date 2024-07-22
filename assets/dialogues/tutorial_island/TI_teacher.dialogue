@@ -1,19 +1,35 @@
 ~ start
-if !ProgressState.progress["tutorial_island"]['teacher']['intro']:
-	=>< intro
-	=> END
-
 if CollectibleState.get_collectible_status("boat_key") != CollectibleState.CollectibleStatus.OBTAINED:
-	=>< offer_clue_help
-	=> END
+	if !ProgressState.get_progress(["tutorial_island", 'teacher', 'intro']):
+		=>< intro
+		=> END
+	else:
+		=>< offer_clue_help
+		=> END
 
-if CollectibleState.get_collectible_status("boat_key") == CollectibleState.CollectibleStatus.OBTAINED:
-	if !ProgressState.progress["tutorial_island"]['teacher']['sundial_intro']:
+if !ProgressState.get_global_progress(["tutorial_island_registered"]):
+	if !ProgressState.get_progress(["tutorial_island", 'teacher', 'sundial_intro']):
 		=>< sundial_intro
 		=> END
 	else:
 		=>< offer_sundial_help
 		=> END
+
+if !ProgressState.get_global_progress(['tutorial_island_set_as_node_island']):
+	if !ProgressState.get_progress(["tutorial_island", 'teacher', 'node_island_intro']):
+		=>< node_island_intro
+		=> END
+	else:
+		=>< node_island_help
+		=> END
+
+if !ProgressState.get_progress(["tutorial_island", 'teacher', 'end_test_intro']):
+	=>< end_test_intro
+	=> END
+else:
+	=> post_tutorial
+	=> END
+
 => END
 
 ~ intro
@@ -32,6 +48,8 @@ Teacher: If you don't remember, I can explain to you how you can find treasures.
 	Teacher: You came prepared, huh? Nice!
 Teacher: I've given you the clue. You can see it in your clues journal.
 do ClueState.change_clue_status('TI_teacher1', ClueState.ClueStatus.ACTIVE)
+do Group.first("hud_layer").set_notification_text("New clue available!")
+do Group.first("hud_layer").show_notification()
 Teacher: Come back to me when you've found the treasure, and I'll continue with the next test. Good luck!
 do ProgressState.progress["tutorial_island"]['teacher']['intro'] = true
 => END
@@ -69,7 +87,7 @@ Teacher: Because the test is not over! I have one more thing for you, and after 
 Teacher: Do you remember where you got this key? It's on an island called Sundial Park! It's called that because, well, it got a sundial on it.
 Teacher: I hope you know where I'm going with this, because the next test is going to be about sundial practice!
 - Ugh, I should have known...
-Teacher: Hey, sundial is a vital part of treasure hunting! Hunters can travel around thanks to their sundials, after all.
+Teacher: Hey, sundial is a vital part of treasure hunting! Sailors can travel around thanks to their sundials, after all.
 Teacher: You do know what kind of stuff that you can do with sundials, right?
 - Um... remind me again?
 Teacher: Sheesh... I know this is your least favorite subject, but it's very important, so please keep this in mind!
@@ -77,14 +95,11 @@ Teacher: There are three main things that you can do with the sundial.
 Teacher: Firstly, sundials can act as a compass! It can tell you where the true north and south are.
 Teacher: Secondly, you can find your current latitude with it as well!
 Teacher: Finallly, you can find your current time, and therefore, your current longitude.
-do HelpState.global_progress['help_menu_unlocked'] = true
-do HelpState.global_progress['globe_menu_unlocked'] = true
-do HelpState.change_help_category_visibility("estimating_latitude", HelpState.HelpCategoryVisibility.VISIBLE)
-do HelpState.change_help_category_visibility("estimating_longitude", HelpState.HelpCategoryVisibility.VISIBLE)
-Teacher: I know sundials can be a bit tricky, but I've given you the instructions on how to use it in the help page.
-: You now have access to Help menu! You can find it in the main menu.
-: You also now have access to your globe! You can find it in the main menu.
-: Use the Tab key to open the main menu.
+do ProgressState.global_progress['help_menu_unlocked'] = true
+do ProgressState.global_progress['globe_menu_unlocked'] = true
+do Group.first("hud_layer").set_notification_text("New menus unlocked: Globe and Help!")
+do Group.first("hud_layer").show_notification()
+Teacher: I know sundials can be a bit tricky, so I'm giving you the instructions on how to use it in the help page. Check the main menu later, okay?
 - Okay... so what is the test?
 Teacher: Your task is to register this island on your globe!
 Teacher: You see, every sailor has a globe filled with interesting locations. But the globes will not fill themselves automatically, you need to know the exact coordinates of those locations first to be able to mark them.
@@ -105,54 +120,36 @@ do ProgressState.progress["tutorial_island"]['teacher']['sundial_intro'] = true
 ~ offer_sundial_help
 Teacher: Hey! How's the island registration going?
 - I still need some time...
-Teacher: Don't worry about it. Remember to figure out the coordinates first, and then register the island afterwards, alright?
+Teacher: Don't worry about it. If you don't know how to use the sundial, be sure to open the instructions that I gave you! It has everything you need there.
 => END
 
-~ tutorial
-Teacher: Something you wanna know more about?
-- Sundials.
-	=> sundial_tutorial
-- Clues.
-	=> clues_tutorial
-- Eh, I changed my mind.
-	=> END
-	
-~ sundial_tutorial
-Teacher: There are three important parts on the sundial: the pointer, the disc, and the donut.
-Teacher: Which one do you want me to explain first?
-- The pointer.
-	Teacher: The yellow part of the pointer points to the north, while the dark part points to the south. You can use this to figure out direction where you want to go.
-	Teacher: As a reminder, right of the north is east, left of the north is west, while the opposite of north is south.
-	=> sundial_tutorial
-- The donut.
-	Teacher: You can use the donut alongside the pointer to figure out your current latitude. Meaning, you can use it to figure out how far north or how far south you are on the planet.
-	Teacher: For example, when the yellow part of the pointer points directly upwards, it means that you are probably on the north pole!
-	Teacher: Or, when it points directly to the side, meaning you're probably around the equator.
-	Teacher: You can find an estimate of your latitude with the donut. If you align the pointer with A or D so it points on the donut, you can see the latitude you're currently on.
-	Teacher: You'll see that the donut have some points on its surface. The top points with the three dot is 90 degrees. The one with two dots is 60 degrees, The one with one dot is 30 degrees, and the one without the dot is 0 degrees.
-	Teacher: Use it to estimate your current latitude!
-	=> sundial_tutorial
-- The disc.
-	Teacher: You can use the disc alongside the prime meridian time to figure out your current longitude. Meaning, you can use it to figure out how far west or east you currently are.
-	Teacher: The disc is basically used to tell your current time. Each line on the sundial represents one hour, and the degrees from one hour to another is 15 degrees.
-	Teacher: You'll see that the shadow of the pointer will fall somewhere on the disc. When it falls on top of a line, it means that the hour has just started.
-	Teacher: For example, when the shadow points directly down, it's currently 12 PM on your current location.
-	Teacher: Over time, the disc can be misaligned, that is when the lines with the dot does not points directly upwards and downwards anymore.
-	Teacher: You can adjust the disc with Q or E. Make sure that the lines with the dot points directly upwards and downwards!
-	Teacher: This allows you to easily read the time and see when the sunset and sunrise will be, since the 12 PM line is always downwards.
-	Teacher: Now, once you figure out your current time, you can start figuring out where you are!
-	Teacher: For example, your current time is 3 PM, while the prime meridian time is 12 PM. This means you are 3 hours ahead of the prime meridian.
-	Teacher: Since an hour represents 15 degrees, and you have 3 hours of difference, your current latitude is 45 degrees!
-	Teacher: But if your current time is 9 AM and the prime meridian time is 12 PM, your current latitude is -45 degrees!
-	Teacher: But remember, sundial discs can only be used during daytime! You can always use the stars during nighttime.
-	=> sundial_tutorial
-- I think I got it.
-	=> tutorial
+~ node_island_intro
+Teacher: Hey you've managed to register this island on the globe!
+- Of course!
+Teacher: But you haven't set this island as the node island yet.
+=>< node_island_help
+do ProgressState.progress["tutorial_island"]['teacher']['node_island_intro'] = true
+=> END
 
-~ clues_tutorial
-Teacher: When you talk to people, sometimes they might give you clues to some treasure hidden somewhere in the world.
-Teacher: You can find list of clues you currently have inside the clues journal.
-Teacher: You'll get some description about your clues there, but more importantly you'll also get to see pictures where the treasure is buried.
-Teacher: When you figure out where the treasure is based on the clue, you then need to go there so you can dig it out!
-Teacher: When you arrive at the location of the treasure, press C and select the clue related to the treasure, and see if your guess is right!
-=> tutorial
+~ node_island_help
+Teacher: Go back to the sundial, and then press G to register this island as your node island!
+Teacher: After that, come back to me so I can fix your key, alright?
+=> END
+
+~ end_test_intro
+Teacher: You did it! You have this island on the globe now!
+- Yeah I do! Is that all?
+Teacher: Yeah, that's all! As I promised, I will be fixing your boat key and you will be good to go now. Give me a moment...
+do Common.wait(3.0)
+do ProgressState.global_progress["boat_key_fixed"] = true
+Teacher: There! Your key is as good as new!
+Teacher: Good luck out there!
+do ProgressState.progress["tutorial_island"]['teacher']['node_island_intro'] = true
+do ProgressState.progress["tutorial_island"]['teacher']['end_test_intro'] = true
+=> END
+
+~ post_tutorial
+Teacher: Hey! How's everything going?
+- All good!
+Teacher: Great!
+=> END

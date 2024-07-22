@@ -109,7 +109,7 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
-columns = 6
+columns = 4
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {

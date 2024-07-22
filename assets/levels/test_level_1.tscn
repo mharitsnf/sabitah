@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=20 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c8ywta7cboshe" path="res://assets/prefabs/day_night_cycle/sun_moon_manager/game_sun_moon_manager.tscn" id="4_8mufc"]
 [ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity/main_gravity_area.tscn" id="6_imehy"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/visuals/ocean/ocean_data.tscn" id="8_6a2jn"]
+[ext_resource type="Texture2D" uid="uid://br1kd50cmsl0h" path="res://assets/resources/textures/uv grids.webp" id="8_8pfla"]
 [ext_resource type="PackedScene" uid="uid://dbu37cg78b0um" path="res://assets/islands/island_1/island_container.tscn" id="8_mr3yb"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/visuals/ocean/ocean.tscn" id="9_q5hw7"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/visuals/atmosphere/atmosphere_ppq.tscn" id="11_r3iet"]
@@ -16,6 +17,13 @@
 [ext_resource type="PackedScene" uid="uid://v7022dbq6wn2" path="res://assets/prefabs/visuals/outline/outline_ppq.tscn" id="12_ouxvy"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
 [ext_resource type="PackedScene" uid="uid://hly7xukaj25f" path="res://assets/prefabs/actor/player_character/player_character_actor.tscn" id="18_q1k01"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_0lgj5"]
+radius = 1483.6
+height = 2967.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya6ed"]
+albedo_texture = ExtResource("8_8pfla")
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
 script = ExtResource("1_4i1xa")
@@ -34,6 +42,12 @@ environment = ExtResource("3_72myd")
 [node name="MainGravityArea" parent="Environment" instance=ExtResource("6_imehy")]
 
 [node name="MainPlanetBody" parent="Environment" instance=ExtResource("3_04ued")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_0lgj5")
+surface_material_override/0 = SubResource("StandardMaterial3D_ya6ed")
 
 [node name="Oceans" type="Node" parent="."]
 

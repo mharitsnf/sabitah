@@ -6,7 +6,7 @@
 [sub_resource type="Gradient" id="Gradient_1v6w7"]
 interpolation_mode = 2
 interpolation_color_space = 2
-offsets = PackedFloat32Array(0.295681, 0.803987)
+offsets = PackedFloat32Array(0.54047, 0.577024)
 colors = PackedColorArray(0.252754, 0.252754, 0.252753, 1, 0.599604, 0.599604, 0.599603, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_jm8w1"]

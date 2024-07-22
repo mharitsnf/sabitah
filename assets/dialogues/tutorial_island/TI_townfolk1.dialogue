@@ -1,11 +1,16 @@
 ~ start
-if !ProgressState.progress["tutorial_island"]['townfolk1']['intro']:
-	=> intro
-else:
-	if !ProgressState.progress["tutorial_island"]['teacher']['intro']:
-		=> talk_to_teacher
-	else:
-		=> final_test_ongoing
+if !ProgressState.get_global_progress(["tutorial_island", 'townfolk1', 'intro']):
+	=>< intro
+	=> END
+
+if !ProgressState.get_global_progress(["tutorial_island", 'teacher', 'intro']):
+	=>< talk_to_teacher
+	=> END
+
+if !ProgressState.get_global_progress(['boat_key_fixed']):
+	=>< final_test_ongoing
+	=> END
+
 => END
 
 ~ intro
@@ -24,5 +29,8 @@ Townfolk 1: What are you doing here? Go find the teacher in the plaza! Just go d
 => END
 
 ~ final_test_ongoing
+Townfolk 1: How's it going with the final test?
+- Still working on it.
+Townfolk 1: I can see that. I hope you can complete it.
 Townfolk 1: Good luck with your final test!
 => END

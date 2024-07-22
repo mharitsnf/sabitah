@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://assets/scripts/hud/input_prompt/input_prompt.gd" id="1_tsy4m"]
 
 [node name="InputPrompt" type="MarginContainer" node_paths=PackedStringArray("button_label", "text_label", "panel")]
+size_flags_vertical = 8
 script = ExtResource("1_tsy4m")
 show_panel = true
 input_button = "X"
@@ -18,9 +19,9 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2

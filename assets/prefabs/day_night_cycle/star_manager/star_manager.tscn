@@ -7,7 +7,7 @@
 
 [node name="StarManager" type="Node" groups=["star_manager"]]
 script = ExtResource("1_68p80")
-starmap_filename = "starmap_ver1"
+starmap_filename = "v0.1.0"
 game_main_star_pscn = ExtResource("2_1uq4i")
 globe_main_star_pscn = ExtResource("3_idcl5")
 background_star_pscn = ExtResource("4_ay70l")
