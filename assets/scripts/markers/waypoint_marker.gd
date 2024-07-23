@@ -10,9 +10,16 @@ func _ready() -> void:
 	PictureState.load_all_filters()
 
 func destroy() -> void:
+	var fd_none: Dictionary = PictureState.get_filter("none")
 	var fd: Dictionary = PictureState.get_filter(geotag_id)
+
+	var pictures: Array[PictureData] = PictureState.get_filtered_pictures([fd])
+	for pic: PictureData in pictures:
+		pic.get_picture().geotag_id = fd_none.geotag_id
+
 	PictureState.remove_filter(fd)
 	State.waypoint_markers.erase(self)
+	
 	queue_free()
 
 ## Create island tag (called on ready).
