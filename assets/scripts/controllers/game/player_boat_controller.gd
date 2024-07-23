@@ -47,6 +47,7 @@ func _add_input_prompts() -> void:
 
 func _process(_delta: float) -> void:
 	actor.rotate_visuals(rotate_input)
+	actor.show_trail_particles(gas_input)
 
 	# Called when this controller is inactive
 	_reset_rotate_input_smooth()

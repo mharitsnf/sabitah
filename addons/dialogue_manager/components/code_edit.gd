@@ -7,6 +7,7 @@ signal error_clicked(line_number: int)
 signal external_file_requested(path: String, title: String)
 
 
+const DialogueManagerParser = preload("./parser.gd")
 const DialogueSyntaxHighlighter = preload("./code_edit_syntax_highlighter.gd")
 
 
@@ -76,6 +77,9 @@ func _gui_input(event: InputEvent) -> void:
 		match shortcut:
 			"toggle_comment":
 				toggle_comment()
+				get_viewport().set_input_as_handled()
+			"delete_line":
+				delete_current_line()
 				get_viewport().set_input_as_handled()
 			"move_up":
 				move_line(-1)
@@ -276,7 +280,7 @@ func insert_bbcode(open_tag: String, close_tag: String = "") -> void:
 
 # Insert text at current caret position
 # Move Caret down 1 line if not => END
-func insert_text(text: String) -> void:
+func insert_text_at_cursor(text: String) -> void:
 	if text != "=> END":
 		insert_text_at_caret(text+"\n")
 		set_caret_line(get_caret_line()+1)
@@ -348,6 +352,16 @@ func toggle_comment() -> void:
 	end_complex_operation()
 
 	text_set.emit()
+	text_changed.emit()
+
+
+# Remove the current line
+func delete_current_line() -> void:
+	var cursor = get_cursor()
+	var lines: PackedStringArray = text.split("\n")
+	lines.remove_at(cursor.y)
+	text = "\n".join(lines)
+	set_cursor(cursor)
 	text_changed.emit()
 
 

@@ -6,7 +6,7 @@
 
 [node name="GameBackgroundStarSprite" instance=ExtResource("1_41b50")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
-modulate = Color(0.25, 0.25, 0.25, 1)
+modulate = Color(0.4, 0.4, 0.4, 1)
 alpha_cut = 3
 script = ExtResource("2_xnjwl")
 game_visibility_curve = ExtResource("3_ii2qi")

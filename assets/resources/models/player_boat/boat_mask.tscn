@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc6ewxtf861sj"]
+
+[ext_resource type="PackedScene" uid="uid://df8x6iip8rq17" path="res://assets/resources/models/player_boat/boat_mask.glb" id="1_avwls"]
+[ext_resource type="Material" uid="uid://b1jeg7k1u14os" path="res://assets/resources/materials/m_depth_mask.res" id="2_shudj"]
+
+[node name="BoatMask" instance=ExtResource("1_avwls")]
+
+[node name="BoatMask" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_shudj")

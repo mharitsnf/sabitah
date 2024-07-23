@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cra5ftbsbcasb"]
+[gd_scene load_steps=16 format=3 uid="uid://cra5ftbsbcasb"]
 
 [ext_resource type="Script" path="res://assets/scripts/actor/boat_actor.gd" id="1_o52qu"]
 [ext_resource type="PackedScene" uid="uid://rruwrqnfx0tt" path="res://assets/resources/models/player_boat/player_boat_mesh.tscn" id="2_c54yd"]
+[ext_resource type="PackedScene" uid="uid://cc6ewxtf861sj" path="res://assets/resources/models/player_boat/boat_mask.tscn" id="3_7tgrh"]
 [ext_resource type="PackedScene" uid="uid://d1v3pfum3kv2c" path="res://assets/prefabs/camera_system/player_boat/player_boat_tpc.tscn" id="3_euyme"]
 [ext_resource type="PackedScene" uid="uid://dq87rtvicv8an" path="res://assets/prefabs/actor/sundial/managers/boat_sundial_manager.tscn" id="3_sih57"]
 [ext_resource type="PackedScene" uid="uid://dopvoc5yaorpn" path="res://assets/prefabs/actor/player_boat/player_boat_area.tscn" id="4_5csyn"]
@@ -12,16 +13,43 @@
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5coob"]
 points = PackedVector3Array(-0.4432, -0.0914739, -3.65871, 0.48322, -0.0826591, -3.6513, -0.303897, 7.83539, -0.246553, 3.10388, 1.01987, -2.51775, -3.06223, 1.01987, -3.81601, 0.482664, 1.92791, -5.34334, 0.0208259, -0.104903, 3.164, 1.48087, 1.99363, 3.48658, -2.08867, 1.99363, 2.1873, 0.993788, 6.53598, -0.246553, 2.29208, 1.01987, -5.11427, -2.21137, 0.908054, -5.03335, -2.89987, 0.53299, -2.19242, 0.18198, 2.15566, 4.78382, -0.280535, 3.32721, -4.62473, -0.303897, 7.83539, 0.240422, -1.76394, 4.58846, -0.246553, 2.13032, 1.99363, 2.02566, 2.94152, 0.695018, -2.02975, 0.344945, 7.67256, -0.246553, 2.94152, 1.1819, -4.1393, -1.34032, 0.752825, 2.76877, -1.1145, 1.99363, 3.97254, 0.766742, 3.33103, -4.43936, 1.23762, 0.733876, 2.9403, -1.30758, 3.0405, -4.24689, -3.06223, 1.01987, -2.19242, 0.0208259, 0.65942, 4.26988, 0.636273, -0.0735105, 2.21044, 1.80499, 4.42644, -0.246553, -0.13474, 0.357568, -4.76144, -0.589064, -0.035177, 2.48922)
 
-[node name="PlayerBoatActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target")]
+[sub_resource type="Curve" id="Curve_hfehk"]
+_data = [Vector2(0, 1), 0.0, -1.28165, 0, 0, Vector2(1, 0), -2.74593, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1mcyk"]
+curve = SubResource("Curve_hfehk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ltky6"]
+emission_shape = 1
+emission_sphere_radius = 0.2
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_1mcyk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jm2r2"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_d2c0n"]
+material = SubResource("StandardMaterial3D_jm2r2")
+radius = 1.0
+height = 2.0
+radial_segments = 12
+rings = 6
+
+[node name="PlayerBoatActor" type="RigidBody3D" node_paths=PackedStringArray("trail_particles_l", "trail_particles_r", "propeller_left", "propeller_right", "normal_target")]
 collision_layer = 4352
 collision_mask = 257
 mass = 500.0
 lock_rotation = true
 linear_damp = 2.0
 script = ExtResource("1_o52qu")
-move_speed = 15000.0
+move_speed = 17500.0
 brake_speed = 10000.0
 rotation_weight = 0.6
+trail_particles_l = NodePath("CollisionShape3D/TrailParticlesL")
+trail_particles_r = NodePath("CollisionShape3D/TrailParticlesR")
+propeller_left = NodePath("CollisionShape3D/PlayerBoatMesh/PropellerL")
+propeller_right = NodePath("CollisionShape3D/PlayerBoatMesh/PropellerR")
 ground_speed_limit = 20.0
 water_speed_limit = 20.0
 adjust_to_water_normal = true
@@ -34,11 +62,29 @@ shape = SubResource("ConvexPolygonShape3D_5coob")
 
 [node name="PlayerBoatMesh" parent="CollisionShape3D" instance=ExtResource("2_c54yd")]
 
+[node name="BoatMask" parent="CollisionShape3D" instance=ExtResource("3_7tgrh")]
+
 [node name="DropoffMarker" type="Marker3D" parent="CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1.7, 0)
 
 [node name="BoatSundialManager" parent="CollisionShape3D" instance=ExtResource("3_sih57")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4.6)
+
+[node name="TrailParticlesL" type="GPUParticles3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17832, 0.376445, -6.38727)
+amount = 16
+randomness = 0.5
+visibility_aabb = AABB(-5.66884, -4, -7.93062, 11.3377, 8, 15.8612)
+process_material = SubResource("ParticleProcessMaterial_ltky6")
+draw_pass_1 = SubResource("SphereMesh_d2c0n")
+
+[node name="TrailParticlesR" type="GPUParticles3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.21541, 0.376445, -6.38727)
+amount = 16
+randomness = 0.5
+visibility_aabb = AABB(-5.66884, -4, -7.93062, 11.3377, 8, 15.8612)
+process_material = SubResource("ParticleProcessMaterial_ltky6")
+draw_pass_1 = SubResource("SphereMesh_d2c0n")
 
 [node name="AreaChecker" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)

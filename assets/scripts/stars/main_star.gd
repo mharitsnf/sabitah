@@ -35,10 +35,10 @@ func _ready() -> void:
 	color = Color(data.color_r, data.color_g, data.color_b, 1)
 
 	sun = State.game_sun if data['level_type'] == State.LevelType.MAIN else State.globe_sun
+	assert(sun)
 	(sun as SunLight).sunrise_started.connect(_on_sunrise_started)
 	(sun as SunLight).sunset_started.connect(_on_sunset_started)
 	
-	assert(sun)
 	assert(game_visibility_curve)
 	assert(globe_visibility_curve)
 

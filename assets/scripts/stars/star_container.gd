@@ -14,6 +14,7 @@ func _ready() -> void:
 
 func load_stars(star_type: State.StarType) -> void:
 	if container_type != star_type: return
+	if level_type == State.LevelType.GLOBE: return
 
 	var stars: Array[StarData] = star_manager.main_stars if star_type == State.StarType.MAIN else star_manager.background_stars
 	for sd: StarData in stars:

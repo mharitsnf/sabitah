@@ -13,6 +13,7 @@ else:
 ~ loop_rewards
 do ClueState.update_current_reward_info()
 if ClueState.current_reward_info.is_empty():
+	: There's nothing here!
 	=> END
 else:
 	: Great! I got a new {{ClueState.current_reward_info.type}}, {{ClueState.current_reward_info.string}}!
@@ -24,5 +25,7 @@ else:
 		do Group.first("hud_layer").show_notification()
 	if ClueState.current_reward_info.reward_id == "boat_key":
 		: I gotta tell teacher that I found the key!
+	: Is there anything more?
+	do Common.wait(1.0)
 	=> loop_rewards
 => END
