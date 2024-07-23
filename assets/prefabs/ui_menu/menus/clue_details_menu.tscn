@@ -66,8 +66,10 @@ _data = {
 "tree_exiting": SubResource("Animation_fjqf7")
 }
 
-[node name="ClueDetails" node_paths=PackedStringArray("confirm_button", "pictures_container", "confirm_button_container", "menu_header", "status_label", "description_label") instance=ExtResource("1_1gjnb")]
+[node name="ClueDetails" node_paths=PackedStringArray("set_active_button", "set_completed_button", "confirm_button", "pictures_container", "confirm_button_container", "menu_header", "status_label", "description_label") instance=ExtResource("1_1gjnb")]
 script = ExtResource("2_06dt4")
+set_active_button = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Active")
+set_completed_button = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/Completed")
 confirm_button = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/ConfirmButtonContainer/ConfirmButton")
 pictures_container = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/MarginContainer/GridContainer")
 confirm_button_container = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/ConfirmButtonContainer")
@@ -154,9 +156,33 @@ text = "Status:"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="StatusContainer3" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("4_q51xv")]
+layout_mode = 2
+text = "Set new status:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Active" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Active"
+
+[node name="Completed" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Completed"
+
+[node name="StatusContainer3" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 8
 
 [node name="Title" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/StatusContainer3" index="0" instance=ExtResource("4_q51xv")]
 layout_mode = 2
@@ -167,7 +193,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Lorem ipsum dolor sit amet."
 
-[node name="ConfirmButtonContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer" index="2"]
+[node name="ConfirmButtonContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer" index="3"]
 layout_mode = 2
 
 [node name="ConfirmButton" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/ConfirmButtonContainer" index="0" instance=ExtResource("6_kf0h4")]
@@ -177,7 +203,7 @@ size_flags_horizontal = 3
 text = "Confirm this clue"
 on_press_command = SubResource("Resource_j0lxa")
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_gnwc7")
 }

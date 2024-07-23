@@ -1,9 +1,9 @@
 ~ start
-if !ProgressState.get_global_progress(["tutorial_island", 'townfolk1', 'intro']):
+if !ProgressState.get_progress(["tutorial_island", 'townfolk1', 'intro']):
 	=>< intro
 	=> END
 
-if !ProgressState.get_global_progress(["tutorial_island", 'teacher', 'intro']):
+if !ProgressState.get_progress(["tutorial_island", 'teacher', 'intro']):
 	=>< talk_to_teacher
 	=> END
 

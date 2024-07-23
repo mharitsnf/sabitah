@@ -1,27 +1,28 @@
 ~ start
-: You checked if the your position aligns with the clue.
-: And the result is...
-if ClueState.confirm_data.status:
-	: Correct![wait=0.5] You have arrived at the clue's location!
-	=>< check_reward
+: I think there must be something here!
+: Let's see...
+do Common.wait(1.5)
+if ClueState.has_reward:
+	=>< loop_rewards
 	=> END
 else:
-	: Incorrect! You are not at the correct location. Try again!
+	: There's nothing here!
 	=> END
-
 => END
 
-~ check_reward
-do ClueState.unlock_reward()
-if ClueState.confirm_data.has_reward:
-	: The clue reveals something... You got a new {{ClueState.confirm_data.type}},[wait=1] {{ClueState.confirm_data.string}}!
-	if ClueState.confirm_data.type == "treasure":
+~ loop_rewards
+do ClueState.update_current_reward_info()
+if ClueState.current_reward_info.is_empty():
+	=> END
+else:
+	: Great! I got a new {{ClueState.current_reward_info.type}}, {{ClueState.current_reward_info.string}}!
+	if ClueState.current_reward_info.type == "collectible":
 		do Group.first("hud_layer").set_notification_text("New collectible available!")
 		do Group.first("hud_layer").show_notification()
-	elif ClueState.confirm_data.type == "clue":
+	elif ClueState.current_reward_info.type == "clue":
 		do Group.first("hud_layer").set_notification_text("New clue available!")
 		do Group.first("hud_layer").show_notification()
-		
-	if ClueState.confirm_data.reward_id == "boat_key":
-		: You better tell the teacher that you found the key!
+	if ClueState.current_reward_info.reward_id == "boat_key":
+		: I gotta tell teacher that I found the key!
+	=> loop_rewards
 => END

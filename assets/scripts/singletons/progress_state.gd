@@ -1,6 +1,6 @@
 extends Node
 
-var free_mode: bool = true
+var free_mode: bool = false
 
 var global_progress: Dictionary = {
 	"first_introduction": false,

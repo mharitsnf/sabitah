@@ -1,5 +1,7 @@
 class_name ClueDetailsMenu extends BaseMenu
 
+@export var set_active_button: Button
+@export var set_completed_button: Button
 @export var confirm_button: GenericButton
 @export var pictures_container: GridContainer
 @export var confirm_button_container: HBoxContainer
@@ -16,6 +18,9 @@ func _ready() -> void:
 	assert(status_label)
 	assert(description_label)
 
+	set_active_button.pressed.connect(_on_set_status_button_pressed.bind(set_active_button))
+	set_completed_button.pressed.connect(_on_set_status_button_pressed.bind(set_completed_button))
+
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
 		assert(new_data.has('clue_id'))
@@ -23,7 +28,8 @@ func set_data(new_data: Dictionary) -> void:
 		assert(new_data.has('is_confirmation'))
 
 		data = new_data
-		data['clue'] = (ClueState.get_clue_data_by_id(data['clue_id']) as ClueData).get_clue()
+		data['clue_data'] = ClueState.get_clue_data_by_id(data['clue_id'])
+		data['clue'] = (data['clue_data'] as ClueData).get_clue()
 
 		# set arguments
 		confirm_button.args = [(data['clue'] as Clue)]
@@ -55,6 +61,13 @@ func after_entering() -> void:
 	if pictures_container.get_child_count() > 0:
 		(pictures_container.get_child(0) as GenericButton).grab_focus()
 		return
-	
-	if data['is_confirmation'] and pictures_container.get_child_count() == 0:
-		confirm_button.grab_focus()
+	else:
+		set_active_button.grab_focus()
+
+func _on_set_status_button_pressed(button: Button) -> void:
+	if button.name == "Active":
+		(data['clue_data'] as ClueData).set_clue_status(ClueState.ClueStatus.ACTIVE)
+	elif button.name == "Completed":
+		(data['clue_data'] as ClueData).set_clue_status(ClueState.ClueStatus.COMPLETED)
+
+	status_label.text = ClueState.ClueStatus.keys()[(data['clue'] as Clue).status]

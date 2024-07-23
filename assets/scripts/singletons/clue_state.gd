@@ -10,16 +10,11 @@ var check_dialogue: DialogueResource = preload("res://assets/dialogues/clue_chec
 var clue_area_pscn: PackedScene = preload("res://assets/prefabs/clues/clue_area.tscn")
 var clue_menu_button_pscn: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/clue_menu_button.tscn")
 
-var clue_id_to_confirm: String
-var confirm_data: Dictionary = {
-	'status': false,
-	'has_reward': false,
-	'reward_id': '',
-	'type': '',
-	'string': '',
-}
-
 var clue_cache: Array[ClueData] = []
+
+var has_reward: bool = false
+var rewards_info: Array[Dictionary] = []
+var current_reward_info: Dictionary = {}
 
 func _ready() -> void:
 	load_clues()
@@ -62,37 +57,35 @@ func is_clue_area_valid(area: ClueArea) -> bool:
 		return false
 	return true
 
-func unlock_reward() -> void:
-	var cd: ClueData = get_clue_data_by_id(clue_id_to_confirm)
+func unlock_reward(clue_id: String) -> Dictionary:
+	var cd: ClueData = get_clue_data_by_id(clue_id)
 
 	# check if reward is another clue
 	var reward_cd: ClueData = get_clue_data_by_id(cd.get_clue().reward_id)
 	if reward_cd and reward_cd.get_clue().status == ClueState.ClueStatus.HIDDEN:
 		reward_cd.set_clue_status(ClueState.ClueStatus.ACTIVE)
-		confirm_data['has_reward'] = true
-		confirm_data['reward_id'] = reward_cd.get_clue().id
-		confirm_data['type'] = 'clue'
-		confirm_data['string'] = reward_cd.get_clue().title
-		return
+		reward_cd.set_clue_area_monitorable(true)
+		return {
+			"reward_id": reward_cd.get_clue().id,
+			"type": 'clue',
+			"string": reward_cd.get_clue().title
+		}
 	
 	# check if reward is a collectible
 	var reward_clld: CollectibleData = CollectibleState.get_collectible_data_by_id(cd.get_clue().reward_id)
 	if reward_clld and reward_clld.get_collectible().status == CollectibleState.CollectibleStatus.UNOBTAINED:
 		reward_clld.set_collectible_status(CollectibleState.CollectibleStatus.OBTAINED)
-		confirm_data['has_reward'] = true
-		confirm_data['reward_id'] = reward_clld.get_collectible().id
-		confirm_data['type'] = 'collectible'
-		confirm_data['string'] = reward_clld.get_collectible().title
-		return
+		return {
+			"reward_id": reward_clld.get_collectible().id,
+			"type": 'collectible',
+			"string": reward_clld.get_collectible().title
+		}
 
-	# no reward
-	confirm_data['has_reward'] = false
-	confirm_data['reward_id'] = ""
-	confirm_data['type'] = ""
-	confirm_data['string'] = ""
+	return {}
 
-	# clear [clue_id_to_confirm]
-	clue_id_to_confirm = ""
+func update_current_reward_info() -> void:
+	var reward_info: Variant = rewards_info.pop_front()
+	current_reward_info = {} if reward_info == null else reward_info
 
 func change_clue_status(id: String, new_status: ClueStatus) -> void:
 	var cd: ClueData = get_clue_data_by_id(id)
@@ -114,6 +107,14 @@ func get_clue_data_by_id(clue_id: String) -> ClueData:
 	var cd: Array[ClueData] = clue_cache.filter(
 		func(_cd: ClueData) -> bool:
 			return _cd.get_clue().id == clue_id
+	)
+	if cd.is_empty(): return null
+	return cd[0]
+
+func get_clue_data_by_area(clue_area: ClueArea) -> ClueData:
+	var cd: Array[ClueData] = clue_cache.filter(
+		func(_cd: ClueData) -> bool:
+			return _cd.get_clue_area() == clue_area
 	)
 	if cd.is_empty(): return null
 	return cd[0]

@@ -86,10 +86,10 @@ func _add_input_prompts() -> void:
 	ip_factory.set_data("Y", "Register island")
 	input_prompts['Y'] = ip_factory.get_instance()
 
-	ip_factory.set_data("C", "Confirm clue", true)
+	ip_factory.set_data("C", "Dig!", true)
 	input_prompts['C'] = ip_factory.get_instance()
 
-	ip_factory.set_data("G", "Register boat waypoint", false)
+	ip_factory.set_data("G", "Register node island", false)
 	input_prompts['G'] = ip_factory.get_instance()
 
 	ip_factory.set_data("E", "Interact", false)
@@ -194,17 +194,17 @@ func _get_enter_local_sundial_input() -> void:
 ## Input for checking if clue is corect or not
 func _get_check_clues_input() -> void:
 	if Input.is_action_just_pressed("clue__check_area"):
-		menu_layer.navigate_to(State.UserInterfaces.CLUES_MENU, { 'is_confirmation': true })
-		await (menu_layer as MenuLayer).menu_cleared
-		
-		var area: ClueArea = (ClueState.get_clue_data_by_id(ClueState.clue_id_to_confirm) as ClueData).get_clue_area()
-		if !ClueState.is_clue_area_valid(area):
-			return
-		
-		if (clue_areas.has(area)):
-			ClueState.confirm_data.status = true
-			ClueState.change_clue_status(ClueState.clue_id_to_confirm, ClueState.ClueStatus.COMPLETED)
-		else: ClueState.confirm_data.status = false
+		if clue_areas.is_empty():
+			ClueState.has_reward = false
+		else:
+			ClueState.has_reward = true
+			for area: ClueArea in clue_areas:
+				if !ClueState.is_clue_area_valid(area): continue
+				var cd: ClueData = ClueState.get_clue_data_by_area(area)
+				var reward_info: Dictionary = ClueState.unlock_reward(cd.get_clue().id)
+				if !reward_info.is_empty():
+					ClueState.rewards_info.append(reward_info)
+				cd.set_clue_area_monitorable(false)
 
 		Common.DialogueWrapper.start_dialogue.call_deferred(ClueState.check_dialogue, "start")
 
