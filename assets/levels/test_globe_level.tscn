@@ -221,6 +221,10 @@ script = ExtResource("4_j4o1s")
 tween_settings = ExtResource("5_kgofy")
 move_distance = 50.0
 
+[node name="LinesParent" type="Node3D" parent="."]
+
+[node name="WaypointsParent" type="Node3D" parent="."]
+
 [node name="PlayerMainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_4fsy1")]
 level_type = 2
 follow_target = NodePath("../Cameras/GlobeTPC")
@@ -242,10 +246,12 @@ globe_mode_pscns = {
 2: ExtResource("8_usr3g")
 }
 
-[node name="IslandSearch" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("globe_camera_target", "level_anim", "tpc") instance=ExtResource("8_5bvlm")]
+[node name="IslandSearch" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("globe_camera_target", "level_anim", "tpc", "lines_parent", "waypoints_parent") instance=ExtResource("8_5bvlm")]
 globe_camera_target = NodePath("../../PlanetBody/GlobeCameraTarget")
 level_anim = NodePath("../../AnimationPlayer")
 tpc = NodePath("../../Cameras/GlobeTPC")
+lines_parent = NodePath("../../LinesParent")
+waypoints_parent = NodePath("../../WaypointsParent")
 
 [node name="IslandRegistration" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("level_anim", "tpc") instance=ExtResource("8_usr3g")]
 level_anim = NodePath("../../AnimationPlayer")

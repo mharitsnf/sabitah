@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://vw7757hcusvw"]
+
+[ext_resource type="Script" path="res://assets/scripts/line_mesh.gd" id="1_36ng4"]
+[ext_resource type="Material" uid="uid://by8ccgum3dlqb" path="res://assets/resources/materials/m_line_material.tres" id="1_nbuul"]
+
+[sub_resource type="Curve3D" id="Curve3D_k77wb"]
+
+[node name="LineMesh" type="CSGPolygon3D" node_paths=PackedStringArray("path_3d")]
+cast_shadow = 0
+use_collision = true
+collision_layer = 8192
+collision_mask = 8192
+polygon = PackedVector2Array(0, 0.5, 0.191342, 0.46194, 0.353553, 0.353553, 0.46194, 0.191342, 0.5, 3.06152e-17, 0.46194, -0.191342, 0.353553, -0.353553, 0.191342, -0.46194, 6.12303e-17, -0.5, -0.191342, -0.46194, -0.353553, -0.353553, -0.46194, -0.191342, -0.5, -9.18455e-17, -0.46194, 0.191342, -0.353553, 0.353553, -0.191342, 0.46194)
+mode = 2
+path_node = NodePath("Path3D")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+smooth_faces = true
+material = ExtResource("1_nbuul")
+script = ExtResource("1_36ng4")
+line_radius = 0.5
+line_resolution = 16
+path_3d = NodePath("Path3D")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_k77wb")

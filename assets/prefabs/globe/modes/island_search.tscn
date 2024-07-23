@@ -7,3 +7,7 @@
 [node name="IslandSearch" instance=ExtResource("1_1tc7g")]
 script = ExtResource("2_6kwfm")
 waypoint_marker_pscn = ExtResource("3_lucis")
+line_collision_mask = 8192
+
+[connection signal="line_hover_entered" from="." to="." method="_on_line_hover_entered"]
+[connection signal="line_hover_exited" from="." to="." method="_on_line_hover_exited"]

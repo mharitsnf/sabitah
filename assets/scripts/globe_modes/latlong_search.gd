@@ -3,12 +3,17 @@ class_name LatLongSearch extends GlobeMode
 @export_group("Collision")
 @export_flags_3d_physics var island_collision_mask: int
 @export_flags_3d_physics var planet_collision_mask: int
+@export_flags_3d_physics var line_collision_mask: int
 
 var marker_query_res: Dictionary
 var planet_query_res: Dictionary
+var line_query_res: Dictionary
 
 signal marker_hover_entered
 signal marker_hover_exited
+
+signal line_hover_entered
+signal line_hover_exited
 
 func delegated_process(_delta: float) -> void:
 	_update_hud()
@@ -28,6 +33,8 @@ func _query_caster() -> void:
 	planet_query.collide_with_areas = false
 	var marker_query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end, island_collision_mask)
 	marker_query.collide_with_areas = false
+	var line_query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end, line_collision_mask)
+	line_query.collide_with_areas = false
 
 	planet_query_res = space_state.intersect_ray(planet_query)
 	
@@ -38,6 +45,14 @@ func _query_caster() -> void:
 	if !marker_query_res.is_empty() and new_marker_query_res.is_empty():
 		marker_query_res = new_marker_query_res
 		marker_hover_exited.emit()
+
+	var new_line_query_res: Dictionary = space_state.intersect_ray(line_query)
+	if line_query_res.is_empty() and !new_line_query_res.is_empty():
+		line_query_res = new_line_query_res
+		line_hover_entered.emit()
+	if !line_query_res.is_empty() and new_line_query_res.is_empty():
+		line_query_res = new_line_query_res
+		line_hover_exited.emit()
 
 func _update_hud() -> void:
 	if planet_query_res.is_empty(): return

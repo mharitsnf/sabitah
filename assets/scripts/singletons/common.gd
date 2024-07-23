@@ -97,6 +97,42 @@ class Geometry extends RefCounted:
 
 		return r * c
 
+	static func generate_points_on_sphere(point_A: Vector3, point_B: Vector3, num_points: int = 100) -> Array[Vector3]:
+		var r: float = point_A.length()
+		var nA: Vector3 = point_A.normalized()
+		var nB: Vector3 = point_B.normalized()
+		var result: Array[Vector3] = []
+		for i: int in range(num_points):
+			var point: Vector3 = nA.slerp(nB, float(i) / float(num_points - 1))
+			result.append(point * r)
+		return result
+
+class Draw extends RefCounted:
+	static var line_mesh_pscn: PackedScene = preload("res://assets/prefabs/globe/markers/line_mesh.tscn")
+	static var line_material: StandardMaterial3D = preload("res://assets/resources/materials/m_line_material.tres")
+
+	static func create_line_mesh(points: Array[Vector3]) -> LineMesh:
+		var lm: LineMesh = line_mesh_pscn.instantiate()
+		(lm as LineMesh).points = points
+		return lm
+
+	static func create_line() -> MeshInstance3D:
+		var mesh_instance: MeshInstance3D = MeshInstance3D.new()
+		var mesh: ImmediateMesh = ImmediateMesh.new()
+
+		mesh_instance.mesh = mesh
+		mesh_instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+
+		return mesh_instance
+
+	static func update_line(mesh_instance: MeshInstance3D, points: Array[Vector3]) -> void:
+		var mesh: ImmediateMesh = mesh_instance.mesh
+		(mesh as ImmediateMesh).clear_surfaces()
+		(mesh as ImmediateMesh).surface_begin(Mesh.PRIMITIVE_LINES, line_material)
+		for point: Vector3 in points:
+			(mesh as ImmediateMesh).surface_add_vertex(point)
+		(mesh as ImmediateMesh).surface_end()
+
 class InputState extends RefCounted:
 	static var _current_device: String
 

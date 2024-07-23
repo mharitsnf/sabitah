@@ -10,6 +10,11 @@ float rand(vec2 co){
 	return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
+float random_float(float x) {
+    // Use a simple hash function to generate randomness
+    return fract(sin(x) * 43758.5453123);
+}
+
 vec3 blend_softlight(vec3 base, vec3 blend) {
 	return mix(
 		sqrt(base) * (2.0 * blend - 1.0) + 2.0 * base * (1.0 - blend), 
@@ -43,7 +48,8 @@ vec3 blend_overlay(vec3 base, vec3 blend, float opacity) {
 }
 
 void fragment() {
-	float amount = noise_amount * texture(noise_tex, UV + rand(UV + vec2(TIME))).x;
+	vec2 uv = vec2(rand(UV + vec2(TIME)), rand(UV - vec2(TIME)));
+	float amount = noise_amount * texture(noise_tex, uv).x;
 	vec4 col = texture(main_tex, UV);
 	COLOR = vec4(blend_overlay(col.rgb, vec3(amount), blend_opacity), 1.);
 }
