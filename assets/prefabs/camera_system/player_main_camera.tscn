@@ -6,4 +6,6 @@
 far = 8000.0
 script = ExtResource("1_ahu2v")
 
+[connection signal="follow_target_changed" from="." to="." method="_on_follow_target_changed"]
+[connection signal="old_target_removed" from="." to="." method="_on_old_target_removed"]
 [connection signal="transition_finished" from="." to="." method="_transition_finished"]

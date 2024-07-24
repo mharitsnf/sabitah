@@ -3,11 +3,13 @@ class_name GameHUDLayer extends HUDLayer
 @export var notification_label: Label
 @export var time_label: Label
 @export var island_name_label: Label
+@export var height_angle_label: Label
 @export var anim: AnimationPlayer
 
 var time_manager: TimeManager
 
 var time_container_shown: bool = false
+var crosshair_shown: bool = false
 
 func _ready() -> void:
 	super()
@@ -28,8 +30,22 @@ func set_island_name_label_text(value: String) -> void:
 func set_notification_text(value: String) -> void:
 	notification_label.text = value
 
+func show_crosshair() -> void:
+	if !crosshair_shown:
+		anim.play("show_crosshair")
+		crosshair_shown = true
+
+func set_height_angle_text(value: String) -> void:
+	height_angle_label.text = value
+
+func hide_crosshair() -> void:
+	if crosshair_shown:
+		anim.play("hide_crosshair")
+		crosshair_shown = false
+
 func show_notification() -> void:
 	anim.play("show_notification")
+	# no await because used in dialogue
 
 func show_island_name() -> void:
 	anim.play("show_island_name")

@@ -68,6 +68,7 @@ var transitioning: bool = false
 var transition_elapsed_time: float = 0.
 
 signal transition_finished
+signal old_target_removed(old_camera: VirtualCamera)
 signal follow_target_changed(new_camera: VirtualCamera)
 
 var previous_follow_data: FollowData
@@ -112,6 +113,7 @@ func _change_follow_target(value: VirtualCamera) -> void:
 	if current_follow_data:
 		current_follow_data.set_remote_path(NodePath(""))
 		previous_follow_data = current_follow_data
+		old_target_removed.emit(previous_follow_data.get_target())
 		value.copy_rotation(previous_follow_data.get_target())
 	
 	# Creates a new follow data for the new follow target and mount the remote transform
@@ -131,6 +133,12 @@ func _change_follow_target(value: VirtualCamera) -> void:
 	current_follow_data.set_remote_path(get_path())
 
 	follow_target_changed.emit(current_follow_data.get_target())
+
+func _on_old_target_removed(_old_camera: VirtualCamera) -> void:
+	pass
+
+func _on_follow_target_changed(_new_camera: VirtualCamera) -> void:
+	pass
 
 # region Transition functions
 

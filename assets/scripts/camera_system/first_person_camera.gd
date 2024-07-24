@@ -13,6 +13,11 @@ var final_viewport: Viewport
 func _ready() -> void:
 	super()
 
+func delegated_process(delta: float) -> void:
+	super(delta)
+	if hud_layer is GameHUDLayer:
+		hud_layer.set_height_angle_text(str(round(x_rot_target.rotation_degrees.x)))
+
 func player_input_process(delta: float) -> void:
 	super(delta)
 	_get_capture_picture_input()
