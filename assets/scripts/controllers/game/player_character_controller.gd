@@ -1,4 +1,4 @@
-class_name PlayerCharacterController extends PlayerController
+class_name PlayerCharacterController extends PlayerActorController
 
 enum CharacterStates {
 	GROUNDED, FALL, JUMP
@@ -55,19 +55,19 @@ func _ready() -> void:
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
 func enter_controller() -> void:
+	super()
 	Common.InputPromptManager.add_to_hud_layer([
-		"RMB_Enter", "RMB_Exit", "LMB_Picture", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
+		"F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
 	])
 
 	Common.InputPromptManager.show_input_prompt([
 		"RMB_Enter", "C"
 	])
 
-	print(Common.InputPromptManager.input_prompts)
-
 func exit_controller() -> void:
+	super()
 	Common.InputPromptManager.remove_from_hud_layer([
-		"RMB_Enter", "RMB_Exit", "LMB_Picture", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
+		"F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
 	])
 
 	ignore_area_check_time_elapsed = 0.
@@ -224,15 +224,6 @@ func _get_h_input() -> void:
 
 func _reset_inputs() -> void:
 	h_input = Vector2.ZERO
-
-func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
-	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
-	if new_vc is FirstPersonCamera:
-		Common.InputPromptManager.hide_input_prompt(["RMB_Enter"])
-		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture"])
-	else:
-		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture"])
-		Common.InputPromptManager.show_input_prompt(["RMB_Enter"])
 
 func _on_menu_entered(_data: MenuData) -> void:
 	_reset_inputs()

@@ -34,9 +34,9 @@ func _show_input_prompt() -> void:
 ## Adds an input prompt into the HUD layer.
 func add_input_prompt(new_ip: InputPrompt) -> void:
 	if !new_ip.is_inside_tree():
-		input_prompt_container.add_child.call_deferred(new_ip)
+		input_prompt_container.add_child(new_ip)
 
 ## Removes an input prompt into the HUD layer.
 func remove_input_prompt(ip: InputPrompt) -> void:
 	if ip.is_inside_tree():
-		input_prompt_container.remove_child.call_deferred(ip)
+		input_prompt_container.remove_child(ip)

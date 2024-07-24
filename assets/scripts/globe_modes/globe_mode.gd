@@ -22,17 +22,3 @@ func _exit_globe_scene() -> void:
 		before_cancel_cmd, 
 		after_cancel_cmd
 	)
-
-func _is_input_prompt_active(key: String) -> bool:
-	assert(input_prompts.size() > 0)
-	return (input_prompts[key] as InputPrompt).active
-
-func _show_input_prompt(key: String) -> void:
-	assert(input_prompts.size() > 0)
-	(input_prompts[key] as InputPrompt).active = true
-	hud_layer.add_input_prompt((input_prompts[key] as InputPrompt))
-
-func _hide_input_prompt(key: String) -> void:
-	assert(input_prompts.size() > 0)
-	(input_prompts[key] as InputPrompt).active = false
-	hud_layer.remove_input_prompt((input_prompts[key] as InputPrompt))
