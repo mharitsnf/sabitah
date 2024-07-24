@@ -38,7 +38,7 @@ var enter_boat_input_prompt: InputPrompt
 var ignore_area_check_time_elapsed: float = 0.
 const IGNORE_AREA_CHECK_DURATION: float = .25
 
-# region Entry functions
+# region Lifecycle functions
 
 func _enter_tree() -> void:
 	_remove_register_island_input_prompt()
@@ -59,43 +59,10 @@ func enter_controller() -> void:
 		if ip.active:
 			hud_layer.add_input_prompt(ip)
 
-func _remove_register_island_input_prompt() -> void:
-	if input_prompts.is_empty(): return
-
-	if State.local_sundial and State.local_sundial.first_marker_done:
-		if !(input_prompts["Y"] as InputPrompt).is_inside_tree():
-			await (input_prompts["Y"] as InputPrompt).tree_entered
-		(input_prompts["Y"] as InputPrompt).active = false
-		hud_layer.remove_input_prompt((input_prompts["Y"] as InputPrompt))
-
 func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts.values():
 		hud_layer.remove_input_prompt(ip)
 	ignore_area_check_time_elapsed = 0.
-
-func _add_input_prompts() -> void:
-	super()
-
-	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-	ip_factory.set_data("F", "Enter ship")
-	input_prompts['F'] = ip_factory.get_instance()
-
-	ip_factory.set_data("T", "Enter local sundial")
-	input_prompts['T'] = ip_factory.get_instance()
-
-	ip_factory.set_data("Y", "Register island")
-	input_prompts['Y'] = ip_factory.get_instance()
-
-	ip_factory.set_data("C", "Dig!", true)
-	input_prompts['C'] = ip_factory.get_instance()
-
-	ip_factory.set_data("G", "Register node island", false)
-	input_prompts['G'] = ip_factory.get_instance()
-
-	ip_factory.set_data("E", "Interact", false)
-	input_prompts['E'] = ip_factory.get_instance()
-
-# region Lifecycle functions
 
 func _process(_delta: float) -> void:
 	actor.rotate_visuals(main_camera.global_basis, h_input)
@@ -144,6 +111,39 @@ func switch_state(new_state: ActorState) -> void:
 
 	current_actor_state = new_state
 	new_state.enter_state()
+
+# region input prompts
+
+func _remove_register_island_input_prompt() -> void:
+	if input_prompts.is_empty(): return
+
+	if State.local_sundial and State.local_sundial.first_marker_done:
+		if !(input_prompts["Y"] as InputPrompt).is_inside_tree():
+			await (input_prompts["Y"] as InputPrompt).tree_entered
+		(input_prompts["Y"] as InputPrompt).active = false
+		hud_layer.remove_input_prompt((input_prompts["Y"] as InputPrompt))
+
+func _add_input_prompts() -> void:
+	super()
+
+	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
+	ip_factory.set_data("F", "Enter ship")
+	input_prompts['F'] = ip_factory.get_instance()
+
+	ip_factory.set_data("T", "Enter local sundial")
+	input_prompts['T'] = ip_factory.get_instance()
+
+	ip_factory.set_data("Y", "Register island")
+	input_prompts['Y'] = ip_factory.get_instance()
+
+	ip_factory.set_data("C", "Dig!", true)
+	input_prompts['C'] = ip_factory.get_instance()
+
+	ip_factory.set_data("G", "Register node island", false)
+	input_prompts['G'] = ip_factory.get_instance()
+
+	ip_factory.set_data("E", "Interact", false)
+	input_prompts['E'] = ip_factory.get_instance()
 
 # region Setters and getters
 

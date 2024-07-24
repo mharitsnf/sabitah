@@ -6,8 +6,6 @@ class_name IslandSearch extends LatLongSearch
 @export var tpc: ThirdPersonCamera
 @export var lines_parent: Node3D
 @export var waypoints_parent: Node3D
-@export_subgroup("Packed scenes")
-@export var waypoint_marker_pscn: PackedScene
 
 var first_point: Vector3 = Vector3.ZERO
 var second_point: Vector3 = Vector3.ZERO
@@ -26,7 +24,7 @@ func _ready() -> void:
 	assert(tpc)
 	assert(camera)
 
-func enter_mode() -> void:
+func enter_controller() -> void:
 	# Instantiate input prompts
 	if input_prompts.is_empty():
 		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
@@ -56,7 +54,7 @@ func _add_input_prompts() -> void:
 		if ip.active:
 			hud_layer.add_input_prompt(ip)
 
-func exit_mode() -> void:
+func exit_controller() -> void:
 	for ip: InputPrompt in input_prompts.values():
 		hud_layer.remove_input_prompt(ip)
 
@@ -64,7 +62,7 @@ func exit_mode() -> void:
 
 	await hud_layer.hide_island_name_panel()
 
-func delegated_unhandled_input(event: InputEvent) -> bool:
+func bool_unhandled_input(event: InputEvent) -> bool:
 	if !super(event): return false
 	
 	if event.is_action_pressed("globe__select_location"):
@@ -88,6 +86,9 @@ func delegated_unhandled_input(event: InputEvent) -> bool:
 func delegated_process(delta: float) -> void:
 	super(delta)
 	_draw_temporary_line()
+
+func player_unhandled_input(event: InputEvent) -> void:
+	bool_unhandled_input(event)
 
 # region Signals
 
@@ -177,7 +178,7 @@ func _add_waypoint() -> void:
 	if !marker_query_res.is_empty(): return
 	if planet_query_res.is_empty(): return
 
-	var marker: WaypointMarker = waypoint_marker_pscn.instantiate()
+	var marker: WaypointMarker = Common.Draw.create_waypoint_marker()
 	waypoints_parent.add_child.call_deferred(marker)
 	await marker.tree_entered
 	(marker as WaypointMarker).global_position = planet_query_res['normal'] * State.PLANET_RADIUS * State.MAIN_TO_GLOBE_SCALE
@@ -218,11 +219,11 @@ var temp_line_mesh: MeshInstance3D
 func _draw_temporary_line() -> void:
 	if first_point != Vector3.ZERO:
 		if !temp_line_mesh:
-			temp_line_mesh = Common.Draw.create_line()
+			temp_line_mesh = Common.Draw.create_temporary_line()
 			lines_parent.add_child.call_deferred(temp_line_mesh)
 
 		var points: Array[Vector3] = Common.Geometry.generate_points_on_sphere(first_point, planet_query_res['position'])
-		Common.Draw.update_line(temp_line_mesh, points)
+		Common.Draw.update_temporary_line(temp_line_mesh, points)
 	else:
 		if temp_line_mesh:
 			temp_line_mesh.queue_free()

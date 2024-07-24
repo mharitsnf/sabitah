@@ -1,26 +1,33 @@
 class_name IslandRegistration extends LatLongSearch
 
 @export_group("References")
+@export var island_markers_parent: Node3D
 @export var level_anim: AnimationPlayer
 @export var tpc: ThirdPersonCamera
-@export_subgroup("Packed scenes")
-@export var first_marker_pscn: PackedScene
 
 ## Margin of error for the player.
 const ISLAND_REGISTRATION_MARGIN_OF_ERROR: float = 500.
+
+# region Lifecycle functions
+
+func _enter_tree() -> void:
+	transitioning = false
 
 func _ready() -> void:
 	super()
 
 	assert(level_anim)
 	assert(tpc)
-	assert(first_marker_pscn)
 
-func enter_mode() -> void:
+func enter_controller() -> void:
 	menu_layer.toggle_main_menu_allowed = false
 	hud_layer.show_instruction_panel()
 
-func delegated_unhandled_input(event: InputEvent) -> bool:
+func exit_controller() -> void:
+	menu_layer.toggle_main_menu_allowed = true
+	await hud_layer.hide_instruction_panel()
+
+func bool_unhandled_input(event: InputEvent) -> bool:
 	if !super(event): return false
 	
 	if event.is_action_pressed("globe__confirm_island_registration") and !transitioning:
@@ -28,6 +35,11 @@ func delegated_unhandled_input(event: InputEvent) -> bool:
 		return false
 
 	return true
+
+func player_unhandled_input(event: InputEvent) -> void:
+	bool_unhandled_input(event)
+
+# region Island registration functions
 
 func _confirm_island_location() -> void:
 	var query_latlong: Array = Common.Geometry.point_to_latlng(planet_query_res['normal'])
@@ -43,9 +55,6 @@ func _confirm_island_location() -> void:
 		assert(State.local_sundial)
 
 		State.local_sundial.first_marker_done = true
-
-		var euler: Array = Common.Geometry.normal_to_degrees(State.local_sundial_data['normal'])
-		tpc.set_euler_rotation(euler[0], euler[1])
 
 		transitioning = true
 		level_anim.play("add_first_marker")
@@ -81,20 +90,11 @@ func show_crosshair() -> void:
 	await hud_layer.show_crosshair()
 
 func add_first_marker() -> void:
-	var marker: IslandMarker = first_marker_pscn.instantiate()
-	(marker as IslandMarker).sundial_manager = State.local_sundial
-	var level: Node = State.get_level(State.LevelType.GLOBE)
-	level.add_child.call_deferred(marker)
+	var marker: IslandMarker = Common.Draw.create_island_first_marker(State.local_sundial)
+	island_markers_parent.add_child.call_deferred(marker)
 	await marker.tree_entered
 	(marker as Node3D).global_position = State.local_sundial_data['marker_position']
 
 func _exit_globe_scene() -> void:
 	State.local_sundial_data = {}
 	await super()
-
-func exit_mode() -> void:
-	menu_layer.toggle_main_menu_allowed = true
-	await hud_layer.hide_instruction_panel()
-
-func _enter_tree() -> void:
-	transitioning = false

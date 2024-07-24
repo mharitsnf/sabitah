@@ -223,6 +223,8 @@ move_distance = 50.0
 
 [node name="LinesParent" type="Node3D" parent="."]
 
+[node name="IslandMarkersParent" type="Node3D" parent="."]
+
 [node name="WaypointsParent" type="Node3D" parent="."]
 
 [node name="PlayerMainCamera" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_4fsy1")]
@@ -230,6 +232,7 @@ level_type = 2
 follow_target = NodePath("../Cameras/GlobeTPC")
 
 [node name="AtmospherePPQ" parent="PlayerMainCamera" instance=ExtResource("4_le2kd")]
+visible = true
 level_type = 2
 
 [node name="OutlinePPQ" parent="PlayerMainCamera" instance=ExtResource("9_ejgul")]
@@ -253,7 +256,8 @@ tpc = NodePath("../../Cameras/GlobeTPC")
 lines_parent = NodePath("../../LinesParent")
 waypoints_parent = NodePath("../../WaypointsParent")
 
-[node name="IslandRegistration" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("level_anim", "tpc") instance=ExtResource("8_usr3g")]
+[node name="IslandRegistration" parent="PlayerGlobeModeManager" node_paths=PackedStringArray("island_markers_parent", "level_anim", "tpc") instance=ExtResource("8_usr3g")]
+island_markers_parent = NodePath("../../IslandMarkersParent")
 level_anim = NodePath("../../AnimationPlayer")
 tpc = NodePath("../../Cameras/GlobeTPC")
 

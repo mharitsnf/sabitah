@@ -110,13 +110,24 @@ class Geometry extends RefCounted:
 class Draw extends RefCounted:
 	static var line_mesh_pscn: PackedScene = preload("res://assets/prefabs/globe/markers/line_mesh.tscn")
 	static var line_material: StandardMaterial3D = preload("res://assets/resources/materials/m_line_material.tres")
+	static var waypoint_marker_pscn: PackedScene = preload("res://assets/prefabs/globe/markers/waypoint_marker.tscn")
+	static var island_first_marker_pscn: PackedScene = preload("res://assets/prefabs/globe/markers/globe_first_marker.tscn")
 
 	static func create_line_mesh(points: Array[Vector3]) -> LineMesh:
 		var lm: LineMesh = line_mesh_pscn.instantiate()
 		(lm as LineMesh).points = points
 		return lm
 
-	static func create_line() -> MeshInstance3D:
+	static func create_waypoint_marker() -> WaypointMarker:
+		var wpm: WaypointMarker = waypoint_marker_pscn.instantiate()
+		return wpm
+
+	static func create_island_first_marker(sundial: LocalSundialManager) -> IslandMarker:
+		var im: IslandMarker = island_first_marker_pscn.instantiate()
+		(im as IslandMarker).sundial_manager = sundial
+		return im
+
+	static func create_temporary_line() -> MeshInstance3D:
 		var mesh_instance: MeshInstance3D = MeshInstance3D.new()
 		var mesh: ImmediateMesh = ImmediateMesh.new()
 
@@ -125,7 +136,7 @@ class Draw extends RefCounted:
 
 		return mesh_instance
 
-	static func update_line(mesh_instance: MeshInstance3D, points: Array[Vector3]) -> void:
+	static func update_temporary_line(mesh_instance: MeshInstance3D, points: Array[Vector3]) -> void:
 		var mesh: ImmediateMesh = mesh_instance.mesh
 		(mesh as ImmediateMesh).clear_surfaces()
 		(mesh as ImmediateMesh).surface_begin(Mesh.PRIMITIVE_LINES, line_material)

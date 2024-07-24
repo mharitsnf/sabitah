@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if !_input_allowed(): return
 
-	(current_data.get_instance() as GlobeMode).delegated_unhandled_input(event)
+	(current_data.get_instance() as GlobeMode).player_unhandled_input(event)
 
 # region Data switching function
 
@@ -65,11 +65,11 @@ func switch_data(new_data: PlayerData) -> Array:
 		return [false]
 
 	if current_data:
-		if current_data.get_instance(): await (current_data.get_instance() as GlobeMode).exit_mode()
+		if current_data.get_instance(): await (current_data.get_instance() as GlobeMode).exit_controller()
 		previous_data = current_data
 
 	current_data = new_data
-	if new_data.get_instance(): await (current_data.get_instance() as GlobeMode).enter_mode()
+	if new_data.get_instance(): await (current_data.get_instance() as GlobeMode).enter_controller()
 	return [true, previous_data]
 
 # region Setters and getters

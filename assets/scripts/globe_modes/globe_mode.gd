@@ -1,43 +1,13 @@
-class_name GlobeMode extends Node
+class_name GlobeMode extends PlayerController
 
 @export_group("Switch scene commands")
 @export_subgroup("Canceling")
 @export var before_cancel_cmd: Command
 @export var after_cancel_cmd: Command
 
-var input_prompts: Dictionary
-
-var menu_layer: MenuLayer
-var hud_layer: GlobeHUDLayer
-var main_camera: MainCamera
-
 var transitioning: bool = false
 
-func _ready() -> void:
-	menu_layer = Group.first("menu_layer")
-	hud_layer = Group.first("hud_layer")
-	main_camera = Group.first("main_camera")
-
-	assert(menu_layer)
-	assert(hud_layer)
-	assert(main_camera)
-
-	(menu_layer as MenuLayer).menu_entered.connect(_on_menu_entered)
-	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
-
-func enter_mode() -> void:
-	if false: await Common.wait(.1)
-
-func delegated_physics_process(_delta: float) -> void:
-	pass
-
-func delegated_process(_delta: float) -> void:
-	pass	
-
-func player_input_process(_delta: float) -> void:
-	pass
-
-func delegated_unhandled_input(event: InputEvent) -> bool:
+func bool_unhandled_input(event: InputEvent) -> bool:
 	if menu_layer.switching: return false
 	if transitioning: return false
 	if event.is_action_pressed("ui_cancel"):
@@ -66,12 +36,3 @@ func _hide_input_prompt(key: String) -> void:
 	assert(input_prompts.size() > 0)
 	(input_prompts[key] as InputPrompt).active = false
 	hud_layer.remove_input_prompt((input_prompts[key] as InputPrompt))
-
-func _on_menu_entered(_data: MenuData) -> void:
-	pass
-
-func _on_menu_exited(_data: MenuData) -> void:
-	pass
-
-func exit_mode() -> void:
-	if false: await Common.wait(.1)

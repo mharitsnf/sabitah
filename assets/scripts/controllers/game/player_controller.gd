@@ -44,7 +44,7 @@ func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
 
 ## Runs when the controller is entered.
 func enter_controller() -> void:
-	pass
+	if false: await Common.wait(.1)
 
 func _add_input_prompts() -> void:
 	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
@@ -69,4 +69,4 @@ func _reset_inputs() -> void:
 
 ## Runs when the controller is exited.
 func exit_controller() -> void:
-	pass
+	if false: await Common.wait(.1)
