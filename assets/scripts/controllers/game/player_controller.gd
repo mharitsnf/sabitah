@@ -16,12 +16,9 @@ func _ready() -> void:
 
 	(menu_layer as MenuLayer).menu_entered.connect(_on_menu_entered)
 	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
-
 	(main_camera as MainCamera).follow_target_changed.connect(_on_follow_target_changed)
 
 	Common.dialogue_entered.connect(_on_dialogue_entered)
-
-	_add_input_prompts()
 
 func _on_menu_entered(_data: MenuData) -> void:
 	pass
@@ -32,28 +29,12 @@ func _on_menu_exited(_data: MenuData) -> void:
 func _on_dialogue_entered() -> void:
 	pass
 
-func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
-	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
-	if input_prompts.is_empty(): return
-	if new_vc is FirstPersonCamera:
-		(input_prompts['LMB'] as InputPrompt).active = true
-		hud_layer.add_input_prompt((input_prompts['LMB'] as InputPrompt))
-	else:
-		(input_prompts['LMB'] as InputPrompt).active = false
-		hud_layer.remove_input_prompt((input_prompts['LMB'] as InputPrompt))
+func _on_follow_target_changed(_new_vc: VirtualCamera) -> void:
+	pass
 
 ## Runs when the controller is entered.
 func enter_controller() -> void:
 	if false: await Common.wait(.1)
-
-func _add_input_prompts() -> void:
-	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-
-	ip_factory.set_data("RMB", "Enter/exit camera", true)
-	input_prompts['RMB'] = ip_factory.get_instance()
-	
-	ip_factory.set_data("LMB", "Take picture")
-	input_prompts['LMB'] = ip_factory.get_instance()
 
 func delegated_process(_delta: float) -> void:
 	pass

@@ -22,26 +22,18 @@ func _ready() -> void:
 	State.teleport_to_node_sundial.connect(_on_teleport_to_node_sundial)
 
 func enter_controller() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		if ip.active: hud_layer.add_input_prompt(ip)
+	Common.InputPromptManager.add_to_hud_layer([
+		'RMB_Enter', 'RMB_Exit', 'LMB_Picture', 'F_Exit', 'T_Enter', 'G_Teleport'
+	])
+
+	Common.InputPromptManager.show_input_prompt([
+		'RMB_Enter', 'F_Exit', 'T_Enter', 'G_Teleport'
+	])
 
 func exit_controller() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		hud_layer.remove_input_prompt(ip)
-
-func _add_input_prompts() -> void:
-	super()
-
-	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-
-	ip_factory.set_data("F", "Exit boat", true)
-	input_prompts['F'] = ip_factory.get_instance()
-
-	ip_factory.set_data("T", "Enter sundial", true)
-	input_prompts['T'] = ip_factory.get_instance()
-
-	ip_factory.set_data("G", "Teleport to node island", true)
-	input_prompts['G'] = ip_factory.get_instance()
+	Common.InputPromptManager.remove_from_hud_layer([
+		'RMB_Enter', 'RMB_Exit', 'LMB_Picture', 'F_Exit', 'T_Enter', 'G_Teleport'
+	])
 
 # region Lifecycle functions
 
@@ -120,6 +112,15 @@ func _on_menu_entered(_data: MenuData) -> void:
 func _reset_inputs() -> void:
 	gas_input = 0.
 	brake_input = 0.
+
+func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
+	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
+	if new_vc is FirstPersonCamera:
+		Common.InputPromptManager.hide_input_prompt(["RMB_Enter"])
+		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture"])
+	else:
+		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture"])
+		Common.InputPromptManager.show_input_prompt(["RMB_Enter"])
 
 func _on_current_data_changed() -> void:
 	if State.actor_im.get_current_controller() != self:

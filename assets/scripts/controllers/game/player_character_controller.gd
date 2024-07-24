@@ -55,13 +55,21 @@ func _ready() -> void:
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
 func enter_controller() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		if ip.active:
-			hud_layer.add_input_prompt(ip)
+	Common.InputPromptManager.add_to_hud_layer([
+		"RMB_Enter", "RMB_Exit", "LMB_Picture", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
+	])
+
+	Common.InputPromptManager.show_input_prompt([
+		"RMB_Enter", "C"
+	])
+
+	print(Common.InputPromptManager.input_prompts)
 
 func exit_controller() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		hud_layer.remove_input_prompt(ip)
+	Common.InputPromptManager.remove_from_hud_layer([
+		"RMB_Enter", "RMB_Exit", "LMB_Picture", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
+	])
+
 	ignore_area_check_time_elapsed = 0.
 
 func _process(_delta: float) -> void:
@@ -115,35 +123,8 @@ func switch_state(new_state: ActorState) -> void:
 # region input prompts
 
 func _remove_register_island_input_prompt() -> void:
-	if input_prompts.is_empty(): return
-
 	if State.local_sundial and State.local_sundial.first_marker_done:
-		if !(input_prompts["Y"] as InputPrompt).is_inside_tree():
-			await (input_prompts["Y"] as InputPrompt).tree_entered
-		(input_prompts["Y"] as InputPrompt).active = false
-		hud_layer.remove_input_prompt((input_prompts["Y"] as InputPrompt))
-
-func _add_input_prompts() -> void:
-	super()
-
-	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-	ip_factory.set_data("F", "Enter ship")
-	input_prompts['F'] = ip_factory.get_instance()
-
-	ip_factory.set_data("T", "Enter local sundial")
-	input_prompts['T'] = ip_factory.get_instance()
-
-	ip_factory.set_data("Y", "Register island")
-	input_prompts['Y'] = ip_factory.get_instance()
-
-	ip_factory.set_data("C", "Dig!", true)
-	input_prompts['C'] = ip_factory.get_instance()
-
-	ip_factory.set_data("G", "Register node island", false)
-	input_prompts['G'] = ip_factory.get_instance()
-
-	ip_factory.set_data("E", "Interact", false)
-	input_prompts['E'] = ip_factory.get_instance()
+		Common.InputPromptManager.remove_from_hud_layer.call_deferred(["Y"])
 
 # region Setters and getters
 
@@ -244,6 +225,15 @@ func _get_h_input() -> void:
 func _reset_inputs() -> void:
 	h_input = Vector2.ZERO
 
+func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
+	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
+	if new_vc is FirstPersonCamera:
+		Common.InputPromptManager.hide_input_prompt(["RMB_Enter"])
+		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture"])
+	else:
+		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture"])
+		Common.InputPromptManager.show_input_prompt(["RMB_Enter"])
+
 func _on_menu_entered(_data: MenuData) -> void:
 	_reset_inputs()
 
@@ -259,38 +249,31 @@ func _on_local_sundial_area_entered(area: Node3D) -> void:
 	if !(area_parent is LocalSundialManager): return
 	
 	State.local_sundial = area_parent
-	(input_prompts["T"] as InputPrompt).active = true
-	hud_layer.add_input_prompt(input_prompts["T"])
+	Common.InputPromptManager.show_input_prompt(["T_Enter"])
 	
 	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 
 	if !State.local_sundial.first_marker_done:
-		(input_prompts["Y"] as InputPrompt).active = true
-		hud_layer.add_input_prompt(input_prompts["Y"])
+		Common.InputPromptManager.show_input_prompt(["Y"])
 	else:
-		(input_prompts["G"] as InputPrompt).active = true
-		hud_layer.add_input_prompt(input_prompts["G"])
+		Common.InputPromptManager.show_input_prompt(["G_Register"])
 
 func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
-	(input_prompts["T"] as InputPrompt).active = false
-	hud_layer.remove_input_prompt(input_prompts["T"])
+	Common.InputPromptManager.hide_input_prompt(["T_Enter"])
 
 	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 
-	(input_prompts["Y"] as InputPrompt).active = false
-	hud_layer.remove_input_prompt(input_prompts["Y"])
-
-	(input_prompts["G"] as InputPrompt).active = false
-	hud_layer.remove_input_prompt(input_prompts["G"])
+	Common.InputPromptManager.hide_input_prompt(["Y"])
+	Common.InputPromptManager.hide_input_prompt(["G_Register"])
 
 func _on_player_boat_area_entered() -> void:
 	inside_player_boat_area = true
-	hud_layer.add_input_prompt(input_prompts["F"])
+	Common.InputPromptManager.show_input_prompt(["F_Enter"])
 
 func _on_player_boat_area_exited() -> void:
 	inside_player_boat_area = false
-	hud_layer.remove_input_prompt(input_prompts["F"])
+	Common.InputPromptManager.hide_input_prompt(["F_Enter"])
 
 func _on_area_checker_area_entered(area: Area3D) -> void:
 	if area.is_in_group("clue_areas"):
@@ -319,8 +302,7 @@ func _on_area_checker_area_entered(area: Area3D) -> void:
 
 	if area.is_in_group("interact_areas"):
 		interact_areas.append(area)
-		(input_prompts["E"] as InputPrompt).active = true
-		hud_layer.add_input_prompt(input_prompts["E"])
+		Common.InputPromptManager.show_input_prompt(["E_Interact"])
 		return
 
 func _on_area_checker_area_exited(area: Area3D) -> void:
@@ -338,6 +320,5 @@ func _on_area_checker_area_exited(area: Area3D) -> void:
 	
 	if area.is_in_group("interact_areas"):
 		interact_areas.erase(area)
-		(input_prompts["E"] as InputPrompt).active = false
-		hud_layer.remove_input_prompt(input_prompts["E"])
+		Common.InputPromptManager.hide_input_prompt(["E_Interact"])
 		return

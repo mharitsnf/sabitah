@@ -20,4 +20,7 @@ var input_button_formatted: String = ""
 @export var text_label: Label
 @export var panel: Panel
 
-var active: bool = false
+var active: bool = false:
+	set(value):
+		active = value
+		visible = active

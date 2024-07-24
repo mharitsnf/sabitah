@@ -25,38 +25,21 @@ func _ready() -> void:
 	assert(camera)
 
 func enter_controller() -> void:
-	# Instantiate input prompts
-	if input_prompts.is_empty():
-		var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-	
-		ip_factory.set_data("Q", "Exit", true)
-		input_prompts['Q'] = ip_factory.get_instance()
+	Common.InputPromptManager.add_to_hud_layer([
+		'Q', 'E_Waypoint', 'T_CreateLine', 'T_ConfirmLine', 'LMB_OpenMarker', 'R'
+	])
 
-		ip_factory.set_data("E", "Add waypoint", true)
-		input_prompts["E"] = ip_factory.get_instance()
-
-		ip_factory.set_data("T", "Create/confirm line", true)
-		input_prompts["T"] = ip_factory.get_instance()
-
-		ip_factory.set_data("LMB", "Open marker")
-		input_prompts["LMB"] = ip_factory.get_instance()
-
-		ip_factory.set_data("R", "Erase waypoint / line")
-		input_prompts["R"] = ip_factory.get_instance()
-
-	_add_input_prompts()
+	Common.InputPromptManager.show_input_prompt([
+		'Q', 'E_Waypoint', 'T_CreateLine',
+	])
 
 	if !marker_query_res.is_empty():
 		hud_layer.show_island_name_panel()
 
-func _add_input_prompts() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		if ip.active:
-			hud_layer.add_input_prompt(ip)
-
 func exit_controller() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		hud_layer.remove_input_prompt(ip)
+	Common.InputPromptManager.remove_from_hud_layer([
+		'Q', 'E_Waypoint', 'T_CreateLine', 'T_ConfirmLine', 'LMB_OpenMarker', 'R'
+	])
 
 	first_point = Vector3.ZERO
 
@@ -95,8 +78,10 @@ func player_unhandled_input(event: InputEvent) -> void:
 func _on_marker_hover_entered() -> void:
 	if marker_query_res.is_empty(): return
 
+	Common.InputPromptManager.hide_input_prompt(["E_Waypoint"])
+
 	if first_point == Vector3.ZERO:
-		_show_input_prompt("LMB")
+		Common.InputPromptManager.show_input_prompt(["LMB_OpenMarker"])
 
 	var island_name: String = "Unknown Island Name"
 	
@@ -106,39 +91,37 @@ func _on_marker_hover_entered() -> void:
 	if marker_query_res['collider'] is WaypointMarker:
 		island_name = (marker_query_res['collider'] as WaypointMarker).get_geotag_data()['name']
 		if first_point == Vector3.ZERO:
-			_show_input_prompt('R')
+			Common.InputPromptManager.show_input_prompt(["R"])
 
 	hud_layer.set_island_name_text(island_name)
 	hud_layer.show_island_name_panel()
 
 func _on_marker_hover_exited() -> void:
-	if _is_input_prompt_active("R"):
-		_hide_input_prompt("R")
-
-	_hide_input_prompt("LMB")
+	Common.InputPromptManager.hide_input_prompt(["R", "LMB_OpenMarker"])
+	Common.InputPromptManager.show_input_prompt(["E_Waypoint"])
 
 	hud_layer.hide_island_name_panel()
 
 func _on_line_hover_entered() -> void:
 	if first_point == Vector3.ZERO:
-		_show_input_prompt("R")
+		Common.InputPromptManager.show_input_prompt(["R"])
 
 func _on_line_hover_exited() -> void:
-	_hide_input_prompt("R")
+	Common.InputPromptManager.hide_input_prompt(["R"])
 
 func _on_menu_entered(data: MenuData) -> void:
 	match data.get_key():
 		State.UserInterfaces.ISLAND_GALLERY:
-			_hide_input_prompt("Q")
-			_hide_input_prompt("E")
-			_hide_input_prompt("T")
+			Common.InputPromptManager.hide_input_prompt([
+				"Q", "E_Waypoint", "T_CreateLine", "T_ConfirmLine"
+			])
 
 func _on_menu_exited(data: MenuData) -> void:
 	match data.get_key():
 		State.UserInterfaces.ISLAND_GALLERY:
-			_show_input_prompt("Q")
-			_show_input_prompt("E")
-			_show_input_prompt("T")
+			Common.InputPromptManager.show_input_prompt([
+				"Q", "E_Waypoint", "T_CreateLine", "T_ConfirmLine"
+			])
 			if menu_layer.history_stack.is_empty():
 				transitioning = true
 				await hud_layer.show_crosshair()
@@ -200,9 +183,13 @@ func _add_line_point() -> void:
 	if first_point == Vector3.ZERO:
 		first_point = planet_query_res['position']
 
-		_hide_input_prompt("E")
-		if _is_input_prompt_active("R"): _hide_input_prompt("R")
-		if _is_input_prompt_active("LMB"): _hide_input_prompt("LMB")
+		Common.InputPromptManager.hide_input_prompt([
+			'E_Waypoint', 'R', 'LMB_OpenMarker', "T_CreateLine"
+		])
+
+		Common.InputPromptManager.show_input_prompt([
+			'T_ConfirmLine'
+		])
 
 	else:
 		second_point = planet_query_res['position']
@@ -213,7 +200,13 @@ func _add_line_point() -> void:
 		first_point = Vector3.ZERO
 		second_point = Vector3.ZERO
 
-		_show_input_prompt("E")
+		Common.InputPromptManager.hide_input_prompt([
+			'T_ConfirmLine'
+		])
+
+		Common.InputPromptManager.show_input_prompt([
+			'E_Waypoint'
+		])
 
 var temp_line_mesh: MeshInstance3D
 func _draw_temporary_line() -> void:

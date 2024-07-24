@@ -75,7 +75,7 @@ layers = 2
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(-0.0193793, -0.170611, -0.985148, 0.998861, -0.0462628, -0.0116371, -0.0435902, -0.984252, 0.171314, -253.781, -68.8152, -1464.06)
+transform = Transform3D(-0.0193793, -0.170611, -0.985148, 0.998861, -0.0462628, -0.0116371, -0.0435902, -0.984252, 0.171314, -405.243, -31.4086, -1437.69)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
 transform = Transform3D(0.0965653, -0.160735, 0.982262, -0.994636, -0.0523372, 0.0892175, 0.0370684, -0.985609, -0.164927, -238.698, -77.7226, -1463.68)

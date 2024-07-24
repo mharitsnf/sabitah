@@ -8,12 +8,65 @@ func _ready() -> void:
 	# Input
 	InputState._current_device = InputHelper.guess_device_name()
 	InputHelper.device_changed.connect(InputState._on_input_device_changed)
+	InputPromptManager._generate_input_prompts()
 
 func wait(sec: float) -> void:
 	await get_tree().create_timer(sec).timeout
 
 signal dialogue_entered
 signal dialogue_exited
+
+class InputPromptManager extends RefCounted:
+	static var input_prompts: Dictionary = {}
+
+	static func _generate_input_prompts() -> void:
+		var ipf: InputPromptFactory = InputPromptFactory.new()
+		input_prompts["E_Interact"] = ipf.create("E", "Interact")
+		input_prompts["RMB_Exit"] = ipf.create("RMB", "Exit camera")
+		input_prompts["RMB_Enter"] = ipf.create("RMB", "Enter camera")
+		input_prompts["LMB_Picture"] = ipf.create("LMB", "Take picture")
+		input_prompts["F_Enter"] = ipf.create("F", "Enter ship")
+		input_prompts["F_Exit"] = ipf.create("F", "Exit ship")
+		input_prompts["C"] = ipf.create("C", "Dig!")
+		input_prompts["G_Register"] = ipf.create("G", "Register node island")
+		input_prompts["G_Teleport"] = ipf.create("G", "Teleport to node island")
+		input_prompts["T_Enter"] = ipf.create("T", "Enter sundial")
+		input_prompts["T_Exit"] = ipf.create("T", "Exit sundial")
+		input_prompts["A/D"] = ipf.create("A/D", "Rotate protractor")
+		input_prompts["Q/E"] = ipf.create("Q/E", "Spin dial")
+		input_prompts["Q"] = ipf.create("Q", "Exit")
+		input_prompts["E_Waypoint"] = ipf.create("E", "Add waypoint")
+		input_prompts["T_CreateLine"] = ipf.create("T", "Create line")
+		input_prompts["T_ConfirmLine"] = ipf.create("T", "Confirm line")
+		input_prompts["LMB_OpenMarker"] = ipf.create("LMB", "Open marker")
+		input_prompts["R"] = ipf.create("R", "Erase")
+		input_prompts["Y"] = ipf.create("Y", "Register Island")
+
+	static func add_to_hud_layer(keys: Array) -> void:
+		var hud: HUDLayer = Group.first("hud_layer")
+		for key: String in keys:
+			if !input_prompts.has(key): continue
+			(hud as HUDLayer).add_input_prompt(input_prompts[key])
+
+	static func remove_from_hud_layer(keys: Array) -> void:
+		var hud: HUDLayer = Group.first("hud_layer")
+		for key: String in keys:
+			if !input_prompts.has(key): continue
+			var ip: InputPrompt = input_prompts[key]
+			ip.active = false
+			(hud as HUDLayer).remove_input_prompt(ip)
+
+	static func show_input_prompt(keys: Array) -> void:
+		for key: String in keys:
+			if !input_prompts.has(key): continue
+			var ip: InputPrompt = input_prompts[key]
+			ip.active = true
+	
+	static func hide_input_prompt(keys: Array) -> void:
+		for key: String in keys:
+			if !input_prompts.has(key): continue
+			var ip: InputPrompt = input_prompts[key]
+			ip.active = false
 
 class DialogueWrapper extends RefCounted:
 	static var monologue_res: DialogueResource = preload("res://assets/dialogues/monologues.dialogue")
@@ -158,6 +211,13 @@ class InputPromptFactory extends RefCounted:
 	var _instance: InputPrompt
 	func _init() -> void:
 		_instance = _pscn.instantiate()
+	func create(_input_button: String, _prompt: String, _active: bool = false) -> InputPrompt:
+		var inst: InputPrompt = _instance
+		_instance.input_button = _input_button
+		_instance.prompt = _prompt
+		_instance.active = _active
+		_instance = _pscn.instantiate()
+		return inst
 	func set_data(_input_button: String, _prompt: String, _active: bool = false) -> void:
 		_instance.input_button = _input_button
 		_instance.prompt = _prompt

@@ -10,31 +10,22 @@ func _ready() -> void:
 	assert(actor)
 
 func enter_controller() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		if ip.active: hud_layer.add_input_prompt(ip)
+	Common.InputPromptManager.add_to_hud_layer([
+		'T_Exit', 'Q/E', 'A/D'
+	])
+
+	Common.InputPromptManager.show_input_prompt([
+		'T_Exit', 'Q/E', 'A/D'
+	])
 
 	(hud_layer as GameHUDLayer).show_time_container()
 
 func exit_controller() -> void:
-	for ip: InputPrompt in input_prompts.values():
-		hud_layer.remove_input_prompt(ip)
+	Common.InputPromptManager.remove_from_hud_layer([
+		'T_Exit', 'Q/E', 'A/D'
+	])
 
 	(hud_layer as GameHUDLayer).hide_time_container()
-
-func _add_input_prompts() -> void:
-	super()
-
-	(input_prompts['RMB'] as InputPrompt).active = false
-
-	var ip_factory: Common.InputPromptFactory = Common.InputPromptFactory.new()
-	ip_factory.set_data("T", "Exit sundial", true)
-	input_prompts['T'] = ip_factory.get_instance()
-
-	ip_factory.set_data("Q/E", "Spin sundial", true)
-	input_prompts['Q/E'] = ip_factory.get_instance()
-
-	ip_factory.set_data("A/D", "Rotate latitude measure", true)
-	input_prompts['A/D'] = ip_factory.get_instance()
 
 func player_input_process(_delta: float) -> void:
 	_get_exit_sundial_input()
