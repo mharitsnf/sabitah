@@ -25,7 +25,7 @@ func _ready() -> void:
 	assert(camera)
 
 func enter_controller() -> void:
-	Common.InputPromptManager.add_to_hud_layer([
+	Common.InputPromptManager.add_to_hud_layer(hud_layer, [
 		'Q', 'E_Waypoint', 'T_CreateLine', 'T_ConfirmLine', 'LMB_OpenMarker', 'R'
 	])
 
@@ -37,7 +37,7 @@ func enter_controller() -> void:
 		hud_layer.show_island_name_panel()
 
 func exit_controller() -> void:
-	Common.InputPromptManager.remove_from_hud_layer([
+	Common.InputPromptManager.remove_from_hud_layer(hud_layer, [
 		'Q', 'E_Waypoint', 'T_CreateLine', 'T_ConfirmLine', 'LMB_OpenMarker', 'R'
 	])
 
@@ -184,7 +184,7 @@ func _add_line_point() -> void:
 		first_point = planet_query_res['position']
 
 		Common.InputPromptManager.hide_input_prompt([
-			'E_Waypoint', 'R', 'LMB_OpenMarker', "T_CreateLine"
+			'E_Waypoint', "T_CreateLine", 'R', 'LMB_OpenMarker'
 		])
 
 		Common.InputPromptManager.show_input_prompt([
@@ -205,7 +205,7 @@ func _add_line_point() -> void:
 		])
 
 		Common.InputPromptManager.show_input_prompt([
-			'E_Waypoint'
+			'E_Waypoint', 'T_CreateLine'
 		])
 
 var temp_line_mesh: MeshInstance3D

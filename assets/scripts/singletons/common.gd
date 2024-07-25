@@ -42,14 +42,12 @@ class InputPromptManager extends RefCounted:
 		input_prompts["R"] = ipf.create("R", "Erase")
 		input_prompts["Y"] = ipf.create("Y", "Register Island")
 
-	static func add_to_hud_layer(keys: Array) -> void:
-		var hud: HUDLayer = Group.first("hud_layer")
+	static func add_to_hud_layer(hud: HUDLayer, keys: Array) -> void:
 		for key: String in keys:
 			if !input_prompts.has(key): continue
 			(hud as HUDLayer).add_input_prompt(input_prompts[key])
 
-	static func remove_from_hud_layer(keys: Array) -> void:
-		var hud: HUDLayer = Group.first("hud_layer")
+	static func remove_from_hud_layer(hud: HUDLayer, keys: Array) -> void:
 		for key: String in keys:
 			if !input_prompts.has(key): continue
 			var ip: InputPrompt = input_prompts[key]

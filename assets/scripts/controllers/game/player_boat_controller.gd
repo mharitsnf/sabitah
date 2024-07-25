@@ -23,7 +23,7 @@ func _ready() -> void:
 
 func enter_controller() -> void:
 	super()
-	Common.InputPromptManager.add_to_hud_layer([
+	Common.InputPromptManager.add_to_hud_layer(hud_layer, [
 		'F_Exit', 'T_Enter', 'G_Teleport'
 	])
 
@@ -33,7 +33,7 @@ func enter_controller() -> void:
 
 func exit_controller() -> void:
 	super()
-	Common.InputPromptManager.remove_from_hud_layer([
+	Common.InputPromptManager.remove_from_hud_layer(hud_layer, [
 		'F_Exit', 'T_Enter', 'G_Teleport'
 	])
 

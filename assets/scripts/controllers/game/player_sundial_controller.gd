@@ -10,7 +10,7 @@ func _ready() -> void:
 	assert(actor)
 
 func enter_controller() -> void:
-	Common.InputPromptManager.add_to_hud_layer([
+	Common.InputPromptManager.add_to_hud_layer(hud_layer, [
 		'T_Exit', 'Q/E', 'A/D'
 	])
 
@@ -21,7 +21,7 @@ func enter_controller() -> void:
 	(hud_layer as GameHUDLayer).show_time_container()
 
 func exit_controller() -> void:
-	Common.InputPromptManager.remove_from_hud_layer([
+	Common.InputPromptManager.remove_from_hud_layer(hud_layer, [
 		'T_Exit', 'Q/E', 'A/D'
 	])
 
