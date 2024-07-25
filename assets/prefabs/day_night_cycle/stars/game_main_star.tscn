@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://crddaq74f4vwy" path="res://assets/prefabs/day_night_cycle/sun_moon_sprites/star_sprites/game_main_star_sprite.tscn" id="2_fvkav"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_30dbj"]
-radius = 40.0
+radius = 60.0
 
 [sub_resource type="Animation" id="Animation_vsitp"]
 length = 0.001

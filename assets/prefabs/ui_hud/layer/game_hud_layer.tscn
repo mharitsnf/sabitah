@@ -391,6 +391,7 @@ texture = ExtResource("5_vtdhk")
 stretch_mode = 5
 
 [node name="HeightAngleLabel" type="Label" parent="Crosshair" index="0"]
+visible = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0

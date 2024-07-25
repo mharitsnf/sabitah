@@ -15,6 +15,10 @@ func _process(delta: float) -> void:
 	if current_follow_data:
 		current_follow_data.get_target().player_input_process(delta)
 
+func _physics_process(delta: float) -> void:
+	if current_follow_data:
+		current_follow_data.get_target().delegated_physics_process(delta)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if current_follow_data:
 		current_follow_data.get_target().player_unhandled_input(event)

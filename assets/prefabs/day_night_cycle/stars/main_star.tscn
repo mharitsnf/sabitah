@@ -5,6 +5,8 @@
 [ext_resource type="Curve" uid="uid://cgeankha3fw6g" path="res://assets/resources/curves/globe_star_visibility_curve.tres" id="3_onyca"]
 
 [node name="MainStar" type="Area3D" node_paths=PackedStringArray("anim")]
+collision_layer = 512
+collision_mask = 512
 script = ExtResource("1_rcckb")
 anim = NodePath("AnimationPlayer")
 game_visibility_curve = ExtResource("2_hptm2")

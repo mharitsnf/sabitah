@@ -134,6 +134,9 @@ func delegated_process(_delta: float) -> void:
 	_clamp_rotation()
 	_rotate_camera()
 
+func delegated_physics_process(_delta: float) -> void:
+	pass
+
 ## Delegated process specifically for player input (joypad)
 func player_input_process(_delta: float) -> void:
 	if !_is_player_input_allowed(): return

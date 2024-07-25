@@ -41,6 +41,7 @@ class InputPromptManager extends RefCounted:
 		input_prompts["LMB_OpenMarker"] = ipf.create("LMB", "Open marker")
 		input_prompts["R"] = ipf.create("R", "Erase")
 		input_prompts["Y"] = ipf.create("Y", "Register Island")
+		input_prompts["V"] = ipf.create("V", "Mark Star")
 
 	static func add_to_hud_layer(hud: HUDLayer, keys: Array) -> void:
 		for key: String in keys:
@@ -148,6 +149,14 @@ class Geometry extends RefCounted:
 
 		return r * c
 
+	## Generate points from [point_A] to [point_B] in global space using linear interpolation.
+	static func generate_points(point_A: Vector3, point_B: Vector3, num_points: int = 100) -> Array[Vector3]:
+		var result: Array[Vector3] = []
+		for i: int in range(num_points):
+			var point: Vector3 = point_A.lerp(point_B, float(i) / float(num_points - 1))
+			result.append(point)
+		return result
+
 	static func generate_points_on_sphere(point_A: Vector3, point_B: Vector3, num_points: int = 100) -> Array[Vector3]:
 		var r: float = point_A.length()
 		var nA: Vector3 = point_A.normalized()
@@ -164,8 +173,9 @@ class Draw extends RefCounted:
 	static var waypoint_marker_pscn: PackedScene = preload("res://assets/prefabs/globe/markers/waypoint_marker.tscn")
 	static var island_first_marker_pscn: PackedScene = preload("res://assets/prefabs/globe/markers/globe_first_marker.tscn")
 
-	static func create_line_mesh(points: Array[Vector3]) -> LineMesh:
+	static func create_line_mesh(points: Array[Vector3], use_collision: bool = true) -> LineMesh:
 		var lm: LineMesh = line_mesh_pscn.instantiate()
+		(lm as LineMesh).use_collision = use_collision
 		(lm as LineMesh).points = points
 		return lm
 

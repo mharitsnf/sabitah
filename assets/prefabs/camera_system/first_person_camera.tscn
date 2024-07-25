@@ -8,6 +8,7 @@
 
 [node name="FirstPersonCamera" type="Node3D" node_paths=PackedStringArray("offset_target", "camera_target", "y_rot_target", "x_rot_target")]
 script = ExtResource("1_7xa68")
+star_collision_mask = 512
 offset_target = NodePath("YRotTarget/XRotTarget/Offset")
 camera_target = NodePath("YRotTarget/XRotTarget/Offset")
 camera_adjusting_basis = false

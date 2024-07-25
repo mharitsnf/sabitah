@@ -45,16 +45,18 @@ func _ready() -> void:
 # func _process(_delta: float) -> void:
 # 	sprite.modulate.a = sun.get_star_intensity()
 
+const DAYTIME_VISIBILITY: float = .1
+
 func _on_sunrise_started() -> void:
-	if sprite.modulate.a != 0:
+	if sprite.modulate.a != DAYTIME_VISIBILITY:
 		var tween: Tween = create_tween()
 		tween.tween_property(
-			sprite, 'modulate', Color(color.r, color.g, color.b, 0), 10.
+			sprite, 'modulate', Color(color.r, color.g, color.b, DAYTIME_VISIBILITY), 10.
 		).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR)
 		await tween.finished
 
 func _on_sunset_started() -> void:
-	if sprite.modulate.a == 0:
+	if sprite.modulate.a == DAYTIME_VISIBILITY:
 		var tween: Tween = create_tween()
 		tween.tween_property(
 			sprite, 'modulate', Color(color.r, color.g, color.b, 1), 10.

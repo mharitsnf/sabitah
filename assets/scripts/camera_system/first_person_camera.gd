@@ -1,6 +1,8 @@
 class_name FirstPersonCamera extends VirtualCamera
 
 @export_group("Parameters")
+@export_subgroup("Star detection")
+@export_flags_3d_physics var star_collision_mask: int
 @export_subgroup("Offset")
 @export var offset_target: Node3D
 @export var offset: Vector3:
@@ -9,14 +11,15 @@ class_name FirstPersonCamera extends VirtualCamera
 		if offset_target: offset_target.position = value
 
 var final_viewport: Viewport
+var star_query_res: Dictionary = {}
+var line_mesh: LineMesh
 
 func _ready() -> void:
 	super()
 
-func delegated_process(delta: float) -> void:
-	super(delta)
-	if hud_layer is GameHUDLayer:
-		hud_layer.set_height_angle_text(str(round(x_rot_target.rotation_degrees.x)))
+func delegated_physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("actor__mark_star"):
+		_query_star()
 
 func player_input_process(delta: float) -> void:
 	super(delta)
@@ -25,6 +28,31 @@ func player_input_process(delta: float) -> void:
 func _get_capture_picture_input() -> void:
 	if Input.is_action_just_pressed("camera__capture_picture"):
 		_create_picture()
+
+const CAST_RAY_LENGTH: float = 10000.
+func _query_star() -> void:
+	var space_state: PhysicsDirectSpaceState3D = State.get_world_3d(State.LevelType.MAIN).direct_space_state
+
+	var origin: Vector3 = main_camera.global_position
+	var end: Vector3 = origin + (-main_camera.global_basis.z) * CAST_RAY_LENGTH
+
+	var star_query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end, star_collision_mask)
+	star_query.collide_with_areas = true
+
+	star_query_res = space_state.intersect_ray(star_query)
+	if line_mesh:
+		line_mesh.queue_free()
+		line_mesh = null
+
+	if star_query_res.is_empty(): return
+
+	var point_A: Vector3 = star_query_res['collider'].global_position
+	var point_B: Vector3 = point_A.normalized() * State.get_planet_data(State.LevelType.MAIN)['radius']
+	var points: Array[Vector3] = Common.Geometry.generate_points(point_A, point_B, 5)
+	line_mesh = Common.Draw.create_line_mesh(points, false)
+	line_mesh.line_radius = 2.5
+	var level: Node = State.get_level(State.LevelType.MAIN)
+	level.add_child.call_deferred(line_mesh)
 
 func _create_picture() -> void:
 	if !final_viewport:
