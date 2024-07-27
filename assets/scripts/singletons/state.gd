@@ -47,6 +47,10 @@ func _ready() -> void:
 
 var input_prompt_pscn: PackedScene = preload("res://assets/prefabs/ui_hud/input_prompt/input_prompt.tscn")
 
+# region Star marker data
+
+var star_line_mesh: LineMesh
+
 # region Sundial data
 
 var waypoint_markers: Array[WaypointMarker]

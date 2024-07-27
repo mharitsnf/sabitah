@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dad3cdg6pek57"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/film_grain.gdshader" id="1_ku1sj"]
+
+[resource]
+shader = ExtResource("1_ku1sj")
+shader_parameter/strength = 24.0

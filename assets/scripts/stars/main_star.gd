@@ -33,6 +33,7 @@ func _ready() -> void:
 	pulsating_speed = data.pulsating_speed
 	alpha_range = Vector2(data.alpha_min, data.alpha_max)
 	color = Color(data.color_r, data.color_g, data.color_b, 1)
+	sprite.scale *= data.scale
 
 	sun = State.game_sun if data['level_type'] == State.LevelType.MAIN else State.globe_sun
 	assert(sun)
@@ -56,7 +57,7 @@ func _on_sunrise_started() -> void:
 		await tween.finished
 
 func _on_sunset_started() -> void:
-	if sprite.modulate.a == DAYTIME_VISIBILITY:
+	if sprite.modulate.a != 1:
 		var tween: Tween = create_tween()
 		tween.tween_property(
 			sprite, 'modulate', Color(color.r, color.g, color.b, 1), 10.

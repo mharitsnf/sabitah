@@ -8,7 +8,7 @@
 [ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_2.gdshader" id="5_0h3p7"]
 [ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_3.gdshader" id="6_1ognp"]
 [ext_resource type="Shader" path="res://assets/resources/shaders/kuwahara_4.gdshader" id="7_xcwpi"]
-[ext_resource type="Shader" path="res://assets/resources/shaders/grain.gdshader" id="8_8l8wq"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/film_grain.gdshader" id="8_fu512"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_la81t"]
 frequency = 0.4
@@ -25,5 +25,5 @@ kuwahara_1_shader = ExtResource("4_pdthk")
 kuwahara_2_shader = ExtResource("5_0h3p7")
 kuwahara_3_shader = ExtResource("6_1ognp")
 kuwahara_4_shader = ExtResource("7_xcwpi")
-grain_shader = ExtResource("8_8l8wq")
+grain_shader = ExtResource("8_fu512")
 pp_pass_pscn = ExtResource("2_ud5lj")
