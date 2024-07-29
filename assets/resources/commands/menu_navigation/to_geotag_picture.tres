@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_14q3j")
-target_menu = 6
+custom_args = {}
+target_menu = "MENU_GEOTAG_PICTURE"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://doq3282mmgwl7"]
+[gd_scene load_steps=9 format=3 uid="uid://doq3282mmgwl7"]
 
 [ext_resource type="PackedScene" uid="uid://bnw1k6gr2u3di" path="res://assets/prefabs/ui_menu/menus/main_menus/main_menu.tscn" id="1_vov1y"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="2_ca720"]
@@ -8,22 +8,10 @@
 [ext_resource type="Resource" uid="uid://dw8yc07ww2bkp" path="res://assets/resources/commands/quit_game.tres" id="5_l5pnm"]
 [ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="5_xjva1"]
 
-[sub_resource type="Resource" id="Resource_iat70"]
-script = ExtResource("5_xjva1")
-custom_args = {
-"is_confirmation": false
-}
-target_menu = 9
-
-[sub_resource type="Resource" id="Resource_i3oc1"]
-script = ExtResource("5_xjva1")
-custom_args = {}
-target_menu = 11
-
 [sub_resource type="Resource" id="Resource_vhlc5"]
 script = ExtResource("5_xjva1")
 custom_args = {}
-target_menu = 13
+target_menu = "MENU_HELP_MENU"
 
 [node name="GameMainMenu" node_paths=PackedStringArray("globe_button", "help_button") instance=ExtResource("1_vov1y")]
 script = ExtResource("2_xt4r6")
@@ -45,25 +33,13 @@ text = "Gallery"
 alignment = 0
 on_press_command = ExtResource("4_h012q")
 
-[node name="Clues" parent="Panel/VBoxContainer" index="2" instance=ExtResource("2_ca720")]
-layout_mode = 2
-text = "Clues Journal"
-alignment = 0
-on_press_command = SubResource("Resource_iat70")
-
-[node name="Collectibles" parent="Panel/VBoxContainer" index="3" instance=ExtResource("2_ca720")]
-layout_mode = 2
-text = "Collectibles"
-alignment = 0
-on_press_command = SubResource("Resource_i3oc1")
-
-[node name="Help" parent="Panel/VBoxContainer" index="4" instance=ExtResource("2_ca720")]
+[node name="Help" parent="Panel/VBoxContainer" index="2" instance=ExtResource("2_ca720")]
 layout_mode = 2
 text = "Help"
 alignment = 0
 on_press_command = SubResource("Resource_vhlc5")
 
-[node name="QuitGame" parent="Panel/VBoxContainer" index="5" instance=ExtResource("2_ca720")]
+[node name="QuitGame" parent="Panel/VBoxContainer" index="3" instance=ExtResource("2_ca720")]
 layout_mode = 2
 text = "Quit game"
 alignment = 0

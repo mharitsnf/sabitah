@@ -1,16 +1,6 @@
 class_name MenuLayer extends CanvasLayer
 
-@export var menu_pscns: Dictionary = {
-	State.UserInterfaces.MAIN_MENU: null,
-	State.UserInterfaces.ISLAND_GALLERY: null,
-	State.UserInterfaces.GALLERY: null,
-	State.UserInterfaces.FULL_PICTURE: null,
-	State.UserInterfaces.DELETE_PICTURE: null,
-	State.UserInterfaces.GEOTAG_PICTURE: null,
-	State.UserInterfaces.FILTER_GALLERY: null,
-	State.UserInterfaces.CLUES_MENU: null,
-	State.UserInterfaces.CLUE_DETAILS: null,
-}
+@export var menu_pscns: Dictionary = {}
 
 var menu_data_dict: Dictionary = {}
 
@@ -36,7 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if has_active_menu(): return
 	if !toggle_main_menu_allowed: return
 	if event.is_action_pressed("toggle_main_menu"):
-		navigate_to(State.UserInterfaces.MAIN_MENU)
+		navigate_to(State.MENU_MAIN_MENU)
 
 # region User interface navigation functions
 
@@ -90,7 +80,7 @@ func back() -> void:
 	switching = false
 
 ## Function for navigating to another menu.
-func navigate_to(ui: State.UserInterfaces, menu_data: Dictionary = {}) -> void:
+func navigate_to(ui: String, menu_data: Dictionary = {}) -> void:
 	if !_is_navigating_allowed(): return
 
 	switching = true
@@ -138,6 +128,6 @@ func clear() -> void:
 
 ## Private. Function to create menu datas on ready.
 func _create_menu_data() -> void:
-	for k: State.UserInterfaces in menu_pscns.keys():
+	for k: String in menu_pscns.keys():
 		if !menu_pscns[k] is PackedScene: continue
 		menu_data_dict[k] = MenuData.new(menu_pscns[k], k)

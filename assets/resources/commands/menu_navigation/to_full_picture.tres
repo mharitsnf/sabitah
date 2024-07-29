@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_mqqud")
-target_menu = 4
+custom_args = {}
+target_menu = "MENU_FULL_PICTURE"

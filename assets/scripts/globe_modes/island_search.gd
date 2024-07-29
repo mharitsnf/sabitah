@@ -111,14 +111,14 @@ func _on_line_hover_exited() -> void:
 
 func _on_menu_entered(data: MenuData) -> void:
 	match data.get_key():
-		State.UserInterfaces.ISLAND_GALLERY:
+		State.MENU_ISLAND_GALLERY:
 			Common.InputPromptManager.hide_input_prompt([
 				"Q", "E_Waypoint", "T_CreateLine", "T_ConfirmLine"
 			])
 
 func _on_menu_exited(data: MenuData) -> void:
 	match data.get_key():
-		State.UserInterfaces.ISLAND_GALLERY:
+		State.MENU_ISLAND_GALLERY:
 			Common.InputPromptManager.show_input_prompt([
 				"Q", "E_Waypoint", "T_CreateLine", "T_ConfirmLine"
 			])
@@ -147,7 +147,7 @@ func _open_island_marker() -> void:
 		"geotag_name": island_data['name'],
 	}
 
-	menu_layer.navigate_to(State.UserInterfaces.ISLAND_GALLERY, island_data)
+	menu_layer.navigate_to(State.MENU_ISLAND_GALLERY, island_data)
 	
 	transitioning = true
 	await hud_layer.hide_crosshair()

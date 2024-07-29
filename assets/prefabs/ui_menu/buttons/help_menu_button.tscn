@@ -6,7 +6,7 @@
 [sub_resource type="Resource" id="Resource_n1yfb"]
 script = ExtResource("2_5yjy1")
 custom_args = {}
-target_menu = 14
+target_menu = "MENU_HELP_PAGE"
 
 [node name="HelpMenuButton" instance=ExtResource("1_vac3m")]
 clip_contents = true

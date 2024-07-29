@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_dkjtw")
-target_menu = 8
+custom_args = {}
+target_menu = "MENU_GEOTAG_TO_ISLAND"

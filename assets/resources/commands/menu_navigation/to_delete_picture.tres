@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_kxvp1")
-target_menu = 5
+custom_args = {}
+target_menu = "MENU_DELETE_PICTURE"

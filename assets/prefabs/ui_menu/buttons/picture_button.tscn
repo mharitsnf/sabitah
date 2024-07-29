@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_fry5f"]
 script = ExtResource("3_jwx7q")
 custom_args = {}
-target_menu = 4
+target_menu = "MENU_FULL_PICTURE"
 
 [node name="PictureButton" node_paths=PackedStringArray("texture_rect") instance=ExtResource("1_dcpq2")]
 custom_minimum_size = Vector2(160, 90)

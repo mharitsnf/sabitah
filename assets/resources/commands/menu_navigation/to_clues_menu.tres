@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_c380x")
-target_menu = 9
+custom_args = {}
+target_menu = "MENU_CLUES_MENU"

@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_h3eh8")
-target_menu = 7
+custom_args = {}
+target_menu = "MENU_FILTER_GALLERY"

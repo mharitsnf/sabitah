@@ -1,7 +1,7 @@
 class_name MenuNavigateCommand extends Command
 
 @export var custom_args: Dictionary
-@export var target_menu: State.UserInterfaces
+@export var target_menu: String
 
 func action(args: Array = []) -> void:
 	var menu_layer: MenuLayer = Group.first("menu_layer")

@@ -1,14 +1,14 @@
 class_name MenuData extends RefCounted
 
-var _key: State.UserInterfaces
+var _key: String
 var _pscn: PackedScene
 var _instance: BaseMenu
 
-func _init(__pscn: PackedScene, __key: State.UserInterfaces) -> void:
+func _init(__pscn: PackedScene, __key: String) -> void:
 	_pscn = __pscn
 	_key = __key
 
-func get_key() -> State.UserInterfaces:
+func get_key() -> String:
 	return _key
 
 func create_instance() -> void:

@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_nvqsc")
-target_menu = 3
+custom_args = {}
+target_menu = "MENU_GALLERY"

@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_wnhc1")
-target_menu = 1
+custom_args = {}
+target_menu = "MENU_MAIN_MENU"

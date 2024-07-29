@@ -183,6 +183,9 @@ func _get_switch_camera_input() -> void:
 
 # region Setters and getters
 
+func current_actor_equals(value: PlayerActors) -> bool:
+	return current_data == get_player_data(value)
+
 func get_current_controller() -> PlayerController:
 	return (current_data as ActorData).get_controller()
 

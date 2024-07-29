@@ -16,18 +16,16 @@
 
 [node name="GameMenuLayer" instance=ExtResource("1_vm1ym")]
 menu_pscns = {
-1: ExtResource("2_xlne7"),
-2: null,
-3: ExtResource("3_urna6"),
-4: ExtResource("4_f3nv8"),
-5: ExtResource("5_f2nly"),
-6: ExtResource("6_j76lq"),
-7: ExtResource("7_udm6b"),
-8: null,
-9: ExtResource("8_4hnjk"),
-10: ExtResource("9_74jnm"),
-11: ExtResource("10_ixdth"),
-12: ExtResource("11_pc0n3"),
-13: ExtResource("12_cj45q"),
-14: ExtResource("13_udvxy")
+"MENU_CLUES_MENU": ExtResource("8_4hnjk"),
+"MENU_CLUE_DETAILS": ExtResource("9_74jnm"),
+"MENU_COLLECTIBLES_MENU": ExtResource("10_ixdth"),
+"MENU_COLLECTIBLE_DETAILS": ExtResource("11_pc0n3"),
+"MENU_DELETE_PICTURE": ExtResource("5_f2nly"),
+"MENU_FILTER_GALLERY": ExtResource("7_udm6b"),
+"MENU_FULL_PICTURE": ExtResource("4_f3nv8"),
+"MENU_GALLERY": ExtResource("3_urna6"),
+"MENU_GEOTAG_PICTURE": ExtResource("6_j76lq"),
+"MENU_HELP_MENU": ExtResource("12_cj45q"),
+"MENU_HELP_PAGE": ExtResource("13_udvxy"),
+"MENU_MAIN_MENU": ExtResource("2_xlne7")
 }
