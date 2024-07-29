@@ -38,6 +38,15 @@ var enter_boat_input_prompt: InputPrompt
 var ignore_area_check_time_elapsed: float = 0.
 const IGNORE_AREA_CHECK_DURATION: float = .25
 
+var input_prompt_active: Dictionary = {
+	"F_Enter": false,
+	"T_Enter": false,
+	"Y": false,
+	"C": true,
+	"G_Register": false,
+	"E_Interact": false
+}
+
 # region Lifecycle functions
 
 func _enter_tree() -> void:
@@ -61,7 +70,7 @@ func enter_controller() -> void:
 	])
 
 	Common.InputPromptManager.show_input_prompt([
-		"RMB_Enter", "C"
+		"RMB_Enter"
 	])
 
 func exit_controller() -> void:
@@ -134,11 +143,13 @@ func get_character_state(key: CharacterStates) -> ActorState:
 # region Input functions
 
 func _get_enter_register_island_input() -> void:
-	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
-	if !State.local_sundial: return
-	if State.local_sundial.first_marker_done: return
 
 	if Input.is_action_just_pressed("globe__enter_island_registration_mode"):
+		if !_character_interaction_allowed(): return
+		if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
+		if !State.local_sundial: return
+		if State.local_sundial.first_marker_done: return
+
 		# Fill local sundial data
 		var latlong: Array = State.local_sundial.latlong
 		var planet_data: Dictionary = State.get_planet_data(State.LevelType.GLOBE)
@@ -159,6 +170,7 @@ func _get_enter_register_island_input() -> void:
 
 func _get_register_boat_waypoint_input() -> void:
 	if Input.is_action_just_pressed("actor__register_boat_waypoint"):
+		if !_character_interaction_allowed(): return
 		if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 		if !State.local_sundial: return
 		if !State.local_sundial.first_marker_done: return
@@ -166,8 +178,10 @@ func _get_register_boat_waypoint_input() -> void:
 		Common.DialogueWrapper.start_monologue("set_node_sundial")
 
 func _get_enter_local_sundial_input() -> void:
-	if !State.local_sundial: return
 	if Input.is_action_just_pressed("actor__toggle_sundial"):
+		if !_character_interaction_allowed(): return
+		if !State.local_sundial: return
+
 		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(State.local_sundial)
 		State.actor_im.switch_data(new_pd)
@@ -175,6 +189,7 @@ func _get_enter_local_sundial_input() -> void:
 ## Input for checking if clue is corect or not
 func _get_check_clues_input() -> void:
 	if Input.is_action_just_pressed("clue__check_area"):
+		if !_character_interaction_allowed(): return
 		if clue_areas.is_empty():
 			ClueState.has_reward = false
 		else:
@@ -191,6 +206,7 @@ func _get_check_clues_input() -> void:
 
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
+		if !_character_interaction_allowed(): return
 		if !inside_player_boat_area: return
 		
 		if !ProgressState.get_global_progress(['boat_key_received']):
@@ -212,13 +228,18 @@ func _get_enter_ship_input() -> void:
 
 func _get_interact_input(event: InputEvent) -> void:
 	if event.is_action_pressed("actor__interact"):
-		if Common.DialogueWrapper.is_dialogue_active(): return
+		if !_character_interaction_allowed(): return
 		if interact_areas.is_empty(): return
 		var ia: InteractArea = interact_areas.back()
 		Common.DialogueWrapper.start_dialogue(ia.dialogue_resource, "start")
 
 func _get_h_input() -> void:
 	h_input = Input.get_vector("character__move_left", "character__move_right", "character__move_backward", "character__move_forward")
+
+func _character_interaction_allowed() -> bool:
+	if Common.DialogueWrapper.is_dialogue_active(): return false
+	if !(State.actor_im as ActorInputManager).is_entry_camera_active(): return false
+	return true
 
 # region Signal listener functions.
 
@@ -228,51 +249,65 @@ func _reset_inputs() -> void:
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
 	if new_vc is FirstPersonCamera:
-		Common.InputPromptManager.hide_input_prompt(["RMB_Enter"])
+		input_prompt_active = {
+			"F_Enter": Common.InputPromptManager.get_input_prompt_active("F_Enter"),
+			"T_Enter": Common.InputPromptManager.get_input_prompt_active("T_Enter"),
+			"Y": Common.InputPromptManager.get_input_prompt_active("Y"),
+			"C": Common.InputPromptManager.get_input_prompt_active("C"),
+			"G_Register": Common.InputPromptManager.get_input_prompt_active("G_Register"),
+			"E_Interact": Common.InputPromptManager.get_input_prompt_active("E_Interact")
+		}
+
+		Common.InputPromptManager.hide_input_prompt(["RMB_Enter", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"])
 		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture"])
 	else:
+		var active_prompts: Array = input_prompt_active.keys().filter(
+			func (key: String) -> bool:
+				return input_prompt_active[key] == true
+		)
 		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture"])
-		Common.InputPromptManager.show_input_prompt(["RMB_Enter"])
-
-func _on_menu_entered(_data: MenuData) -> void:
-	_reset_inputs()
-
-func _on_dialogue_entered() -> void:
-	_reset_inputs()
-
-func _on_current_data_changed() -> void:
-	if State.actor_im.get_current_controller() != self:
-		_reset_inputs()
+		Common.InputPromptManager.show_input_prompt(["RMB_Enter"] + active_prompts)
 
 func _on_local_sundial_area_entered(area: Node3D) -> void:
 	var area_parent: Node = area.get_parent()
 	if !(area_parent is LocalSundialManager): return
 	
 	State.local_sundial = area_parent
-	Common.InputPromptManager.show_input_prompt(["T_Enter"])
+	input_prompt_active["T_Enter"] = true
+	if (State.actor_im as ActorInputManager).is_entry_camera_active():
+		Common.InputPromptManager.show_input_prompt(["T_Enter"])
 	
 	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 
 	if !State.local_sundial.first_marker_done:
-		Common.InputPromptManager.show_input_prompt(["Y"])
+		input_prompt_active["Y"] = true
+		if (State.actor_im as ActorInputManager).is_entry_camera_active():
+			Common.InputPromptManager.show_input_prompt(["Y"])
 	else:
-		Common.InputPromptManager.show_input_prompt(["G_Register"])
+		input_prompt_active["G_Register"] = true
+		if (State.actor_im as ActorInputManager).is_entry_camera_active():
+			Common.InputPromptManager.show_input_prompt(["G_Register"])
 
 func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
+	input_prompt_active["T_Enter"] = false
 	Common.InputPromptManager.hide_input_prompt(["T_Enter"])
 
 	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 
-	Common.InputPromptManager.hide_input_prompt(["Y"])
-	Common.InputPromptManager.hide_input_prompt(["G_Register"])
+	input_prompt_active["Y"] = false
+	input_prompt_active["G_Register"] = false
+	Common.InputPromptManager.hide_input_prompt(["Y", "G_Register"])
 
 func _on_player_boat_area_entered() -> void:
 	inside_player_boat_area = true
-	Common.InputPromptManager.show_input_prompt(["F_Enter"])
+	input_prompt_active["F_Enter"] = true
+	if (State.actor_im as ActorInputManager).is_entry_camera_active():
+		Common.InputPromptManager.show_input_prompt(["F_Enter"])
 
 func _on_player_boat_area_exited() -> void:
 	inside_player_boat_area = false
+	input_prompt_active["F_Enter"] = false
 	Common.InputPromptManager.hide_input_prompt(["F_Enter"])
 
 func _on_area_checker_area_entered(area: Area3D) -> void:
@@ -302,7 +337,9 @@ func _on_area_checker_area_entered(area: Area3D) -> void:
 
 	if area.is_in_group("interact_areas"):
 		interact_areas.append(area)
-		Common.InputPromptManager.show_input_prompt(["E_Interact"])
+		input_prompt_active["E_Interact"] = true
+		if (State.actor_im as ActorInputManager).is_entry_camera_active():
+			Common.InputPromptManager.show_input_prompt(["E_Interact"])
 		return
 
 func _on_area_checker_area_exited(area: Area3D) -> void:
@@ -320,5 +357,6 @@ func _on_area_checker_area_exited(area: Area3D) -> void:
 	
 	if area.is_in_group("interact_areas"):
 		interact_areas.erase(area)
+		input_prompt_active["E_Interact"] = false
 		Common.InputPromptManager.hide_input_prompt(["E_Interact"])
 		return

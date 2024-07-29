@@ -55,6 +55,9 @@ class InputPromptManager extends RefCounted:
 			ip.active = false
 			(hud as HUDLayer).remove_input_prompt(ip)
 
+	static func get_input_prompt_active(key: String) -> bool:
+		return (input_prompts[key] as InputPrompt).active
+
 	static func show_input_prompt(keys: Array) -> void:
 		for key: String in keys:
 			if !input_prompts.has(key): continue
