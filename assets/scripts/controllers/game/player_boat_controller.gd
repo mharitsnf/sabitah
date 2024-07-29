@@ -18,7 +18,6 @@ func _ready() -> void:
 	assert(dropoff_marker)
 	assert(actor)
 
-	(State.actor_im as ActorInputManager).current_data_changed.connect(_on_current_data_changed)
 	State.teleport_to_node_sundial.connect(_on_teleport_to_node_sundial)
 
 func enter_controller() -> void:
@@ -55,21 +54,22 @@ func player_input_process(_delta: float) -> void:
 	_get_enter_sundial_input()
 	_get_exit_ship_input()
 	_get_gas_input()
-	# _get_brake_input()
 	_get_rotate_input()
 
 # region Input functions
 
 func _get_enter_sundial_input() -> void:
-	if (State.actor_im as ActorInputManager).transitioning: return
 	if Input.is_action_just_pressed("actor__toggle_sundial"):
+		if !_boat_interaction_allowed(): return
+
 		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(boat_sundial_manager)
 		State.actor_im.switch_data(new_pd)
 
 func _get_exit_ship_input() -> void:
-	if (State.actor_im as ActorInputManager).transitioning: return
 	if Input.is_action_just_pressed("actor__toggle_boat"):
+		if !_boat_interaction_allowed(): return
+		
 		# get actor data for character
 		var char_pd: ActorData = (State.actor_im as ActorInputManager).get_player_data(ActorInputManager.PlayerActors.CHARACTER)
 		
@@ -85,6 +85,8 @@ func _get_exit_ship_input() -> void:
 
 func _get_teleport_to_waypoint_input() -> void:
 	if Input.is_action_just_pressed("boat__teleport_to_waypoint"):
+		if !_boat_interaction_allowed(): return
+
 		Common.DialogueWrapper.start_monologue("teleport_to_node_island")
 
 func _get_brake_input() -> void:
@@ -96,7 +98,21 @@ func _get_gas_input() -> void:
 func _get_rotate_input() -> void:
 	rotate_input = Input.get_axis("boat__turn_left", "boat__turn_right")
 
+func _boat_interaction_allowed() -> bool:
+	if !(State.actor_im as ActorInputManager).is_entry_camera_active(): return false
+	if (State.actor_im as ActorInputManager).transitioning: return false
+	return true
+
 # region Signal listener functions
+
+func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
+	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
+	if new_vc is FirstPersonCamera:
+		Common.InputPromptManager.hide_input_prompt(["RMB_Enter", 'F_Exit', 'T_Enter', 'G_Teleport'])
+		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture", 'V'])
+	else:
+		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture", 'V'])
+		Common.InputPromptManager.show_input_prompt(["RMB_Enter", 'F_Exit', 'T_Enter', 'G_Teleport'])
 
 func _on_teleport_to_node_sundial() -> void:
 	assert(State.node_sundial)
@@ -108,16 +124,10 @@ func _reset_rotate_input_smooth() -> void:
 	if State.actor_im.get_current_controller() != self:
 		rotate_input = lerp(rotate_input, 0., get_process_delta_time() * ROTATION_INPUT_WEIGHT)
 
-func _on_menu_entered(_data: MenuData) -> void:
-	_reset_inputs()
-
 func _reset_inputs() -> void:
 	gas_input = 0.
 	brake_input = 0.
-
-func _on_current_data_changed() -> void:
-	if State.actor_im.get_current_controller() != self:
-		_reset_inputs()
+	rotate_input = 0.
 
 func _on_area_checker_area_entered(area: Area3D) -> void:
 	if area.is_in_group("island_areas"):

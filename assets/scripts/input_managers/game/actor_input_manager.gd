@@ -125,9 +125,10 @@ func switch_data(new_data: PlayerData) -> Array:
 		current_light_type = LightType.NORMAL
 
 	# Switch to the new actor's entry camera
-	var entry_cam: VirtualCamera = new_data.get_camera_manager().get_entry_camera()
+	var actor_camera_manager: PlayerCameraManager = new_data.get_camera_manager()
+	var entry_cam: VirtualCamera = actor_camera_manager.get_entry_camera()
 	main_camera.follow_target = entry_cam
-	new_data.get_camera_manager().set_current_camera(entry_cam)
+	actor_camera_manager.set_current_camera(entry_cam)
 
 	# Make ocean switch to follow the new actor if the new instance is a base actor.
 	if new_data.get_instance() is BaseActor:
@@ -192,6 +193,11 @@ func get_current_controller() -> PlayerController:
 ## Returns the player data of the specified [key].
 func get_player_data(key: PlayerActors) -> ActorData:
 	return data_dict[key]
+
+func is_entry_camera_active() -> bool:
+	var pcm: PlayerCameraManager = (current_data as ActorData).get_camera_manager()
+	var entry_cam: VirtualCamera = pcm.get_entry_camera()
+	return main_camera.follow_target == entry_cam
 
 ## Private. Setter for current light type.
 func _set_current_light_type(value: LightType) -> void:

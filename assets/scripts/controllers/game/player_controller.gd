@@ -14,6 +14,8 @@ func _ready() -> void:
 	assert(menu_layer)
 	assert(main_camera)
 
+	(State.actor_im as ActorInputManager).current_data_changed.connect(_on_current_data_changed)
+
 	(menu_layer as MenuLayer).menu_entered.connect(_on_menu_entered)
 	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
 	(main_camera as MainCamera).follow_target_changed.connect(_on_follow_target_changed)
@@ -21,16 +23,20 @@ func _ready() -> void:
 	Common.dialogue_entered.connect(_on_dialogue_entered)
 
 func _on_menu_entered(_data: MenuData) -> void:
-	pass
+	_reset_inputs()
 
 func _on_menu_exited(_data: MenuData) -> void:
 	pass
 
 func _on_dialogue_entered() -> void:
-	pass
+	_reset_inputs()
 
 func _on_follow_target_changed(_new_vc: VirtualCamera) -> void:
 	pass
+
+func _on_current_data_changed() -> void:
+	if State.actor_im.get_current_controller() != self:
+		_reset_inputs()
 
 ## Runs when the controller is entered.
 func enter_controller() -> void:
