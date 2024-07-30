@@ -1,8 +1,9 @@
 class_name BoatFirstPersonCamera extends FirstPersonCamera
 
 func delegated_physics_process(_delta: float) -> void:
+	_query_star()
 	if Input.is_action_just_pressed("actor__mark_star"):
-		_query_star()
+		_create_star_mark()
 
 const CAST_RAY_LENGTH: float = 10000.
 func _query_star() -> void:
@@ -15,6 +16,8 @@ func _query_star() -> void:
 	star_query.collide_with_areas = true
 
 	star_query_res = space_state.intersect_ray(star_query)
+
+func _create_star_mark() -> void:
 	if State.star_line_mesh:
 		State.star_line_mesh.queue_free()
 		State.star_line_mesh = null
@@ -23,8 +26,7 @@ func _query_star() -> void:
 
 	var point_A: Vector3 = star_query_res['collider'].global_position
 	var point_B: Vector3 = point_A.normalized() * State.get_planet_data(State.LevelType.MAIN)['radius']
-	var points: Array[Vector3] = Common.Geometry.generate_points(point_A, point_B, 5)
-	State.star_line_mesh = Common.Draw.create_line_mesh(points, false)
+	State.star_line_mesh = Common.Draw.create_line_mesh([point_A, point_B], false)
 	State.star_line_mesh.line_radius = 2.5
 	var level: Node = State.get_level(State.LevelType.MAIN)
 	level.add_child.call_deferred(State.star_line_mesh)

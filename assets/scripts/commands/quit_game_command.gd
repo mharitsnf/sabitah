@@ -3,6 +3,7 @@ class_name QuitGameCommand extends Command
 func action(_args: Array = []) -> void:
 	# Uncomment if saving resources is needed.
 	PictureState.save_pictures()
-	ClueState.save_clues()
-	
+	MemoryState.save_memories()
+	MemoryState.save_mental_images()
+
 	State.tree.quit()

@@ -1,19 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfkas1d2plgp8"]
+[gd_scene load_steps=8 format=3 uid="uid://dfkas1d2plgp8"]
 
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="1_rokcc"]
 [ext_resource type="Texture2D" uid="uid://bvqv8dcyo834p" path="res://assets/resources/textures/isa true master.png" id="2_7of8e"]
 [ext_resource type="Script" path="res://assets/scripts/ui/components/mental_image_button.gd" id="2_yjkcf"]
+[ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="3_j1pad"]
+
+[sub_resource type="Resource" id="Resource_o1ed7"]
+script = ExtResource("3_j1pad")
+custom_args = {}
+target_menu = "MENU_FULL_MENTAL_IMAGE"
+
+[sub_resource type="SystemFont" id="SystemFont_ced5r"]
+font_italic = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_s7ouk"]
+font = SubResource("SystemFont_ced5r")
 
 [node name="MentalImageMenuButton" node_paths=PackedStringArray("description_label", "texture_rect") instance=ExtResource("1_rokcc")]
-custom_minimum_size = Vector2(640, 144)
-offset_right = 640.0
+custom_minimum_size = Vector2(512, 144)
+offset_right = 512.0
 offset_bottom = 144.0
+size_flags_horizontal = 3
 text = ""
 flat = true
 script = ExtResource("2_yjkcf")
 description_label = NodePath("MarginContainer/HBoxContainer/Label")
 texture_rect = NodePath("MarginContainer/HBoxContainer/TextureRect")
-on_press_command = null
+on_press_command = SubResource("Resource_o1ed7")
 
 [node name="MarginContainer" type="MarginContainer" parent="." index="0"]
 layout_mode = 1
@@ -35,7 +48,7 @@ theme_override_constants/separation = 16
 custom_minimum_size = Vector2(160, 90)
 layout_mode = 2
 texture = ExtResource("2_7of8e")
-expand_mode = 1
+expand_mode = 3
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer" index="1"]
@@ -43,4 +56,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Description..."
+label_settings = SubResource("LabelSettings_s7ouk")
 vertical_alignment = 1

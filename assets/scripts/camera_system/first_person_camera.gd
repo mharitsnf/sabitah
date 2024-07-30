@@ -22,16 +22,25 @@ func player_input_process(delta: float) -> void:
 
 func _get_capture_picture_input() -> void:
 	if Input.is_action_just_pressed("camera__capture_picture"):
-		_create_picture()
+		var tex: ImageTexture = _take_picture()
+		_create_picture(tex)
+		return
 
-func _create_picture() -> void:
+	if Input.is_action_just_pressed("debug__create_mental_image"):
+		var tex: ImageTexture = _take_picture()
+		_create_mental_image(tex)
+		return
+
+func _take_picture() -> ImageTexture:
 	if !final_viewport:
 		final_viewport = Group.first("final_viewport")
 		assert(final_viewport)
 
 	var img: Image = final_viewport.get_texture().get_image()
 	var tex: ImageTexture = ImageTexture.create_from_image(img)
+	return tex
 
+func _create_picture(texture: ImageTexture) -> void:
 	var final_path: String = PictureState.PICTURE_FOLDER_PATH
 
 	if !DirAccess.dir_exists_absolute(final_path):
@@ -44,9 +53,26 @@ func _create_picture() -> void:
 
 	var pic: Picture = Picture.new()
 	pic.resource_path = final_path + str(floor(Time.get_unix_time_from_system())) + ".res"
-	pic.image_tex = tex
+	pic.image_tex = texture
 	
 	PictureState.create_picture_cache(pic)
+
+func _create_mental_image(texture: ImageTexture) -> void:
+	var final_path: String = MemoryState.MENTAL_IMAGE_FOLDER_PATH
+
+	if !DirAccess.dir_exists_absolute(final_path):
+		var res: int = DirAccess.make_dir_absolute(final_path)
+		if res != Error.OK:
+			push_error("Folder could not be created, exiting create picture")
+			return
+
+	hud_layer.take_picture_screen()
+
+	var mental_image: MentalImage = MentalImage.new()
+	mental_image.resource_path = final_path + str(floor(Time.get_unix_time_from_system())) + ".res"
+	mental_image.image_tex = texture
+	
+	MemoryState.create_mental_image_cache(mental_image)
 
 func _rotate_camera() -> void:
 	if !y_rot_target and !x_rot_target: return

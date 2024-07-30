@@ -78,6 +78,11 @@ func load_memories() -> void:
 			create_memory_cache(memory)
 		file_name = dir.get_next()
 
+func save_memories() -> void:
+	for md: MemoryData in memories_cache:
+		var memory: Memory = md.get_memory()
+		ResourceSaver.save(memory)
+
 func create_memory_cache(memory: Memory) -> void:
 	# see if we have this resource inside the cache already.
 	var existing_memory: Array[MemoryData] = memories_cache.filter(
@@ -125,7 +130,7 @@ func load_mental_images() -> void:
 
 func create_mental_image_cache(mental_image: MentalImage) -> void:
 	# see if we have this resource inside the cache already.
-	var existing_mental_image: Array[MentalImageData] = memories_cache.filter(
+	var existing_mental_image: Array[MentalImageData] = mental_image_cache.filter(
 		func(_mid: MentalImageData) -> bool:
 			return _mid.get_mental_image().resource_path == mental_image.resource_path
 	)
@@ -139,6 +144,11 @@ func create_mental_image_cache(mental_image: MentalImage) -> void:
 	menu_button.args = [{ "mental_image_id": mental_image.id }]
 
 	mental_image_cache.append(MentalImageData.new(mental_image, menu_button))
+
+func save_mental_images() -> void:
+	for mid: MentalImageData in mental_image_cache:
+		var mental_image: MentalImage = mid.get_mental_image()
+		ResourceSaver.save(mental_image)
 
 ## Get an array of [MemoryCategoryData] filtered according to [filters].
 func get_mental_images(filters: Dictionary = {}) -> Array[MentalImageData]:

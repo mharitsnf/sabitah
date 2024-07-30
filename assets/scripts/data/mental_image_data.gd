@@ -10,5 +10,8 @@ func _init(__mental_image: MentalImage, __menu_button: GenericButton) -> void:
 func get_mental_image() -> MentalImage:
 	return _mental_image
 
+func get_menu_button() -> GenericButton:
+	return _menu_button
+
 func get_memory_id() -> String:
 	return _mental_image.memory_id
