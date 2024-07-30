@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfkas1d2plgp8"]
+
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="1_rokcc"]
+[ext_resource type="Texture2D" uid="uid://bvqv8dcyo834p" path="res://assets/resources/textures/isa true master.png" id="2_7of8e"]
+[ext_resource type="Script" path="res://assets/scripts/ui/components/mental_image_button.gd" id="2_yjkcf"]
+
+[node name="MentalImageMenuButton" node_paths=PackedStringArray("description_label", "texture_rect") instance=ExtResource("1_rokcc")]
+custom_minimum_size = Vector2(640, 144)
+offset_right = 640.0
+offset_bottom = 144.0
+text = ""
+flat = true
+script = ExtResource("2_yjkcf")
+description_label = NodePath("MarginContainer/HBoxContainer/Label")
+texture_rect = NodePath("MarginContainer/HBoxContainer/TextureRect")
+on_press_command = null
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(160, 90)
+layout_mode = 2
+texture = ExtResource("2_7of8e")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Description..."
+vertical_alignment = 1
