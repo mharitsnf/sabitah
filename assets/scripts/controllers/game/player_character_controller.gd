@@ -38,7 +38,7 @@ var enter_boat_input_prompt: InputPrompt
 var ignore_area_check_time_elapsed: float = 0.
 const IGNORE_AREA_CHECK_DURATION: float = .25
 
-var input_prompt_active: Dictionary = {
+var input_prompt_state: Dictionary = {
 	"F_Enter": false,
 	"T_Enter": false,
 	"Y": false,
@@ -139,6 +139,14 @@ func _remove_register_island_input_prompt() -> void:
 
 func get_character_state(key: CharacterStates) -> ActorState:
 	return states[key]
+
+func _set_input_prompt_state(key: String, value: bool) -> void:
+	input_prompt_state[key] = value
+	if value:
+		if (State.actor_im as ActorInputManager).is_entry_camera_active():
+			Common.InputPromptManager.show_input_prompt([key])
+	else:
+		Common.InputPromptManager.hide_input_prompt([key])
 
 # region Input functions
 
@@ -249,21 +257,12 @@ func _reset_inputs() -> void:
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
 	if new_vc is FirstPersonCamera:
-		input_prompt_active = {
-			"F_Enter": Common.InputPromptManager.get_input_prompt_active("F_Enter"),
-			"T_Enter": Common.InputPromptManager.get_input_prompt_active("T_Enter"),
-			"Y": Common.InputPromptManager.get_input_prompt_active("Y"),
-			"C": Common.InputPromptManager.get_input_prompt_active("C"),
-			"G_Register": Common.InputPromptManager.get_input_prompt_active("G_Register"),
-			"E_Interact": Common.InputPromptManager.get_input_prompt_active("E_Interact")
-		}
-
 		Common.InputPromptManager.hide_input_prompt(["RMB_Enter", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"])
 		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture"])
 	else:
-		var active_prompts: Array = input_prompt_active.keys().filter(
+		var active_prompts: Array = input_prompt_state.keys().filter(
 			func (key: String) -> bool:
-				return input_prompt_active[key] == true
+				return input_prompt_state[key] == true
 		)
 		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture"])
 		Common.InputPromptManager.show_input_prompt(["RMB_Enter"] + active_prompts)
@@ -273,42 +272,31 @@ func _on_local_sundial_area_entered(area: Node3D) -> void:
 	if !(area_parent is LocalSundialManager): return
 	
 	State.local_sundial = area_parent
-	input_prompt_active["T_Enter"] = true
-	if (State.actor_im as ActorInputManager).is_entry_camera_active():
-		Common.InputPromptManager.show_input_prompt(["T_Enter"])
+	_set_input_prompt_state("T_Enter", true)
 	
 	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 
 	if !State.local_sundial.first_marker_done:
-		input_prompt_active["Y"] = true
-		if (State.actor_im as ActorInputManager).is_entry_camera_active():
-			Common.InputPromptManager.show_input_prompt(["Y"])
+		_set_input_prompt_state("Y", true)
 	else:
-		input_prompt_active["G_Register"] = true
-		if (State.actor_im as ActorInputManager).is_entry_camera_active():
-			Common.InputPromptManager.show_input_prompt(["G_Register"])
+		_set_input_prompt_state("G_Register", true)
 
 func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
-	input_prompt_active["T_Enter"] = false
-	Common.InputPromptManager.hide_input_prompt(["T_Enter"])
+	_set_input_prompt_state("T_Enter", false)
 
 	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 
-	input_prompt_active["Y"] = false
-	input_prompt_active["G_Register"] = false
-	Common.InputPromptManager.hide_input_prompt(["Y", "G_Register"])
+	_set_input_prompt_state("Y", false)
+	_set_input_prompt_state("G_Register", false)
 
 func _on_player_boat_area_entered() -> void:
 	inside_player_boat_area = true
-	input_prompt_active["F_Enter"] = true
-	if (State.actor_im as ActorInputManager).is_entry_camera_active():
-		Common.InputPromptManager.show_input_prompt(["F_Enter"])
+	_set_input_prompt_state("F_Enter", true)
 
 func _on_player_boat_area_exited() -> void:
 	inside_player_boat_area = false
-	input_prompt_active["F_Enter"] = false
-	Common.InputPromptManager.hide_input_prompt(["F_Enter"])
+	_set_input_prompt_state("F_Enter", false)
 
 func _on_area_checker_area_entered(area: Area3D) -> void:
 	if area.is_in_group("clue_areas"):
@@ -337,9 +325,7 @@ func _on_area_checker_area_entered(area: Area3D) -> void:
 
 	if area.is_in_group("interact_areas"):
 		interact_areas.append(area)
-		input_prompt_active["E_Interact"] = true
-		if (State.actor_im as ActorInputManager).is_entry_camera_active():
-			Common.InputPromptManager.show_input_prompt(["E_Interact"])
+		_set_input_prompt_state("E_Interact", true)
 		return
 
 func _on_area_checker_area_exited(area: Area3D) -> void:
@@ -357,6 +343,5 @@ func _on_area_checker_area_exited(area: Area3D) -> void:
 	
 	if area.is_in_group("interact_areas"):
 		interact_areas.erase(area)
-		input_prompt_active["E_Interact"] = false
-		Common.InputPromptManager.hide_input_prompt(["E_Interact"])
+		_set_input_prompt_state("E_Interact", false)
 		return

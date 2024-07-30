@@ -35,7 +35,7 @@ on_press_command = ExtResource("4_h012q")
 
 [node name="Help" parent="Panel/VBoxContainer" index="2" instance=ExtResource("2_ca720")]
 layout_mode = 2
-text = "Help"
+text = "Adventure Booklet"
 alignment = 0
 on_press_command = SubResource("Resource_vhlc5")
 

@@ -31,6 +31,6 @@ func _on_old_target_removed(old_camera: VirtualCamera) -> void:
 
 func _on_follow_target_changed(new_camera: VirtualCamera) -> void:
 	var hud_layer: HUDLayer = Group.first("hud_layer")
-	if new_camera is FirstPersonCamera:
+	if new_camera is BoatFirstPersonCamera:
 		if hud_layer is GameHUDLayer:
 			hud_layer.show_crosshair()

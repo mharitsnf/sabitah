@@ -90,7 +90,7 @@ theme_override_constants/separation = 64
 
 [node name="MenuHeader" parent="Panel/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_g0vh2")]
 layout_mode = 2
-text = "Help"
+text = "Adventure Booklet"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2

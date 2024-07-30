@@ -71,4 +71,5 @@ func _adjust_intensity() -> void:
 	var ndotl: float = instance_normal.dot(dir_to_instance)
 	ndotl = max(ndotl, State.SUNSET_ANGLE)
 	ndotl = remap(ndotl, State.SUNSET_ANGLE, 1., 0., 1.)
+	shadow_enabled = ndotl > 0.
 	light_energy = intensity_curve.sample(ndotl)
