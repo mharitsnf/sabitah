@@ -2,6 +2,7 @@ class_name MemoryDetailsMenu extends BaseMenu
 
 @export var menu_header_label: Label
 @export var menu_button_container: VBoxContainer
+@export var owner_label: Label
 
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
@@ -13,6 +14,7 @@ func set_data(new_data: Dictionary) -> void:
 		data['memory_data'] = memories[0]
 
 		menu_header_label.text = (data['memory_data'] as MemoryData).get_memory().title
+		owner_label.text = (data['memory_data'] as MemoryData).get_memory().owner
 
 func _mount_menu_buttons() -> void:
 	var mental_images: Array[MentalImageData] = MemoryState.get_mental_images({

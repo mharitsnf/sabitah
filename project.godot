@@ -43,6 +43,8 @@ general/balloon_path="res://assets/prefabs/interaction/dialogue_baloons/balloon.
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/window_width_override=1920
+window/size/window_height_override=1080
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=2
 
@@ -246,7 +248,7 @@ globe__erase_waypoint={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":82,"key_label":0,"unicode":114,"echo":false,"script":null)
 ]
 }
-clue__check_area={
+character__collect_memory={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"echo":false,"script":null)
 ]
@@ -284,12 +286,12 @@ debug__create_mental_image={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://assets/dialogues/test_dialogue.dialogue", "res://assets/dialogues/clue_checking.dialogue", "res://assets/dialogues/node_sundial.dialogue", "res://assets/dialogues/test.dialogue", "res://assets/dialogues/tutorial_island/TI_teacher.dialogue", "res://assets/dialogues/tutorial_island/TI_townfolk1.dialogue", "res://assets/dialogues/monologues.dialogue", "res://assets/dialogues/common.dialogue")
+locale/translations_pot_files=PackedStringArray("res://assets/dialogues/test_dialogue.dialogue", "res://assets/dialogues/clue_checking.dialogue", "res://assets/dialogues/node_sundial.dialogue", "res://assets/dialogues/test.dialogue", "res://assets/dialogues/monologues.dialogue", "res://assets/dialogues/common.dialogue", "res://assets/dialogues/memory_checking.dialogue")
 
 [layer_names]
 
 3d_physics/layer_1="Base or Ground"
-3d_physics/layer_2="Clue Area"
+3d_physics/layer_2="Memory Area"
 3d_physics/layer_3="Island Area"
 3d_physics/layer_4="Interact Area"
 3d_physics/layer_5="Planet"

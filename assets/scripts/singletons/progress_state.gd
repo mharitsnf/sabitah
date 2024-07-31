@@ -1,27 +1,15 @@
 extends Node
 
-var free_mode: bool = true
+var free_mode: bool = false
 
 var global_progress: Dictionary = {
-	"first_introduction": false,
-	"globe_menu_unlocked": false,
-	"help_menu_unlocked": false,
-	"boat_key_received": func () -> bool: return CollectibleState.get_collectible_status("boat_key") == CollectibleState.CollectibleStatus.OBTAINED,
-	"tutorial_island_registered": false,
-	"tutorial_island_set_as_node_island": false,
-	"boat_key_fixed": false
 }
 
 var progress: Dictionary = {
 	"tutorial_island": {
 		"teacher": {
-			"intro": false,
-			"sundial_intro": false,
-			"node_island_intro": false,
-			"end_test_intro": false,
 		},
 		"townfolk1": {
-			"intro": false,
 		}
 	}
 }

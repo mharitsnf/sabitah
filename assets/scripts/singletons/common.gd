@@ -27,7 +27,7 @@ class InputPromptManager extends RefCounted:
 		input_prompts["LMB_Picture"] = ipf.create("LMB", "Take picture")
 		input_prompts["F_Enter"] = ipf.create("F", "Enter ship")
 		input_prompts["F_Exit"] = ipf.create("F", "Exit ship")
-		input_prompts["C"] = ipf.create("C", "Dig!")
+		input_prompts["C"] = ipf.create("C", "Collect Memory")
 		input_prompts["G_Register"] = ipf.create("G", "Register node island")
 		input_prompts["G_Teleport"] = ipf.create("G", "Teleport to node island")
 		input_prompts["T_Enter"] = ipf.create("T", "Enter sundial")

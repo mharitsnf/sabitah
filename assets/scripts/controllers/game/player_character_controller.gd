@@ -23,7 +23,7 @@ enum CharacterStates {
 var interact_areas: Array[InteractArea]
 
 var player_boat_area: Area3D
-var clue_areas: Array[ClueArea]
+var memory_areas: Array[Area3D]
 
 var prev_actor_state: ActorState
 var current_actor_state: ActorState
@@ -112,7 +112,7 @@ func player_input_process(_delta: float) -> void:
 	_get_register_boat_waypoint_input()
 	_get_enter_register_island_input()
 	_get_enter_local_sundial_input()
-	_get_check_clues_input()
+	_get_collect_memory_input()
 	_get_enter_ship_input()
 	_get_h_input()
 
@@ -150,11 +150,43 @@ func _set_input_prompt_state(key: String, value: bool) -> void:
 
 # region Input functions
 
-func _get_enter_register_island_input() -> void:
+func _get_collect_memory_input() -> void:
+	if Input.is_action_just_pressed("character__collect_memory"):
+		if !_character_interaction_allowed(): return
+		if !memory_areas.is_empty():
+			MemoryState.check_has_memory = true
+			for area: Area3D in memory_areas:
+				# Find memory data
+				var md: MemoryData = MemoryState.get_memory_by_area(area)
+				if !md:
+					push_warning("Memory data of area " + str(area) + " not found.")
+					continue
+				
+				# Update memory resource and area
+				md.set_area_monitorable(false)
+				md.get_memory().locked_status = Memory.LockedStatus.UNLOCKED
+				
+				# Find category
+				var category_id: String = (md as MemoryData).get_memory().category_id
+				var mcds: Array[MemoryCategoryData] = MemoryState.get_memory_categories({ "id": category_id })
+				if mcds.is_empty():
+					push_warning("Cannot find category associated to this memory.")
+					continue
+				var mcd: MemoryCategoryData = mcds[0]
+				
+				# Push memory data for dialogue
+				MemoryState.memories_found.append({
+					"title": (md as MemoryData).get_memory().title,
+					"category_title": (mcd as MemoryCategoryData).get_memory_category().title
+				})
+		else:
+			MemoryState.check_has_memory = false
 
+		Common.DialogueWrapper.start_dialogue(MemoryState.MEMORY_CHECKING_DIALOGUE, "start")
+
+func _get_enter_register_island_input() -> void:
 	if Input.is_action_just_pressed("globe__enter_island_registration_mode"):
 		if !_character_interaction_allowed(): return
-		if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 		if !State.local_sundial: return
 		if State.local_sundial.first_marker_done: return
 
@@ -179,7 +211,6 @@ func _get_enter_register_island_input() -> void:
 func _get_register_boat_waypoint_input() -> void:
 	if Input.is_action_just_pressed("actor__register_boat_waypoint"):
 		if !_character_interaction_allowed(): return
-		if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
 		if !State.local_sundial: return
 		if !State.local_sundial.first_marker_done: return
 
@@ -194,40 +225,10 @@ func _get_enter_local_sundial_input() -> void:
 		new_pd.set_instance(State.local_sundial)
 		State.actor_im.switch_data(new_pd)
 
-## Input for checking if clue is corect or not
-func _get_check_clues_input() -> void:
-	if Input.is_action_just_pressed("clue__check_area"):
-		if !_character_interaction_allowed(): return
-		if clue_areas.is_empty():
-			ClueState.has_reward = false
-		else:
-			ClueState.has_reward = true
-			for area: ClueArea in clue_areas:
-				if !ClueState.is_clue_area_valid(area): continue
-				var cd: ClueData = ClueState.get_clue_data_by_area(area)
-				var reward_info: Dictionary = ClueState.unlock_reward(cd.get_clue().id)
-				if !reward_info.is_empty():
-					ClueState.rewards_info.append(reward_info)
-				cd.set_clue_area_monitorable(false)
-
-		Common.DialogueWrapper.start_dialogue.call_deferred(ClueState.check_dialogue, "start")
-
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
 		if !_character_interaction_allowed(): return
 		if !inside_player_boat_area: return
-		
-		if !ProgressState.get_global_progress(['boat_key_received']):
-			Common.DialogueWrapper.start_monologue("boat_key_not_received")
-			return
-
-		if !ProgressState.get_global_progress(['tutorial_island_registered']):
-			Common.DialogueWrapper.start_monologue("tutorial_island_not_registered")
-			return
-
-		if !ProgressState.get_global_progress(['boat_key_fixed']):
-			Common.DialogueWrapper.start_monologue("boat_key_not_fixed")
-			return
 		
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
 		var res: Array = await State.actor_im.switch_data(boat_pd)
@@ -239,7 +240,9 @@ func _get_interact_input(event: InputEvent) -> void:
 		if !_character_interaction_allowed(): return
 		if interact_areas.is_empty(): return
 		var ia: InteractArea = interact_areas.back()
-		Common.DialogueWrapper.start_dialogue(ia.dialogue_resource, "start")
+		var dialogue: DialogueResource = ia.dialogue_resource
+		if !dialogue: return
+		Common.DialogueWrapper.start_dialogue(dialogue, "start")
 
 func _get_h_input() -> void:
 	h_input = Input.get_vector("character__move_left", "character__move_right", "character__move_backward", "character__move_forward")
@@ -299,8 +302,8 @@ func _on_player_boat_area_exited() -> void:
 	_set_input_prompt_state("F_Enter", false)
 
 func _on_area_checker_area_entered(area: Area3D) -> void:
-	if area.is_in_group("clue_areas"):
-		clue_areas.append(area)
+	if area.is_in_group("memory_areas"):
+		memory_areas.append(area)
 		return
 
 	if area.is_in_group("local_sundial_areas"):
@@ -329,8 +332,8 @@ func _on_area_checker_area_entered(area: Area3D) -> void:
 		return
 
 func _on_area_checker_area_exited(area: Area3D) -> void:
-	if area.is_in_group("clue_areas"):
-		clue_areas.erase(area)
+	if area.is_in_group("memory_areas"):
+		memory_areas.erase(area)
 		return
 
 	if area.is_in_group("local_sundial_areas"):

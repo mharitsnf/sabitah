@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://l152i2naig08"]
+[gd_scene load_steps=10 format=3 uid="uid://l152i2naig08"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_c0vcd"]
 [ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="2_bpmx7"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/memory_details_menu.gd" id="2_e268r"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="4_ujil3"]
+[ext_resource type="PackedScene" uid="uid://bgfi4tca6f6yp" path="res://assets/prefabs/ui_menu/labels/content.tscn" id="5_joqvi"]
 
 [sub_resource type="Animation" id="Animation_v602i"]
 length = 0.001
@@ -60,10 +62,11 @@ _data = {
 "tree_exiting": SubResource("Animation_m1ql8")
 }
 
-[node name="MemoryDetailsMenu" node_paths=PackedStringArray("menu_header_label", "menu_button_container") instance=ExtResource("1_c0vcd")]
+[node name="MemoryDetailsMenu" node_paths=PackedStringArray("menu_header_label", "menu_button_container", "owner_label") instance=ExtResource("1_c0vcd")]
 script = ExtResource("2_e268r")
 menu_header_label = NodePath("Panel/MarginContainer/VBoxContainer/MenuHeader")
 menu_button_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
+owner_label = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/Content")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -93,7 +96,20 @@ theme_override_constants/separation = 32
 layout_mode = 2
 text = "[MEMORY TITLE]"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 64
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="0" instance=ExtResource("4_ujil3")]
+layout_mode = 2
+text = "Owner"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="1" instance=ExtResource("5_joqvi")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[NAME]"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_vertical = 3
 

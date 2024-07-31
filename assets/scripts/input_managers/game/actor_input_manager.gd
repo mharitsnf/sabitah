@@ -32,12 +32,6 @@ func _ready() -> void:
 	_create_actor_instances()
 	_init_current_player_data()
 
-	if !ProgressState.get_global_progress(['first_introduction']):
-		await Common.wait(3.)
-
-		var intro_dialogue: DialogueResource = load("res://assets/dialogues/tutorial_island/TI_townfolk1.dialogue")
-		Common.DialogueWrapper.start_dialogue(intro_dialogue)
-
 func _setup_references() -> void:
 	super()
 	main_camera = Group.first("main_camera")

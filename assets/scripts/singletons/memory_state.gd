@@ -8,9 +8,15 @@ const MEMORY_CATEGORY_MENU_BUTTON_PSCN: PackedScene = preload("res://assets/pref
 const MEMORY_MENU_BUTTON_PSCN: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/memory_menu_button.tscn")
 const MENTAL_IMAGE_MENU_BUTTON: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/mental_image_menu_button.tscn")
 
+const MEMORY_CHECKING_DIALOGUE: DialogueResource = preload("res://assets/dialogues/memory_checking.dialogue")
+
 var memory_categories_cache: Array[MemoryCategoryData] = []
 var memories_cache: Array[MemoryData] = []
 var mental_image_cache: Array[MentalImageData] = []
+
+var check_has_memory: bool = false
+var memories_found: Array = []
+var current_memory_found: Dictionary = {}
 
 func _ready() -> void:
 	load_memory_categories()
@@ -111,6 +117,17 @@ func get_memories(filters: Dictionary = {}) -> Array[MemoryData]:
 				return _md.get_memory().get(key) == filters[key]
 		)
 	return result
+
+func get_memory_by_area(area: Area3D) -> MemoryData:
+	var marker: MemoryMarker = area.get_parent()
+	var memory_id: String = (marker as MemoryMarker).memory_id
+	var memories: Array[MemoryData] = MemoryState.get_memories({ "id": memory_id })
+	if memories.is_empty(): return null
+	return memories[0]
+
+func update_current_memory_found() -> void:
+	var new_memory: Variant = memories_found.pop_front()
+	current_memory_found = {} if new_memory == null else new_memory
 
 # region Mental Images
 

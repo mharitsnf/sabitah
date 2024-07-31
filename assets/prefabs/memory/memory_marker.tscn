@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxs7d824omom1"]
+
+[ext_resource type="Script" path="res://assets/scripts/memory/memory_marker.gd" id="1_njf8b"]
+
+[node name="MemoryMarker" type="Marker3D"]
+script = ExtResource("1_njf8b")

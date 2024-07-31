@@ -52,9 +52,11 @@ expand_mode = 3
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Description..."
 label_settings = SubResource("LabelSettings_s7ouk")
 vertical_alignment = 1
+autowrap_mode = 2

@@ -1,0 +1,23 @@
+~ start
+: I think I can collect memories here.
+: Let's see...
+do Common.wait(1.5)
+if MemoryState.check_has_memory:
+	=>< loop_memories_found
+	=> END
+else:
+	: ...No, there's nothing here. I must be at the wrong place or time.
+	=> END
+=> END
+
+~ loop_memories_found
+do MemoryState.update_current_memory_found()
+if MemoryState.current_memory_found.is_empty():
+	: That's all I can collect from here.
+	=> END
+else:
+	: I collected a new memory, {{ MemoryState.current_memory_found.title }}! It's part of category {{ MemoryState.current_memory_found.category_title }}.
+	: Can I collect other memories from here?
+	do Common.wait(1.0)
+	=> loop_memories_found
+=> END

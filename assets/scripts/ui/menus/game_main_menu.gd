@@ -9,5 +9,4 @@ func _ready() -> void:
 	assert(help_button)
 
 func set_button_visibilities() -> void:
-	globe_button.visible = ProgressState.get_global_progress(['globe_menu_unlocked']) and (State.actor_im as ActorInputManager).current_actor_equals(ActorInputManager.PlayerActors.BOAT)
-	help_button.visible = ProgressState.get_global_progress(['help_menu_unlocked'])
+	globe_button.visible = (State.actor_im as ActorInputManager).current_actor_equals(ActorInputManager.PlayerActors.BOAT)
