@@ -64,7 +64,10 @@ func _get_enter_sundial_input() -> void:
 
 		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(boat_sundial_manager)
+		var new_pcm: PlayerCameraManager = new_pd.get_camera_manager()
+
 		State.actor_im.switch_data(new_pd)
+		main_camera.follow_target = new_pcm.get_entry_camera()
 
 func _get_exit_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
@@ -72,6 +75,7 @@ func _get_exit_ship_input() -> void:
 		
 		# get actor data for character
 		var char_pd: ActorData = (State.actor_im as ActorInputManager).get_player_data(ActorInputManager.PlayerActors.CHARACTER)
+		var char_pcm: PlayerCameraManager = char_pd.get_camera_manager()
 		
 		# Add character to the level
 		var char_inst: Node3D = char_pd.get_instance()
@@ -82,20 +86,25 @@ func _get_exit_ship_input() -> void:
 
 		# Switch to the character's actor data
 		State.actor_im.switch_data(char_pd)
+		main_camera.follow_target = char_pcm.get_entry_camera()
 
 func _get_teleport_to_waypoint_input() -> void:
 	if Input.is_action_just_pressed("boat__teleport_to_waypoint"):
 		if !_boat_interaction_allowed(): return
+		if !ProgressState.get_global_progress(["first_island_registered"]): return
 
 		Common.DialogueWrapper.start_monologue("teleport_to_node_island")
 
 func _get_brake_input() -> void:
+	if !ProgressState.get_global_progress(["first_island_registered"]): return
 	brake_input = Input.get_action_strength("boat__brake")
 
 func _get_gas_input() -> void:
+	if !ProgressState.get_global_progress(["first_island_registered"]): return
 	gas_input = Input.get_action_strength("boat__move_forward")
 
 func _get_rotate_input() -> void:
+	if !ProgressState.get_global_progress(["first_island_registered"]): return
 	rotate_input = Input.get_axis("boat__turn_left", "boat__turn_right")
 
 func _boat_interaction_allowed() -> bool:

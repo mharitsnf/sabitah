@@ -9,12 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://dhoxanii2u1rv" path="res://assets/prefabs/gravity/main_gravity_area.tscn" id="6_imehy"]
 [ext_resource type="PackedScene" uid="uid://cdffjdvhoedax" path="res://assets/prefabs/visuals/ocean/ocean_data.tscn" id="8_6a2jn"]
 [ext_resource type="Texture2D" uid="uid://br1kd50cmsl0h" path="res://assets/resources/textures/uv grids.webp" id="8_8pfla"]
-[ext_resource type="PackedScene" uid="uid://dbu37cg78b0um" path="res://assets/islands/island_1/island_container.tscn" id="8_mr3yb"]
 [ext_resource type="PackedScene" uid="uid://nwcslco3ksia" path="res://assets/prefabs/visuals/ocean/ocean.tscn" id="9_q5hw7"]
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/visuals/atmosphere/atmosphere_ppq.tscn" id="11_r3iet"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://v7022dbq6wn2" path="res://assets/prefabs/visuals/outline/outline_ppq.tscn" id="12_ouxvy"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
+[ext_resource type="PackedScene" uid="uid://yh25koljfqgg" path="res://assets/islands/island_1/island_1_navigation.tscn" id="17_aigk6"]
 [ext_resource type="PackedScene" uid="uid://doo5e22kve8ge" path="res://assets/resources/models/islands/connector_1/connector_1.tscn" id="18_aopt4"]
 [ext_resource type="PackedScene" uid="uid://hly7xukaj25f" path="res://assets/prefabs/actor/player_character/player_character_actor.tscn" id="18_q1k01"]
 
@@ -72,14 +72,15 @@ layers = 2
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(-0.521108, -0.184416, 0.833329, -0.850967, 0.0372332, -0.523898, 0.0655874, -0.982143, -0.176335, -278.02, 60.5233, -1478.88)
+transform = Transform3D(-0.281759, -0.177229, -0.942975, 0.959476, -0.0478235, -0.277701, 0.00412031, -0.983007, 0.183522, -263.667, -71.1479, -1462.43)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
 transform = Transform3D(0.0965653, -0.160735, 0.982262, -0.994636, -0.0523372, 0.0892175, 0.0370684, -0.985609, -0.164927, -238.698, -77.7226, -1463.68)
 
 [node name="Islands" type="Node" parent="."]
 
-[node name="Island1Container" parent="Islands" instance=ExtResource("8_mr3yb")]
+[node name="Island1Navigation" parent="Islands" instance=ExtResource("17_aigk6")]
+transform = Transform3D(-0.979335, -0.202202, 0.00409713, 0.00687019, -0.0535077, -0.998544, 0.202127, -0.977881, 0.0537912, -300.594, -79.5447, -1453.72)
 
 [node name="Connector1" parent="Islands" instance=ExtResource("18_aopt4")]
 transform = Transform3D(0.601043, 0.331662, -0.727151, 0.793072, -0.360112, 0.49128, -0.0989169, -0.871963, -0.479475, 493.049, -535.343, -1296.26)

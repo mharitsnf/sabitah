@@ -809,7 +809,7 @@ transform = Transform3D(0.909122, -0.020146, 0.416042, 0.0156476, 0.999776, 0.01
 [node name="BushB2" parent="Island/Environment/SectionDock" index="5" instance=ExtResource("8_mp20m")]
 transform = Transform3D(-0.112688, -0.0201449, -0.993426, 0.00604432, 0.999762, -0.020959, 0.993612, -0.00836642, -0.11254, -22.7351, -0.503918, -9.15102)
 
-[node name="LocalSundialManager" parent="." index="1" node_paths=PackedStringArray("boat_waypoint") groups=["tutorial_island_sundial_manager"] instance=ExtResource("13_88g1q")]
+[node name="LocalSundialManager" parent="." index="1" node_paths=PackedStringArray("boat_waypoint") groups=["first_sundial_manager"] instance=ExtResource("13_88g1q")]
 transform = Transform3D(0.997059, 0.076623, 0.00135191, -0.076623, 0.996438, 0.0352241, 0.00135188, -0.0352241, 0.999379, 114.597, 0.708915, -54.7456)
 boat_waypoint = NodePath("../BoatWaypoint")
 

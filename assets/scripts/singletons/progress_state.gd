@@ -3,6 +3,8 @@ extends Node
 var free_mode: bool = false
 
 var global_progress: Dictionary = {
+	"boat_code_received": _boat_code_received,
+	"first_island_registered": false
 }
 
 var progress: Dictionary = {
@@ -13,6 +15,12 @@ var progress: Dictionary = {
 		}
 	}
 }
+
+func _boat_code_received() -> bool:
+	var memories: Array[MemoryData] = MemoryState.get_memories({ "id": "mm_boat_code_1" })
+	if memories.is_empty(): return false
+	var md: MemoryData = memories[0]
+	return md.get_memory().locked_status == Memory.LockedStatus.UNLOCKED
 
 ## Get the global progress value of the specified [keys]. If [free_mode] is true, the function
 ## will return true regardless of the specified state.

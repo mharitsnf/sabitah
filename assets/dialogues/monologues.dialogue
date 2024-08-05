@@ -2,8 +2,8 @@
 ~ set_node_sundial
 : {{State.local_sundial.get_island_name()}} has been set as the node island! I can now teleport back to this island if I'm lost in the ocean.
 do State.node_sundial = State.local_sundial
-if State.sundial_groups['tutorial_island_sundial_manager'].has(State.local_sundial):
-	do ProgressState.global_progress['tutorial_island_set_as_node_island'] = true
+if State.sundial_groups['first_sundial_manager'].has(State.local_sundial):
+	do ProgressState.global_progress['first_island_registered'] = true
 => END
 
 ~ boat_key_not_received

@@ -67,26 +67,33 @@ func _init_current_player_data() -> void:
 		var first_ad: ActorData = _get_first_data()
 		if first_ad:
 			switch_data(first_ad)
+			main_camera.follow_target = first_ad.get_camera_manager().get_entry_camera()
 		else:
-			_init_new_boat()
+			_reset_boat()
+			switch_data(data_dict[PlayerActors.BOAT] as ActorData)
+			main_camera.follow_target = (data_dict[PlayerActors.BOAT] as ActorData).get_camera_manager().get_entry_camera()
 		return
 	
-	_init_new_boat()
+	_reset_boat()
+	switch_data(data_dict[PlayerActors.BOAT] as ActorData)
+	main_camera.follow_target = (data_dict[PlayerActors.BOAT] as ActorData).get_camera_manager().get_entry_camera()
 
-func _init_new_boat() -> void:
+func _reset_boat() -> void:
 	# Initialize the boat on a specific location
 	add_child.call_deferred((data_dict[PlayerActors.BOAT] as ActorData).get_instance())
 	await (data_dict[PlayerActors.BOAT] as ActorData).get_instance().tree_entered
 	(data_dict[PlayerActors.BOAT] as ActorData).get_instance().global_position = Vector3(0., State.PLANET_RADIUS, 0.)
-	switch_data(data_dict[PlayerActors.BOAT] as ActorData)
 
 func _get_first_data() -> ActorData:
+	if get_child_count() == 0: return null
+
 	var first_actor: Node = get_child(0)
 	var first_actor_data: Array = data_dict.values().filter(
 		func(ad: Object) -> bool:
 			if !(ad is ActorData): return false
 			return ad.get_instance() == first_actor
 	)
+
 	if first_actor_data.is_empty(): return null
 	return first_actor_data[0]
 
@@ -113,23 +120,20 @@ func switch_data(new_data: PlayerData) -> Array:
 	current_data.get_controller().enter_controller()
 	
 	# Update the current game light status
-	if new_data.get_instance() is SundialManager:
-		current_light_type = LightType.SUNDIAL
-	else:
-		current_light_type = LightType.NORMAL
+	if new_data.get_instance() is SundialManager: current_light_type = LightType.SUNDIAL
+	else: current_light_type = LightType.NORMAL
 
 	# Switch to the new actor's entry camera
-	var actor_camera_manager: PlayerCameraManager = new_data.get_camera_manager()
-	var entry_cam: VirtualCamera = actor_camera_manager.get_entry_camera()
-	main_camera.follow_target = entry_cam
-	actor_camera_manager.set_current_camera(entry_cam)
+	# var actor_camera_manager: PlayerCameraManager = new_data.get_camera_manager()
+	# var entry_cam: VirtualCamera = actor_camera_manager.get_entry_camera()
+	# main_camera.follow_target = entry_cam
+	# actor_camera_manager.set_current_camera(entry_cam)
 
 	# Make ocean switch to follow the new actor if the new instance is a base actor.
 	if new_data.get_instance() is BaseActor:
 		ocean_data.target = new_data.get_instance()
 
 	# Wait for all transition to be finished
-	await main_camera.transition_finished
 	transitioning = false
 
 	current_data_changed.emit()

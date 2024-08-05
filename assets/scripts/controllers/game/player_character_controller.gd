@@ -223,15 +223,27 @@ func _get_enter_local_sundial_input() -> void:
 
 		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(State.local_sundial)
+		var sundial_pcm: PlayerCameraManager = new_pd.get_camera_manager()
+
 		State.actor_im.switch_data(new_pd)
+		main_camera.follow_target = sundial_pcm.get_entry_camera()
 
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
+		if !ProgressState.get_global_progress(['boat_code_received']): return
 		if !_character_interaction_allowed(): return
 		if !inside_player_boat_area: return
 		
 		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
-		var res: Array = await State.actor_im.switch_data(boat_pd)
+		var boat_pcm: PlayerCameraManager = boat_pd.get_camera_manager()
+
+		var entry_cam: VirtualCamera = boat_pcm.get_entry_camera()
+		main_camera.follow_target = entry_cam
+		boat_pcm.set_current_camera(entry_cam)
+
+		var res: Array = State.actor_im.switch_data(boat_pd)
+		await main_camera.transition_finished
+
 		if res[0]:
 			State.actor_im.remove_child.call_deferred((res[1] as ActorData).get_instance())
 
@@ -277,8 +289,6 @@ func _on_local_sundial_area_entered(area: Node3D) -> void:
 	State.local_sundial = area_parent
 	_set_input_prompt_state("T_Enter", true)
 	
-	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
-
 	if !State.local_sundial.first_marker_done:
 		_set_input_prompt_state("Y", true)
 	else:
@@ -288,16 +298,16 @@ func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	if State.local_sundial_data.is_empty(): State.local_sundial = null
 	_set_input_prompt_state("T_Enter", false)
 
-	if !ProgressState.get_progress(['tutorial_island', 'teacher', 'sundial_intro']): return
-
 	_set_input_prompt_state("Y", false)
 	_set_input_prompt_state("G_Register", false)
 
 func _on_player_boat_area_entered() -> void:
+	if !ProgressState.get_global_progress(['boat_code_received']): return
 	inside_player_boat_area = true
 	_set_input_prompt_state("F_Enter", true)
 
 func _on_player_boat_area_exited() -> void:
+	if !ProgressState.get_global_progress(['boat_code_received']): return
 	inside_player_boat_area = false
 	_set_input_prompt_state("F_Enter", false)
 
