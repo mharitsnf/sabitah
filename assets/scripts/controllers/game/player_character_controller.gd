@@ -167,7 +167,7 @@ func _get_collect_memory_input() -> void:
 
 		MemoryState.examined_memory = {
 			"title": md.get_memory().title,
-			"owner": md.get_memory().owner,
+			"owner_name": md.get_memory().memory_owner.name,
 		}
 
 		if has_unlocked:

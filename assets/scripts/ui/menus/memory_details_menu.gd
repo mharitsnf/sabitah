@@ -14,7 +14,7 @@ func set_data(new_data: Dictionary) -> void:
 		data['memory_data'] = memories[0]
 
 		menu_header_label.text = (data['memory_data'] as MemoryData).get_memory().title
-		owner_label.text = (data['memory_data'] as MemoryData).get_memory().owner
+		owner_label.text = (data['memory_data'] as MemoryData).get_memory().memory_owner.name
 
 func _mount_menu_buttons() -> void:
 	var mental_images: Array[MentalImageData] = MemoryState.get_mental_images({

@@ -1,12 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwsrhb5pvr8t"]
+[gd_scene load_steps=3 format=3 uid="uid://dwsrhb5pvr8t"]
+
+[ext_resource type="Script" path="res://assets/scripts/memory/memory_area.gd" id="1_gnn3r"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_s6ful"]
 radius = 3.0
 
-[node name="MemoryArea" type="Area3D" groups=["memory_areas"]]
+[node name="MemoryArea" type="Area3D" node_paths=PackedStringArray("visuals_container") groups=["memory_areas"]]
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("1_gnn3r")
+visuals_container = NodePath("VisualsContainer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_s6ful")
+
+[node name="VisualsContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
