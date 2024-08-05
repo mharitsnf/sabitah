@@ -36,7 +36,7 @@ height = 2.0
 radial_segments = 12
 rings = 6
 
-[node name="PlayerBoatActor" type="RigidBody3D" node_paths=PackedStringArray("trail_particles_l", "trail_particles_r", "propeller_left", "propeller_right", "normal_target")]
+[node name="PlayerBoatActor" type="RigidBody3D" node_paths=PackedStringArray("trail_particles_l", "trail_particles_r", "propeller_left", "propeller_right", "visuals", "normal_target")]
 collision_layer = 4352
 collision_mask = 257
 mass = 500.0
@@ -53,8 +53,9 @@ propeller_right = NodePath("CollisionShape3D/PlayerBoatMesh/PropellerR")
 ground_speed_limit = 20.0
 water_speed_limit = 20.0
 adjust_to_water_normal = true
-normal_target = NodePath("CollisionShape3D")
 float_force = 3000.0
+visuals = NodePath("CollisionShape3D/PlayerBoatMesh")
+normal_target = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)

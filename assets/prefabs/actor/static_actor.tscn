@@ -1,38 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5vheik6jvc0c"]
+[gd_scene load_steps=5 format=3 uid="uid://b5vheik6jvc0c"]
 
 [ext_resource type="Script" path="res://assets/scripts/actor/base_actor.gd" id="1_e5rtm"]
+[ext_resource type="PackedScene" uid="uid://befiu0okc0avo" path="res://assets/resources/models/actors/test_actor_visuals.tscn" id="2_iq0q4"]
 [ext_resource type="PackedScene" uid="uid://boqr703si150s" path="res://assets/prefabs/actor/areas/sleeper_area.tscn" id="2_sj1xt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nmtg3"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_326lw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iqvme"]
-albedo_color = Color(0.7, 0.72, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_vva4s"]
-size = Vector3(0.5, 0.25, 0.5)
-
-[node name="StaticActor" type="RigidBody3D" node_paths=PackedStringArray("normal_target")]
+[node name="StaticActor" type="RigidBody3D" node_paths=PackedStringArray("visuals", "normal_target")]
 collision_layer = 4096
 mass = 50.0
 lock_rotation = true
 linear_damp = 2.0
 script = ExtResource("1_e5rtm")
 adjust_to_water_normal = true
-normal_target = NodePath("CollisionShape3D")
 float_force = 250.0
+ocean_surface_offset = -1.0
+visuals = NodePath("CollisionShape3D/TestActorVisuals")
+normal_target = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nmtg3")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
-mesh = SubResource("CapsuleMesh_326lw")
-surface_material_override/0 = SubResource("StandardMaterial3D_iqvme")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.3)
-mesh = SubResource("BoxMesh_vva4s")
-surface_material_override/0 = SubResource("StandardMaterial3D_iqvme")
+[node name="TestActorVisuals" parent="CollisionShape3D" instance=ExtResource("2_iq0q4")]
 
 [node name="SleeperArea" parent="." instance=ExtResource("2_sj1xt")]

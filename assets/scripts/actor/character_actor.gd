@@ -13,7 +13,6 @@ class_name CharacterActor extends BaseActor
 @export_group("Rotation")
 @export var rotation_weight: float = 1.
 @export_group("References")
-@export var visual_node: Node3D
 @export var ground_checker: RayCast3D
 
 var ground_normal: Vector3
@@ -46,7 +45,7 @@ func move(ref_basis: Basis, xz_vector: Vector2) -> void:
 
 ## Rotate the mesh based on the direction of the [ref_basis].
 func rotate_visuals(ref_basis: Basis, xz_vector: Vector2) -> void:
-	if !visual_node: return
+	if !visuals: return
 	if xz_vector == Vector2.ZERO: return
 
 	ref_basis = ref_basis.orthonormalized()
@@ -54,5 +53,5 @@ func rotate_visuals(ref_basis: Basis, xz_vector: Vector2) -> void:
 	dir = basis.inverse() * dir
 	dir = Vector3(dir.x, 0., dir.z).normalized()
 
-	var new_quat: Quaternion = Basis.looking_at(dir, visual_node.basis.y).get_rotation_quaternion()
-	visual_node.quaternion = visual_node.basis.get_rotation_quaternion().slerp(new_quat, get_process_delta_time() * rotation_weight)
+	var new_quat: Quaternion = Basis.looking_at(dir, visuals.basis.y).get_rotation_quaternion()
+	visuals.quaternion = visuals.basis.get_rotation_quaternion().slerp(new_quat, get_process_delta_time() * rotation_weight)

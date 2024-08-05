@@ -7,8 +7,6 @@ class_name BaseActor extends RigidBody3D
 @export_subgroup("Water normal settings")
 ## If true, the [normal_target] will adjust its rotation along the water surface normal.
 @export var adjust_to_water_normal: bool = false
-## The target for adjusting rotation along water surface normal.
-@export var normal_target: Node3D
 @export_subgroup("Height settings")
 ## The strength of the upwards force of the actor.
 @export var float_force : float = 5.
@@ -16,6 +14,10 @@ class_name BaseActor extends RigidBody3D
 @export_range(0., 1., .01) var water_drag : float = .1
 ## The height offset of the ocean_data surface.
 @export var ocean_surface_offset : float = 0.
+@export_group("References")
+@export var visuals: Node3D
+## The target for adjusting rotation along water surface normal.
+@export var normal_target: Node3D
 
 ## Describes how far the actor is from the ocean_data surface
 var depth_from_ocean_surface : float = 0.

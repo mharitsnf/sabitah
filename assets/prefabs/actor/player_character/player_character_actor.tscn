@@ -31,7 +31,7 @@ albedo_color = Color(0.501961, 1, 0.556863, 1)
 material = SubResource("StandardMaterial3D_wnrhg")
 size = Vector3(0.5, 0.25, 0.5)
 
-[node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("visual_node", "ground_checker", "normal_target")]
+[node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("ground_checker", "visuals", "normal_target")]
 collision_layer = 4448
 collision_mask = 257
 mass = 50.0
@@ -46,13 +46,15 @@ air_damp = 0.4
 jump_force = 625.0
 move_speed = 2500.0
 rotation_weight = 30.0
-visual_node = NodePath("CollisionShape3D/Visuals")
 ground_checker = NodePath("GroundChecker")
 water_speed_limit = 3.0
-normal_target = NodePath("CollisionShape3D")
 float_force = 250.0
+ocean_surface_offset = -1.0
+visuals = NodePath("CollisionShape3D/Visuals")
+normal_target = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_bjbxt")
 
 [node name="AreaSearcher" type="Area3D" parent="CollisionShape3D"]
@@ -72,13 +74,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.3)
 mesh = SubResource("BoxMesh_i27ma")
 
 [node name="GroundChecker" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, -1.2, 0)
 
 [node name="PlayerCharacterTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_y3sod")]
-offset = Vector3(0, 0, 0)
 follow_target = NodePath("..")
 
 [node name="PlayerCharacterFPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("2_p2auv")]
+offset = Vector3(0, 1.5, -1)
 follow_target = NodePath("..")
 
 [node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
