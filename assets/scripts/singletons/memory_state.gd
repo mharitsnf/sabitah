@@ -14,46 +14,43 @@ var memory_categories_cache: Array[MemoryCategoryData] = []
 var memories_cache: Array[MemoryData] = []
 var mental_image_cache: Array[MentalImageData] = []
 
-var check_has_memory: bool = false
-var memories_found: Array = []
-var current_memory_found: Dictionary = {}
+var examined_memory: Dictionary = {}
 
 func _ready() -> void:
-	load_memory_categories()
 	load_memories()
 	load_mental_images()
 
 # region Memory Categories
 
-func load_memory_categories() -> void:
-	var dir: DirAccess = DirAccess.open(MEMORY_CATEGORY_FOLDER_PATH)
-	if !dir:
-		push_error("Cannot load files!") 
-		return
+# func load_memory_categories() -> void:
+# 	var dir: DirAccess = DirAccess.open(MEMORY_CATEGORY_FOLDER_PATH)
+# 	if !dir:
+# 		push_error("Cannot load files!") 
+# 		return
 
-	dir.list_dir_begin()
-	var file_name: String = dir.get_next()
-	while file_name != "":
-		if !dir.current_is_dir():
-			var memory_category: MemoryCategory = load(MEMORY_CATEGORY_FOLDER_PATH + file_name)
-			create_memory_category_cache(memory_category)
-		file_name = dir.get_next()
+# 	dir.list_dir_begin()
+# 	var file_name: String = dir.get_next()
+# 	while file_name != "":
+# 		if !dir.current_is_dir():
+# 			var memory_category: MemoryCategory = load(MEMORY_CATEGORY_FOLDER_PATH + file_name)
+# 			create_memory_category_cache(memory_category)
+# 		file_name = dir.get_next()
 
-func create_memory_category_cache(memory_category: MemoryCategory) -> void:
-	# see if we have this resource inside the cache already.
-	var existing_memory_category: Array[MemoryCategoryData] = memory_categories_cache.filter(
-		func(_mcd: MemoryCategoryData) -> bool:
-			return _mcd.get_memory_category().resource_path == memory_category.resource_path
-	)
+# func create_memory_category_cache(memory_category: MemoryCategory) -> void:
+# 	# see if we have this resource inside the cache already.
+# 	var existing_memory_category: Array[MemoryCategoryData] = memory_categories_cache.filter(
+# 		func(_mcd: MemoryCategoryData) -> bool:
+# 			return _mcd.get_memory_category().resource_path == memory_category.resource_path
+# 	)
 	
-	# if we have the resource inside the cache, return
-	if !existing_memory_category.is_empty(): return
+# 	# if we have the resource inside the cache, return
+# 	if !existing_memory_category.is_empty(): return
 
-	var menu_button: GenericButton = MEMORY_CATEGORY_MENU_BUTTON_PSCN.instantiate()
-	menu_button.text = memory_category.title
-	menu_button.args = [{ "category_id": memory_category.id }]
+# 	var menu_button: GenericButton = MEMORY_CATEGORY_MENU_BUTTON_PSCN.instantiate()
+# 	menu_button.text = memory_category.title
+# 	menu_button.args = [{ "category_id": memory_category.id }]
 
-	memory_categories_cache.append(MemoryCategoryData.new(memory_category, menu_button))
+# 	memory_categories_cache.append(MemoryCategoryData.new(memory_category, menu_button))
 
 ## Get an array of [MemoryCategoryData] filtered according to [filters].
 func get_memory_categories(filters: Dictionary = {}) -> Array[MemoryCategoryData]:
@@ -124,10 +121,6 @@ func get_memory_by_area(area: Area3D) -> MemoryData:
 	var memories: Array[MemoryData] = MemoryState.get_memories({ "id": memory_id })
 	if memories.is_empty(): return null
 	return memories[0]
-
-func update_current_memory_found() -> void:
-	var new_memory: Variant = memories_found.pop_front()
-	current_memory_found = {} if new_memory == null else new_memory
 
 # region Mental Images
 

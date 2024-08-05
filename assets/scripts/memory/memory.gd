@@ -5,7 +5,6 @@ enum LockedStatus {
 }
 
 @export var id: String
-@export var category_id: String
 @export var owner: String
 @export var title: String
 @export var time_window: Vector2

@@ -3,21 +3,21 @@ class_name MemoriesMenu extends BaseMenu
 @export var menu_header_label: Label
 @export var menu_button_container: GridContainer
 
-func set_data(new_data: Dictionary) -> void:
-	if !new_data.is_empty():
-		assert(new_data.has('category_id'))
+# func set_data(new_data: Dictionary) -> void:
+# 	if !new_data.is_empty():
+# 		data = new_data
 
-		data = new_data
-		var memory_categories: Array[MemoryCategoryData] = MemoryState.get_memory_categories({ "id": data['category_id'] })
-		assert((memory_categories as Array).size() > 0)
-		data['memory_category_data'] = memory_categories[0]
+# 		if new_data.has('category_id'):
+# 			var memory_categories: Array[MemoryCategoryData] = MemoryState.get_memory_categories({ "id": data['category_id'] })
+# 			assert((memory_categories as Array).size() > 0)
+# 			data['memory_category_data'] = memory_categories[0]
 
-		menu_header_label.text = (data['memory_category_data'] as MemoryCategoryData).get_memory_category().title
+# 			menu_header_label.text = (data['memory_category_data'] as MemoryCategoryData).get_memory_category().title
 
 func _mount_menu_buttons() -> void:
 	var incomplete_memories: Array[MemoryData] = MemoryState.get_memories({
-		"category_id": data['category_id'],
-		"locked_status": Memory.LockedStatus.UNLOCKED
+		# "category_id": data['category_id'],
+		"locked_status": Memory.LockedStatus.UNLOCKED,
 	})
 
 	for md: MemoryData in incomplete_memories:

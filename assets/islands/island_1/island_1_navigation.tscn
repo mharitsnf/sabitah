@@ -28,5 +28,5 @@ normal_target = NodePath("../Teacher/CollisionShape3D")
 [node name="MemoryMarkers" type="Node3D" parent="."]
 
 [node name="MemoryMarker" parent="MemoryMarkers" instance=ExtResource("3_twx1k")]
-transform = Transform3D(-0.652336, -0.180129, 0.736215, -0.122326, 0.983636, 0.132276, -0.747994, -0.00377028, -0.663695, -57.4418, -2.25926, -8.1631)
+transform = Transform3D(-0.662932, -0.0282636, 0.748146, -0.0214817, 0.999594, 0.0187279, -0.748371, -0.00365618, -0.66327, -48.1522, -1.07449, -5.0565)
 memory_id = "mm_boat_code_1"

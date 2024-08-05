@@ -1,23 +1,10 @@
-~ start
-: I think I can collect memories here.
-: Let's see...
-do Common.wait(1.5)
-if MemoryState.check_has_memory:
-	=>< loop_memories_found
-	=> END
-else:
-	: ...No, there's nothing here. I must be at the wrong place or time.
-	=> END
+~ new_memory
+: The ghost of someone that reminisced... I can collect their thoughts.
+: I have collected the memory of {{ MemoryState.examined_memory.owner }} called "{{ MemoryState.examined_memory.title }}". Now I can see their thoughts from the Memories Collection!
+do MemoryState.examined_memory = {}
 => END
 
-~ loop_memories_found
-do MemoryState.update_current_memory_found()
-if MemoryState.current_memory_found.is_empty():
-	: That's all I can collect from here.
-	=> END
-else:
-	: I collected a new memory, {{ MemoryState.current_memory_found.title }}! It's part of category {{ MemoryState.current_memory_found.category_title }}.
-	: Can I collect other memories from here?
-	do Common.wait(1.0)
-	=> loop_memories_found
+~ has_unlocked_memory
+: I've seen this memory before. This is the ghost of {{ MemoryState.examined_memory.owner }}, containing a memory called "{{ MemoryState.examined_memory.title }}".
+do MemoryState.examined_memory = {}
 => END

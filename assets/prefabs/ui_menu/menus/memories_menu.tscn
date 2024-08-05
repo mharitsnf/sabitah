@@ -91,7 +91,7 @@ theme_override_constants/separation = 32
 
 [node name="MenuHeader" parent="Panel/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_i4sqf")]
 layout_mode = 2
-text = "[MEMORY CATEGORY]"
+text = "Memories Collection"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2

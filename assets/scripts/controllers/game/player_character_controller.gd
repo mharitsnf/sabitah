@@ -42,7 +42,7 @@ var input_prompt_state: Dictionary = {
 	"F_Enter": false,
 	"T_Enter": false,
 	"Y": false,
-	"C": true,
+	"C": false,
 	"G_Register": false,
 	"E_Interact": false
 }
@@ -153,36 +153,27 @@ func _set_input_prompt_state(key: String, value: bool) -> void:
 func _get_collect_memory_input() -> void:
 	if Input.is_action_just_pressed("character__collect_memory"):
 		if !_character_interaction_allowed(): return
-		if !memory_areas.is_empty():
-			MemoryState.check_has_memory = true
-			for area: Area3D in memory_areas:
-				# Find memory data
-				var md: MemoryData = MemoryState.get_memory_by_area(area)
-				if !md:
-					push_warning("Memory data of area " + str(area) + " not found.")
-					continue
-				
-				# Update memory resource and area
-				md.set_area_monitorable(false)
-				md.get_memory().locked_status = Memory.LockedStatus.UNLOCKED
-				
-				# Find category
-				var category_id: String = (md as MemoryData).get_memory().category_id
-				var mcds: Array[MemoryCategoryData] = MemoryState.get_memory_categories({ "id": category_id })
-				if mcds.is_empty():
-					push_warning("Cannot find category associated to this memory.")
-					continue
-				var mcd: MemoryCategoryData = mcds[0]
-				
-				# Push memory data for dialogue
-				MemoryState.memories_found.append({
-					"title": (md as MemoryData).get_memory().title,
-					"category_title": (mcd as MemoryCategoryData).get_memory_category().title
-				})
-		else:
-			MemoryState.check_has_memory = false
+		if memory_areas.is_empty(): return
 
-		Common.DialogueWrapper.start_dialogue(MemoryState.MEMORY_CHECKING_DIALOGUE, "start")
+		var last_area: Area3D = memory_areas.back()
+		var md: MemoryData = MemoryState.get_memory_by_area(last_area)
+		if !md:
+			push_warning("Memory data of area " + str(last_area) + " not found.")
+			return
+
+		var has_unlocked: bool = md.get_memory().locked_status == Memory.LockedStatus.UNLOCKED
+		if !has_unlocked:
+			md.get_memory().locked_status = Memory.LockedStatus.UNLOCKED
+
+		MemoryState.examined_memory = {
+			"title": md.get_memory().title,
+			"owner": md.get_memory().owner,
+		}
+
+		if has_unlocked:
+			Common.DialogueWrapper.start_dialogue(MemoryState.MEMORY_CHECKING_DIALOGUE, "has_unlocked_memory")
+		else:
+			Common.DialogueWrapper.start_dialogue(MemoryState.MEMORY_CHECKING_DIALOGUE, "new_memory")
 
 func _get_enter_register_island_input() -> void:
 	if Input.is_action_just_pressed("globe__enter_island_registration_mode"):
@@ -314,6 +305,7 @@ func _on_player_boat_area_exited() -> void:
 func _on_area_checker_area_entered(area: Area3D) -> void:
 	if area.is_in_group("memory_areas"):
 		memory_areas.append(area)
+		_set_input_prompt_state("C", true)
 		return
 
 	if area.is_in_group("local_sundial_areas"):
@@ -344,6 +336,7 @@ func _on_area_checker_area_entered(area: Area3D) -> void:
 func _on_area_checker_area_exited(area: Area3D) -> void:
 	if area.is_in_group("memory_areas"):
 		memory_areas.erase(area)
+		if memory_areas.is_empty(): _set_input_prompt_state("C", false)
 		return
 
 	if area.is_in_group("local_sundial_areas"):
