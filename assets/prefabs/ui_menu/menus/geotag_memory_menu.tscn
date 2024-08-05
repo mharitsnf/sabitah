@@ -1,0 +1,172 @@
+[gd_scene load_steps=11 format=3 uid="uid://dhpnrm0iubgl0"]
+
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_fkwp8"]
+[ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="2_64wsb"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/geotag_memory_menu.gd" id="2_mv8xm"]
+[ext_resource type="PackedScene" uid="uid://dr1i2bbky8n2g" path="res://assets/prefabs/ui_menu/buttons/assign_geotag_button.tscn" id="3_erjkw"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="3_ura34"]
+[ext_resource type="PackedScene" uid="uid://bgfi4tca6f6yp" path="res://assets/prefabs/ui_menu/labels/content.tscn" id="4_0eu46"]
+
+[sub_resource type="Animation" id="Animation_gb708"]
+resource_name = "tree_entered"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vtdla"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qjdoa"]
+resource_name = "tree_exiting"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vpyni"]
+_data = {
+"RESET": SubResource("Animation_vtdla"),
+"tree_entered": SubResource("Animation_gb708"),
+"tree_exiting": SubResource("Animation_qjdoa")
+}
+
+[node name="GeotagMemoryMenu" node_paths=PackedStringArray("memory_title_label", "owner_name_label", "current_geotag_label", "geotag_button_container") instance=ExtResource("1_fkwp8")]
+script = ExtResource("2_mv8xm")
+memory_title_label = NodePath("Panel/MarginContainer/VBoxContainer/DataContainer/MemoryDataContainer/Content")
+owner_name_label = NodePath("Panel/MarginContainer/VBoxContainer/DataContainer/OwnerDataContainer/Content")
+current_geotag_label = NodePath("Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer/Content")
+geotag_button_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer")
+geotag_button_pscn = ExtResource("3_erjkw")
+
+[node name="Panel" type="Panel" parent="." index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="MenuHeader" parent="Panel/MarginContainer/VBoxContainer" index="0" instance=ExtResource("2_64wsb")]
+layout_mode = 2
+text = "Assigning Geotag to Memory"
+
+[node name="DataContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="MemoryDataContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/DataContainer" index="0"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+columns = 2
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/DataContainer/MemoryDataContainer" index="0" instance=ExtResource("3_ura34")]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Memory"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/DataContainer/MemoryDataContainer" index="1" instance=ExtResource("4_0eu46")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[MEMORY TITLE]"
+
+[node name="OwnerDataContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/DataContainer" index="1"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+columns = 2
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/DataContainer/OwnerDataContainer" index="0" instance=ExtResource("3_ura34")]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Owner"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/DataContainer/OwnerDataContainer" index="1" instance=ExtResource("4_0eu46")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[NAME]"
+
+[node name="GeotagDataContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/DataContainer" index="2"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+columns = 2
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer" index="0" instance=ExtResource("3_ura34")]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Geotag"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer" index="1" instance=ExtResource("4_0eu46")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[GEOTAG]"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 6
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_vpyni")
+}

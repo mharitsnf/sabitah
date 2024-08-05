@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d01m0ap0jm4tn"]
+
+[sub_resource type="GDScript" id="GDScript_kmkkl"]
+script/source = "extends Node
+
+func _ready() -> void:
+	var a: Array = [{ 'title': 'a' }, { 'title': 'b' }]
+	var b: Array = [{ 'title': 'b' }, { 'title': 'c' }]
+	print(a + b)
+"
+
+[node name="TestArray" type="Node"]
+script = SubResource("GDScript_kmkkl")

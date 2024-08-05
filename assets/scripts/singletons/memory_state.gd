@@ -4,12 +4,15 @@ const MEMORY_FOLDER_PATH: String = "res://assets/resources/memories/memories/"
 const MENTAL_IMAGE_FOLDER_PATH: String = "res://assets/resources/memories/mental_images/"
 
 const MEMORY_MENU_BUTTON_PSCN: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/memory_menu_button.tscn")
+const MEMORY_TOGGLE_BUTTON_PSCN: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/memory_toggle_button.tscn")
 const MENTAL_IMAGE_MENU_BUTTON: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/mental_image_menu_button.tscn")
 
 const MEMORY_CHECKING_DIALOGUE: DialogueResource = preload("res://assets/dialogues/memory_checking.dialogue")
 
 var memories_cache: Array[MemoryData] = []
 var mental_image_cache: Array[MentalImageData] = []
+
+var memories_to_be_geotagged: Array[Memory] = []
 
 var examined_memory: Dictionary = {}
 
@@ -52,7 +55,11 @@ func create_memory_cache(memory: Memory) -> void:
 	menu_button.text = memory.title
 	menu_button.args = [{ 'memory_id': memory.id }]
 
-	memories_cache.append(MemoryData.new(memory, menu_button))
+	var toggle_button: GenericToggleButton = MEMORY_TOGGLE_BUTTON_PSCN.instantiate()
+	toggle_button.text = memory.title
+	toggle_button.args = [memory]
+
+	memories_cache.append(MemoryData.new(memory, menu_button, toggle_button))
 
 ## Get an array of [MemoryCategoryData] filtered according to [filters].
 func get_memories(filters: Dictionary = {}) -> Array[MemoryData]:

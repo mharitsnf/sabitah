@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c11o1hnbjo0uw"]
+[gd_scene load_steps=14 format=3 uid="uid://c11o1hnbjo0uw"]
 
 [ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/ui_menu/layer/menu_layer.tscn" id="1_myqre"]
 [ext_resource type="PackedScene" uid="uid://c2qcpktfs3t6p" path="res://assets/prefabs/ui_menu/menus/main_menus/globe_main_menu.tscn" id="2_ss81s"]
@@ -7,15 +7,25 @@
 [ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/ui_menu/menus/delete_picture_menu.tscn" id="5_33tmg"]
 [ext_resource type="PackedScene" uid="uid://dvl8whxut2e76" path="res://assets/prefabs/ui_menu/menus/geotag_picture_menu.tscn" id="6_ukvc3"]
 [ext_resource type="PackedScene" uid="uid://c3njayxvrehws" path="res://assets/prefabs/ui_menu/menus/filter_gallery_menu.tscn" id="7_iml7p"]
-[ext_resource type="PackedScene" uid="uid://dkva3svm5el5i" path="res://assets/prefabs/ui_menu/menus/geotag_to_island_menu.tscn" id="8_3a417"]
+[ext_resource type="PackedScene" uid="uid://bcb6hafio380p" path="res://assets/prefabs/ui_menu/menus/island_menu_options_menu.tscn" id="9_qhuys"]
+[ext_resource type="PackedScene" uid="uid://dut3emdwpqjwg" path="res://assets/prefabs/ui_menu/menus/island_memories_menu.tscn" id="10_bolnn"]
+[ext_resource type="PackedScene" uid="uid://dkva3svm5el5i" path="res://assets/prefabs/ui_menu/menus/geotag_pictures_to_island_menu.tscn" id="10_v7acp"]
+[ext_resource type="PackedScene" uid="uid://cy5m0vjkcon36" path="res://assets/prefabs/ui_menu/menus/geotag_memories_to_island_menu.tscn" id="11_2dyvu"]
+[ext_resource type="PackedScene" uid="uid://l152i2naig08" path="res://assets/prefabs/ui_menu/menus/memory_details_menu.tscn" id="12_3o6s6"]
+[ext_resource type="PackedScene" uid="uid://dhpnrm0iubgl0" path="res://assets/prefabs/ui_menu/menus/geotag_memory_menu.tscn" id="13_rxoem"]
 
 [node name="GlobeMenuLayer" instance=ExtResource("1_myqre")]
 menu_pscns = {
 "MENU_DELETE_PICTURE": ExtResource("5_33tmg"),
 "MENU_FILTER_GALLERY": ExtResource("7_iml7p"),
 "MENU_FULL_PICTURE": ExtResource("4_to18g"),
+"MENU_GEOTAG_MEMORIES_TO_ISLAND": ExtResource("11_2dyvu"),
+"MENU_GEOTAG_MEMORY": ExtResource("13_rxoem"),
 "MENU_GEOTAG_PICTURE": ExtResource("6_ukvc3"),
-"MENU_GEOTAG_TO_ISLAND": ExtResource("8_3a417"),
+"MENU_GEOTAG_PICTURES_TO_ISLAND": ExtResource("10_v7acp"),
 "MENU_ISLAND_GALLERY": ExtResource("3_yg2d3"),
-"MENU_MAIN_MENU": ExtResource("2_ss81s")
+"MENU_ISLAND_MEMORIES": ExtResource("10_bolnn"),
+"MENU_ISLAND_MENU_OPTIONS": ExtResource("9_qhuys"),
+"MENU_MAIN_MENU": ExtResource("2_ss81s"),
+"MENU_MEMORY_DETAILS_MENU": ExtResource("12_3o6s6")
 }

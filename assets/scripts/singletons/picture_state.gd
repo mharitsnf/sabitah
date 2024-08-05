@@ -148,6 +148,19 @@ func get_clue_pictures(clue_id: String) -> Array[PictureData]:
 
 	return clue_pics
 
+## Get an array of [MemoryCategoryData] filtered according to [filters].
+func get_pictures(filters: Dictionary = {}) -> Array[PictureData]:
+	# example filter:
+	# { 'status': 'ClueStatus.HIDDEN' }
+
+	var result: Array[PictureData] = picture_cache
+	for key: String in filters.keys():
+		result = result.filter(
+			func(_pd: PictureData) -> bool:
+				return _pd.get_picture().get(key) == filters[key]
+		)
+	return result
+
 ## Get pictures from the cache, filtered based on the [filter] parameter.
 func get_filtered_pictures(filter: Array[Dictionary]) -> Array[PictureData]:
 	var no_clue_pics: Array[PictureData] = picture_cache.filter(

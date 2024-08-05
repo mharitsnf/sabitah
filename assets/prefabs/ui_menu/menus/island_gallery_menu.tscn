@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_g3y7d"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/island_gallery_menu.gd" id="2_e6yc8"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="3_jjpx2"]
-[ext_resource type="Resource" uid="uid://cs87c4y5j8rcs" path="res://assets/resources/commands/menu_navigation/to_geotag_to_island.tres" id="4_imhv7"]
+[ext_resource type="Resource" uid="uid://cs87c4y5j8rcs" path="res://assets/resources/commands/menu_navigation/to_geotag_pictures_to_island.tres" id="4_168rn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu67o"]
 bg_color = Color(0.15, 0.15, 0.15, 0.498039)
@@ -104,7 +104,7 @@ _data = {
 "tree_exiting": SubResource("Animation_4qsju")
 }
 
-[node name="IslandGallery" node_paths=PackedStringArray("add_picture_button", "pictures_container", "island_name_label") instance=ExtResource("1_g3y7d")]
+[node name="IslandGalleryMenu" node_paths=PackedStringArray("add_picture_button", "pictures_container", "island_name_label") instance=ExtResource("1_g3y7d")]
 script = ExtResource("2_e6yc8")
 add_picture_button = NodePath("Panel/MarginContainer/VBoxContainer/GenericButton")
 pictures_container = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer")
@@ -163,7 +163,7 @@ columns = 3
 [node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer" index="2" instance=ExtResource("3_jjpx2")]
 layout_mode = 2
 text = "Add new pictures"
-on_press_command = ExtResource("4_imhv7")
+on_press_command = ExtResource("4_168rn")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {

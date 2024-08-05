@@ -25,8 +25,7 @@ func set_data(new_data: Dictionary) -> void:
 		island_name_label.text = data['geotag_name']
 
 func _mount_picture_buttons() -> void:
-	var filter_data: Dictionary = PictureState.get_filter(data['geotag_id'])
-	var pics: Array[PictureData] = PictureState.get_filtered_pictures([filter_data])
+	var pics: Array[PictureData] = PictureState.get_pictures({ 'geotag_id': data['geotag_id'] })
 	for pd: PictureData in pics:
 		pictures_container.add_child.call_deferred(pd.get_picture_button())
 

@@ -7,19 +7,23 @@ func _ready() -> void:
 	State.waypoint_markers.append(self)
 	_assign_geotag_id()
 	_assign_waypoint_name()
-	PictureState.load_all_filters()
+	GeotagState.load_all_filters()
 
 func destroy() -> void:
-	var fd_none: Dictionary = PictureState.get_filter("none")
-	var fd: Dictionary = PictureState.get_filter(geotag_id)
+	var fd_none: Dictionary = GeotagState.get_filter("none")
+	var fd: Dictionary = GeotagState.get_filter(geotag_id)
 
-	var pictures: Array[PictureData] = PictureState.get_filtered_pictures([fd])
+	# get pictures that has the current geotag and assign none to it
+	var pictures: Array[PictureData] = PictureState.get_pictures({ 'geotag_id': fd['geotag_id'] })
 	for pic: PictureData in pictures:
 		pic.get_picture().geotag_id = fd_none.geotag_id
 
-	PictureState.remove_filter(fd)
-	State.waypoint_markers.erase(self)
+	# remove the filter from the state
+	GeotagState.remove_filter(fd)
+	if GeotagState.active_filters.has(fd): GeotagState.active_filters.erase(fd)
 	
+	# remove the waypoint marker
+	State.waypoint_markers.erase(self)
 	queue_free()
 
 ## Create island tag (called on ready).

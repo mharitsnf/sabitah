@@ -1,27 +1,22 @@
-class_name GeotagPictureMenu extends BaseMenu
+class_name GeotagMemoryMenu extends BaseMenu
 
-@export var texture_rect: TextureRect
-@export var current_tag_label: Label
-@export var geotag_button_container: VBoxContainer
+@export var memory_title_label: Label
+@export var owner_name_label: Label
+@export var current_geotag_label: Label
+@export var geotag_button_container: GridContainer
 @export var geotag_button_pscn: PackedScene
-
-func _ready() -> void:
-	super()
-	assert(texture_rect)
-	assert(current_tag_label)
-	assert(geotag_button_container)
-	assert(geotag_button_pscn)
 
 func set_data(new_data: Dictionary) -> void:
 	if !new_data.is_empty():
-		assert(new_data.has('picture'))
+		assert(new_data.has('memory_data'))
 
 		data = new_data
-		texture_rect.texture = (data['picture'] as Picture).image_tex
-		current_tag_label.text = PictureState.get_geotag_name((data['picture'] as Picture).geotag_id)
+		memory_title_label.text = (data['memory_data'] as MemoryData).get_memory().title
+		owner_name_label.text = (data['memory_data'] as MemoryData).get_memory().memory_owner.name
+		current_geotag_label.text = GeotagState.get_geotag_name((data['memory_data'] as MemoryData).get_memory().geotag_id)
 
 func _on_geotag_button_pressed(button: GenericButton) -> void:
-	current_tag_label.text = button.text
+	current_geotag_label.text = button.text
 
 func _create_geotag_buttons() -> void:
 	var geotags: Array[Dictionary] = PictureState.get_available_geotags()
@@ -29,7 +24,7 @@ func _create_geotag_buttons() -> void:
 		var btn: GenericButton = geotag_button_pscn.instantiate()
 		(btn as GenericButton).pressed.connect(_on_geotag_button_pressed.bind(btn))
 		(btn as GenericButton).text = tag['name']
-		(btn as GenericButton).args = [tag['id'], (data['picture'] as Picture)]
+		(btn as GenericButton).args = [tag['id'], (data['memory_data'] as MemoryData).get_memory()]
 		geotag_button_container.add_child.call_deferred(btn)
 
 func _free_geotag_buttons() -> void:

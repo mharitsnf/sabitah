@@ -1,10 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://l152i2naig08"]
+[gd_scene load_steps=13 format=3 uid="uid://l152i2naig08"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_c0vcd"]
 [ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="2_bpmx7"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/memory_details_menu.gd" id="2_e268r"]
 [ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="4_ujil3"]
 [ext_resource type="PackedScene" uid="uid://bgfi4tca6f6yp" path="res://assets/prefabs/ui_menu/labels/content.tscn" id="5_joqvi"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="6_dcqif"]
+[ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="7_2hmcc"]
+
+[sub_resource type="Resource" id="Resource_56f2j"]
+script = ExtResource("7_2hmcc")
+custom_args = {}
+target_menu = "MENU_GEOTAG_MEMORY"
 
 [sub_resource type="Animation" id="Animation_v602i"]
 length = 0.001
@@ -62,11 +69,13 @@ _data = {
 "tree_exiting": SubResource("Animation_m1ql8")
 }
 
-[node name="MemoryDetailsMenu" node_paths=PackedStringArray("menu_header_label", "menu_button_container", "owner_label") instance=ExtResource("1_c0vcd")]
+[node name="MemoryDetailsMenu" node_paths=PackedStringArray("menu_header_label", "menu_button_container", "owner_label", "geotag_label", "geotag_memory_btn") instance=ExtResource("1_c0vcd")]
 script = ExtResource("2_e268r")
 menu_header_label = NodePath("Panel/MarginContainer/VBoxContainer/MenuHeader")
 menu_button_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
-owner_label = NodePath("Panel/MarginContainer/VBoxContainer/HBoxContainer/Content")
+owner_label = NodePath("Panel/MarginContainer/VBoxContainer/DataContainer/OwnerDataContainer/Content")
+geotag_label = NodePath("Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer/HBoxContainer2/Content")
+geotag_memory_btn = NodePath("Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer/GenericButton")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -96,18 +105,50 @@ theme_override_constants/separation = 32
 layout_mode = 2
 text = "[MEMORY TITLE]"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+[node name="DataContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 16
 
-[node name="Title" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="0" instance=ExtResource("4_ujil3")]
+[node name="OwnerDataContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/DataContainer" index="0"]
+layout_mode = 2
+columns = 2
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/DataContainer/OwnerDataContainer" index="0" instance=ExtResource("4_ujil3")]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 text = "Owner"
 
-[node name="Content" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" index="1" instance=ExtResource("5_joqvi")]
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/DataContainer/OwnerDataContainer" index="1" instance=ExtResource("5_joqvi")]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[NAME]"
+
+[node name="GeotagDataContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/DataContainer" index="1"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 8
+
+[node name="HBoxContainer2" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer" index="0"]
+layout_mode = 2
+columns = 2
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer/HBoxContainer2" index="0" instance=ExtResource("4_ujil3")]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+text = "Geotag"
+
+[node name="Content" parent="Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer/HBoxContainer2" index="1" instance=ExtResource("5_joqvi")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[GEOTAG]"
+
+[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/DataContainer/GeotagDataContainer" index="1" instance=ExtResource("6_dcqif")]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Assign New Geotag"
+on_press_command = SubResource("Resource_56f2j")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2

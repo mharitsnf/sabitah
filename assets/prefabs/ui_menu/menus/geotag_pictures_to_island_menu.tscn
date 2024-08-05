@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dkva3svm5el5i"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_yprck"]
-[ext_resource type="Script" path="res://assets/scripts/ui/menus/geotag_to_island_menu.gd" id="2_7nm6m"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/geotag_pictures_to_island_menu.gd" id="2_7nm6m"]
 [ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="2_fd80p"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="3_8xmjc"]
 [ext_resource type="Script" path="res://assets/scripts/commands/apply_pic_to_geotag_command.gd" id="5_qd41y"]
@@ -124,7 +124,7 @@ layout_mode = 2
 text = "Confirm Selection"
 on_press_command = SubResource("Resource_h2rye")
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_4uvu6")
 }

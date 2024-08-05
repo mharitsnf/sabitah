@@ -8,13 +8,12 @@ func _ready() -> void:
 	assert(filter_container)
 
 func _mount_filter_buttons() -> void:
-	for fd: Dictionary in PictureState.all_filters:
+	for fd: Dictionary in GeotagState.all_filters:
 		var btn: GenericToggleButton = fd['button']
 		filter_container.add_child.call_deferred(btn)
 
 func _unmount_filter_buttons() -> void:
-	for fd: Dictionary in PictureState.all_filters:
-		var btn: GenericToggleButton = fd['button']
+	for btn: Node in filter_container.get_children():
 		filter_container.remove_child.call_deferred(btn)
 
 func after_entering() -> void:

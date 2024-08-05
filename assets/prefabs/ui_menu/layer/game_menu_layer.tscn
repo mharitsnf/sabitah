@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://tn6uojnnyc44"]
+[gd_scene load_steps=18 format=3 uid="uid://tn6uojnnyc44"]
 
 [ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/ui_menu/layer/menu_layer.tscn" id="1_vm1ym"]
 [ext_resource type="PackedScene" uid="uid://doq3282mmgwl7" path="res://assets/prefabs/ui_menu/menus/main_menus/game_main_menu.tscn" id="2_xlne7"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://r1nhv75on6ke" path="res://assets/prefabs/ui_menu/menus/help_page_menu.tscn" id="13_udvxy"]
 [ext_resource type="PackedScene" uid="uid://hf56a0pqkcp2" path="res://assets/prefabs/ui_menu/menus/memories_menu.tscn" id="15_hagfa"]
 [ext_resource type="PackedScene" uid="uid://l152i2naig08" path="res://assets/prefabs/ui_menu/menus/memory_details_menu.tscn" id="16_7v1mo"]
+[ext_resource type="PackedScene" uid="uid://dhpnrm0iubgl0" path="res://assets/prefabs/ui_menu/menus/geotag_memory_menu.tscn" id="17_7g23s"]
 [ext_resource type="PackedScene" uid="uid://7y6c1xo2e77i" path="res://assets/prefabs/ui_menu/menus/mental_image_menu.tscn" id="17_wnky2"]
 
 [node name="GameMenuLayer" instance=ExtResource("1_vm1ym")]
@@ -28,6 +29,7 @@ menu_pscns = {
 "MENU_FULL_MENTAL_IMAGE": ExtResource("17_wnky2"),
 "MENU_FULL_PICTURE": ExtResource("4_f3nv8"),
 "MENU_GALLERY": ExtResource("3_urna6"),
+"MENU_GEOTAG_MEMORY": ExtResource("17_7g23s"),
 "MENU_GEOTAG_PICTURE": ExtResource("6_j76lq"),
 "MENU_HELP_MENU": ExtResource("12_cj45q"),
 "MENU_HELP_PAGE": ExtResource("13_udvxy"),

@@ -12,14 +12,12 @@ func set_data(new_data: Dictionary) -> void:
 
 		data = new_data
 		texture_rect.texture = (data['picture'] as Picture).image_tex
-		geotag_label.text = PictureState.get_geotag_name((data['picture'] as Picture).geotag_id)
-
-		details_container.visible = (data['picture'] as Picture).clue_id == "none"
+		geotag_label.text = GeotagState.get_geotag_name((data['picture'] as Picture).geotag_id)
 
 		to_geotag_picture_btn.args = [data.duplicate()]
 		to_delete_picture_btn.args = [data.duplicate()]
 	else:
-		geotag_label.text = PictureState.get_geotag_name((data['picture'] as Picture).geotag_id)
+		geotag_label.text = GeotagState.get_geotag_name((data['picture'] as Picture).geotag_id)
 
 func after_entering() -> void:
 	await super()

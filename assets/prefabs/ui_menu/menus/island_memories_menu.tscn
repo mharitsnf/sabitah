@@ -1,8 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://dut3emdwpqjwg"]
+[gd_scene load_steps=11 format=3 uid="uid://dut3emdwpqjwg"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_58qhn"]
 [ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="2_h8xlb"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/island_memories_menu.gd" id="2_wbtus"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="3_jpx1v"]
+[ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="5_fvynr"]
+
+[sub_resource type="Resource" id="Resource_c57ra"]
+script = ExtResource("5_fvynr")
+custom_args = {}
+target_menu = "MENU_GEOTAG_MEMORIES_TO_ISLAND"
+
+[sub_resource type="Animation" id="Animation_614e5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(768, 72)]
+}
 
 [sub_resource type="Animation" id="Animation_81ykj"]
 resource_name = "tree_entered"
@@ -19,6 +41,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(768, 72), Vector2(765.63, 72), Vector2(749.037, 72), Vector2(704, 72), Vector2(658.963, 72), Vector2(642.37, 72), Vector2(640, 72)]
 }
 
 [sub_resource type="Animation" id="Animation_l22wb"]
@@ -37,21 +71,38 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.981481), Color(1, 1, 1, 0.851852), Color(1, 1, 1, 0.5), Color(1, 1, 1, 0.148148), Color(1, 1, 1, 0.0185185), Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(640, 72), Vector2(642.37, 72), Vector2(658.963, 72), Vector2(704, 72), Vector2(749.037, 72), Vector2(765.63, 72), Vector2(768, 72)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kbihh"]
 _data = {
+"RESET": SubResource("Animation_614e5"),
 "tree_entered": SubResource("Animation_81ykj"),
 "tree_exiting": SubResource("Animation_l22wb")
 }
 
-[node name="IslandMemoriesMenu" instance=ExtResource("1_58qhn")]
-modulate = Color(1, 1, 1, 0.983333)
+[node name="IslandMemoriesMenu" node_paths=PackedStringArray("island_name_label", "add_memories_button", "menu_button_container") instance=ExtResource("1_58qhn")]
+modulate = Color(1, 1, 1, 1)
+script = ExtResource("2_wbtus")
+island_name_label = NodePath("MarginContainer/MarginContainer/VBoxContainer2/MenuHeader")
+add_memories_button = NodePath("MarginContainer/MarginContainer/VBoxContainer2/GenericButton")
+menu_button_container = NodePath("MarginContainer/MarginContainer/VBoxContainer2/ScrollContainer/VBoxContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="." index="0"]
 layout_mode = 0
-offset_left = 640.0
+offset_left = 768.0
 offset_top = 72.0
-offset_right = 1152.0
+offset_right = 1280.0
 offset_bottom = 648.0
 
 [node name="Panel" type="Panel" parent="MarginContainer" index="0"]
@@ -71,6 +122,7 @@ theme_override_constants/separation = 32
 [node name="MenuHeader" parent="MarginContainer/MarginContainer/VBoxContainer2" index="0" instance=ExtResource("2_h8xlb")]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "[Island Name]"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -88,6 +140,7 @@ theme_override_constants/separation = 8
 [node name="GenericButton" parent="MarginContainer/MarginContainer/VBoxContainer2" index="2" instance=ExtResource("3_jpx1v")]
 layout_mode = 2
 text = "Add memories"
+on_press_command = SubResource("Resource_c57ra")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {

@@ -125,7 +125,7 @@ size_flags_vertical = 4
 text = "Delete picture"
 on_press_command = ExtResource("7_xfe6v")
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_ce252")
 }

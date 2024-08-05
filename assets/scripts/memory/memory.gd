@@ -9,6 +9,6 @@ enum LockedStatus {
 @export var memory_owner: MemoryOwner
 @export_group("Memory data")
 @export var title: String
-@export var geotag_id: String
+@export var geotag_id: String = "none"
 @export var time_window: Vector2
 @export var locked_status: LockedStatus

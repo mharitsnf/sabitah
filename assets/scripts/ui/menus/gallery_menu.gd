@@ -14,21 +14,31 @@ func _ready() -> void:
 	assert(picture_button_pscn)
 
 func _mount_picture_buttons() -> void:
-	for pd: PictureData in PictureState.get_filtered_pictures(PictureState.active_filters):
+	# Get pictures to show
+	var filtered_pics: Array[PictureData] = []
+	if GeotagState.active_filters.is_empty():
+		filtered_pics = PictureState.picture_cache
+	else:
+		for filter: Dictionary in GeotagState.active_filters:
+			filtered_pics += PictureState.get_pictures({ "geotag_id": filter['geotag_id'] })
+
+	# Get the button to be added to the menu
+	for pd: PictureData in filtered_pics:
 		picture_button_container.add_child.call_deferred(pd.get_picture_button())
 
 func _unmount_picture_buttons() -> void:
+	# Unmount buttons from the menu
 	for pic_button: Node in picture_button_container.get_children():
 		picture_button_container.remove_child.call_deferred(pic_button)
 
 func _mount_active_filter_labels() -> void:
-	if PictureState.active_filters.is_empty():
+	if GeotagState.active_filters.is_empty():
 		var tag_label: Label = _create_geotag_label("Show all")
 		filter_tag_container.add_child.call_deferred(tag_label)
 		return
 
-	for pd: Dictionary in PictureState.active_filters:
-		var tag_name: String = PictureState.get_geotag_name(pd['geotag_id'])
+	for pd: Dictionary in GeotagState.active_filters:
+		var tag_name: String = GeotagState.get_geotag_name(pd['geotag_id'])
 		var tag_label: Label = _create_geotag_label(tag_name)
 		filter_tag_container.add_child.call_deferred(tag_label)
 
@@ -48,7 +58,6 @@ func about_to_exit() -> void:
 
 # Overridden
 func after_entering() -> void:
-	await picture_button_container.tree_entered
 	_mount_picture_buttons()
 	_mount_active_filter_labels()
 	await super()
