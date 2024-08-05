@@ -1,16 +1,13 @@
 extends Node
 
-const MEMORY_CATEGORY_FOLDER_PATH: String = "res://assets/resources/memories/categories/"
 const MEMORY_FOLDER_PATH: String = "res://assets/resources/memories/memories/"
 const MENTAL_IMAGE_FOLDER_PATH: String = "res://assets/resources/memories/mental_images/"
 
-const MEMORY_CATEGORY_MENU_BUTTON_PSCN: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/memory_category_menu_button.tscn")
 const MEMORY_MENU_BUTTON_PSCN: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/memory_menu_button.tscn")
 const MENTAL_IMAGE_MENU_BUTTON: PackedScene = preload("res://assets/prefabs/ui_menu/buttons/mental_image_menu_button.tscn")
 
 const MEMORY_CHECKING_DIALOGUE: DialogueResource = preload("res://assets/dialogues/memory_checking.dialogue")
 
-var memory_categories_cache: Array[MemoryCategoryData] = []
 var memories_cache: Array[MemoryData] = []
 var mental_image_cache: Array[MentalImageData] = []
 
@@ -19,51 +16,6 @@ var examined_memory: Dictionary = {}
 func _ready() -> void:
 	load_memories()
 	load_mental_images()
-
-# region Memory Categories
-
-# func load_memory_categories() -> void:
-# 	var dir: DirAccess = DirAccess.open(MEMORY_CATEGORY_FOLDER_PATH)
-# 	if !dir:
-# 		push_error("Cannot load files!") 
-# 		return
-
-# 	dir.list_dir_begin()
-# 	var file_name: String = dir.get_next()
-# 	while file_name != "":
-# 		if !dir.current_is_dir():
-# 			var memory_category: MemoryCategory = load(MEMORY_CATEGORY_FOLDER_PATH + file_name)
-# 			create_memory_category_cache(memory_category)
-# 		file_name = dir.get_next()
-
-# func create_memory_category_cache(memory_category: MemoryCategory) -> void:
-# 	# see if we have this resource inside the cache already.
-# 	var existing_memory_category: Array[MemoryCategoryData] = memory_categories_cache.filter(
-# 		func(_mcd: MemoryCategoryData) -> bool:
-# 			return _mcd.get_memory_category().resource_path == memory_category.resource_path
-# 	)
-	
-# 	# if we have the resource inside the cache, return
-# 	if !existing_memory_category.is_empty(): return
-
-# 	var menu_button: GenericButton = MEMORY_CATEGORY_MENU_BUTTON_PSCN.instantiate()
-# 	menu_button.text = memory_category.title
-# 	menu_button.args = [{ "category_id": memory_category.id }]
-
-# 	memory_categories_cache.append(MemoryCategoryData.new(memory_category, menu_button))
-
-## Get an array of [MemoryCategoryData] filtered according to [filters].
-func get_memory_categories(filters: Dictionary = {}) -> Array[MemoryCategoryData]:
-	# example filter:
-	# { 'status': 'ClueStatus.HIDDEN' }
-
-	var result: Array[MemoryCategoryData] = memory_categories_cache
-	for key: String in filters.keys():
-		result = result.filter(
-			func(_mcd: MemoryCategoryData) -> bool:
-				return _mcd.get_memory_category().get(key) == filters[key]
-		)
-	return result
 
 # region Memories
 

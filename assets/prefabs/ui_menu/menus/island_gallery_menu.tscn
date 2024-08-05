@@ -165,7 +165,7 @@ layout_mode = 2
 text = "Add new pictures"
 on_press_command = ExtResource("4_imhv7")
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_5gtfg")
 }
