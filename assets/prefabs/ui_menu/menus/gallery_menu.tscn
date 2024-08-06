@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/gallery_menu.gd" id="2_ur5vc"]
 [ext_resource type="PackedScene" uid="uid://c0cfsi4lyb3g" path="res://assets/prefabs/ui_menu/buttons/picture_button.tscn" id="3_fiitt"]
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="4_vijl3"]
-[ext_resource type="Resource" uid="uid://c4a534p764k5o" path="res://assets/resources/commands/menu_navigation/to_filter_gallery.tres" id="5_fktak"]
+[ext_resource type="Resource" uid="uid://c4a534p764k5o" path="res://assets/resources/commands/menu_navigation/to_filter_menu.tres" id="5_58qvd"]
 [ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="6_tvr3q"]
 
 [sub_resource type="Animation" id="Animation_84niw"]
@@ -108,7 +108,7 @@ custom_minimum_size = Vector2(128, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Change filter"
-on_press_command = ExtResource("5_fktak")
+on_press_command = ExtResource("5_58qvd")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer" index="1"]
 layout_mode = 2
@@ -148,7 +148,7 @@ theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 12
 columns = 6
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_rohq0")
 }

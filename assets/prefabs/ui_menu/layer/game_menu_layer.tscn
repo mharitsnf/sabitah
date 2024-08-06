@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c2n8eyriru3ko" path="res://assets/prefabs/ui_menu/menus/full_picture_menu.tscn" id="4_f3nv8"]
 [ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/ui_menu/menus/delete_picture_menu.tscn" id="5_f2nly"]
 [ext_resource type="PackedScene" uid="uid://dvl8whxut2e76" path="res://assets/prefabs/ui_menu/menus/geotag_picture_menu.tscn" id="6_j76lq"]
-[ext_resource type="PackedScene" uid="uid://c3njayxvrehws" path="res://assets/prefabs/ui_menu/menus/filter_gallery_menu.tscn" id="7_udm6b"]
 [ext_resource type="PackedScene" uid="uid://vj8iemjtpqg0" path="res://assets/prefabs/ui_menu/menus/clues_menu.tscn" id="8_4hnjk"]
 [ext_resource type="PackedScene" uid="uid://bxb1j2617lm4a" path="res://assets/prefabs/ui_menu/menus/clue_details_menu.tscn" id="9_74jnm"]
 [ext_resource type="PackedScene" uid="uid://dmp6jymunnrsn" path="res://assets/prefabs/ui_menu/menus/collectibles_menu.tscn" id="10_ixdth"]
@@ -15,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://r1nhv75on6ke" path="res://assets/prefabs/ui_menu/menus/help_page_menu.tscn" id="13_udvxy"]
 [ext_resource type="PackedScene" uid="uid://hf56a0pqkcp2" path="res://assets/prefabs/ui_menu/menus/memories_menu.tscn" id="15_hagfa"]
 [ext_resource type="PackedScene" uid="uid://l152i2naig08" path="res://assets/prefabs/ui_menu/menus/memory_details_menu.tscn" id="16_7v1mo"]
+[ext_resource type="PackedScene" uid="uid://c3njayxvrehws" path="res://assets/prefabs/ui_menu/menus/filter_menu.tscn" id="17_3ir6g"]
 [ext_resource type="PackedScene" uid="uid://dhpnrm0iubgl0" path="res://assets/prefabs/ui_menu/menus/geotag_memory_menu.tscn" id="17_7g23s"]
 [ext_resource type="PackedScene" uid="uid://7y6c1xo2e77i" path="res://assets/prefabs/ui_menu/menus/mental_image_menu.tscn" id="17_wnky2"]
 
@@ -25,7 +25,7 @@ menu_pscns = {
 "MENU_COLLECTIBLES_MENU": ExtResource("10_ixdth"),
 "MENU_COLLECTIBLE_DETAILS": ExtResource("11_pc0n3"),
 "MENU_DELETE_PICTURE": ExtResource("5_f2nly"),
-"MENU_FILTER_GALLERY": ExtResource("7_udm6b"),
+"MENU_FILTER": ExtResource("17_3ir6g"),
 "MENU_FULL_MENTAL_IMAGE": ExtResource("17_wnky2"),
 "MENU_FULL_PICTURE": ExtResource("4_f3nv8"),
 "MENU_GALLERY": ExtResource("3_urna6"),

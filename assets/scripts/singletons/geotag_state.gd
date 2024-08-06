@@ -95,3 +95,8 @@ func get_geotag_name(id: String) -> String:
 
 	if td.is_empty(): return ""
 	return (td[0] as Dictionary)['name']
+
+func create_geotag_menu_label(label_text: String) -> Label:
+	var label: Label = Label.new()
+	label.text = label_text
+	return label

@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://c3njayxvrehws"]
 
-[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_p7kn0"]
-[ext_resource type="Script" path="res://assets/scripts/ui/menus/filter_gallery_menu.gd" id="2_0ss4e"]
-[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="2_np724"]
-[ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="2_vo7o3"]
+[ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_b1e58"]
+[ext_resource type="Script" path="res://assets/scripts/ui/menus/filter_menu.gd" id="2_4us24"]
+[ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="3_q5n4j"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="4_gv4ku"]
 
 [sub_resource type="Animation" id="Animation_d4tnh"]
 length = 0.001
@@ -61,8 +61,8 @@ _data = {
 "tree_exiting": SubResource("Animation_on4tt")
 }
 
-[node name="FilterGallery" node_paths=PackedStringArray("filter_container") instance=ExtResource("1_p7kn0")]
-script = ExtResource("2_0ss4e")
+[node name="FilterMenu" node_paths=PackedStringArray("filter_container") instance=ExtResource("1_b1e58")]
+script = ExtResource("2_4us24")
 filter_container = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer2/ScrollContainer/MarginContainer/GridContainer")
 
 [node name="Panel" type="Panel" parent="." index="0"]
@@ -89,7 +89,7 @@ theme_override_constants/margin_bottom = 64
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="MenuHeader" parent="Panel/MarginContainer/VBoxContainer" index="0" instance=ExtResource("2_vo7o3")]
+[node name="MenuHeader" parent="Panel/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_q5n4j")]
 layout_mode = 2
 text = "Configure Filter"
 
@@ -97,7 +97,7 @@ text = "Configure Filter"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Title" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("2_np724")]
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("4_gv4ku")]
 layout_mode = 2
 text = "Select filters"
 
@@ -119,7 +119,7 @@ theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 12
 columns = 6
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_wqsuj")
 }

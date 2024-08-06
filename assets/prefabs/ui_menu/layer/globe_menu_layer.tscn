@@ -6,18 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://c2n8eyriru3ko" path="res://assets/prefabs/ui_menu/menus/full_picture_menu.tscn" id="4_to18g"]
 [ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/ui_menu/menus/delete_picture_menu.tscn" id="5_33tmg"]
 [ext_resource type="PackedScene" uid="uid://dvl8whxut2e76" path="res://assets/prefabs/ui_menu/menus/geotag_picture_menu.tscn" id="6_ukvc3"]
-[ext_resource type="PackedScene" uid="uid://c3njayxvrehws" path="res://assets/prefabs/ui_menu/menus/filter_gallery_menu.tscn" id="7_iml7p"]
 [ext_resource type="PackedScene" uid="uid://bcb6hafio380p" path="res://assets/prefabs/ui_menu/menus/island_menu_options_menu.tscn" id="9_qhuys"]
 [ext_resource type="PackedScene" uid="uid://dut3emdwpqjwg" path="res://assets/prefabs/ui_menu/menus/island_memories_menu.tscn" id="10_bolnn"]
 [ext_resource type="PackedScene" uid="uid://dkva3svm5el5i" path="res://assets/prefabs/ui_menu/menus/geotag_pictures_to_island_menu.tscn" id="10_v7acp"]
 [ext_resource type="PackedScene" uid="uid://cy5m0vjkcon36" path="res://assets/prefabs/ui_menu/menus/geotag_memories_to_island_menu.tscn" id="11_2dyvu"]
 [ext_resource type="PackedScene" uid="uid://l152i2naig08" path="res://assets/prefabs/ui_menu/menus/memory_details_menu.tscn" id="12_3o6s6"]
+[ext_resource type="PackedScene" uid="uid://c3njayxvrehws" path="res://assets/prefabs/ui_menu/menus/filter_menu.tscn" id="13_aj7f1"]
 [ext_resource type="PackedScene" uid="uid://dhpnrm0iubgl0" path="res://assets/prefabs/ui_menu/menus/geotag_memory_menu.tscn" id="13_rxoem"]
 
 [node name="GlobeMenuLayer" instance=ExtResource("1_myqre")]
 menu_pscns = {
 "MENU_DELETE_PICTURE": ExtResource("5_33tmg"),
-"MENU_FILTER_GALLERY": ExtResource("7_iml7p"),
+"MENU_FILTER": ExtResource("13_aj7f1"),
 "MENU_FULL_PICTURE": ExtResource("4_to18g"),
 "MENU_GEOTAG_MEMORIES_TO_ISLAND": ExtResource("11_2dyvu"),
 "MENU_GEOTAG_MEMORY": ExtResource("13_rxoem"),

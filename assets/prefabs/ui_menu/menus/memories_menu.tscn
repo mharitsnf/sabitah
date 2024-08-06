@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://hf56a0pqkcp2"]
+[gd_scene load_steps=11 format=3 uid="uid://hf56a0pqkcp2"]
 
 [ext_resource type="PackedScene" uid="uid://xmwn17ah4e0e" path="res://assets/prefabs/ui_menu/menus/base_menu/base_menu.tscn" id="1_51qul"]
 [ext_resource type="Script" path="res://assets/scripts/ui/menus/memories_menu.gd" id="2_20huo"]
 [ext_resource type="PackedScene" uid="uid://cgewdveaaew61" path="res://assets/prefabs/ui_menu/labels/menu_header.tscn" id="3_i4sqf"]
+[ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="4_2fvgd"]
+[ext_resource type="Resource" uid="uid://c4a534p764k5o" path="res://assets/resources/commands/menu_navigation/to_filter_menu.tres" id="5_ju51v"]
+[ext_resource type="PackedScene" uid="uid://dijulfyrvme8l" path="res://assets/prefabs/ui_menu/labels/title.tscn" id="6_8ae74"]
 
 [sub_resource type="Animation" id="Animation_8c4eb"]
 length = 0.001
@@ -60,10 +63,12 @@ _data = {
 "tree_exiting": SubResource("Animation_5ug1a")
 }
 
-[node name="MemoriesMenu" node_paths=PackedStringArray("menu_header_label", "menu_button_container") instance=ExtResource("1_51qul")]
+[node name="MemoriesMenu" node_paths=PackedStringArray("change_filter_button", "menu_header_label", "menu_button_container", "filter_tag_container") instance=ExtResource("1_51qul")]
 script = ExtResource("2_20huo")
+change_filter_button = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer/GenericButton")
 menu_header_label = NodePath("Panel/MarginContainer/VBoxContainer/MenuHeader")
 menu_button_container = NodePath("Panel/MarginContainer/VBoxContainer/ScrollContainer/MarginContainer/GridContainer")
+filter_tag_container = NodePath("Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2/MenuButtonContainer")
 
 [node name="Panel" type="Panel" parent="." index="0"]
 layout_mode = 1
@@ -93,7 +98,35 @@ theme_override_constants/separation = 32
 layout_mode = 2
 text = "Memories Collection"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="GenericButton" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer" index="0" instance=ExtResource("4_2fvgd")]
+custom_minimum_size = Vector2(128, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Change filter"
+on_press_command = ExtResource("5_ju51v")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Title" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2" index="0" instance=ExtResource("6_8ae74")]
+layout_mode = 2
+text = "Include memories from geotags:"
+
+[node name="MenuButtonContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer2" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 8
+columns = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_vertical = 3
 

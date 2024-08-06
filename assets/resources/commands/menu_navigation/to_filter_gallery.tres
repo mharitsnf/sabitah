@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="MenuNavigateCommand" load_steps=2 format=3 uid="uid://c4a534p764k5o"]
-
-[ext_resource type="Script" path="res://assets/scripts/commands/menu_navigate_command.gd" id="1_h3eh8"]
-
-[resource]
-script = ExtResource("1_h3eh8")
-custom_args = {}
-target_menu = "MENU_FILTER_GALLERY"
