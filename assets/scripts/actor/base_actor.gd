@@ -19,6 +19,9 @@ class_name BaseActor extends RigidBody3D
 ## The target for adjusting rotation along water surface normal.
 @export var normal_target: Node3D
 
+signal submerged
+signal unsubmerged
+
 ## Describes how far the actor is from the ocean_data surface
 var depth_from_ocean_surface : float = 0.
 ## The current water normal.
@@ -121,7 +124,14 @@ func _calculate_depth_from_ocean_surface(state: PhysicsDirectBodyState3D) -> voi
 	current_normal = gerstner_result.normal
 	var flat_position : Vector3 = state.transform.basis.inverse() * global_position
 	var water_height : float = State.PLANET_RADIUS + ocean_surface_offset + gerstner_result.vertex.y
-	depth_from_ocean_surface = water_height - flat_position.y
+	var new_depth_from_ocean_surface: float = water_height - flat_position.y
+
+	if (depth_from_ocean_surface > 0.) and new_depth_from_ocean_surface <= 0:
+		unsubmerged.emit()
+	elif (depth_from_ocean_surface <= 0) and new_depth_from_ocean_surface > 0.:
+		submerged.emit()
+
+	depth_from_ocean_surface = new_depth_from_ocean_surface
 
 ## Private. Calculates the distance (offset) from the ocean_data's target to the actor.
 func _calculate_offset_to_ocean_target() -> Vector3:

@@ -53,6 +53,9 @@ ocean_surface_offset = -1.0
 visuals = NodePath("CollisionShape3D/Visuals")
 normal_target = NodePath("CollisionShape3D")
 
+[node name="CameraTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_bjbxt")
@@ -78,11 +81,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, -1.2, 0)
 
 [node name="PlayerCharacterTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_y3sod")]
-follow_target = NodePath("..")
+follow_target = NodePath("../CameraTarget")
 
 [node name="PlayerCharacterFPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("2_p2auv")]
-offset = Vector3(0, 1.5, -1)
-follow_target = NodePath("..")
+follow_target = NodePath("../CameraTarget")
 
 [node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera", "first_person_camera")]
 script = ExtResource("3_fhnii")
@@ -119,5 +121,7 @@ script = ExtResource("8_dmf08")
 actor = NodePath("../..")
 controller = NodePath("..")
 
+[connection signal="submerged" from="." to="Controller" method="_on_actor_submerged"]
+[connection signal="unsubmerged" from="." to="Controller" method="_on_actor_unsubmerged"]
 [connection signal="area_entered" from="CollisionShape3D/AreaSearcher" to="Controller" method="_on_area_checker_area_entered"]
 [connection signal="area_exited" from="CollisionShape3D/AreaSearcher" to="Controller" method="_on_area_checker_area_exited"]

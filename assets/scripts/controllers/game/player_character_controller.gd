@@ -61,6 +61,13 @@ func _ready() -> void:
 	assert(actor)
 	assert(player_boat_area)
 
+	if actor.is_submerged():
+		tpc.offset = water_offset
+		fpc.clamp_settings = water_clamp_settings
+	else:
+		tpc.offset = ground_offset
+		fpc.clamp_settings = ground_clamp_settings
+
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
 func enter_controller() -> void:
@@ -96,13 +103,6 @@ func _physics_process(delta: float) -> void:
 func delegated_process(delta: float) -> void:
 	if ignore_area_check_time_elapsed < IGNORE_AREA_CHECK_DURATION:
 		ignore_area_check_time_elapsed += delta
-
-	if actor.is_submerged():
-		tpc.offset = water_offset
-		fpc.clamp_settings = water_clamp_settings
-	else:
-		tpc.offset = ground_offset
-		fpc.clamp_settings = ground_clamp_settings
 
 	if current_actor_state:
 		current_actor_state.delegated_process(delta)
@@ -271,6 +271,14 @@ func _character_interaction_allowed() -> bool:
 
 func _reset_inputs() -> void:
 	h_input = Vector2.ZERO
+
+func _on_actor_submerged() -> void:
+	tpc.offset = water_offset
+	fpc.clamp_settings = water_clamp_settings
+
+func _on_actor_unsubmerged() -> void:
+	tpc.offset = ground_offset
+	fpc.clamp_settings = ground_clamp_settings
 
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return

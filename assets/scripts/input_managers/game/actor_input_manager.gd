@@ -138,7 +138,7 @@ func switch_data(new_data: PlayerData) -> Array:
 
 	current_data_changed.emit()
 
-	return [true, previous_data]
+	return [true, previous_data, current_data]
 
 # region Input checking function
 
