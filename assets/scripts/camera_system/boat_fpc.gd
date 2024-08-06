@@ -1,5 +1,8 @@
 class_name BoatFirstPersonCamera extends FirstPersonCamera
 
+@export_group("Star detection")
+@export_flags_3d_physics var star_collision_mask: int
+
 func delegated_physics_process(_delta: float) -> void:
 	_query_star()
 	if Input.is_action_just_pressed("actor__mark_star"):

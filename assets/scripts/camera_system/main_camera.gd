@@ -114,7 +114,6 @@ func _change_follow_target(value: VirtualCamera) -> void:
 		current_follow_data.set_remote_path(NodePath(""))
 		previous_follow_data = current_follow_data
 		old_target_removed.emit(previous_follow_data.get_target())
-		value.copy_rotation(previous_follow_data.get_target())
 	
 	# Creates a new follow data for the new follow target and mount the remote transform
 	current_follow_data = FollowData.new(self, value)

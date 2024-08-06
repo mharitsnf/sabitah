@@ -39,8 +39,12 @@ func _get_exit_sundial_input() -> void:
 		var prev_pd: ActorData = (State.actor_im as ActorInputManager).previous_data
 		var prev_pcm: PlayerCameraManager = (prev_pd as ActorData).get_camera_manager()
 
+		var entry_cam: VirtualCamera = prev_pcm.get_entry_camera()
+		prev_pcm.set_current_camera(entry_cam)
+		entry_cam.copy_rotation(main_camera.follow_target)
+		main_camera.follow_target = entry_cam
+
 		State.actor_im.switch_data(prev_pd)
-		main_camera.follow_target = prev_pcm.get_entry_camera()
 
 func _get_rotate_latmes_input() -> void:
 	var amount: float = Input.get_axis("sundial__spin_left", "sundial__spin_right")

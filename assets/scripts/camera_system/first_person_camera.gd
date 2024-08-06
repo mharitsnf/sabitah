@@ -1,8 +1,5 @@
 class_name FirstPersonCamera extends VirtualCamera
 
-@export_group("Parameters")
-@export_subgroup("Star detection")
-@export_flags_3d_physics var star_collision_mask: int
 @export_subgroup("Offset")
 @export var offset_target: Node3D
 @export var offset: Vector3:
@@ -15,6 +12,7 @@ var star_query_res: Dictionary = {}
 
 func _ready() -> void:
 	super()
+	if offset_target: offset_target.position = offset
 
 func player_input_process(delta: float) -> void:
 	super(delta)

@@ -212,12 +212,19 @@ func _get_enter_local_sundial_input() -> void:
 		if !_character_interaction_allowed(): return
 		if !State.local_sundial: return
 
+		# create new actor data for sundial
 		var new_pd: ActorData = ActorData.new()
 		new_pd.set_instance(State.local_sundial)
 		var sundial_pcm: PlayerCameraManager = new_pd.get_camera_manager()
 
+		# setup main camera
+		var entry_cam: VirtualCamera = sundial_pcm.get_entry_camera()
+		sundial_pcm.set_current_camera(entry_cam)
+		entry_cam.copy_rotation(main_camera.follow_target)
+		main_camera.follow_target = entry_cam
+
+		# change actor
 		State.actor_im.switch_data(new_pd)
-		main_camera.follow_target = sundial_pcm.get_entry_camera()
 
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
@@ -225,16 +232,21 @@ func _get_enter_ship_input() -> void:
 		if !_character_interaction_allowed(): return
 		if !inside_player_boat_area: return
 		
-		var boat_pd: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
-		var boat_pcm: PlayerCameraManager = boat_pd.get_camera_manager()
+		# get actor data and player camera manager
+		var boat_ad: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
+		var boat_pcm: PlayerCameraManager = boat_ad.get_camera_manager()
 
+		# setup main camera
 		var entry_cam: VirtualCamera = boat_pcm.get_entry_camera()
-		main_camera.follow_target = entry_cam
 		boat_pcm.set_current_camera(entry_cam)
+		entry_cam.copy_rotation(main_camera.follow_target)
+		main_camera.follow_target = entry_cam
 
-		var res: Array = State.actor_im.switch_data(boat_pd)
+		# change actor
+		var res: Array = State.actor_im.switch_data(boat_ad)
+		
+		# wait for main camera transition to be finished
 		await main_camera.transition_finished
-
 		if res[0]:
 			State.actor_im.remove_child.call_deferred((res[1] as ActorData).get_instance())
 

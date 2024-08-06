@@ -84,9 +84,14 @@ func _get_exit_ship_input() -> void:
 		else: await char_inst.tree_entered
 		(char_inst as BaseActor).setup_spawn(dropoff_marker.global_position)
 
+		# setup camera
+		var entry_cam: VirtualCamera = char_pcm.get_entry_camera()
+		char_pcm.set_current_camera(entry_cam)
+		entry_cam.copy_rotation(main_camera.follow_target)
+		main_camera.follow_target = entry_cam
+
 		# Switch to the character's actor data
 		State.actor_im.switch_data(char_pd)
-		main_camera.follow_target = char_pcm.get_entry_camera()
 
 func _get_teleport_to_waypoint_input() -> void:
 	if Input.is_action_just_pressed("boat__teleport_to_waypoint"):

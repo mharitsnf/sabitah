@@ -176,9 +176,13 @@ func _get_switch_camera_input() -> void:
 			push_warning("Main camera is still transitioning!")
 			return
 
-		var next_cam: VirtualCamera = (current_data as ActorData).get_camera_manager().get_next_camera()
+		var current_pcm: PlayerCameraManager = (current_data as ActorData).get_camera_manager()
+		var next_cam: VirtualCamera = current_pcm.get_next_camera()
+		
+		current_pcm.set_current_camera(next_cam)
+
+		next_cam.copy_rotation(main_camera.follow_target)
 		main_camera.follow_target = next_cam
-		(current_data as ActorData).get_camera_manager().set_current_camera(next_cam)
 
 # region Setters and getters
 

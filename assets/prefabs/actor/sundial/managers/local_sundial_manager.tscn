@@ -34,13 +34,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="LocalSundialArea" parent="." instance=ExtResource("4_6umoa")]
 
-[node name="BoatSundialTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("5_eqh28")]
+[node name="SundialTPC" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("5_eqh28")]
 offset = Vector3(0, 0.075, 0)
 follow_target = NodePath("../SundialCenter")
 
 [node name="CameraManager" type="Node" parent="." node_paths=PackedStringArray("third_person_camera")]
 script = ExtResource("6_002n7")
-third_person_camera = NodePath("../BoatSundialTPC")
+third_person_camera = NodePath("../SundialTPC")
 
 [node name="Controller" type="Node" parent="." node_paths=PackedStringArray("actor")]
 script = ExtResource("7_boplh")

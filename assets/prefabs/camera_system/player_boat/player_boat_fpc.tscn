@@ -1,9 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://1c6vc4mwptwk"]
+[gd_scene load_steps=6 format=3 uid="uid://ctt274n1dckpl"]
 
-[ext_resource type="PackedScene" uid="uid://7gf086sxl5fm" path="res://assets/prefabs/camera_system/first_person_camera.tscn" id="1_f5vbr"]
-[ext_resource type="Script" path="res://assets/scripts/camera_system/boat_fpc.gd" id="2_03r3f"]
+[ext_resource type="Script" path="res://assets/scripts/camera_system/boat_fpc.gd" id="1_ym0un"]
+[ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="2_7xaw8"]
+[ext_resource type="Resource" uid="uid://bfnj1oxrissmk" path="res://assets/resources/camera_settings/camera_rotation_settings/first_person_settings.tres" id="3_bcey7"]
+[ext_resource type="Resource" uid="uid://dpryn8gg66bb2" path="res://assets/resources/camera_settings/camera_fov_settings/default_fov.tres" id="4_580ql"]
+[ext_resource type="Resource" uid="uid://c5o0j76wwy1ba" path="res://assets/resources/camera_settings/camera_clamp_settings/default_limits.tres" id="5_k0kdg"]
 
-[node name="PlayerBoatFPC" instance=ExtResource("1_f5vbr")]
-script = ExtResource("2_03r3f")
-offset = Vector3(0, 12, 0)
+[node name="PlayerBoatFPC" type="Node3D" node_paths=PackedStringArray("offset_target", "camera_target", "y_rot_target", "x_rot_target")]
+script = ExtResource("1_ym0un")
+star_collision_mask = 512
+offset_target = NodePath("YRotTarget/XRotTarget/Offset")
+offset = Vector3(0, 10, 0)
+camera_target = NodePath("YRotTarget/XRotTarget/Offset")
+camera_adjusting_basis = false
+camera_tween_settings = ExtResource("2_7xaw8")
+rotation_settings = ExtResource("3_bcey7")
+allow_zoom = true
+fov_tween_settings = ExtResource("2_7xaw8")
+fov_settings = ExtResource("4_580ql")
 adjusting_basis = false
+y_rot_target = NodePath("YRotTarget")
+x_rot_target = NodePath("YRotTarget/XRotTarget")
+clamp_settings = ExtResource("5_k0kdg")
+tween_settings = ExtResource("2_7xaw8")
+
+[node name="YRotTarget" type="Node3D" parent="."]
+
+[node name="XRotTarget" type="Node3D" parent="YRotTarget"]
+
+[node name="Offset" type="Node3D" parent="YRotTarget/XRotTarget"]
+
+[connection signal="transition_finished" from="." to="." method="_transition_finished"]
