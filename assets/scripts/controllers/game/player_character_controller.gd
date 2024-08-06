@@ -16,8 +16,7 @@ enum CharacterStates {
 @export var to_island_registration_cmd: Command
 @export_group("References")
 @export var actor: CharacterActor
-@export var tpc: ThirdPersonCamera
-@export var fpc: FirstPersonCamera
+@export var camera_manager: PlayerCameraManager
 
 # Refs from group
 var interact_areas: Array[InteractArea]
@@ -62,11 +61,11 @@ func _ready() -> void:
 	assert(player_boat_area)
 
 	if actor.is_submerged():
-		tpc.offset = water_offset
-		fpc.clamp_settings = water_clamp_settings
+		camera_manager.third_person_camera.offset = water_offset
+		camera_manager.first_person_camera.clamp_settings = water_clamp_settings
 	else:
-		tpc.offset = ground_offset
-		fpc.clamp_settings = ground_clamp_settings
+		camera_manager.third_person_camera.offset = ground_offset
+		camera_manager.first_person_camera.clamp_settings = ground_clamp_settings
 
 	current_actor_state = get_character_state(CharacterStates.FALL)
 
@@ -92,10 +91,11 @@ func _process(_delta: float) -> void:
 	actor.rotate_visuals(main_camera.global_basis, h_input)
 
 func _physics_process(delta: float) -> void:
-	var y_rot_target: Node3D = main_camera.follow_target.y_rot_target
-	var ref_basis: Basis = y_rot_target.global_basis
-	if actor.is_on_slope(): ref_basis = Basis(Common.Geometry.recalculate_quaternion(main_camera.global_basis, actor.ground_normal)).orthonormalized()
-	actor.move(ref_basis, h_input)
+	if camera_manager.has_camera(main_camera.follow_target):
+		var y_rot_target: Node3D = main_camera.follow_target.y_rot_target
+		var ref_basis: Basis = y_rot_target.global_basis
+		if actor.is_on_slope(): ref_basis = Basis(Common.Geometry.recalculate_quaternion(main_camera.global_basis, actor.ground_normal)).orthonormalized()
+		actor.move(ref_basis, h_input)
 
 	if current_actor_state:
 		current_actor_state.delegated_physics_process(delta)
@@ -228,7 +228,7 @@ func _get_enter_local_sundial_input() -> void:
 
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
-		if !ProgressState.get_global_progress(['boat_code_received']): return
+		if !ProgressState.get_global_progress(['ship_code_received']): return
 		if !_character_interaction_allowed(): return
 		if !inside_player_boat_area: return
 		
@@ -273,12 +273,12 @@ func _reset_inputs() -> void:
 	h_input = Vector2.ZERO
 
 func _on_actor_submerged() -> void:
-	tpc.offset = water_offset
-	fpc.clamp_settings = water_clamp_settings
+	camera_manager.third_person_camera.offset = water_offset
+	camera_manager.first_person_camera.clamp_settings = water_clamp_settings
 
 func _on_actor_unsubmerged() -> void:
-	tpc.offset = ground_offset
-	fpc.clamp_settings = ground_clamp_settings
+	camera_manager.third_person_camera.offset = ground_offset
+	camera_manager.first_person_camera.clamp_settings = ground_clamp_settings
 
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
@@ -313,12 +313,12 @@ func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	_set_input_prompt_state("G_Register", false)
 
 func _on_player_boat_area_entered() -> void:
-	if !ProgressState.get_global_progress(['boat_code_received']): return
+	if !ProgressState.get_global_progress(['ship_code_received']): return
 	inside_player_boat_area = true
 	_set_input_prompt_state("F_Enter", true)
 
 func _on_player_boat_area_exited() -> void:
-	if !ProgressState.get_global_progress(['boat_code_received']): return
+	if !ProgressState.get_global_progress(['ship_code_received']): return
 	inside_player_boat_area = false
 	_set_input_prompt_state("F_Enter", false)
 

@@ -62,9 +62,13 @@ func _adjust_intensity() -> void:
 		push_error("Curve is not provided!")
 		return
 
-	var active_actor: Node3D = (State.actor_im as ActorInputManager).current_data.get_instance()
-	if !active_actor:
-		return
+	var current_player_data: ActorData = (State.actor_im as ActorInputManager).current_data
+	var active_actor: Node3D
+	if !current_player_data:
+		var boat_ad: ActorData = (State.actor_im as ActorInputManager).get_player_data(ActorInputManager.PlayerActors.BOAT)
+		active_actor = boat_ad.get_instance()
+	else:
+		active_actor = current_player_data.get_instance()
 	
 	var instance_normal: Vector3 = active_actor.global_basis.y
 	var dir_to_instance: Vector3 = (global_position - active_actor.global_position).normalized()

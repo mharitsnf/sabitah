@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=35 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -13,9 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/visuals/atmosphere/atmosphere_ppq.tscn" id="11_r3iet"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://v7022dbq6wn2" path="res://assets/prefabs/visuals/outline/outline_ppq.tscn" id="12_ouxvy"]
+[ext_resource type="PackedScene" uid="uid://ds67eg6ob2b1o" path="res://assets/prefabs/camera_system/static_camera.tscn" id="13_jddcp"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
-[ext_resource type="PackedScene" uid="uid://yh25koljfqgg" path="res://assets/islands/island_1/island_1_navigation.tscn" id="17_aigk6"]
-[ext_resource type="PackedScene" uid="uid://doo5e22kve8ge" path="res://assets/resources/models/islands/connector_1/connector_1.tscn" id="18_aopt4"]
+[ext_resource type="Script" path="res://assets/scripts/camera_fov_settings/camera_fov_settings.gd" id="14_dyhub"]
+[ext_resource type="Script" path="res://assets/scripts/tween_settings/tween_settings.gd" id="14_y41fh"]
+[ext_resource type="PackedScene" uid="uid://dx8mcv3qvdrru" path="res://assets/resources/models/islands/island_a/island_a.tscn" id="16_yoanr"]
 [ext_resource type="PackedScene" uid="uid://hly7xukaj25f" path="res://assets/prefabs/actor/player_character/player_character_actor.tscn" id="18_q1k01"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_0lgj5"]
@@ -24,6 +26,74 @@ height = 2967.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya6ed"]
 albedo_texture = ExtResource("8_8pfla")
+
+[sub_resource type="Resource" id="Resource_2d52e"]
+script = ExtResource("14_y41fh")
+tween_duration = 3.0
+tween_trans = 7
+tween_ease = 2
+
+[sub_resource type="Resource" id="Resource_03r88"]
+script = ExtResource("14_dyhub")
+initial_fov = 30.0
+fov_limit = Vector2(30, 100)
+
+[sub_resource type="Resource" id="Resource_mpw1r"]
+script = ExtResource("14_y41fh")
+tween_duration = 8.0
+tween_trans = 7
+tween_ease = 2
+
+[sub_resource type="Resource" id="Resource_yaxd1"]
+script = ExtResource("14_dyhub")
+initial_fov = 50.0
+fov_limit = Vector2(30, 100)
+
+[sub_resource type="Resource" id="Resource_fhont"]
+script = ExtResource("14_y41fh")
+tween_duration = 8.0
+tween_trans = 7
+tween_ease = 2
+
+[sub_resource type="Resource" id="Resource_3lwtk"]
+script = ExtResource("14_dyhub")
+initial_fov = 75.0
+fov_limit = Vector2(30, 100)
+
+[sub_resource type="Resource" id="Resource_lrw21"]
+script = ExtResource("14_dyhub")
+initial_fov = 50.0
+fov_limit = Vector2(30, 100)
+
+[sub_resource type="Resource" id="Resource_7gsny"]
+script = ExtResource("14_y41fh")
+tween_duration = 5.0
+tween_trans = 7
+tween_ease = 2
+
+[sub_resource type="Resource" id="Resource_1x28v"]
+script = ExtResource("14_dyhub")
+initial_fov = 50.0
+fov_limit = Vector2(30, 100)
+
+[sub_resource type="Resource" id="Resource_y1fmk"]
+script = ExtResource("14_y41fh")
+tween_duration = 3.0
+tween_trans = 7
+tween_ease = 2
+
+[sub_resource type="Resource" id="Resource_vcueg"]
+script = ExtResource("14_dyhub")
+initial_fov = 50.0
+fov_limit = Vector2(30, 100)
+
+[sub_resource type="Animation" id="Animation_mpx4b"]
+resource_name = "intro_cutscene"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vo6fj"]
+_data = {
+"intro_cutscene": SubResource("Animation_mpx4b")
+}
 
 [node name="TestLevel1" type="Node3D" groups=["main_world"]]
 script = ExtResource("1_4i1xa")
@@ -57,36 +127,64 @@ target = NodePath("../../PlayerActorController/PlayerBoatActor")
 sorting_offset = 2000.0
 skeleton = NodePath("../..")
 
-[node name="Camera" type="Node" parent="."]
+[node name="Cameras" type="Node" parent="."]
 
-[node name="PlayerMainCamera" parent="Camera" instance=ExtResource("1_r30bq")]
+[node name="PlayerMainCamera" parent="Cameras" instance=ExtResource("1_r30bq")]
 transform = Transform3D(0.00870242, 0.880115, 0.47468, -0.999961, 0.00833766, 0.00287347, -0.00142873, -0.474687, 0.880154, 1499.49, 12.9997, 34.9807)
 current = true
 
-[node name="AtmospherePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("11_r3iet")]
+[node name="AtmospherePPQ" parent="Cameras/PlayerMainCamera" instance=ExtResource("11_r3iet")]
 visible = true
 
-[node name="OutlinePPQ" parent="Camera/PlayerMainCamera" instance=ExtResource("12_ouxvy")]
+[node name="OutlinePPQ" parent="Cameras/PlayerMainCamera" instance=ExtResource("12_ouxvy")]
 layers = 2
+
+[node name="Scene1Ghost" parent="Cameras" groups=["scene1_ghost"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(-0.017995, 0.263245, -0.964561, 0.998575, -0.0437444, -0.0305684, -0.0502412, -0.963737, -0.262083, -259.74, -100.515, -1481.21)
+camera_tween_settings = SubResource("Resource_2d52e")
+fov_settings = SubResource("Resource_03r88")
+
+[node name="Scene1Stars" parent="Cameras" groups=["scene1_stars"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(-0.726682, -0.453288, -0.516201, 0.680239, -0.369826, -0.632853, 0.0959599, -0.811023, 0.577091, -292.032, -102.213, -1478.13)
+camera_tween_settings = SubResource("Resource_mpw1r")
+fov_settings = SubResource("Resource_yaxd1")
+
+[node name="Camera3D" type="Camera3D" parent="Cameras/Scene1Stars"]
+fov = 50.0
+
+[node name="Scene1Back" parent="Cameras" groups=["scene1_back"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(-0.97096, -0.192719, -0.141765, 0.156904, -0.0656304, -0.985431, 0.180607, -0.979057, 0.0939628, -294.081, -107.74, -1477.74)
+camera_tween_settings = SubResource("Resource_fhont")
+fov_settings = SubResource("Resource_3lwtk")
+
+[node name="Scene1Sunrise" parent="Cameras" groups=["scene1_sunrise"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(-0.0312636, -0.252717, 0.967035, -0.996606, -0.0658314, -0.0494234, 0.0761514, -0.965298, -0.249801, -316.453, -93.2119, -1474.13)
+fov_settings = SubResource("Resource_lrw21")
+
+[node name="Scene1Ship" parent="Cameras" groups=["scene1_ship"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(-0.910519, -0.161776, 0.380504, -0.376122, -0.0581229, -0.924745, 0.171717, -0.985114, -0.00792544, -241.743, -86.8536, -1472.06)
+camera_tween_settings = SubResource("Resource_7gsny")
+fov_settings = SubResource("Resource_1x28v")
+
+[node name="Scene1StraightBack" parent="Cameras" groups=["scene1_straight_back"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(-0.152098, 0.0361087, -0.987706, 0.987648, -0.0325183, -0.153277, -0.0376532, -0.998819, -0.0307168, -301.141, -103.391, -1479.18)
+camera_tween_settings = SubResource("Resource_y1fmk")
+fov_settings = SubResource("Resource_vcueg")
 
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(0.978899, -0.171305, -0.111409, 0.105124, -0.0453657, 0.993424, -0.175232, -0.984173, -0.0264002, -254.662, -67.4406, -1463.07)
+transform = Transform3D(-0.158421, -0.19264, -0.968397, 0.986676, -0.0676959, -0.147945, -0.0370564, -0.978932, 0.200798, -286.672, -100.67, -1475.33)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
-transform = Transform3D(0.0126984, -0.146068, 0.989193, -0.995482, -0.0949421, -0.0012404, 0.0940973, -0.984708, -0.146614, -243.07, -78.1103, -1463.15)
+transform = Transform3D(-0.353237, -0.179463, 0.918159, -0.930316, -0.0361246, -0.364975, 0.0986679, -0.983101, -0.154197, -266.658, -53.6764, -1460.75)
 
 [node name="Islands" type="Node" parent="."]
 
-[node name="Island1Navigation" parent="Islands" instance=ExtResource("17_aigk6")]
-transform = Transform3D(-0.979335, -0.202202, 0.00409713, 0.00687019, -0.0535077, -0.998544, 0.202127, -0.977881, 0.0537912, -300.594, -79.5447, -1453.72)
+[node name="IslandA" parent="Islands" instance=ExtResource("16_yoanr")]
+transform = Transform3D(-0.97855, -0.202702, 0.03677, -0.0272508, -0.0495551, -0.9984, 0.204199, -0.977986, 0.0429683, -301.336, -73.6686, -1453.87)
 
-[node name="Connector1" parent="Islands" instance=ExtResource("18_aopt4")]
-transform = Transform3D(0.601043, 0.331662, -0.727151, 0.793072, -0.360112, 0.49128, -0.0989169, -0.871963, -0.479475, 493.049, -535.343, -1296.26)
-
-[node name="Connector2" parent="Islands" instance=ExtResource("18_aopt4")]
-transform = Transform3D(-0.92229, -0.290514, -0.254915, 0.168849, 0.290424, -0.941883, 0.347664, -0.911732, -0.218802, -431.879, 431.744, -1355.38)
-
-[node name="Connector3" parent="Islands" instance=ExtResource("18_aopt4")]
-transform = Transform3D(0.330883, -0.330857, -0.883771, 0.87559, -0.24163, 0.418279, -0.351936, -0.912222, 0.209743, -491.851, -359.207, -1356.11)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vo6fj")
+}

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ds67eg6ob2b1o"]
+
+[ext_resource type="Script" path="res://assets/scripts/camera_system/virtual_camera.gd" id="1_omvyr"]
+[ext_resource type="Resource" uid="uid://0kfxgywql7i7" path="res://assets/resources/tween_settings/default.tres" id="2_ukvcm"]
+
+[node name="StaticCamera" type="Node3D" node_paths=PackedStringArray("camera_target")]
+script = ExtResource("1_omvyr")
+camera_target = NodePath(".")
+camera_adjusting_basis = false
+camera_tween_settings = ExtResource("2_ukvcm")
+allow_player_input = false
+fov_tween_settings = ExtResource("2_ukvcm")
+adjusting_basis = false
+tween_settings = ExtResource("2_ukvcm")

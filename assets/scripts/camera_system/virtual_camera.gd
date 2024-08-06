@@ -35,7 +35,7 @@ class FollowData extends RefCounted:
 @export_group("Main Camera")
 ## Which node of this [VirtualCamera] should the [MainCamera] follow?
 @export var camera_target: Node3D
-## Should the [MainCamera] adjust its basis to normal?
+## Should the [MainCamera] adjust its basis to this virtual camera's normal?
 @export var camera_adjusting_basis: bool = true:
 	set(value):
 		camera_adjusting_basis = value
@@ -315,6 +315,11 @@ func get_euler_rotation() -> Array:
 	return []
 
 func copy_rotation(vc: VirtualCamera) -> void:
+	if !vc.y_rot_target: return 
+	if !vc.x_rot_target: return
+	if y_rot_target: return
+	if x_rot_target: return 
+	
 	y_rot_target.rotation.y = vc.y_rot_target.rotation.y
 	x_rot_target.rotation.x = vc.x_rot_target.rotation.x
 

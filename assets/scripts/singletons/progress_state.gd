@@ -3,8 +3,9 @@ extends Node
 var free_mode: bool = false
 
 var global_progress: Dictionary = {
-	"boat_code_received": _boat_code_received,
-	"first_island_registered": false
+	"introduction_scene_completed": false,
+	"ship_code_received": _ship_code_received,
+	"first_sundial_registered": false
 }
 
 var progress: Dictionary = {
@@ -16,8 +17,23 @@ var progress: Dictionary = {
 	}
 }
 
-func _boat_code_received() -> bool:
-	var memories: Array[MemoryData] = MemoryState.get_memories({ "id": "mm_boat_code_1" })
+const INTRODUCION_DIALOGUE: DialogueResource = preload("res://assets/dialogues/introduction.dialogue")
+
+func run_introduction_scene() -> void:
+	var start_vcam: VirtualCamera = Group.first("scene1_sunrise")
+	State.game_camera.follow_target = start_vcam
+
+	(State.actor_im as ActorInputManager).enter_player_control()
+	
+	await Common.wait(5.)
+
+	Common.DialogueWrapper.start_dialogue(INTRODUCION_DIALOGUE)
+	await Common.dialogue_exited
+	
+	(State.actor_im as ActorInputManager).enter_player_camera()
+
+func _ship_code_received() -> bool:
+	var memories: Array[MemoryData] = MemoryState.get_memories({ "id": "mm_ship_code" })
 	if memories.is_empty(): return false
 	var md: MemoryData = memories[0]
 	return md.get_memory().locked_status == Memory.LockedStatus.UNLOCKED

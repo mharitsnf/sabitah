@@ -1,7 +1,7 @@
 class_name TimeManager extends Node
 
 @export var time_elapsed_speed: float = 1.
-var time_elapsed: float = 0.
+var time_elapsed: float = 82800.
 
 var scene_manager: SceneManager
 

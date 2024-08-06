@@ -91,7 +91,7 @@ script = ExtResource("3_fhnii")
 third_person_camera = NodePath("../PlayerCharacterTPC")
 first_person_camera = NodePath("../PlayerCharacterFPC")
 
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("states", "actor", "tpc", "fpc")]
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("states", "actor", "camera_manager")]
 script = ExtResource("4_y2ps7")
 states = [NodePath("Grounded"), NodePath("Fall"), NodePath("Jump")]
 ground_clamp_settings = ExtResource("6_mcyu7")
@@ -100,8 +100,7 @@ ground_offset = Vector3(0, 2, 0)
 water_offset = Vector3(0, 3, 0)
 to_island_registration_cmd = ExtResource("6_0w8f7")
 actor = NodePath("..")
-tpc = NodePath("../PlayerCharacterTPC")
-fpc = NodePath("../PlayerCharacterFPC")
+camera_manager = NodePath("../CameraManager")
 
 [node name="Grounded" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]
 script = ExtResource("6_gidt1")

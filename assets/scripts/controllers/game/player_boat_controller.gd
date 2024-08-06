@@ -96,20 +96,20 @@ func _get_exit_ship_input() -> void:
 func _get_teleport_to_waypoint_input() -> void:
 	if Input.is_action_just_pressed("boat__teleport_to_waypoint"):
 		if !_boat_interaction_allowed(): return
-		if !ProgressState.get_global_progress(["first_island_registered"]): return
+		if !ProgressState.get_global_progress(["first_sundial_registered"]): return
 
 		Common.DialogueWrapper.start_monologue("teleport_to_node_island")
 
 func _get_brake_input() -> void:
-	if !ProgressState.get_global_progress(["first_island_registered"]): return
+	if !ProgressState.get_global_progress(["first_sundial_registered"]): return
 	brake_input = Input.get_action_strength("boat__brake")
 
 func _get_gas_input() -> void:
-	if !ProgressState.get_global_progress(["first_island_registered"]): return
+	if !ProgressState.get_global_progress(["first_sundial_registered"]): return
 	gas_input = Input.get_action_strength("boat__move_forward")
 
 func _get_rotate_input() -> void:
-	if !ProgressState.get_global_progress(["first_island_registered"]): return
+	if !ProgressState.get_global_progress(["first_sundial_registered"]): return
 	rotate_input = Input.get_axis("boat__turn_left", "boat__turn_right")
 
 func _boat_interaction_allowed() -> bool:

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx8mcv3qvdrru"]
+
+[ext_resource type="PackedScene" uid="uid://b0l2fli8m4yin" path="res://assets/resources/models/islands/island_a/IslandA.glb" id="1_xehvw"]
+[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_yrs24"]
+[ext_resource type="PackedScene" uid="uid://b8thbgmp6n3ij" path="res://assets/prefabs/actor/sundial/managers/local_sundial_manager.tscn" id="3_yugm8"]
+
+[node name="IslandA" instance=ExtResource("1_xehvw")]
+
+[node name="Island" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_yrs24")
+
+[node name="LocalSundialManager" parent="." index="1" node_paths=PackedStringArray("boat_waypoint") groups=["first_sundial_manager"] instance=ExtResource("3_yugm8")]
+transform = Transform3D(0.0372401, 0.0192458, 0.999121, -0.00325614, 0.999812, -0.0191378, -0.999301, -0.00254059, 0.0372958, 12.4753, 19.7332, -0.168045)
+island_name = "Origin Island"
+boat_waypoint = NodePath("../BoatWaypoint")
+
+[node name="BoatWaypoint" type="Marker3D" parent="." index="2"]
+transform = Transform3D(0.999827, -0.0186022, -0.000174689, 0.018602, 0.999633, 0.0196741, -0.000191356, -0.019674, 0.999806, -33.0143, -4.55706, -19.8141)

@@ -97,8 +97,8 @@ var actor_im: ActorInputManager
 ## Reference to the globe scene's GlobeInputManager.
 var globe_im: GlobeInputManager
 
-var game_camera: Camera3D
-var globe_camera: Camera3D
+var game_camera: PlayerMainCamera
+var globe_camera: PlayerMainCamera
 
 var game_sun: DirectionalLight3D
 var globe_sun: DirectionalLight3D

@@ -44,14 +44,16 @@ general/balloon_path="res://assets/prefabs/interaction/dialogue_baloons/balloon.
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/window_width_override=1920
-window/size/window_height_override=1080
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=2
 
 [dotnet]
 
 project/assembly_name="Sabitah"
+
+[editor]
+
+movie_writer/movie_file="C:/Users/mhari/Videos/Godot/Sabitah.avi"
 
 [editor_plugins]
 
@@ -287,7 +289,7 @@ debug__create_mental_image={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://assets/dialogues/test_dialogue.dialogue", "res://assets/dialogues/clue_checking.dialogue", "res://assets/dialogues/node_sundial.dialogue", "res://assets/dialogues/test.dialogue", "res://assets/dialogues/monologues.dialogue", "res://assets/dialogues/common.dialogue", "res://assets/dialogues/memory_checking.dialogue")
+locale/translations_pot_files=PackedStringArray("res://assets/dialogues/test_dialogue.dialogue", "res://assets/dialogues/clue_checking.dialogue", "res://assets/dialogues/node_sundial.dialogue", "res://assets/dialogues/test.dialogue", "res://assets/dialogues/monologues.dialogue", "res://assets/dialogues/common.dialogue", "res://assets/dialogues/memory_checking.dialogue", "res://assets/dialogues/introduction.dialogue")
 
 [layer_names]
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b222fter88hkp"]
+
+[ext_resource type="Script" path="res://assets/scripts/components/basis_adjuster.gd" id="1_vo4gd"]
+
+[node name="BasisAdjuster" type="Node"]
+script = ExtResource("1_vo4gd")

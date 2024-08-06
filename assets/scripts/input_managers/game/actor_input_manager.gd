@@ -30,7 +30,11 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	super()
 	_create_actor_instances()
-	_init_current_player_data()
+
+	if !ProgressState.get_global_progress(["introduction_scene_completed"]):
+		ProgressState.run_introduction_scene()
+	else:
+		enter_player_control()
 
 func _setup_references() -> void:
 	super()
@@ -61,22 +65,17 @@ func _create_actor_instances() -> void:
 		if pd.get_instance(): continue
 		pd.create_instance()
 
-## Private. Assign a default PlayerData to the current one.
-func _init_current_player_data() -> void:
-	if get_child_count() != 0:
-		var first_ad: ActorData = _get_first_data()
-		if first_ad:
-			switch_data(first_ad)
-			main_camera.follow_target = first_ad.get_camera_manager().get_entry_camera()
-		else:
-			_reset_boat()
-			switch_data(data_dict[PlayerActors.BOAT] as ActorData)
-			main_camera.follow_target = (data_dict[PlayerActors.BOAT] as ActorData).get_camera_manager().get_entry_camera()
-		return
-	
-	_reset_boat()
-	switch_data(data_dict[PlayerActors.BOAT] as ActorData)
-	main_camera.follow_target = (data_dict[PlayerActors.BOAT] as ActorData).get_camera_manager().get_entry_camera()
+func enter_player_control() -> void:
+	var first_ad: ActorData = _get_first_data()
+	switch_data(first_ad)
+
+func enter_player_camera() -> void:
+	var first_ad: ActorData = _get_first_data()
+	var pcm: PlayerCameraManager = first_ad.get_camera_manager()
+	var entry_cam: VirtualCamera = pcm.get_entry_camera()
+	pcm.set_current_camera(entry_cam)
+
+	main_camera.follow_target = entry_cam
 
 func _reset_boat() -> void:
 	# Initialize the boat on a specific location
@@ -186,10 +185,19 @@ func _get_switch_camera_input() -> void:
 
 # region Setters and getters
 
+func get_camera_manager_of_controller(target: PlayerController) -> PlayerCameraManager:
+	var ads: Array[ActorData] = data_dict.values().filter(
+		func(ad: ActorData) -> bool:
+			return ad.get_controller() == target
+	)
+	if ads.is_empty(): return null
+	return ads[0].get_camera_manager()
+
 func current_actor_equals(value: PlayerActors) -> bool:
 	return current_data == get_player_data(value)
 
 func get_current_controller() -> PlayerController:
+	if !current_data: return null
 	return (current_data as ActorData).get_controller()
 
 ## Returns the player data of the specified [key].
