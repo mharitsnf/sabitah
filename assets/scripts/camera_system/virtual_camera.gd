@@ -315,11 +315,6 @@ func get_euler_rotation() -> Array:
 	return []
 
 func copy_rotation(vc: VirtualCamera) -> void:
-	if !vc.y_rot_target: return 
-	if !vc.x_rot_target: return
-	if y_rot_target: return
-	if x_rot_target: return 
-	
 	y_rot_target.rotation.y = vc.y_rot_target.rotation.y
 	x_rot_target.rotation.x = vc.x_rot_target.rotation.x
 

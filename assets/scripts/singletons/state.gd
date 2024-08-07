@@ -154,3 +154,7 @@ func get_gravity_data(type: LevelType) -> Dictionary:
 	}
 
 var has_given_mayor_gift: bool = false
+
+func await_game_camera_transition_finished() -> void:
+	if game_camera:
+		await game_camera.transition_finished

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=36 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -40,7 +40,7 @@ fov_limit = Vector2(30, 100)
 
 [sub_resource type="Resource" id="Resource_mpw1r"]
 script = ExtResource("14_y41fh")
-tween_duration = 8.0
+tween_duration = 0.75
 tween_trans = 7
 tween_ease = 2
 
@@ -59,6 +59,12 @@ tween_ease = 2
 script = ExtResource("14_dyhub")
 initial_fov = 75.0
 fov_limit = Vector2(30, 100)
+
+[sub_resource type="Resource" id="Resource_v1a17"]
+script = ExtResource("14_y41fh")
+tween_duration = 8.0
+tween_trans = 7
+tween_ease = 2
 
 [sub_resource type="Resource" id="Resource_lrw21"]
 script = ExtResource("14_dyhub")
@@ -159,6 +165,7 @@ fov_settings = SubResource("Resource_3lwtk")
 
 [node name="Scene1Sunrise" parent="Cameras" groups=["scene1_sunrise"] instance=ExtResource("13_jddcp")]
 transform = Transform3D(-0.0312636, -0.252717, 0.967035, -0.996606, -0.0658314, -0.0494234, 0.0761514, -0.965298, -0.249801, -316.453, -93.2119, -1474.13)
+camera_tween_settings = SubResource("Resource_v1a17")
 fov_settings = SubResource("Resource_lrw21")
 
 [node name="Scene1Ship" parent="Cameras" groups=["scene1_ship"] instance=ExtResource("13_jddcp")]

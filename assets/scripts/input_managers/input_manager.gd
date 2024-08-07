@@ -43,7 +43,8 @@ func _input_allowed() -> bool:
 		return false
 	if Common.DialogueWrapper.is_dialogue_active():
 		return false
-	
+	if Common.CutsceneManager.is_cutscene_running():
+		return false
 	return true
 
 ## Switch current_data to a new one [_new_data].

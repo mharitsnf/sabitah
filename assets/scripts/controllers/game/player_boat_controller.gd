@@ -1,6 +1,7 @@
 class_name PlayerBoatController extends PlayerActorController
 
 @export_group("References")
+@export var camera_manager: PlayerCameraManager
 @export var boat_sundial_manager: SundialManager
 @export var dropoff_marker: Marker3D
 @export var actor: BoatActor
@@ -14,6 +15,7 @@ var brake_input: float = 0.
 func _ready() -> void:
 	super()
 
+	assert(camera_manager)
 	assert(boat_sundial_manager)
 	assert(dropoff_marker)
 	assert(actor)
@@ -23,8 +25,10 @@ func _ready() -> void:
 func enter_controller() -> void:
 	super()
 	Common.InputPromptManager.add_to_hud_layer(hud_layer, [
-		'F_Exit', 'T_Enter', 'G_Teleport'
+		'F_Exit', 'T_Enter', 'G_Teleport', 'V'
 	])
+
+	if Common.CutsceneManager.is_cutscene_running(): return
 
 	Common.InputPromptManager.show_input_prompt([
 		'F_Exit', 'T_Enter', 'G_Teleport'
@@ -33,7 +37,7 @@ func enter_controller() -> void:
 func exit_controller() -> void:
 	super()
 	Common.InputPromptManager.remove_from_hud_layer(hud_layer, [
-		'F_Exit', 'T_Enter', 'G_Teleport'
+		'F_Exit', 'T_Enter', 'G_Teleport', 'V'
 	])
 
 # region Lifecycle functions
@@ -113,13 +117,22 @@ func _get_rotate_input() -> void:
 	rotate_input = Input.get_axis("boat__turn_left", "boat__turn_right")
 
 func _boat_interaction_allowed() -> bool:
-	if !(State.actor_im as ActorInputManager).is_entry_camera_active(): return false
+	if !camera_manager.is_entry_camera_active(): return false
 	if (State.actor_im as ActorInputManager).transitioning: return false
 	return true
 
 # region Signal listener functions
 
+func _on_cutscene_started() -> void:
+	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
+	Common.InputPromptManager.hide_input_prompt(["RMB_Enter", 'F_Exit', 'T_Enter', 'G_Teleport'])
+
+func _on_cutscene_ended() -> void:
+	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
+	Common.InputPromptManager.show_input_prompt(["RMB_Enter", 'F_Exit', 'T_Enter', 'G_Teleport'])
+
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
+	if !camera_manager.has_camera(new_vc): return
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
 	if new_vc is FirstPersonCamera:
 		Common.InputPromptManager.hide_input_prompt(["RMB_Enter", 'F_Exit', 'T_Enter', 'G_Teleport'])

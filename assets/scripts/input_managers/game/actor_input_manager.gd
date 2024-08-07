@@ -32,9 +32,10 @@ func _ready() -> void:
 	_create_actor_instances()
 
 	if !ProgressState.get_global_progress(["introduction_scene_completed"]):
-		ProgressState.run_introduction_scene()
+		ProgressState.run_introduction_cutscene()
 	else:
 		enter_player_control()
+		enter_player_camera()
 
 func _setup_references() -> void:
 	super()
@@ -122,12 +123,6 @@ func switch_data(new_data: PlayerData) -> Array:
 	if new_data.get_instance() is SundialManager: current_light_type = LightType.SUNDIAL
 	else: current_light_type = LightType.NORMAL
 
-	# Switch to the new actor's entry camera
-	# var actor_camera_manager: PlayerCameraManager = new_data.get_camera_manager()
-	# var entry_cam: VirtualCamera = actor_camera_manager.get_entry_camera()
-	# main_camera.follow_target = entry_cam
-	# actor_camera_manager.set_current_camera(entry_cam)
-
 	# Make ocean switch to follow the new actor if the new instance is a base actor.
 	if new_data.get_instance() is BaseActor:
 		ocean_data.target = new_data.get_instance()
@@ -145,7 +140,7 @@ func _input_allowed() -> bool:
 	if !super(): return false
 	if transitioning:
 		return false
-	if !(current_data as ActorData).get_controller():
+	if !get_current_controller():
 		return false
 	return true
 
@@ -153,18 +148,18 @@ func _input_allowed() -> bool:
 
 # Run the delegated player input process
 func _process(delta: float) -> void:
+	if current_data:
+		get_current_controller().delegated_process(delta)
+	
 	if !_input_allowed(): return
-
+	
 	_get_switch_camera_input()
-
-	(current_data as ActorData).get_controller().delegated_process(delta)
-	(current_data as ActorData).get_controller().player_input_process(delta)
+	get_current_controller().player_input_process(delta)
 
 # Run the delegated player unhandled input
 func _unhandled_input(event: InputEvent) -> void:
 	if !_input_allowed(): return
-	
-	(current_data as ActorData).get_controller().player_unhandled_input(event)
+	get_current_controller().player_unhandled_input(event)
 
 # region Inputs
 
@@ -185,16 +180,12 @@ func _get_switch_camera_input() -> void:
 
 # region Setters and getters
 
-func get_camera_manager_of_controller(target: PlayerController) -> PlayerCameraManager:
-	var ads: Array[ActorData] = data_dict.values().filter(
-		func(ad: ActorData) -> bool:
-			return ad.get_controller() == target
-	)
-	if ads.is_empty(): return null
-	return ads[0].get_camera_manager()
-
 func current_actor_equals(value: PlayerActors) -> bool:
 	return current_data == get_player_data(value)
+
+func get_current_camera_manager() -> PlayerCameraManager:
+	if !current_data: return null
+	return (current_data as ActorData).get_camera_manager()
 
 func get_current_controller() -> PlayerController:
 	if !current_data: return null
@@ -203,11 +194,6 @@ func get_current_controller() -> PlayerController:
 ## Returns the player data of the specified [key].
 func get_player_data(key: PlayerActors) -> ActorData:
 	return data_dict[key]
-
-func is_entry_camera_active() -> bool:
-	var pcm: PlayerCameraManager = (current_data as ActorData).get_camera_manager()
-	var entry_cam: VirtualCamera = pcm.get_entry_camera()
-	return main_camera.follow_target == entry_cam
 
 ## Private. Setter for current light type.
 func _set_current_light_type(value: LightType) -> void:

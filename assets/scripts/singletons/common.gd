@@ -13,9 +13,28 @@ func _ready() -> void:
 func wait(sec: float) -> void:
 	await get_tree().create_timer(sec).timeout
 
-signal dialogue_entered
-signal dialogue_exited
+# region Cutscene
 
+signal cutscene_started
+signal cutscene_ended
+
+class CutsceneManager extends RefCounted:
+	static var cutscene_running: bool = false
+
+	static func is_cutscene_running() -> bool:
+		return cutscene_running
+	
+	static func start_cutscene() -> void:
+		if !cutscene_running:
+			Common.cutscene_started.emit()
+			cutscene_running = true
+		
+	static func end_cutscene() -> void:
+		if cutscene_running:
+			Common.cutscene_ended.emit()
+			cutscene_running = false
+
+# region Input Prompt
 class InputPromptManager extends RefCounted:
 	static var input_prompts: Dictionary = {}
 
@@ -70,6 +89,10 @@ class InputPromptManager extends RefCounted:
 			var ip: InputPrompt = input_prompts[key]
 			ip.active = false
 
+# region Dialogue Wrapper
+
+signal dialogue_entered
+signal dialogue_exited
 class DialogueWrapper extends RefCounted:
 	static var monologue_res: DialogueResource = preload("res://assets/dialogues/monologues.dialogue")
 
@@ -96,6 +119,7 @@ class DialogueWrapper extends RefCounted:
 		Common.dialogue_exited.emit()
 		_dialogue_active = false
 
+# region Geometry
 class Geometry extends RefCounted:
 	static func recalculate_quaternion(old_basis: Basis, new_normal: Vector3) -> Quaternion:
 		new_normal = new_normal.normalized()
@@ -170,6 +194,7 @@ class Geometry extends RefCounted:
 			result.append(point * r)
 		return result
 
+# region Drawing
 class Draw extends RefCounted:
 	static var line_mesh_pscn: PackedScene = preload("res://assets/prefabs/globe/markers/line_mesh.tscn")
 	static var line_material: StandardMaterial3D = preload("res://assets/resources/materials/m_line_material.tres")
@@ -208,6 +233,7 @@ class Draw extends RefCounted:
 			(mesh as ImmediateMesh).surface_add_vertex(point)
 		(mesh as ImmediateMesh).surface_end()
 
+# region InputState
 class InputState extends RefCounted:
 	static var _current_device: String
 
@@ -217,6 +243,7 @@ class InputState extends RefCounted:
 	static func _on_input_device_changed(device: String, _device_index: int) -> void:
 		_current_device = device
 
+# region Input Prompt factory
 class InputPromptFactory extends RefCounted:
 	var _pscn: PackedScene = preload("res://assets/prefabs/ui_hud/input_prompt/input_prompt.tscn")
 	var _instance: InputPrompt
@@ -247,6 +274,8 @@ class InputPromptFactory extends RefCounted:
 class Promise extends RefCounted:
 	signal completed
 	func _init() -> void: completed.emit()
+
+# region Remote transform
 
 ## Factory class for [RemoteTransform3D]
 class RemoteTransform3DBuilder extends RefCounted:
@@ -282,6 +311,7 @@ class RemoteTransform3DBuilder extends RefCounted:
 		reset()
 		return result
 
+# region Navigation
 class NavigationAIFactory extends RefCounted:
 	var _main_actor: BaseActor
 

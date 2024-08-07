@@ -3,7 +3,7 @@ extends Node
 var free_mode: bool = false
 
 var global_progress: Dictionary = {
-	"introduction_scene_completed": false,
+	"introduction_scene_completed": true,
 	"ship_code_received": _ship_code_received,
 	"first_sundial_registered": false
 }
@@ -19,8 +19,10 @@ var progress: Dictionary = {
 
 const INTRODUCION_DIALOGUE: DialogueResource = preload("res://assets/dialogues/introduction.dialogue")
 
-func run_introduction_scene() -> void:
-	var start_vcam: VirtualCamera = Group.first("scene1_sunrise")
+func run_introduction_cutscene() -> void:
+	Common.CutsceneManager.start_cutscene()
+
+	var start_vcam: VirtualCamera = Group.first("scene1_stars")
 	State.game_camera.follow_target = start_vcam
 
 	(State.actor_im as ActorInputManager).enter_player_control()
@@ -31,6 +33,8 @@ func run_introduction_scene() -> void:
 	await Common.dialogue_exited
 	
 	(State.actor_im as ActorInputManager).enter_player_camera()
+
+	Common.CutsceneManager.end_cutscene()
 
 func _ship_code_received() -> bool:
 	var memories: Array[MemoryData] = MemoryState.get_memories({ "id": "mm_ship_code" })

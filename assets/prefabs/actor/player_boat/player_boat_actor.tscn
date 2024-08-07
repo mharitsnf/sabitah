@@ -109,8 +109,9 @@ script = ExtResource("5_igslx")
 third_person_camera = NodePath("../PlayerBoatTPC")
 first_person_camera = NodePath("../PlayerBoatFPC")
 
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("boat_sundial_manager", "dropoff_marker", "actor")]
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("camera_manager", "boat_sundial_manager", "dropoff_marker", "actor")]
 script = ExtResource("6_mjipi")
+camera_manager = NodePath("../CameraManager")
 boat_sundial_manager = NodePath("../CollisionShape3D/BoatSundialManager")
 dropoff_marker = NodePath("../CollisionShape3D/DropoffMarker")
 actor = NodePath("..")

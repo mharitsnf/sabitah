@@ -5,9 +5,12 @@ class_name PlayerCameraManager extends Node
 @export var first_person_camera: FirstPersonCamera
 
 var _current_camera: VirtualCamera
+var main_camera: MainCamera
 
 func _ready() -> void:
 	assert(third_person_camera)
+	main_camera = Group.first("main_camera")
+	assert(main_camera)
 
 func has_camera(target: VirtualCamera) -> bool:
 	if target == third_person_camera: return true
@@ -17,6 +20,9 @@ func has_camera(target: VirtualCamera) -> bool:
 ## Returns the entry camera; the first camera to be activated when switching to this actor.
 func get_entry_camera() -> VirtualCamera:
 	return third_person_camera
+
+func is_entry_camera_active() -> bool:
+	return main_camera.follow_target == get_entry_camera()
 
 ## Sets the currently active camera.
 func set_current_camera(value: VirtualCamera) -> void:

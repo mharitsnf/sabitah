@@ -20,12 +20,21 @@ func _ready() -> void:
 	(menu_layer as MenuLayer).menu_exited.connect(_on_menu_exited)
 	(main_camera as MainCamera).follow_target_changed.connect(_on_follow_target_changed)
 
+	Common.cutscene_started.connect(_on_cutscene_started)
+	Common.cutscene_ended.connect(_on_cutscene_ended)
+
 	Common.dialogue_entered.connect(_on_dialogue_entered)
 
 func _on_menu_entered(_data: MenuData) -> void:
 	_reset_inputs()
 
 func _on_menu_exited(_data: MenuData) -> void:
+	pass
+
+func _on_cutscene_started() -> void:
+	pass
+
+func _on_cutscene_ended() -> void:
 	pass
 
 func _on_dialogue_entered() -> void:

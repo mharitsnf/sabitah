@@ -75,10 +75,6 @@ func enter_controller() -> void:
 		"F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
 	])
 
-	Common.InputPromptManager.show_input_prompt([
-		"RMB_Enter"
-	])
-
 func exit_controller() -> void:
 	super()
 	Common.InputPromptManager.remove_from_hud_layer(hud_layer, [
@@ -106,15 +102,16 @@ func delegated_process(delta: float) -> void:
 
 	if current_actor_state:
 		current_actor_state.delegated_process(delta)
-		current_actor_state.player_input_process(delta)
 
-func player_input_process(_delta: float) -> void:
+func player_input_process(delta: float) -> void:
 	_get_register_boat_waypoint_input()
 	_get_enter_register_island_input()
 	_get_enter_local_sundial_input()
 	_get_collect_memory_input()
 	_get_enter_ship_input()
 	_get_h_input()
+	if current_actor_state:
+		current_actor_state.player_input_process(delta)
 
 func player_unhandled_input(event: InputEvent) -> void:
 	_get_interact_input(event)
@@ -143,7 +140,7 @@ func get_character_state(key: CharacterStates) -> ActorState:
 func _set_input_prompt_state(key: String, value: bool) -> void:
 	input_prompt_state[key] = value
 	if value:
-		if (State.actor_im as ActorInputManager).is_entry_camera_active():
+		if camera_manager.is_entry_camera_active():
 			Common.InputPromptManager.show_input_prompt([key])
 	else:
 		Common.InputPromptManager.hide_input_prompt([key])
@@ -264,13 +261,25 @@ func _get_h_input() -> void:
 
 func _character_interaction_allowed() -> bool:
 	if Common.DialogueWrapper.is_dialogue_active(): return false
-	if !(State.actor_im as ActorInputManager).is_entry_camera_active(): return false
+	if !camera_manager.is_entry_camera_active(): return false
 	return true
 
 # region Signal listener functions.
 
 func _reset_inputs() -> void:
 	h_input = Vector2.ZERO
+
+func _on_cutscene_started() -> void:
+	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
+	Common.InputPromptManager.hide_input_prompt(["RMB_Enter", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"])
+
+func _on_cutscene_ended() -> void:
+	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
+	var active_prompts: Array = input_prompt_state.keys().filter(
+		func (key: String) -> bool:
+			return input_prompt_state[key] == true
+	)
+	Common.InputPromptManager.show_input_prompt(["RMB_Enter"] + active_prompts)
 
 func _on_actor_submerged() -> void:
 	camera_manager.third_person_camera.offset = water_offset
@@ -281,6 +290,7 @@ func _on_actor_unsubmerged() -> void:
 	camera_manager.first_person_camera.clamp_settings = ground_clamp_settings
 
 func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
+	if !camera_manager.has_camera(new_vc): return
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
 	if new_vc is FirstPersonCamera:
 		Common.InputPromptManager.hide_input_prompt(["RMB_Enter", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"])
