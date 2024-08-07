@@ -11,5 +11,5 @@ directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 directional_shadow_pancake_size = 5.0
 script = ExtResource("1_2idx6")
-normal_distance = 200.0
 tween_transition_settings = ExtResource("2_maf5x")
+normal_distance = 200.0

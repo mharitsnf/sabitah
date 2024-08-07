@@ -1,10 +1,11 @@
 ~ new_memory
-: The ghost of someone that reminisced... I can collect their thoughts.
-: I have collected the memory of {{ MemoryState.examined_memory.owner_name }} called "{{ MemoryState.examined_memory.title }}"\n\n[wait=1.0]Now I can see their thoughts from the Memories Collection!
+: It's a memory ghost... I wonder what it will tell me?
+do Common.wait(2.0)
+: I have collected the memory of [color=LIGHT_BLUE]{{ MemoryState.examined_memory.owner_name }}[/color] called "[color=ORANGE]{{ MemoryState.examined_memory.title }}[/color]"\n\n[wait=1.5]Now I can see their thoughts from the Memories Collection!
 do MemoryState.examined_memory = {}
 => END
 
 ~ has_unlocked_memory
-: I've seen this memory before. This is the ghost of {{ MemoryState.examined_memory.owner_name }}, containing a memory called "{{ MemoryState.examined_memory.title }}".
+: I've seen this memory before. This is the ghost of [color=LIGHT_BLUE]{{ MemoryState.examined_memory.owner_name }}[/color], containing a memory called "[color=ORANGE]{{ MemoryState.examined_memory.title }}[/color]".
 do MemoryState.examined_memory = {}
 => END

@@ -145,51 +145,50 @@ visible = true
 [node name="OutlinePPQ" parent="Cameras/PlayerMainCamera" instance=ExtResource("12_ouxvy")]
 layers = 2
 
-[node name="Scene1Ghost" parent="Cameras" groups=["scene1_ghost"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(-0.017995, 0.263245, -0.964561, 0.998575, -0.0437444, -0.0305684, -0.0502412, -0.963737, -0.262083, -259.74, -100.515, -1481.21)
-camera_tween_settings = SubResource("Resource_2d52e")
-fov_settings = SubResource("Resource_03r88")
-
-[node name="Scene1Stars" parent="Cameras" groups=["scene1_stars"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(-0.726682, -0.453288, -0.516201, 0.680239, -0.369826, -0.632853, 0.0959599, -0.811023, 0.577091, -292.032, -102.213, -1478.13)
-camera_tween_settings = SubResource("Resource_mpw1r")
-fov_settings = SubResource("Resource_yaxd1")
-
-[node name="Camera3D" type="Camera3D" parent="Cameras/Scene1Stars"]
-fov = 50.0
-
-[node name="Scene1Back" parent="Cameras" groups=["scene1_back"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(-0.97096, -0.192719, -0.141765, 0.156904, -0.0656304, -0.985431, 0.180607, -0.979057, 0.0939628, -294.081, -107.74, -1477.74)
-camera_tween_settings = SubResource("Resource_fhont")
-fov_settings = SubResource("Resource_3lwtk")
-
-[node name="Scene1Sunrise" parent="Cameras" groups=["scene1_sunrise"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(-0.0312636, -0.252717, 0.967035, -0.996606, -0.0658314, -0.0494234, 0.0761514, -0.965298, -0.249801, -316.453, -93.2119, -1474.13)
-camera_tween_settings = SubResource("Resource_v1a17")
-fov_settings = SubResource("Resource_lrw21")
-
-[node name="Scene1Ship" parent="Cameras" groups=["scene1_ship"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(-0.910519, -0.161776, 0.380504, -0.376122, -0.0581229, -0.924745, 0.171717, -0.985114, -0.00792544, -241.743, -86.8536, -1472.06)
-camera_tween_settings = SubResource("Resource_7gsny")
-fov_settings = SubResource("Resource_1x28v")
-
-[node name="Scene1StraightBack" parent="Cameras" groups=["scene1_straight_back"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(-0.152098, 0.0361087, -0.987706, 0.987648, -0.0325183, -0.153277, -0.0376532, -0.998819, -0.0307168, -301.141, -103.391, -1479.18)
-camera_tween_settings = SubResource("Resource_y1fmk")
-fov_settings = SubResource("Resource_vcueg")
-
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(-0.158421, -0.19264, -0.968397, 0.986676, -0.0676959, -0.147945, -0.0370564, -0.978932, 0.200798, -286.672, -100.67, -1475.33)
+transform = Transform3D(0.994675, 0.000589687, -0.103061, 0.103056, 0.00542068, 0.994661, 0.0011452, -0.999985, 0.00533104, -1.5316, 9.56401, -1506.44)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
-transform = Transform3D(-0.353237, -0.179463, 0.918159, -0.930316, -0.0361246, -0.364975, 0.0986679, -0.983101, -0.154197, -266.658, -53.6764, -1460.75)
+transform = Transform3D(-0.584345, 0.0281026, 0.811019, -0.810972, 0.0160183, -0.584866, -0.0294274, -0.999477, 0.0134302, 41.7773, 23.8127, -1485.82)
 
 [node name="Islands" type="Node" parent="."]
 
 [node name="IslandA" parent="Islands" instance=ExtResource("16_yoanr")]
-transform = Transform3D(-0.97855, -0.202702, 0.03677, -0.0272508, -0.0495551, -0.9984, 0.204199, -0.977986, 0.0429683, -301.336, -73.6686, -1453.87)
+transform = Transform3D(-0.99997, 0.000617096, -0.00775867, 0.00776213, 0.00582325, -0.999953, -0.000571885, -0.999983, -0.0058278, 0.917385, 8.65663, -1486.57)
+
+[node name="Cutscene1Cameras" type="Node3D" parent="Islands/IslandA"]
+
+[node name="Scene1Ghost" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_ghost"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(-0.0198622, -0.453201, 0.891187, 0.00329841, 0.891329, 0.453346, -0.999797, 0.0119437, -0.0162087, -45.555, 19.6368, 27.1581)
+camera_tween_settings = SubResource("Resource_2d52e")
+fov_settings = SubResource("Resource_03r88")
+
+[node name="Scene1Stars" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_stars"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(0.712153, 0.288032, 0.640216, 0.0197427, 0.903378, -0.428391, -0.701747, 0.317718, 0.637656, -13.2805, 23.2545, 27.7984)
+camera_tween_settings = SubResource("Resource_mpw1r")
+fov_settings = SubResource("Resource_yaxd1")
+
+[node name="Scene1Back" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_back"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(0.982737, -0.0095495, 0.184765, 0.0124083, 0.99982, -0.0143253, -0.184595, 0.0163706, 0.982678, -11.0452, 23.5623, 33.258)
+camera_tween_settings = SubResource("Resource_fhont")
+fov_settings = SubResource("Resource_3lwtk")
+
+[node name="Scene1Sunrise" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_sunrise"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(0.0733014, 0.0519766, -0.995954, -0.018751, 0.998536, 0.0507318, 0.997133, 0.0149564, 0.0741686, 11.1882, 23.8467, 18.0856)
+camera_tween_settings = SubResource("Resource_v1a17")
+fov_settings = SubResource("Resource_lrw21")
+
+[node name="Scene1Ship" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_ship"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(0.936302, -0.0412702, -0.348761, 0.0352653, 0.9991, -0.0235519, 0.349419, 0.00975265, 0.936915, -61.6699, 6.3634, 14.5735)
+camera_tween_settings = SubResource("Resource_7gsny")
+fov_settings = SubResource("Resource_1x28v")
+
+[node name="Scene1StraightBack" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_straight_back"] instance=ExtResource("13_jddcp")]
+transform = Transform3D(0.114233, -0.238407, 0.964424, 0.0187119, 0.971123, 0.237845, -0.993277, -0.00912362, 0.115394, -4.54919, 26.1862, 28.5945)
+camera_tween_settings = SubResource("Resource_y1fmk")
+fov_settings = SubResource("Resource_vcueg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

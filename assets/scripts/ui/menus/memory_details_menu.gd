@@ -47,6 +47,4 @@ func after_entering() -> void:
 	_mount_menu_buttons()
 	await super()
 
-	if menu_button_container.get_child_count() > 0:
-		(menu_button_container.get_child(0) as GenericButton).grab_focus()
-		return
+	geotag_memory_btn.grab_focus()

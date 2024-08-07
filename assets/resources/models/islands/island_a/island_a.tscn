@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dx8mcv3qvdrru"]
+[gd_scene load_steps=7 format=3 uid="uid://dx8mcv3qvdrru"]
 
 [ext_resource type="PackedScene" uid="uid://b0l2fli8m4yin" path="res://assets/resources/models/islands/island_a/IslandA.glb" id="1_xehvw"]
 [ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_yrs24"]
 [ext_resource type="PackedScene" uid="uid://b8thbgmp6n3ij" path="res://assets/prefabs/actor/sundial/managers/local_sundial_manager.tscn" id="3_yugm8"]
 [ext_resource type="PackedScene" uid="uid://ym31rnidvkyt" path="res://assets/prefabs/island/island_area.tscn" id="4_onina"]
+[ext_resource type="PackedScene" uid="uid://bxs7d824omom1" path="res://assets/prefabs/memory/memory_marker.tscn" id="5_gxhat"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_a82ue"]
 radius = 250.0
@@ -14,12 +15,12 @@ radius = 250.0
 surface_material_override/0 = ExtResource("2_yrs24")
 
 [node name="LocalSundialManager" parent="." index="1" node_paths=PackedStringArray("boat_waypoint") groups=["first_sundial_manager"] instance=ExtResource("3_yugm8")]
-transform = Transform3D(0.0372401, 0.0192458, 0.999121, -0.00325614, 0.999812, -0.0191378, -0.999301, -0.00254059, 0.0372958, 12.4753, 19.7332, -0.168045)
+transform = Transform3D(0.037244, 0.0189381, 0.999127, -0.00305197, 0.999818, -0.0188374, -0.999301, -0.00234773, 0.037295, 10.5686, 19.7695, -0.0830917)
 island_name = "Origin Island"
 boat_waypoint = NodePath("../BoatWaypoint")
 
 [node name="IslandArea" parent="LocalSundialManager" index="6" instance=ExtResource("4_onina")]
-transform = Transform3D(0.999988, -0.00488166, -9.76101e-05, 0.00488166, 0.999188, 0.0399916, -9.76622e-05, -0.0399915, 0.9992, -1.16346, -9.20395, -43.3262)
+transform = Transform3D(0.999995, -0.00335729, -3.8974e-05, 0.00335598, 0.999119, 0.0418463, -0.000101529, -0.0418462, 0.999124, -1.61912, -9.36143, -45.6597)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LocalSundialManager/IslandArea" index="0"]
 transform = Transform3D(1, 0, 0, -5.82077e-11, 1, -1.3606e-09, 0, 4.58385e-10, 1, 0, 0, 0)
@@ -27,3 +28,9 @@ shape = SubResource("SphereShape3D_a82ue")
 
 [node name="BoatWaypoint" type="Marker3D" parent="." index="2"]
 transform = Transform3D(0.999827, -0.0186022, -0.000174689, 0.018602, 0.999633, 0.0196741, -0.000191356, -0.019674, 0.999806, -33.0143, -4.55706, -19.8141)
+
+[node name="MemoryMarkers" type="Node3D" parent="." index="3"]
+
+[node name="ShipCode" parent="MemoryMarkers" index="0" instance=ExtResource("5_gxhat")]
+transform = Transform3D(-0.815835, 0, 0.578285, 0, 1, 0, -0.578285, 0, -0.815835, -33.4606, 11.3127, 3.48771)
+memory_id = "mm_ship_code"

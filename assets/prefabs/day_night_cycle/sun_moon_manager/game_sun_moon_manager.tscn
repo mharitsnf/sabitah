@@ -20,7 +20,7 @@ directional_shadow_pancake_size = 0.2
 [node name="GameSunSprite" parent="GameSun" instance=ExtResource("3_tl482")]
 
 [node name="GameMoon" parent="." instance=ExtResource("3_u1oms")]
-light_angular_distance = 0.03
+light_angular_distance = 0.3
 shadow_normal_bias = 6.0
 directional_shadow_split_2 = 0.3
 directional_shadow_pancake_size = 0.2

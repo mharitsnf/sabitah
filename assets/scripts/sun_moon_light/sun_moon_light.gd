@@ -2,10 +2,14 @@ class_name SunMoonLight extends DirectionalLight3D
 
 @export var level_type: State.LevelType
 
-@export_group("Max shadow distance settings")
+@export var tween_transition_settings: TweenSettings
+@export_group("Shadow settings")
+@export_subgroup("Max angular distance settings")
+@export var normal_angular_distance: float = .3
+@export var sundial_angular_distance: float = 0.
+@export_subgroup("Max shadow distance settings")
 @export var normal_distance: float = 100.
 @export var sundial_distance: float = 15.
-@export var tween_transition_settings: TweenSettings
 @export_group("Intensity settings")
 ## Should the SunMoonLight adjust its intensity according to the player actor's position?
 ## Disable this if this sun is for the globe scene.
@@ -31,14 +35,19 @@ func start_shadow_transition(light_type: ActorInputManager.LightType) -> void:
 	if transitioning:
 		return
 	
-	var final_val: float = normal_distance if light_type == ActorInputManager.LightType.NORMAL else sundial_distance
-	if directional_shadow_max_distance == final_val:
-		return
+	var shadow_distance_val: float = normal_distance if light_type == ActorInputManager.LightType.NORMAL else sundial_distance
+	var angular_distance_val: float = normal_angular_distance if light_type == ActorInputManager.LightType.NORMAL else sundial_angular_distance
 	
+	if directional_shadow_max_distance == shadow_distance_val:
+		return
+	if light_angular_distance == angular_distance_val:
+		return
+
 	transitioning = true
 
 	var tween: Tween = create_tween()
-	tween.tween_property(self, 'directional_shadow_max_distance', final_val, tween_transition_settings.tween_duration).set_trans(tween_transition_settings.tween_trans).set_ease(tween_transition_settings.tween_ease)
+	tween.tween_property(self, 'directional_shadow_max_distance', shadow_distance_val, tween_transition_settings.tween_duration).set_trans(tween_transition_settings.tween_trans).set_ease(tween_transition_settings.tween_ease)
+	tween.tween_property(self, 'light_angular_distance', angular_distance_val, tween_transition_settings.tween_duration).set_trans(tween_transition_settings.tween_trans).set_ease(tween_transition_settings.tween_ease)
 	await tween.finished
 
 	transitioning = false

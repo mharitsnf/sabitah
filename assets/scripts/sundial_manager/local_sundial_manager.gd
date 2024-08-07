@@ -22,6 +22,7 @@ func _ready() -> void:
 		State.sundial_groups[str(group)].append(self)
 
 	latlong = Common.Geometry.point_to_latlng(global_position.normalized())
+	print(latlong)
 	geotag_id = "i(" + str(latlong[0]) + "," + str(latlong[1]) + ")"
 	island_alias = str(latlong[0]) + "°N, " + str(latlong[1]) + "°S Island"
 

@@ -140,24 +140,29 @@ class Geometry extends RefCounted:
 		return [y_angle, x_angle]
 
 	static func point_to_latlng(normal: Vector3) -> Array:
-		# Calculate latitude vector and dot product with north pole
-		var lat_vec: Vector3 = normal
-		lat_vec = Vector3(lat_vec.x, lat_vec.y, 0.).normalized() 
-		var north_dot_n: float = State.NORTH.dot(lat_vec)
+		normal = normal.normalized()
 
-		# Calculate longitude vector
-		var long_vec: Vector3 = normal
-		long_vec = Vector3(long_vec.x, 0., long_vec.z).normalized()
+		var lat: float = roundf(asin(normal.y) * 180. / PI)
+		var long: float = roundf(atan2(-normal.z, normal.x) * 180. / PI)
 
-		# Calculate angle from longitude vector to prime meridian and the sign (west or east of the PM).
-		var rotated_long: Vector3 = long_vec.rotated(Vector3.UP, deg_to_rad(-90.)).normalized()
-		var pm_dot_long: float = State.PRIME_MERIDIAN.dot(rotated_long)
-		var dot_sign: float = signf(pm_dot_long)
-		var pm_angle_to_long: float = State.PRIME_MERIDIAN.angle_to(long_vec)
+		# # Calculate latitude vector and dot product with north pole
+		# var lat_vec: Vector3 = normal
+		# lat_vec = Vector3(lat_vec.x, lat_vec.y, 0.).normalized() 
+		# var north_dot_n: float = State.NORTH.dot(lat_vec)
 
-		var lat: float = floorf(remap(north_dot_n, -1., 1., -90., 90.))
-		var long: float = floorf(remap(pm_angle_to_long, 0., PI, 0., 180.))
-		long = long if dot_sign > 0. else - long
+		# # Calculate longitude vector
+		# var long_vec: Vector3 = normal
+		# long_vec = Vector3(long_vec.x, 0., long_vec.z).normalized()
+
+		# # Calculate angle from longitude vector to prime meridian and the sign (west or east of the PM).
+		# var rotated_long: Vector3 = long_vec.rotated(Vector3.UP, deg_to_rad(-90.)).normalized()
+		# var pm_dot_long: float = State.PRIME_MERIDIAN.dot(rotated_long)
+		# var dot_sign: float = signf(pm_dot_long)
+		# var pm_angle_to_long: float = State.PRIME_MERIDIAN.angle_to(long_vec)
+
+		# var lat: float = floorf(remap(north_dot_n, -1., 1., -90., 90.))
+		# var long: float = floorf(remap(pm_angle_to_long, 0., PI, 0., 180.))
+		# long = long if dot_sign > 0. else - long
 
 		return [lat, long]
 
