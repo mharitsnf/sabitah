@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ouhtvbsk1tnv"]
+
+[ext_resource type="PackedScene" uid="uid://sp40fhcpl00y" path="res://assets/resources/models/environment/TableGlobe.glb" id="1_vhht0"]
+[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_tn3c3"]
+
+[node name="TableGlobe" instance=ExtResource("1_vhht0")]
+
+[node name="GlobeMount" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_tn3c3")
+
+[node name="Globe" parent="GlobeMount" index="0"]
+surface_material_override/0 = ExtResource("2_tn3c3")

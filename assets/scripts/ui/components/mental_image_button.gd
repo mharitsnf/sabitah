@@ -1,8 +1,10 @@
 class_name MentalImageButton extends GenericButton
 
-@export var description_label: Label
+@export var speaker_label: Label
+@export var thoughts_label: RichTextLabel
 @export var texture_rect: TextureRect
 
 func _ready() -> void:
-	assert(description_label)
+	assert(speaker_label)
+	assert(thoughts_label)
 	assert(texture_rect)

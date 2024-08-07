@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfkas1d2plgp8"]
+[gd_scene load_steps=6 format=3 uid="uid://dfkas1d2plgp8"]
 
 [ext_resource type="PackedScene" uid="uid://drigyf33vphlq" path="res://assets/prefabs/ui_menu/buttons/generic_button.tscn" id="1_rokcc"]
 [ext_resource type="Texture2D" uid="uid://bvqv8dcyo834p" path="res://assets/resources/textures/isa true master.png" id="2_7of8e"]
@@ -10,13 +10,7 @@ script = ExtResource("3_j1pad")
 custom_args = {}
 target_menu = "MENU_FULL_MENTAL_IMAGE"
 
-[sub_resource type="SystemFont" id="SystemFont_ced5r"]
-font_italic = true
-
-[sub_resource type="LabelSettings" id="LabelSettings_s7ouk"]
-font = SubResource("SystemFont_ced5r")
-
-[node name="MentalImageMenuButton" node_paths=PackedStringArray("description_label", "texture_rect") instance=ExtResource("1_rokcc")]
+[node name="MentalImageMenuButton" node_paths=PackedStringArray("speaker_label", "thoughts_label", "texture_rect") instance=ExtResource("1_rokcc")]
 custom_minimum_size = Vector2(512, 144)
 offset_right = 512.0
 offset_bottom = 144.0
@@ -24,7 +18,8 @@ size_flags_horizontal = 3
 text = ""
 flat = true
 script = ExtResource("2_yjkcf")
-description_label = NodePath("MarginContainer/HBoxContainer/Label")
+speaker_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Speaker")
+thoughts_label = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Thoughts")
 texture_rect = NodePath("MarginContainer/HBoxContainer/TextureRect")
 on_press_command = SubResource("Resource_o1ed7")
 
@@ -51,12 +46,21 @@ texture = ExtResource("2_7of8e")
 expand_mode = 3
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Speaker" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "Speaker"
+
+[node name="Thoughts" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer" index="1"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
+size_flags_vertical = 3
+bbcode_enabled = true
 text = "Description..."
-label_settings = SubResource("LabelSettings_s7ouk")
-vertical_alignment = 1
 autowrap_mode = 2

@@ -109,7 +109,8 @@ func create_mental_image_cache(mental_image: MentalImage) -> void:
 
 	var menu_button: MentalImageButton = MENTAL_IMAGE_MENU_BUTTON.instantiate()
 	menu_button.texture_rect.texture = mental_image.image_tex
-	menu_button.description_label.text = mental_image.description
+	menu_button.speaker_label.text = mental_image.speaker
+	menu_button.thoughts_label.text = mental_image.thoughts
 	menu_button.args = [{ "mental_image_id": mental_image.id }]
 
 	mental_image_cache.append(MentalImageData.new(mental_image, menu_button))

@@ -127,7 +127,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ya6ed")
 
 [node name="OceanData" parent="Oceans" node_paths=PackedStringArray("target") instance=ExtResource("8_6a2jn")]
 unique_name_in_owner = true
-target = NodePath("../../PlayerActorController/PlayerBoatActor")
+target = NodePath("../../PlayerActorController/PlayerCharacterActor")
 
 [node name="Ocean" parent="Oceans" instance=ExtResource("9_q5hw7")]
 sorting_offset = 2000.0
@@ -148,10 +148,10 @@ layers = 2
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(0.994675, 0.000589687, -0.103061, 0.103056, 0.00542068, 0.994661, 0.0011452, -0.999985, 0.00533104, -1.5316, 9.56401, -1506.44)
+transform = Transform3D(1, 0.000928342, 0.000220823, -0.000226432, 0.00598288, 0.999983, 0.000927003, -0.999982, 0.00598303, 75.7896, -18.4591, -1492.51)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
-transform = Transform3D(-0.584345, 0.0281026, 0.811019, -0.810972, 0.0160183, -0.584866, -0.0294274, -0.999477, 0.0134302, 41.7773, 23.8127, -1485.82)
+transform = Transform3D(0.425119, -0.00671586, 0.905113, -0.898621, 0.116648, 0.422935, -0.10842, -0.993151, 0.0435544, -9.97316, 173.225, -1474.85)
 
 [node name="Islands" type="Node" parent="."]
 

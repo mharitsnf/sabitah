@@ -1,10 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://dx8mcv3qvdrru"]
+[gd_scene load_steps=17 format=3 uid="uid://dx8mcv3qvdrru"]
 
 [ext_resource type="PackedScene" uid="uid://b0l2fli8m4yin" path="res://assets/resources/models/islands/island_a/IslandA.glb" id="1_xehvw"]
 [ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_yrs24"]
 [ext_resource type="PackedScene" uid="uid://b8thbgmp6n3ij" path="res://assets/prefabs/actor/sundial/managers/local_sundial_manager.tscn" id="3_yugm8"]
 [ext_resource type="PackedScene" uid="uid://ym31rnidvkyt" path="res://assets/prefabs/island/island_area.tscn" id="4_onina"]
 [ext_resource type="PackedScene" uid="uid://bxs7d824omom1" path="res://assets/prefabs/memory/memory_marker.tscn" id="5_gxhat"]
+[ext_resource type="PackedScene" uid="uid://bfjlyrll5hpnp" path="res://assets/resources/models/environment/table.tscn" id="6_dvg64"]
+[ext_resource type="PackedScene" uid="uid://ouhtvbsk1tnv" path="res://assets/resources/models/environment/table_globe.tscn" id="7_2gknf"]
+[ext_resource type="PackedScene" uid="uid://hw3w4d80fl67" path="res://assets/resources/models/environment/table_with_cloth.tscn" id="8_lk5tc"]
+[ext_resource type="PackedScene" uid="uid://d2nf5qd2ph84w" path="res://assets/resources/models/environment/chair.tscn" id="9_qy4qc"]
+[ext_resource type="PackedScene" uid="uid://sqqaynwi3v82" path="res://assets/resources/models/environment/tree_style_a.tscn" id="10_l7rb3"]
+[ext_resource type="PackedScene" uid="uid://dhli2lkq3hjkn" path="res://assets/resources/models/environment/tree_style_b.tscn" id="11_4o2wv"]
+[ext_resource type="PackedScene" uid="uid://d2iw3qoeay7wg" path="res://assets/resources/models/environment/bush_b.tscn" id="12_u2234"]
+[ext_resource type="PackedScene" uid="uid://dr2gux8ekldcl" path="res://assets/resources/models/environment/bush_c.tscn" id="13_lj7yq"]
+[ext_resource type="PackedScene" uid="uid://ckbdcy4ahstqq" path="res://assets/resources/models/environment/flowers_a.tscn" id="14_xjsfs"]
+[ext_resource type="PackedScene" uid="uid://d4kjk4sori64h" path="res://assets/resources/models/environment/flowers_b.tscn" id="15_s2eae"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_a82ue"]
 radius = 250.0
@@ -15,12 +25,12 @@ radius = 250.0
 surface_material_override/0 = ExtResource("2_yrs24")
 
 [node name="LocalSundialManager" parent="." index="1" node_paths=PackedStringArray("boat_waypoint") groups=["first_sundial_manager"] instance=ExtResource("3_yugm8")]
-transform = Transform3D(0.037244, 0.0189381, 0.999127, -0.00305197, 0.999818, -0.0188374, -0.999301, -0.00234773, 0.037295, 10.5686, 19.7695, -0.0830917)
+transform = Transform3D(0.00684243, 0.026862, 0.999616, -0.000715412, 0.999639, -0.0268577, -0.999976, -0.000531364, 0.00685918, 42.1825, 23.1044, -0.603012)
 island_name = "Origin Island"
 boat_waypoint = NodePath("../BoatWaypoint")
 
 [node name="IslandArea" parent="LocalSundialManager" index="6" instance=ExtResource("4_onina")]
-transform = Transform3D(0.999995, -0.00335729, -3.8974e-05, 0.00335598, 0.999119, 0.0418463, -0.000101529, -0.0418462, 0.999124, -1.61912, -9.36143, -45.6597)
+transform = Transform3D(0.999695, 0.0244941, 0.00326159, -0.0246085, 0.998835, 0.0415157, -0.00224091, -0.0415833, 0.999133, 42.975, -6.10436, -69.5604)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LocalSundialManager/IslandArea" index="0"]
 transform = Transform3D(1, 0, 0, -5.82077e-11, 1, -1.3606e-09, 0, 4.58385e-10, 1, 0, 0, 0)
@@ -32,5 +42,47 @@ transform = Transform3D(0.999827, -0.0186022, -0.000174689, 0.018602, 0.999633, 
 [node name="MemoryMarkers" type="Node3D" parent="." index="3"]
 
 [node name="ShipCode" parent="MemoryMarkers" index="0" instance=ExtResource("5_gxhat")]
-transform = Transform3D(-0.815835, 0, 0.578285, 0, 1, 0, -0.578285, 0, -0.815835, -33.4606, 11.3127, 3.48771)
-memory_id = "mm_ship_code"
+transform = Transform3D(-0.990878, 0, -0.134764, 0, 1, 0, 0.134764, 0, -0.990878, -74.3418, 5.65219, 37.2514)
+memory_id = "mm_boring_ice_cream"
+
+[node name="Environment" type="Node3D" parent="." index="4"]
+
+[node name="OldWorkshopArea" type="Node3D" parent="Environment" index="0"]
+
+[node name="Table" parent="Environment/OldWorkshopArea" index="0" instance=ExtResource("6_dvg64")]
+transform = Transform3D(0.976795, 0.00805938, 0.214025, -0.0289432, 0.995092, 0.0946233, -0.212212, -0.0986221, 0.972234, 12.3328, -7.64333, -151.551)
+
+[node name="TableGlobe" parent="Environment/OldWorkshopArea" index="1" instance=ExtResource("7_2gknf")]
+transform = Transform3D(0.999967, 0.00805944, 0.000398401, -0.00805944, 0.995092, 0.0986221, 0.000398394, -0.0986221, 0.995125, 12.3867, -6.64808, -151.644)
+
+[node name="TableWithCloth" parent="Environment/OldWorkshopArea" index="2" instance=ExtResource("8_lk5tc")]
+transform = Transform3D(0.891454, 0.00633188, 0.453067, -0.0507506, 0.995006, 0.0859509, -0.450261, -0.0996146, 0.887323, 9.88164, -7.53491, -150.648)
+
+[node name="Chair" parent="Environment/OldWorkshopArea" index="3" instance=ExtResource("9_qy4qc")]
+transform = Transform3D(0.714521, 0.00805938, -0.699568, 0.0632666, 0.995092, 0.0760829, 0.696748, -0.0986221, 0.710504, 12.6994, -7.4247, -149.315)
+
+[node name="TreeStyleA" parent="Environment/OldWorkshopArea" index="4" instance=ExtResource("10_l7rb3")]
+transform = Transform3D(0.446398, 0.0127254, -0.894744, 0.0774713, 0.995595, 0.052811, 0.891475, -0.0928917, 0.443446, 19.3629, -6.81772, -142.382)
+
+[node name="TreeStyleB" parent="Environment/OldWorkshopArea" index="5" instance=ExtResource("11_4o2wv")]
+transform = Transform3D(0.754969, 0.00403997, 0.655748, -0.0641968, 0.995633, 0.0677764, -0.652611, -0.0932661, 0.751931, 4.57572, -6.30714, -138.17)
+
+[node name="SundialArea" type="Node3D" parent="Environment" index="1"]
+
+[node name="TreeStyleA" parent="Environment/SundialArea" index="0" instance=ExtResource("10_l7rb3")]
+transform = Transform3D(-0.563061, 0.0234056, -0.826084, 0.0183542, 0.999706, 0.0158147, 0.826212, -0.00625752, -0.563325, 35.8666, 23.2231, -10.45)
+
+[node name="TreeStyleB" parent="Environment/SundialArea" index="1" instance=ExtResource("11_4o2wv")]
+transform = Transform3D(0.832775, 0.0242841, 0.553078, -0.0172256, 0.99969, -0.0179568, -0.553343, 0.00542688, 0.832936, 36.2973, 23.221, 10.733)
+
+[node name="BushB" parent="Environment/SundialArea" index="2" instance=ExtResource("12_u2234")]
+transform = Transform3D(0.999659, 0.0242841, 0.00958268, -0.0242306, 0.99969, -0.005661, -0.00971718, 0.00542688, 0.999938, 35.987, 23.2369, 9.19419)
+
+[node name="BushC" parent="Environment/SundialArea" index="3" instance=ExtResource("13_lj7yq")]
+transform = Transform3D(0.998946, 0.0234056, 0.0394775, -0.0236341, 0.999706, 0.00533012, -0.0393412, -0.00625752, 0.999206, 35.7199, 23.2398, -8.33378)
+
+[node name="FlowersA" parent="Environment/SundialArea" index="4" instance=ExtResource("14_xjsfs")]
+transform = Transform3D(0.2141, 0.0268532, -0.976443, -0.0052272, 0.999639, 0.026345, 0.976798, -0.000536401, 0.214163, 38.3376, 23.2069, -1.96706)
+
+[node name="FlowersB" parent="Environment/SundialArea" index="5" instance=ExtResource("15_s2eae")]
+transform = Transform3D(0.995341, 0.0201109, -0.0942922, -0.0199694, 0.999798, 0.00244342, 0.0943223, -0.000549076, 0.995542, 36.6855, 23.2519, 0.743978)

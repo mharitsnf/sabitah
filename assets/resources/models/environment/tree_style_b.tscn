@@ -5,17 +5,17 @@
 
 [node name="TreeStyleB" instance=ExtResource("1_ii2ax")]
 
-[node name="Trunk_001" parent="." index="0"]
+[node name="Trunk" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_2qwvk")
 
-[node name="Foliage_001" parent="." index="1"]
+[node name="Foliage_004" parent="Trunk" index="0"]
 surface_material_override/0 = ExtResource("2_2qwvk")
 
-[node name="Foliage_002" parent="." index="2"]
+[node name="Foliage_005" parent="Trunk" index="1"]
 surface_material_override/0 = ExtResource("2_2qwvk")
 
-[node name="Foliage_003" parent="." index="3"]
+[node name="Foliage_006" parent="Trunk" index="2"]
 surface_material_override/0 = ExtResource("2_2qwvk")
 
-[node name="Foliage_004" parent="." index="4"]
+[node name="Foliage_007" parent="Trunk" index="3"]
 surface_material_override/0 = ExtResource("2_2qwvk")
