@@ -206,6 +206,7 @@ func _get_register_boat_waypoint_input() -> void:
 
 func _get_enter_local_sundial_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_sundial"):
+		if !(State.actor_im as ActorInputManager).is_switching_data_allowed(): return
 		if !_character_interaction_allowed(): return
 		if !State.local_sundial: return
 
@@ -225,9 +226,16 @@ func _get_enter_local_sundial_input() -> void:
 
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
+		if !(State.actor_im as ActorInputManager).is_switching_data_allowed(): return
 		if !ProgressState.get_global_progress(['ship_code_received']): return
 		if !_character_interaction_allowed(): return
 		if !inside_player_boat_area: return
+
+		# Set first ship interaction to true if this is the first time entering ship
+		if !ProgressState.get_global_progress(["ship_first_interaction"]):
+			ProgressState.global_progress['ship_first_interaction'] = true
+			hud_layer.set_notification_text("Camera, Gallery, and Adventure Booklet acquired!")
+			hud_layer.show_notification()
 		
 		# get actor data and player camera manager
 		var boat_ad: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)

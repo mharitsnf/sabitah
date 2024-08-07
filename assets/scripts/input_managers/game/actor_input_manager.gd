@@ -99,6 +99,11 @@ func _get_first_data() -> ActorData:
 
 # region Data switching function
 
+func is_switching_data_allowed() -> bool:
+	if transitioning: return false
+	if main_camera.transitioning: return false
+	return true
+
 func switch_data(new_data: PlayerData) -> Array:
 	if transitioning:
 		push_error("ActorInputManager is transitioning")
@@ -107,6 +112,8 @@ func switch_data(new_data: PlayerData) -> Array:
 	if !new_data:
 		push_error("New player data cannot be null!")
 		return [false]
+
+	print("switching to: ", new_data.get_instance())
 
 	transitioning = true
 

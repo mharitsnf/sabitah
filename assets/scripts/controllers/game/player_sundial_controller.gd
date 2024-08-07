@@ -34,7 +34,7 @@ func player_input_process(_delta: float) -> void:
 
 func _get_exit_sundial_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_sundial"):
-		if (State.actor_im as ActorInputManager).transitioning: return
+		if !(State.actor_im as ActorInputManager).is_switching_data_allowed(): return
 
 		var prev_pd: ActorData = (State.actor_im as ActorInputManager).previous_data
 		var prev_pcm: PlayerCameraManager = (prev_pd as ActorData).get_camera_manager()

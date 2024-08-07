@@ -1,6 +1,8 @@
 
 ~ set_node_sundial
-: {{State.local_sundial.get_island_name()}} has been set as the node island! I can now teleport back to this island if I'm lost in the ocean.
+: Initiating node island registration[speed=0.5]...
+do Common.wait(1.5)
+: {{State.local_sundial.get_island_name()}} has been set as the node island!\n\nThe ship will be able to teleport back to this island.
 do State.node_sundial = State.local_sundial
 if State.sundial_groups['first_sundial_manager'].has(State.local_sundial):
 	do ProgressState.global_progress['first_sundial_registered'] = true

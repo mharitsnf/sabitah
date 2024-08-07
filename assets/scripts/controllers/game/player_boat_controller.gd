@@ -64,6 +64,7 @@ func player_input_process(_delta: float) -> void:
 
 func _get_enter_sundial_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_sundial"):
+		if !(State.actor_im as ActorInputManager).is_switching_data_allowed(): return
 		if !_boat_interaction_allowed(): return
 
 		var new_pd: ActorData = ActorData.new()
@@ -75,6 +76,7 @@ func _get_enter_sundial_input() -> void:
 
 func _get_exit_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
+		if !(State.actor_im as ActorInputManager).is_switching_data_allowed(): return
 		if !_boat_interaction_allowed(): return
 		
 		# get actor data for character
