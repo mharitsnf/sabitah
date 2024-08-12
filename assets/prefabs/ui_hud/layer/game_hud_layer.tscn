@@ -282,18 +282,19 @@ _data = {
 "take_picture_screen": SubResource("Animation_n41iv")
 }
 
-[node name="GameHUDLayer" node_paths=PackedStringArray("notification_label", "time_label", "island_name_label", "height_angle_label", "anim") instance=ExtResource("1_uvbxn")]
+[node name="GameHUDLayer" node_paths=PackedStringArray("notification_label", "time_label", "island_name_label", "height_angle_label", "anim", "notes_label") instance=ExtResource("1_uvbxn")]
 script = ExtResource("2_kl3f3")
 notification_label = NodePath("NotificationPanel/MarginContainer/Content")
 time_label = NodePath("TimeContainer/MarginContainer/VBoxContainer/TimeLabel")
 island_name_label = NodePath("IslandNamePanel/MarginContainer/IslandNameLabel")
 height_angle_label = NodePath("Crosshair/HeightAngleLabel")
 anim = NodePath("AnimationPlayer")
+notes_label = NodePath("NotesLabel")
 
 [node name="TimeContainer" type="MarginContainer" parent="." index="1"]
 modulate = Color(1, 1, 1, 0)
 offset_top = 480.0
-offset_right = 192.0
+offset_right = 194.0
 offset_bottom = 578.0
 
 [node name="Panel" type="Panel" parent="TimeContainer" index="0"]
@@ -311,10 +312,14 @@ layout_mode = 2
 
 [node name="Title" parent="TimeContainer/MarginContainer/VBoxContainer" index="0" instance=ExtResource("3_dmy1o")]
 layout_mode = 2
-text = "Prime meridian time"
+theme_override_font_sizes/font_size = 12
+text = "Prime Meridian Time"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TimeLabel" parent="TimeContainer/MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_y5p4m")]
 layout_mode = 2
+size_flags_vertical = 3
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -369,7 +374,6 @@ theme_override_constants/margin_bottom = 16
 
 [node name="Content" parent="NotificationPanel/MarginContainer" index="0" instance=ExtResource("4_y5p4m")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 14
 text = "Test"
 vertical_alignment = 1
 
@@ -414,7 +418,19 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.705882, 0.705882, 0.705882, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+[node name="NotesLabel" parent="." index="6" instance=ExtResource("4_y5p4m")]
+visible = false
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -104.0
+offset_right = 528.0
+offset_bottom = -80.0
+grow_vertical = 0
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
 "": SubResource("AnimationLibrary_j18cy")
 }

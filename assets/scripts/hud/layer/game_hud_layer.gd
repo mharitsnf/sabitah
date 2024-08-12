@@ -5,6 +5,7 @@ class_name GameHUDLayer extends HUDLayer
 @export var island_name_label: Label
 @export var height_angle_label: Label
 @export var anim: AnimationPlayer
+@export var notes_label: Label
 
 var time_manager: TimeManager
 
@@ -66,3 +67,14 @@ func hide_time_container() -> void:
 		anim.play("hide_time_container")
 		await anim.animation_finished
 		time_container_shown = false
+
+func set_notes_label_text(value: String) -> void:
+	notes_label.text = value
+
+func show_notes_label() -> void:
+	if !notes_label.visible:
+		notes_label.visible = true
+
+func hide_notes_label() -> void:
+	if notes_label.visible:
+		notes_label.visible = false

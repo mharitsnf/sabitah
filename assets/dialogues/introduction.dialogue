@@ -1,47 +1,48 @@
 ~ start
 
-TF1: They're really pretty, aren't they?
-TF1: I always love this place. I can watch the stars in peace, with nothing to disturb me at all.
-TF1: [speed=0.5]...
-TF1: Man, you really don't remember huh? You were the one who told me about this place in the first place!
-TF1: Oh well. Soon enough you'll know.
-TF1: Anyways, sun's out.
+Reigar: They're really pretty, aren't they?
+Reigar: I always love this place. I can watch the stars in peace, nothing to disturb me at all.
+Reigar: [speed=0.5]...
+Reigar: Man, you really don't remember huh? All those times we spent playing in this island?
+- I guess that's the price I have to pay to go this far.
+Reigar: ...
+Reigar: Oh well. I'm sure soon enough you'll know.
+Reigar: Anyways, sun's out.
 do State.game_camera.follow_target = Group.first("scene1_sunrise")
 do State.await_game_camera_transition_finished()
-TF1: Are you ready,[wait=1.0] Marina?[do Common.wait(1.0)]
+Reigar: Are you ready,[wait=1.0] [color=ORANGE]Marina[/color]?
 - Yeah. I can't wait.
-- I am.
-TF1: ...
-TF1: That's cool. I just hope when you come back home later, you won't be saying "oh really?" all the time to my stories.
-do State.game_camera.follow_target = Group.first("scene1_back")
-TF1: I mean, come on, they're stories about you as well, you know? We did some fun stuffs back then!
+Reigar: ...
+Reigar: That's cool. I just hope when you come back home later, you won't be saying "oh really?" all the time to my stories.
+do State.game_camera.follow_target = Group.first("scene1_hill")
+Reigar: I mean, come on, they're stories about you as well, you know? We did some fun stuffs back then!
 - Really?
-	TF1: Right there! I don't wanna hear that no more! How come you don't remember those stuff?
+	Reigar: Right there! I don't wanna hear that no more! How come you don't remember those stuff?
 - Yeah I remembered.
-	TF1: Yeah. Do you remember when we were going to-
-	TF1: Wait what?
+	Reigar: Yeah. Do you remember when we were going to-
+	Reigar: Wait what?
 	- I gotcha.
-	TF1: Boy, sometimes I don't know when you're joking or not. [speed=0.5]Ugh...
-TF1: ... *sigh*
-TF1: Anyways, how are the [color=ORANGE]memory ghosts[/color]? Can you see them, talk to them?
+	Reigar: Boy, sometimes I don't know when you're joking or not. [speed=0.5]Ugh...
+Reigar: ... *sigh*
+Reigar: Anyways, how are the [color=ORANGE]memory ghosts[/color]? Can you see them, talk to them?
 - No, can't talk to them. I can only... see their thoughts.
-TF1: Alright, that's the most important part. Without them, you ain't gonna have a chance at all.
-TF1: ...
-TF1: Okay then, I won't keep you waiting. You said you got a lot of stuff to do before you leave, right?
+Reigar: Alright, that's the most important part. Without them, you ain't gonna have a chance at all.
+Reigar: ...
+Reigar: Okay then, I won't keep you waiting. You got a lot of stuff to do before you leave, right?
 do State.game_camera.follow_target = Group.first("scene1_ship")
-TF1: I mean, you still need to find the [color=ORANGE]ship activation codes[/color].
-TF1: Shame that my dad doesn't remember about the ship codes. Otherwise it would be very helpful for you.
-- It's alright. I can figure it out through the ghosts.
-TF1: Right, right. It's a bit weird though, why don't the ghosts just tell you where to go immediately?
-TF1: Why does it has to be you following one memories to another, and then to another, and then to another?
-TF1: ... Oh well. It's still a pretty cool ability to have. Perfect for your problem as well! That's quite convenient.
-TF1: Why don't you go to that [color=ORANGE]memory ghost[/color], then? You said there's one over there. It might has something valuable about the ship.
+Reigar: I mean, you still need to find the [color=ORANGE]ship codes[/color], right?
+Reigar: Shame that my dad doesn't remember about the ship codes. Otherwise it would be very helpful for you.
+- It's alright. Uncle Chian's was here, so I'm sure I can see his ghosts.
+Reigar: Right, right. It's a bit weird though, why don't the ghosts just tell you where to go immediately?
+Reigar: Why does it has to be you following one memories to another, and then to another, and then to another?
+Reigar: ... Oh well. I'm glad they're here to help you, though. Perfect for your problem as well!
+Reigar: Why don't you go to that [color=ORANGE]memory ghost[/color], then? You said there's one over there. It might has something valuable about the ship.
 do State.game_camera.follow_target = Group.first("scene1_ghost")
 do State.await_game_camera_transition_finished()
 do Common.wait(3.0)
 do State.game_camera.follow_target = Group.first("scene1_straight_back")
-TF1: And who knows, maybe it could also share some important memories about your childhood as well?
-TF1: I'll be here when you need me. Good luck on your adventure, and be careful alright?
+Reigar: And who knows, maybe it could also share some important memories about your childhood as well?
+Reigar: I'll be here when you need me. Good luck on your adventure, and be careful alright?
 do ProgressState.global_progress['introduction_scene_completed'] = true
 
 => END

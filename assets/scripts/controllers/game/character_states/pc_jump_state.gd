@@ -5,6 +5,7 @@ class_name PCJumpState extends PlayerCharacterState
 var ignore_time: float = 0.
 
 func enter_state() -> void:
+	controller.character_visuals.animation_state = "Jump"
 	actor.linear_damp = actor.air_damp
 	actor.jump(controller.jump_variable)
 	controller.jump_variable = 0.

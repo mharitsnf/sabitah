@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://assets/scripts/camera_system/player_main_camera.gd" id="1_ahu2v"]
 
 [node name="PlayerMainCamera" type="Camera3D" groups=["main_camera"]]
+near = 0.5
 far = 8000.0
 script = ExtResource("1_ahu2v")
 

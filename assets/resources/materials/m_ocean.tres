@@ -2,14 +2,12 @@
 
 [ext_resource type="Shader" path="res://assets/resources/shaders/ocean.gdshader" id="1_sikiv"]
 
-[sub_resource type="Gradient" id="Gradient_1j0d2"]
-interpolation_mode = 2
-interpolation_color_space = 2
-offsets = PackedFloat32Array(0.396648, 0.664804)
+[sub_resource type="Gradient" id="Gradient_csj0w"]
+offsets = PackedFloat32Array(0.530612, 0.595918)
 colors = PackedColorArray(0.6, 0.6, 0.6, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_kod0u"]
-gradient = SubResource("Gradient_1j0d2")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fntkn"]
+gradient = SubResource("Gradient_csj0w")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_oegbd"]
 
@@ -46,11 +44,11 @@ noise = SubResource("FastNoiseLite_137h6")
 render_priority = 0
 shader = ExtResource("1_sikiv")
 shader_parameter/planet_radius = 1485.6
-shader_parameter/target_world_position = Vector3(-0.0282626, 7.77497, -1506.45)
-shader_parameter/target_up = Vector3(0.000928342, 0.00598288, -0.999982)
-shader_parameter/target_right = Vector3(-0.0466123, -0.998895, -0.00601965)
-shader_parameter/target_fwd = Vector3(0.998913, -0.046617, 0.000648379)
-shader_parameter/cpu_time = 19.9351
+shader_parameter/target_world_position = Vector3(31.4787, -257.8, -1483.73)
+shader_parameter/target_up = Vector3(0.0167997, -0.170849, -0.985154)
+shader_parameter/target_right = Vector3(-0.0364163, 0.984535, -0.171363)
+shader_parameter/target_fwd = Vector3(-0.999195, -0.0387546, -0.0103182)
+shader_parameter/cpu_time = 12.6324
 shader_parameter/movement_offset = Vector3(0, 0, 0)
 shader_parameter/plane_size = 1000.0
 shader_parameter/speed = 0.25
@@ -59,6 +57,12 @@ shader_parameter/wave_2 = Vector4(0.01, 75, 0.4, 0.74)
 shader_parameter/wave_3 = Vector4(0.03, 45, 0.49, 0.405)
 shader_parameter/wave_4 = Vector4(0.015, 65, 0.345, 0.615)
 shader_parameter/wave_5 = Vector4(0.03, 41, 0.595, 0.87)
+shader_parameter/edge_scale = 0.8
+shader_parameter/near = 1.0
+shader_parameter/far = 100.0
+shader_parameter/edge_color = Color(1, 1, 1, 1)
+shader_parameter/edge_noise_scale = 1.0
+shader_parameter/edge_noise_texture = SubResource("NoiseTexture2D_p6wtv")
 shader_parameter/albedo = Color(0.14902, 0.345098, 0.619608, 1)
 shader_parameter/albedo2 = Color(0.277903, 0.6212, 0.729633, 1)
 shader_parameter/metallic = 0.0
@@ -66,10 +70,4 @@ shader_parameter/roughness = 0.4
 shader_parameter/movement_offset_scale = 1.0
 shader_parameter/texture_normal = SubResource("NoiseTexture2D_5hgch")
 shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_11qby")
-shader_parameter/edge_scale = 0.8
-shader_parameter/near = 1.0
-shader_parameter/far = 100.0
-shader_parameter/edge_color = Color(1, 1, 1, 1)
-shader_parameter/edge_noise_scale = 1.0
-shader_parameter/edge_noise_texture = SubResource("NoiseTexture2D_p6wtv")
-shader_parameter/color_ramp = SubResource("GradientTexture1D_kod0u")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_fntkn")

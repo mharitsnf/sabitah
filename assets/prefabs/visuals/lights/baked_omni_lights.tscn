@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dfbsvdgtjsojq"]
+
+[node name="BakedOmniLights" type="OmniLight3D"]
+light_color = Color(1, 0.916667, 0.75, 1)
+light_bake_mode = 0
+shadow_enabled = true
+distance_fade_enabled = true
+omni_range = 10.0

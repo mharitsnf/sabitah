@@ -25,7 +25,7 @@ func _ready() -> void:
 func enter_controller() -> void:
 	super()
 	Common.InputPromptManager.add_to_hud_layer(hud_layer, [
-		'F_Exit', 'T_Enter', 'G_Teleport', 'V'
+		'F_Exit', 'T_Enter', 'G_Teleport', 'V_MarkStar'
 	])
 
 	if Common.CutsceneManager.is_cutscene_running(): return
@@ -34,11 +34,25 @@ func enter_controller() -> void:
 		'F_Exit', 'T_Enter', 'G_Teleport'
 	])
 
+	# Set first ship interaction to true if this is the first time entering ship
+	if !ProgressState.get_global_progress(["ship_first_interaction"]):
+		ProgressState.global_progress['ship_first_interaction'] = true
+		hud_layer.set_notification_text("Camera, Gallery, and Adventure Booklet acquired!")
+		hud_layer.show_notification()
+	
+	if !_is_engine_unlocked():
+		hud_layer.set_notes_label_text("Ship engine locked. Unable to operate ship.")
+		hud_layer.show_notes_label()
+	else:
+		hud_layer.set_notes_label_text("")
+
 func exit_controller() -> void:
 	super()
 	Common.InputPromptManager.remove_from_hud_layer(hud_layer, [
-		'F_Exit', 'T_Enter', 'G_Teleport', 'V'
+		'F_Exit', 'T_Enter', 'G_Teleport', 'V_MarkStar'
 	])
+
+	hud_layer.hide_notes_label()
 
 # region Lifecycle functions
 
@@ -102,25 +116,30 @@ func _get_exit_ship_input() -> void:
 func _get_teleport_to_waypoint_input() -> void:
 	if Input.is_action_just_pressed("boat__teleport_to_waypoint"):
 		if !_boat_interaction_allowed(): return
-		if !ProgressState.get_global_progress(["first_sundial_registered"]): return
+		if !_is_engine_unlocked(): return
 
 		Common.DialogueWrapper.start_monologue("teleport_to_node_island")
 
 func _get_brake_input() -> void:
-	if !ProgressState.get_global_progress(["first_sundial_registered"]): return
+	if !_is_engine_unlocked(): return
 	brake_input = Input.get_action_strength("boat__brake")
 
 func _get_gas_input() -> void:
-	if !ProgressState.get_global_progress(["first_sundial_registered"]): return
+	if !_is_engine_unlocked(): return
 	gas_input = Input.get_action_strength("boat__move_forward")
 
 func _get_rotate_input() -> void:
-	if !ProgressState.get_global_progress(["first_sundial_registered"]): return
+	if !_is_engine_unlocked(): return
 	rotate_input = Input.get_axis("boat__turn_left", "boat__turn_right")
 
 func _boat_interaction_allowed() -> bool:
 	if !camera_manager.is_entry_camera_active(): return false
 	if (State.actor_im as ActorInputManager).transitioning: return false
+	return true
+
+func _is_engine_unlocked() -> bool:
+	if !ProgressState.get_global_progress(["first_sundial_registered"]): return false
+	if !ProgressState.get_global_progress(["first_node_island_registered"]): return false
 	return true
 
 # region Signal listener functions
@@ -138,9 +157,9 @@ func _on_follow_target_changed(new_vc: VirtualCamera) -> void:
 	if (State.actor_im as ActorInputManager).get_current_controller() != self: return
 	if new_vc is FirstPersonCamera:
 		Common.InputPromptManager.hide_input_prompt(["RMB_Enter", 'F_Exit', 'T_Enter', 'G_Teleport'])
-		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture", 'V'])
+		Common.InputPromptManager.show_input_prompt(["RMB_Exit", "LMB_Picture", 'V_MarkStar'])
 	else:
-		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture", 'V'])
+		Common.InputPromptManager.hide_input_prompt(["RMB_Exit", "LMB_Picture", 'V_MarkStar'])
 		Common.InputPromptManager.show_input_prompt(["RMB_Enter", 'F_Exit', 'T_Enter', 'G_Teleport'])
 
 func _on_teleport_to_node_sundial() -> void:

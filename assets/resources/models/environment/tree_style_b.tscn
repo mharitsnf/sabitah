@@ -1,21 +1,21 @@
 [gd_scene load_steps=3 format=3 uid="uid://dhli2lkq3hjkn"]
 
 [ext_resource type="PackedScene" uid="uid://b0y35nikxb4j4" path="res://assets/resources/models/environment/tree_style_B.glb" id="1_ii2ax"]
-[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_2qwvk"]
+[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_nmhal"]
 
 [node name="TreeStyleB" instance=ExtResource("1_ii2ax")]
 
 [node name="Trunk" parent="." index="0"]
-surface_material_override/0 = ExtResource("2_2qwvk")
+surface_material_override/0 = ExtResource("2_nmhal")
 
 [node name="Foliage_004" parent="Trunk" index="0"]
-surface_material_override/0 = ExtResource("2_2qwvk")
+surface_material_override/0 = ExtResource("2_nmhal")
 
 [node name="Foliage_005" parent="Trunk" index="1"]
-surface_material_override/0 = ExtResource("2_2qwvk")
+surface_material_override/0 = ExtResource("2_nmhal")
 
 [node name="Foliage_006" parent="Trunk" index="2"]
-surface_material_override/0 = ExtResource("2_2qwvk")
+surface_material_override/0 = ExtResource("2_nmhal")
 
 [node name="Foliage_007" parent="Trunk" index="3"]
-surface_material_override/0 = ExtResource("2_2qwvk")
+surface_material_override/0 = ExtResource("2_nmhal")

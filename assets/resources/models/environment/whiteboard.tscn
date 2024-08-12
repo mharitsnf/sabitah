@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://crh8r5vu8w50i"]
+
+[ext_resource type="PackedScene" uid="uid://1kkwh6uwdkao" path="res://assets/resources/models/environment/whiteboard.glb" id="1_4xs2f"]
+[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_3fd5w"]
+[ext_resource type="Shader" path="res://assets/resources/shaders/toon_shader.gdshader" id="3_ucmpd"]
+
+[sub_resource type="Gradient" id="Gradient_axw2q"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ghyg7"]
+gradient = SubResource("Gradient_axw2q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xoeof"]
+render_priority = 0
+shader = ExtResource("3_ucmpd")
+shader_parameter/_roughness = 1.0
+shader_parameter/_metallic = null
+shader_parameter/posterize_levels = 10.0
+shader_parameter/albedo_tex = SubResource("GradientTexture1D_ghyg7")
+
+[node name="Whiteboard" instance=ExtResource("1_4xs2f")]
+
+[node name="Whiteboard" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_3fd5w")
+surface_material_override/1 = SubResource("ShaderMaterial_xoeof")

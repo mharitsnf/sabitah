@@ -3,8 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://byyvtf6lm73ku" path="res://assets/prefabs/visuals/subviewports/base_sv.tscn" id="1_33w0k"]
 
 [node name="FinalSV" groups=["game_viewport"] instance=ExtResource("1_33w0k")]
-msaa_3d = 2
-screen_space_aa = 1
-scaling_3d_mode = 2
-scaling_3d_scale = 0.77
-fsr_sharpness = 2.0
+use_taa = true
+use_debanding = true

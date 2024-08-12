@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bgh7h0hveh76r"]
+
+[ext_resource type="Shader" path="res://assets/resources/shaders/eldskald/cel-shader-base.gdshader" id="1_ecakv"]
+[ext_resource type="Texture2D" uid="uid://bvqv8dcyo834p" path="res://assets/resources/textures/isa true master.png" id="2_vv12t"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ecakv")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.189328, 0.189328, 0.189328, 1)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("2_vv12t")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)

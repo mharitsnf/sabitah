@@ -16,6 +16,8 @@ class_name RenderStack extends Node
 @export var pp_pass_pscn: PackedScene
 
 func _ready() -> void:
+	# Group.add("final_viewport", level_viewport)
+
 	assert(level_viewport)
 	assert(pp_pass_pscn)
 	assert(blur_1_shader)

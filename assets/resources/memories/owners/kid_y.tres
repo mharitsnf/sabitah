@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MemoryOwner" load_steps=3 format=3 uid="uid://c5mwjbgcreg2g"]
+
+[ext_resource type="Script" path="res://assets/scripts/memory/memory_owner.gd" id="1_c0ar2"]
+[ext_resource type="PackedScene" uid="uid://uob7locogy1w" path="res://assets/resources/models/actors/ghosts/scenes/male_e_ghost.tscn" id="1_jgrlp"]
+
+[resource]
+script = ExtResource("1_c0ar2")
+name = "Kid Y"
+ghost_visuals_pscn = ExtResource("1_jgrlp")

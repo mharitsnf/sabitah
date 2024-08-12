@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://1cfuft35ap2"]
+[gd_scene load_steps=22 format=3 uid="uid://1cfuft35ap2"]
 
 [ext_resource type="Script" path="res://assets/levels/level.gd" id="1_4i1xa"]
 [ext_resource type="PackedScene" uid="uid://1rc8pw7w5f5x" path="res://assets/prefabs/camera_system/player_main_camera.tscn" id="1_r30bq"]
@@ -13,11 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://d683pks54vrf" path="res://assets/prefabs/visuals/atmosphere/atmosphere_ppq.tscn" id="11_r3iet"]
 [ext_resource type="PackedScene" uid="uid://cra5ftbsbcasb" path="res://assets/prefabs/actor/player_boat/player_boat_actor.tscn" id="12_2rb1q"]
 [ext_resource type="PackedScene" uid="uid://v7022dbq6wn2" path="res://assets/prefabs/visuals/outline/outline_ppq.tscn" id="12_ouxvy"]
-[ext_resource type="PackedScene" uid="uid://ds67eg6ob2b1o" path="res://assets/prefabs/camera_system/static_camera.tscn" id="13_jddcp"]
 [ext_resource type="PackedScene" uid="uid://4rkessxt5uf0" path="res://assets/prefabs/input_managers/game/actor_input_manager.tscn" id="14_1ei45"]
-[ext_resource type="Script" path="res://assets/scripts/camera_fov_settings/camera_fov_settings.gd" id="14_dyhub"]
-[ext_resource type="Script" path="res://assets/scripts/tween_settings/tween_settings.gd" id="14_y41fh"]
-[ext_resource type="PackedScene" uid="uid://dx8mcv3qvdrru" path="res://assets/resources/models/islands/island_a/island_a.tscn" id="16_yoanr"]
+[ext_resource type="PackedScene" uid="uid://dbkad1c24sq1k" path="res://assets/resources/models/islands/island_a/island_a_populated.tscn" id="16_mjv6m"]
+[ext_resource type="PackedScene" uid="uid://b6x21a2wuaju1" path="res://assets/prefabs/actor/reigar_actor.tscn" id="17_1sgy5"]
 [ext_resource type="PackedScene" uid="uid://hly7xukaj25f" path="res://assets/prefabs/actor/player_character/player_character_actor.tscn" id="18_q1k01"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_0lgj5"]
@@ -26,72 +24,6 @@ height = 2967.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya6ed"]
 albedo_texture = ExtResource("8_8pfla")
-
-[sub_resource type="Resource" id="Resource_2d52e"]
-script = ExtResource("14_y41fh")
-tween_duration = 3.0
-tween_trans = 7
-tween_ease = 2
-
-[sub_resource type="Resource" id="Resource_03r88"]
-script = ExtResource("14_dyhub")
-initial_fov = 30.0
-fov_limit = Vector2(30, 100)
-
-[sub_resource type="Resource" id="Resource_mpw1r"]
-script = ExtResource("14_y41fh")
-tween_duration = 0.75
-tween_trans = 7
-tween_ease = 2
-
-[sub_resource type="Resource" id="Resource_yaxd1"]
-script = ExtResource("14_dyhub")
-initial_fov = 50.0
-fov_limit = Vector2(30, 100)
-
-[sub_resource type="Resource" id="Resource_fhont"]
-script = ExtResource("14_y41fh")
-tween_duration = 8.0
-tween_trans = 7
-tween_ease = 2
-
-[sub_resource type="Resource" id="Resource_3lwtk"]
-script = ExtResource("14_dyhub")
-initial_fov = 75.0
-fov_limit = Vector2(30, 100)
-
-[sub_resource type="Resource" id="Resource_v1a17"]
-script = ExtResource("14_y41fh")
-tween_duration = 8.0
-tween_trans = 7
-tween_ease = 2
-
-[sub_resource type="Resource" id="Resource_lrw21"]
-script = ExtResource("14_dyhub")
-initial_fov = 50.0
-fov_limit = Vector2(30, 100)
-
-[sub_resource type="Resource" id="Resource_7gsny"]
-script = ExtResource("14_y41fh")
-tween_duration = 5.0
-tween_trans = 7
-tween_ease = 2
-
-[sub_resource type="Resource" id="Resource_1x28v"]
-script = ExtResource("14_dyhub")
-initial_fov = 50.0
-fov_limit = Vector2(30, 100)
-
-[sub_resource type="Resource" id="Resource_y1fmk"]
-script = ExtResource("14_y41fh")
-tween_duration = 3.0
-tween_trans = 7
-tween_ease = 2
-
-[sub_resource type="Resource" id="Resource_vcueg"]
-script = ExtResource("14_dyhub")
-initial_fov = 50.0
-fov_limit = Vector2(30, 100)
 
 [sub_resource type="Animation" id="Animation_mpx4b"]
 resource_name = "intro_cutscene"
@@ -148,47 +80,20 @@ layers = 2
 [node name="PlayerActorController" parent="." instance=ExtResource("14_1ei45")]
 
 [node name="PlayerCharacterActor" parent="PlayerActorController" instance=ExtResource("18_q1k01")]
-transform = Transform3D(1, 0.000928342, 0.000220823, -0.000226432, 0.00598288, 0.999983, 0.000927003, -0.999982, 0.00598303, 75.7896, -18.4591, -1492.51)
+transform = Transform3D(-0.0364163, 0.0167997, -0.999195, 0.984535, -0.170849, -0.0387546, -0.171363, -0.985154, -0.0103182, 31.4787, -257.8, -1483.73)
 
 [node name="PlayerBoatActor" parent="PlayerActorController" instance=ExtResource("12_2rb1q")]
-transform = Transform3D(0.425119, -0.00671586, 0.905113, -0.898621, 0.116648, 0.422935, -0.10842, -0.993151, 0.0435544, -9.97316, 173.225, -1474.85)
+transform = Transform3D(-0.999347, 0.0112689, -0.0343253, 0.0310172, -0.219538, -0.975111, -0.0185241, -0.975539, 0.219045, 16.7336, -326.001, -1448.62)
 
 [node name="Islands" type="Node" parent="."]
 
-[node name="IslandA" parent="Islands" instance=ExtResource("16_yoanr")]
-transform = Transform3D(-0.99997, 0.000617096, -0.00775867, 0.00776213, 0.00582325, -0.999953, -0.000571885, -0.999983, -0.0058278, 0.917385, 8.65663, -1486.57)
+[node name="IslandAPopulated" parent="Islands" instance=ExtResource("16_mjv6m")]
+transform = Transform3D(-0.999995, -0.00244509, 0.00191185, -0.00150015, -0.158497, -0.987358, 0.0027172, -0.987357, 0.158492, -3.63487, -235.621, -1467.8)
 
-[node name="Cutscene1Cameras" type="Node3D" parent="Islands/IslandA"]
+[node name="Actors" type="Node" parent="."]
 
-[node name="Scene1Ghost" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_ghost"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(-0.0198622, -0.453201, 0.891187, 0.00329841, 0.891329, 0.453346, -0.999797, 0.0119437, -0.0162087, -45.555, 19.6368, 27.1581)
-camera_tween_settings = SubResource("Resource_2d52e")
-fov_settings = SubResource("Resource_03r88")
-
-[node name="Scene1Stars" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_stars"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(0.712153, 0.288032, 0.640216, 0.0197427, 0.903378, -0.428391, -0.701747, 0.317718, 0.637656, -13.2805, 23.2545, 27.7984)
-camera_tween_settings = SubResource("Resource_mpw1r")
-fov_settings = SubResource("Resource_yaxd1")
-
-[node name="Scene1Back" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_back"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(0.982737, -0.0095495, 0.184765, 0.0124083, 0.99982, -0.0143253, -0.184595, 0.0163706, 0.982678, -11.0452, 23.5623, 33.258)
-camera_tween_settings = SubResource("Resource_fhont")
-fov_settings = SubResource("Resource_3lwtk")
-
-[node name="Scene1Sunrise" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_sunrise"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(0.0733014, 0.0519766, -0.995954, -0.018751, 0.998536, 0.0507318, 0.997133, 0.0149564, 0.0741686, 11.1882, 23.8467, 18.0856)
-camera_tween_settings = SubResource("Resource_v1a17")
-fov_settings = SubResource("Resource_lrw21")
-
-[node name="Scene1Ship" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_ship"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(0.936302, -0.0412702, -0.348761, 0.0352653, 0.9991, -0.0235519, 0.349419, 0.00975265, 0.936915, -61.6699, 6.3634, 14.5735)
-camera_tween_settings = SubResource("Resource_7gsny")
-fov_settings = SubResource("Resource_1x28v")
-
-[node name="Scene1StraightBack" parent="Islands/IslandA/Cutscene1Cameras" groups=["scene1_straight_back"] instance=ExtResource("13_jddcp")]
-transform = Transform3D(0.114233, -0.238407, 0.964424, 0.0187119, 0.971123, 0.237845, -0.993277, -0.00912362, 0.115394, -4.54919, 26.1862, 28.5945)
-camera_tween_settings = SubResource("Resource_y1fmk")
-fov_settings = SubResource("Resource_vcueg")
+[node name="ReigarActor" parent="Actors" instance=ExtResource("17_1sgy5")]
+transform = Transform3D(0.0524945, 0.0181142, -0.998457, 0.984319, -0.16955, 0.0486752, -0.168407, -0.985355, -0.0267307, 29.6301, -255.573, -1484.99)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

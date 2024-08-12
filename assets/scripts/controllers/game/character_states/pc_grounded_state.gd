@@ -9,38 +9,47 @@ class_name PCGroundedState extends PlayerCharacterState
 var variable_time: float = 0.
 var jump_pressed: bool = false
 
+func enter_state() -> void:
+	controller.character_visuals.animation_state = "Grounded"
+
 func delegated_process(delta: float) -> void:
-    if actor.is_grounded():
-        actor.linear_damp = actor.ground_damp
-    elif actor.is_submerged():
-        actor.linear_damp = actor.water_damp
+	# Set grounded animation blend value
+	var flat_vel: Vector3 = actor.get_flat_velocity()
+	var max_speed: float = actor.get_max_speed()
+	var blend_value: float = remap(flat_vel.length(), 0., max_speed, 0., 1.)
+	controller.character_visuals.set_animation_parameter("parameters/Grounded/blend_position", blend_value)
 
-    if !actor.is_submerged() and !actor.is_grounded():
-        var next_state: ActorState = controller.get_character_state(PlayerCharacterController.CharacterStates.FALL)
-        controller.switch_state(next_state)
-        return
+	if actor.is_grounded():
+		actor.linear_damp = actor.ground_damp
+	elif actor.is_submerged():
+		actor.linear_damp = actor.water_damp
 
-    # Change to grounded if on water
-    if Input.is_action_just_pressed("character__jump"):
-        jump_pressed = true
-    
-    if jump_pressed:
-        # Player release the input earlier than the time limit
-        if Input.is_action_just_released("character__jump"):
-            var jump_x: float = remap(variable_time, 0., variable_time_limit, 0., 1.)
-            controller.jump_variable = jump_curve.sample(jump_x)
-            _switch_to_jump()
-            return
+	if !actor.is_submerged() and !actor.is_grounded():
+		var next_state: ActorState = controller.get_character_state(PlayerCharacterController.CharacterStates.FALL)
+		controller.switch_state(next_state)
+		return
 
-        # Player did not release the input
-        if variable_time > variable_time_limit:
-            var jump_x: float = remap(variable_time, 0., variable_time_limit, 0., 1.)
-            controller.jump_variable = jump_curve.sample(jump_x)
-            _switch_to_jump()
-            return
-        
-        variable_time += delta
+	# Change to grounded if on water
+	if Input.is_action_just_pressed("character__jump"):
+		jump_pressed = true
+	
+	if jump_pressed:
+		# Player release the input earlier than the time limit
+		if Input.is_action_just_released("character__jump"):
+			var jump_x: float = remap(variable_time, 0., variable_time_limit, 0., 1.)
+			controller.jump_variable = jump_curve.sample(jump_x)
+			_switch_to_jump()
+			return
+
+		# Player did not release the input
+		if variable_time > variable_time_limit:
+			var jump_x: float = remap(variable_time, 0., variable_time_limit, 0., 1.)
+			controller.jump_variable = jump_curve.sample(jump_x)
+			_switch_to_jump()
+			return
+		
+		variable_time += delta
 
 func exit_state() -> void:
-    variable_time = 0.
-    jump_pressed = false
+	variable_time = 0.
+	jump_pressed = false

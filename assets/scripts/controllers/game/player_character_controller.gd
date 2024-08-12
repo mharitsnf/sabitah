@@ -16,7 +16,9 @@ enum CharacterStates {
 @export var to_island_registration_cmd: Command
 @export_group("References")
 @export var actor: CharacterActor
+@export var character_visuals: CharacterVisuals
 @export var camera_manager: PlayerCameraManager
+@export var flashlight: SpotLight3D
 
 # Refs from group
 var interact_areas: Array[InteractArea]
@@ -43,7 +45,7 @@ var input_prompt_state: Dictionary = {
 	"Y": false,
 	"C": false,
 	"G_Register": false,
-	"E_Interact": false
+	"E_Interact": false,
 }
 
 # region Lifecycle functions
@@ -72,13 +74,17 @@ func _ready() -> void:
 func enter_controller() -> void:
 	super()
 	Common.InputPromptManager.add_to_hud_layer(hud_layer, [
-		"F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
+		"V_Light", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact",
+	])
+
+	Common.InputPromptManager.show_input_prompt([
+		'V_Light'
 	])
 
 func exit_controller() -> void:
 	super()
 	Common.InputPromptManager.remove_from_hud_layer(hud_layer, [
-		"F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact"
+		"V_Light", "F_Enter", "T_Enter", "Y", "C", "G_Register", "E_Interact",
 	])
 
 	ignore_area_check_time_elapsed = 0.
@@ -109,6 +115,7 @@ func player_input_process(delta: float) -> void:
 	_get_enter_local_sundial_input()
 	_get_collect_memory_input()
 	_get_enter_ship_input()
+	_get_toggle_light_input()
 	_get_h_input()
 	if current_actor_state:
 		current_actor_state.player_input_process(delta)
@@ -172,6 +179,12 @@ func _get_collect_memory_input() -> void:
 		else:
 			Common.DialogueWrapper.start_dialogue(MemoryState.MEMORY_CHECKING_DIALOGUE, "new_memory")
 
+func _get_toggle_light_input() -> void:
+	if Input.is_action_just_pressed("character__toggle_light"):
+		if !_character_interaction_allowed(): return
+		var new_val: bool = !flashlight.visible
+		flashlight.visible = new_val
+
 func _get_enter_register_island_input() -> void:
 	if Input.is_action_just_pressed("globe__enter_island_registration_mode"):
 		if !_character_interaction_allowed(): return
@@ -227,15 +240,12 @@ func _get_enter_local_sundial_input() -> void:
 func _get_enter_ship_input() -> void:
 	if Input.is_action_just_pressed("actor__toggle_boat"):
 		if !(State.actor_im as ActorInputManager).is_switching_data_allowed(): return
-		if !ProgressState.get_global_progress(['ship_code_received']): return
 		if !_character_interaction_allowed(): return
 		if !inside_player_boat_area: return
 
-		# Set first ship interaction to true if this is the first time entering ship
-		if !ProgressState.get_global_progress(["ship_first_interaction"]):
-			ProgressState.global_progress['ship_first_interaction'] = true
-			hud_layer.set_notification_text("Camera, Gallery, and Adventure Booklet acquired!")
-			hud_layer.show_notification()
+		if !ProgressState.get_global_progress(['ship_code_received']):
+			Common.DialogueWrapper.start_monologue("ship_code_not_received")
+			return
 		
 		# get actor data and player camera manager
 		var boat_ad: ActorData = State.actor_im.get_player_data(ActorInputManager.PlayerActors.BOAT)
@@ -331,12 +341,10 @@ func _on_local_sundial_area_exited(_area: Node3D) -> void:
 	_set_input_prompt_state("G_Register", false)
 
 func _on_player_boat_area_entered() -> void:
-	if !ProgressState.get_global_progress(['ship_code_received']): return
 	inside_player_boat_area = true
 	_set_input_prompt_state("F_Enter", true)
 
 func _on_player_boat_area_exited() -> void:
-	if !ProgressState.get_global_progress(['ship_code_received']): return
 	inside_player_boat_area = false
 	_set_input_prompt_state("F_Enter", false)
 

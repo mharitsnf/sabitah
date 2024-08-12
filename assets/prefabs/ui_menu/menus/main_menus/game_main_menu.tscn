@@ -53,7 +53,7 @@ on_press_command = SubResource("Resource_vhlc5")
 
 [node name="QuitGame" parent="Panel/VBoxContainer" index="4" instance=ExtResource("2_ca720")]
 layout_mode = 2
-text = "Save and quit game"
+text = "Quit game"
 alignment = 0
 on_press_command = ExtResource("5_l5pnm")
 

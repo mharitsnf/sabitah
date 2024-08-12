@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bkaoambf5y2u"
+path.s3tc="res://.godot/imported/whiteboard_isa true master.png-a98df5b089a3f74d43c8e460d2eb801c.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "e2cff8f5a49ffc54b0ecc940c1f31819"
+}
+
+[deps]
+
+source_file="res://assets/resources/models/environment/whiteboard_isa true master.png"
+dest_files=["res://.godot/imported/whiteboard_isa true master.png-a98df5b089a3f74d43c8e460d2eb801c.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

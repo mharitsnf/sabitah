@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy3a0f4kxvd84"]
+
+[ext_resource type="PackedScene" uid="uid://rdqngo0npc04" path="res://assets/resources/models/actors/normals/character-female-c.glb" id="1_amh7k"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://c8sv1p88o0as0" path="res://assets/resources/models/actors/kenney_animation_tree_root.tres" id="2_rw044"]
+
+[node name="FemaleCNormal" instance=ExtResource("1_amh7k")]
+
+[node name="character-female-c" parent="." index="0"]
+transform = Transform3D(-2.5, 0, -2.18557e-07, 0, 2.5, 0, 2.18557e-07, 0, -2.5, 0, 0, 0)
+
+[node name="Skeleton3D" parent="character-female-c" index="0"]
+bones/3/rotation = Quaternion(-0.0145055, 0, 0, 0.999895)
+bones/4/rotation = Quaternion(0, 0, -0.342129, 0.939653)
+bones/5/rotation = Quaternion(0, 0, 0.342129, 0.939653)
+bones/6/rotation = Quaternion(0, 0.0145055, 0, 0.999895)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = ExtResource("2_rw044")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Grounded/blend_position = 0

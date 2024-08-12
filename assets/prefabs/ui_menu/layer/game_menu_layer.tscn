@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://tn6uojnnyc44"]
+[gd_scene load_steps=16 format=3 uid="uid://tn6uojnnyc44"]
 
 [ext_resource type="PackedScene" uid="uid://ntr3h7s8jo7" path="res://assets/prefabs/ui_menu/layer/menu_layer.tscn" id="1_vm1ym"]
 [ext_resource type="PackedScene" uid="uid://doq3282mmgwl7" path="res://assets/prefabs/ui_menu/menus/main_menus/game_main_menu.tscn" id="2_xlne7"]
@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://c2n8eyriru3ko" path="res://assets/prefabs/ui_menu/menus/full_picture_menu.tscn" id="4_f3nv8"]
 [ext_resource type="PackedScene" uid="uid://c23lsk514gnx0" path="res://assets/prefabs/ui_menu/menus/delete_picture_menu.tscn" id="5_f2nly"]
 [ext_resource type="PackedScene" uid="uid://dvl8whxut2e76" path="res://assets/prefabs/ui_menu/menus/geotag_picture_menu.tscn" id="6_j76lq"]
-[ext_resource type="PackedScene" uid="uid://vj8iemjtpqg0" path="res://assets/prefabs/ui_menu/menus/clues_menu.tscn" id="8_4hnjk"]
-[ext_resource type="PackedScene" uid="uid://bxb1j2617lm4a" path="res://assets/prefabs/ui_menu/menus/clue_details_menu.tscn" id="9_74jnm"]
 [ext_resource type="PackedScene" uid="uid://dmp6jymunnrsn" path="res://assets/prefabs/ui_menu/menus/collectibles_menu.tscn" id="10_ixdth"]
 [ext_resource type="PackedScene" uid="uid://bgxes1fst05i6" path="res://assets/prefabs/ui_menu/menus/collectible_details_menu.tscn" id="11_pc0n3"]
 [ext_resource type="PackedScene" uid="uid://b48vmfkejsa8w" path="res://assets/prefabs/ui_menu/menus/help_menu.tscn" id="12_cj45q"]
@@ -20,8 +18,6 @@
 
 [node name="GameMenuLayer" instance=ExtResource("1_vm1ym")]
 menu_pscns = {
-"MENU_CLUES_MENU": ExtResource("8_4hnjk"),
-"MENU_CLUE_DETAILS": ExtResource("9_74jnm"),
 "MENU_COLLECTIBLES_MENU": ExtResource("10_ixdth"),
 "MENU_COLLECTIBLE_DETAILS": ExtResource("11_pc0n3"),
 "MENU_DELETE_PICTURE": ExtResource("5_f2nly"),

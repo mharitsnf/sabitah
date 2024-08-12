@@ -4,30 +4,15 @@
 do Common.wait(1.5)
 : {{State.local_sundial.get_island_name()}} has been set as the node island!\n\nThe ship will be able to teleport back to this island.
 do State.node_sundial = State.local_sundial
-if State.sundial_groups['first_sundial_manager'].has(State.local_sundial):
-	do ProgressState.global_progress['first_sundial_registered'] = true
+do ProgressState.global_progress['first_node_island_registered'] = true
 => END
 
-~ boat_key_not_received
-: ... I don't have the key to the boat yet!
-if !ProgressState.progress["tutorial_island"]['teacher']['intro']:
-	: I need to talk to teacher first! He's in the main plaza.
-else:
-	: Better finish the final test first!
+~ ship_code_not_received
+: ... the ship is still locked. I need to figure out the code first.[wait=1.0]\n\nThe memory ghosts are here to help me. I need to follow them!
 => END
 
-~ tutorial_island_not_registered
-if !ProgressState.progress["tutorial_island"]["teacher"]["sundial_intro"]:
-	: ... Huh? The boat key seems to be broken!
-	: Maybe teacher know something about this?
-else:
-	: Teacher said that the boat key will be fixed if I successfully registered this island on my globe!
-	: Better go to the Sundial Park and register this island!
-=> END
-
-~ boat_key_not_fixed
-: I've registered the island, but I need to talk to teacher first so that he can fix my key!
-: After that, I'll be ready to explore the world!
+~ ship_engine_locked
+: ... it seems like the ship engine's still locked. How do I unlock the engine?
 => END
 
 ~ teleport_to_node_island

@@ -5,6 +5,7 @@ class_name PCFallState extends PlayerCharacterState
 var coyote_time: float = 0.
 
 func enter_state() -> void:
+	controller.character_visuals.animation_state = "Fall"
 	actor.linear_damp = actor.air_damp
 
 func delegated_process(delta: float) -> void:

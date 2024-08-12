@@ -56,6 +56,8 @@ func _confirm_island_location() -> void:
 
 		State.local_sundial.first_marker_done = true
 
+		ProgressState.global_progress['first_sundial_registered'] = true
+
 		transitioning = true
 		level_anim.play("add_first_marker")
 		await level_anim.animation_finished

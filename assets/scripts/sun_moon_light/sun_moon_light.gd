@@ -46,6 +46,7 @@ func start_shadow_transition(light_type: ActorInputManager.LightType) -> void:
 	transitioning = true
 
 	var tween: Tween = create_tween()
+	tween.set_parallel(true)
 	tween.tween_property(self, 'directional_shadow_max_distance', shadow_distance_val, tween_transition_settings.tween_duration).set_trans(tween_transition_settings.tween_trans).set_ease(tween_transition_settings.tween_ease)
 	tween.tween_property(self, 'light_angular_distance', angular_distance_val, tween_transition_settings.tween_duration).set_trans(tween_transition_settings.tween_trans).set_ease(tween_transition_settings.tween_ease)
 	await tween.finished

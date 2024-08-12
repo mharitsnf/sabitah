@@ -6,7 +6,8 @@ var global_progress: Dictionary = {
 	"introduction_scene_completed": true,
 	"ship_code_received": _ship_code_received,
 	"ship_first_interaction": false,
-	"first_sundial_registered": false
+	"first_sundial_registered": false,
+	"first_node_island_registered": false
 }
 
 var progress: Dictionary = {

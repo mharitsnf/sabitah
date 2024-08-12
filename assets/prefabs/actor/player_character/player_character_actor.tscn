@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://hly7xukaj25f"]
+[gd_scene load_steps=16 format=3 uid="uid://hly7xukaj25f"]
 
 [ext_resource type="Script" path="res://assets/scripts/actor/character_actor.gd" id="1_s37gg"]
 [ext_resource type="PackedScene" uid="uid://bihp1xu32e3qd" path="res://assets/prefabs/camera_system/player_character/player_character_tpc.tscn" id="1_y3sod"]
 [ext_resource type="PackedScene" uid="uid://ji6wwvaddy0" path="res://assets/prefabs/camera_system/player_character/player_character_fpc.tscn" id="2_p2auv"]
+[ext_resource type="PackedScene" uid="uid://bre2i5ml2gowx" path="res://assets/resources/models/actors/normals/scenes/female_b_normal.tscn" id="2_s30wi"]
 [ext_resource type="Script" path="res://assets/scripts/player_camera_manager/player_camera_manager.gd" id="3_fhnii"]
 [ext_resource type="Script" path="res://assets/scripts/controllers/game/player_character_controller.gd" id="4_y2ps7"]
 [ext_resource type="Resource" uid="uid://bfrfbmu5ymh4p" path="res://assets/resources/commands/switch_globe_mode/globe_island_reg_mode.tres" id="6_0w8f7"]
@@ -18,19 +19,6 @@ friction = 0.2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bjbxt"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bh3q7"]
-albedo_color = Color(0.501961, 1, 0.556863, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_244d2"]
-material = SubResource("StandardMaterial3D_bh3q7")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wnrhg"]
-albedo_color = Color(0.501961, 1, 0.556863, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_i27ma"]
-material = SubResource("StandardMaterial3D_wnrhg")
-size = Vector3(0.5, 0.25, 0.5)
-
 [node name="PlayerCharacterActor" type="RigidBody3D" node_paths=PackedStringArray("ground_checker", "visuals", "normal_target")]
 collision_layer = 4448
 collision_mask = 257
@@ -38,7 +26,7 @@ mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_66g8n")
 lock_rotation = true
 linear_damp_mode = 1
-linear_damp = 2.0
+linear_damp = 4.0
 script = ExtResource("1_s37gg")
 water_damp = 8.0
 ground_damp = 4.0
@@ -68,13 +56,19 @@ collision_mask = 110
 shape = SubResource("CapsuleShape3D_bjbxt")
 
 [node name="Visuals" type="Node3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/Visuals"]
-mesh = SubResource("CapsuleMesh_244d2")
+[node name="CharacterFemaleB" parent="CollisionShape3D/Visuals" instance=ExtResource("2_s30wi")]
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D/Visuals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.3)
-mesh = SubResource("BoxMesh_i27ma")
+[node name="SpotLight3D" type="SpotLight3D" parent="CollisionShape3D/Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, -0.8)
+visible = false
+light_color = Color(1, 0.916667, 0.75, 1)
+light_bake_mode = 0
+shadow_enabled = true
+shadow_opacity = 0.65
+spot_range = 30.0
+spot_angle = 50.0
 
 [node name="GroundChecker" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -91,7 +85,7 @@ script = ExtResource("3_fhnii")
 third_person_camera = NodePath("../PlayerCharacterTPC")
 first_person_camera = NodePath("../PlayerCharacterFPC")
 
-[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("states", "actor", "camera_manager")]
+[node name="Controller" type="Node" parent="." node_paths=PackedStringArray("states", "actor", "character_visuals", "camera_manager", "flashlight")]
 script = ExtResource("4_y2ps7")
 states = [NodePath("Grounded"), NodePath("Fall"), NodePath("Jump")]
 ground_clamp_settings = ExtResource("6_mcyu7")
@@ -100,7 +94,9 @@ ground_offset = Vector3(0, 2, 0)
 water_offset = Vector3(0, 3, 0)
 to_island_registration_cmd = ExtResource("6_0w8f7")
 actor = NodePath("..")
+character_visuals = NodePath("../CollisionShape3D/Visuals/CharacterFemaleB")
 camera_manager = NodePath("../CameraManager")
+flashlight = NodePath("../CollisionShape3D/Visuals/SpotLight3D")
 
 [node name="Grounded" type="Node" parent="Controller" node_paths=PackedStringArray("actor", "controller")]
 script = ExtResource("6_gidt1")

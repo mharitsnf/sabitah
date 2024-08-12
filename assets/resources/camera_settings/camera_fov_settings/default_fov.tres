@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_8eikw")
-initial_fov = 75.0
-fov_limit = Vector2(30, 100)
+initial_fov = 50.0
+fov_limit = Vector2(30, 50)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4n24sthuksmc"]
+
+[ext_resource type="PackedScene" uid="uid://ctv552nj1jnxt" path="res://assets/resources/models/actors/normals/character-male-d.glb" id="1_1me4k"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fa083"]
+animation = &"sit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0tkys"]
+advance_mode = 2
+advance_expression = "true"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ci21j"]
+states/sit/node = SubResource("AnimationNodeAnimation_fa083")
+states/sit/position = Vector2(324.8, 103.6)
+transitions = ["Start", "sit", SubResource("AnimationNodeStateMachineTransition_0tkys")]
+
+[node name="MaleDNormal" instance=ExtResource("1_1me4k")]
+
+[node name="character-male-d" parent="." index="0"]
+transform = Transform3D(-2.5, 0, -2.18557e-07, 0, 2.5, 0, 2.18557e-07, 0, -2.5, 0, 0, 0)
+
+[node name="Skeleton3D" parent="character-male-d" index="0"]
+bones/0/position = Vector3(0, -0.15, 0)
+bones/1/rotation = Quaternion(-0.608761, 0, 0, 0.793353)
+bones/2/rotation = Quaternion(-0.608761, 0, 0, 0.793353)
+bones/4/rotation = Quaternion(0, 0, -0.382683, 0.92388)
+bones/5/rotation = Quaternion(0, 0, 0.382683, 0.92388)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_ci21j")
+anim_player = NodePath("../AnimationPlayer")

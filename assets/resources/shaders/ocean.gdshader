@@ -18,6 +18,14 @@ uniform vec4 wave_3 = vec4(.2, 10., 1., 0.);
 uniform vec4 wave_4 = vec4(.2, 10., 1., 0.);
 uniform vec4 wave_5 = vec4(.2, 10., 1., 0.);
 
+group_uniforms EdgeData;
+uniform float edge_scale : hint_range(0.0, 1.0, 0.001) = .1;
+uniform float near = 1.;
+uniform float far = 100.;
+uniform vec3 edge_color : source_color;
+uniform float edge_noise_scale = 1.;
+uniform sampler2D edge_noise_texture;
+
 group_uniforms VisualData;
 uniform sampler2D water_tex : filter_nearest;
 uniform vec3 albedo : source_color;
@@ -27,14 +35,6 @@ uniform float roughness : hint_range(0.0, 1.0, 0.001) = 0.02;
 uniform float movement_offset_scale;
 uniform sampler2D texture_normal;
 uniform sampler2D texture_normal2;
-
-group_uniforms EdgeData;
-uniform float edge_scale : hint_range(0.0, 1.0, 0.001) = .1;
-uniform float near = 1.;
-uniform float far = 100.;
-uniform vec3 edge_color : source_color;
-uniform float edge_noise_scale = 1.;
-uniform sampler2D edge_noise_texture;
 
 group_uniforms LightData;
 uniform sampler2D color_ramp;
@@ -113,7 +113,7 @@ void vertex() {
 }
 
 
-float fresnel(float amount, vec3 normal, vec3 view) {
+float fresnel_func(float amount, vec3 normal, vec3 view) {
 	return pow((1. - clamp(dot(normalize(normal), normalize(view)), 0., 1.)), amount);
 }
 
@@ -132,6 +132,7 @@ float linear_depth(float value, vec2 screen_uv, mat4 inv_pro_mat) {
 void fragment() {
 	// === SETUP
 	vec2 scaled_uv = UV + (movement_offset.xz / (plane_size * movement_offset_scale));
+	
 	//vec3 normal = texture(texture_normal, scaled_uv).rgb;
 	vec3 normal = mix(
 		texture(texture_normal, scaled_uv).rgb,
@@ -149,7 +150,7 @@ void fragment() {
 	final_z_dif = step(final_z_dif, edge_scale);
 	
 	// === COLOR
-	float fresnel_val = fresnel(5., NORMAL, VIEW);
+	float fresnel_val = fresnel_func(5., NORMAL, VIEW);
 	float color_mask = texture(water_tex, scaled_uv * 15.).x;
 	vec3 surface_color = mix(albedo, albedo2, fresnel_val);
 	
@@ -160,9 +161,11 @@ void fragment() {
 }
 
 void light() {
+	//DIFFUSE_LIGHT += clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION * LIGHT_COLOR;
+	
 	float dotnl = clamp(dot(NORMAL, LIGHT), -0.95, 0.95);
 	float sample_position = clamp((dotnl + 1.0) * ATTENUATION / 2.1, 0.05, 0.95);
 	vec4 ramp_light = texture(color_ramp, vec2(sample_position, 0.0));
 	vec3 diffuse_light = ramp_light.rgb * clamp(LIGHT_COLOR * ATTENUATION, vec3(0,0,0), vec3(1,1,1));
-	DIFFUSE_LIGHT += max(diffuse_light, DIFFUSE_LIGHT);
+	DIFFUSE_LIGHT += diffuse_light;
 }

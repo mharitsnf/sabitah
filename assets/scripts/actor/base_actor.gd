@@ -27,6 +27,8 @@ var depth_from_ocean_surface : float = 0.
 ## The current water normal.
 var current_normal: Vector3 = Vector3.UP
 
+var max_speed: float = 0.
+
 ## Reference to ocean_data node.
 var ocean_data: OceanData
 
@@ -64,10 +66,20 @@ func _clamp_xz_velocity(state: PhysicsDirectBodyState3D) -> void:
 	var xz_vel: Vector3 = Vector3(flat_vel.x, 0., flat_vel.z)
 	var speed: float = xz_vel.length()
 	var limit: float = ground_speed_limit if !is_submerged() else water_speed_limit
+	max_speed = limit
 	if speed > limit:
 		var limited_vel: Vector3 = xz_vel.normalized() * limit
 		limited_vel.y = flat_vel.y
 		state.linear_velocity = state.transform.basis * limited_vel
+
+# region Setters and getters
+# =====
+
+func get_flat_velocity() -> Vector3:
+	return global_basis.inverse() * linear_velocity
+
+func get_max_speed() -> float:
+	return max_speed
 
 # region Buoyancy
 # =====

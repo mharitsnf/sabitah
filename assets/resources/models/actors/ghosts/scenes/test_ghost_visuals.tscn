@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dy875rnictyxw"]
+
+[ext_resource type="Material" uid="uid://cxlfmgw3h1oba" path="res://assets/resources/materials/m_ghost_base.tres" id="1_1ebn8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_326lw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vva4s"]
+size = Vector3(0.5, 0.25, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ijfxd"]
+render_priority = 1
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+albedo_color = Color(0.63, 0.654667, 1, 0.2)
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.7, 0.725, 1, 1)
+emission_energy_multiplier = 8.0
+
+[node name="TestActorVisuals" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_326lw")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_1ebn8")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.3)
+mesh = SubResource("BoxMesh_vva4s")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ijfxd")

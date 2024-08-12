@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dt0v2yqarhilx"]
 
 [ext_resource type="PackedScene" uid="uid://bknplooa8lom0" path="res://assets/resources/models/environment/Bench.glb" id="1_33um7"]
-[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_mqmrq"]
+[ext_resource type="Material" uid="uid://ctg4o5euvsbt5" path="res://assets/resources/materials/m_isa_toon.tres" id="2_yjpgu"]
 
 [node name="Bench" instance=ExtResource("1_33um7")]
 
 [node name="Bench" parent="." index="0"]
-surface_material_override/0 = ExtResource("2_mqmrq")
+surface_material_override/0 = ExtResource("2_yjpgu")

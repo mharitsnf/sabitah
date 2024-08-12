@@ -15,4 +15,3 @@ visuals_container = NodePath("VisualsContainer")
 shape = SubResource("SphereShape3D_s6ful")
 
 [node name="VisualsContainer" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

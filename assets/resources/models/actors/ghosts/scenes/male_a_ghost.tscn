@@ -1,0 +1,89 @@
+[gd_scene load_steps=16 format=3 uid="uid://c42p0egalmu7h"]
+
+[ext_resource type="PackedScene" uid="uid://brqrwspi02m3v" path="res://assets/resources/models/actors/normals/character-male-a.glb" id="1_8qgd4"]
+[ext_resource type="Script" path="res://assets/scripts/actor/character_visuals.gd" id="2_o3p1y"]
+[ext_resource type="Material" uid="uid://cxlfmgw3h1oba" path="res://assets/resources/materials/m_ghost_base.tres" id="3_llwai"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i6u5l"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ytsg2"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4whx0"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_f6gmc"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ytsg2")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_4whx0")
+blend_point_1/pos = 1.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lwj74"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qngp1"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Fall\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v7qnb"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Jump\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mwy4j"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Fall\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jomsh"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Grounded\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s0s6j"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Grounded\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8jx0r"]
+advance_mode = 2
+advance_expression = "true"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_35ul1"]
+states/End/position = Vector2(1074.4, 195.23)
+states/Fall/node = SubResource("AnimationNodeAnimation_i6u5l")
+states/Fall/position = Vector2(591.2, 195.248)
+states/Grounded/node = SubResource("AnimationNodeBlendSpace1D_f6gmc")
+states/Grounded/position = Vector2(590.72, 345.36)
+states/Jump/node = SubResource("AnimationNodeAnimation_lwj74")
+states/Jump/position = Vector2(837.6, 195.151)
+states/Start/position = Vector2(353.6, 317.749)
+transitions = ["Grounded", "Fall", SubResource("AnimationNodeStateMachineTransition_qngp1"), "Grounded", "Jump", SubResource("AnimationNodeStateMachineTransition_v7qnb"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_mwy4j"), "Fall", "Grounded", SubResource("AnimationNodeStateMachineTransition_jomsh"), "Jump", "Grounded", SubResource("AnimationNodeStateMachineTransition_s0s6j"), "Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_8jx0r")]
+graph_offset = Vector2(0, 20.9075)
+
+[node name="MaleANormal" node_paths=PackedStringArray("animation_tree") instance=ExtResource("1_8qgd4")]
+script = ExtResource("2_o3p1y")
+animation_tree = NodePath("AnimationTree")
+
+[node name="character-male-a" parent="." index="0"]
+transform = Transform3D(-2.5, 0, -2.18557e-07, 0, 2.5, 0, 2.18557e-07, 0, -2.5, 0, 0, 0)
+
+[node name="Skeleton3D" parent="character-male-a" index="0"]
+bones/3/rotation = Quaternion(0.00681636, 0, 0, 0.999977)
+bones/4/rotation = Quaternion(0, 0, -0.375758, 0.926718)
+bones/5/rotation = Quaternion(0, 0, 0.375758, 0.926718)
+bones/6/rotation = Quaternion(0, -0.00681636, 0, 0.999977)
+
+[node name="body-mesh" parent="character-male-a/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("3_llwai")
+
+[node name="head-mesh" parent="character-male-a/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("3_llwai")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_35ul1")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Grounded/blend_position = -0.0969546

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b5vheik6jvc0c"]
 
 [ext_resource type="Script" path="res://assets/scripts/actor/base_actor.gd" id="1_e5rtm"]
-[ext_resource type="PackedScene" uid="uid://befiu0okc0avo" path="res://assets/resources/models/actors/test_actor_visuals.tscn" id="2_iq0q4"]
+[ext_resource type="PackedScene" uid="uid://befiu0okc0avo" path="res://assets/resources/models/actors/normals/scenes/test_actor_visuals.tscn" id="2_iq0q4"]
 [ext_resource type="PackedScene" uid="uid://boqr703si150s" path="res://assets/prefabs/actor/areas/sleeper_area.tscn" id="2_sj1xt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nmtg3"]

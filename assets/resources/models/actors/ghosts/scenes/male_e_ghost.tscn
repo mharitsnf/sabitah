@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://uob7locogy1w"]
+
+[ext_resource type="PackedScene" uid="uid://dpa24x5p1rf8k" path="res://assets/resources/models/actors/normals/character-male-e.glb" id="1_q4awf"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://c8sv1p88o0as0" path="res://assets/resources/models/actors/kenney_animation_tree_root.tres" id="2_dclja"]
+[ext_resource type="Material" uid="uid://cxlfmgw3h1oba" path="res://assets/resources/materials/m_ghost_base.tres" id="2_x5nsb"]
+
+[node name="MaleEGhost" instance=ExtResource("1_q4awf")]
+
+[node name="character-male-e" parent="." index="0"]
+transform = Transform3D(-2.5, 0, -2.18557e-07, 0, 2.5, 0, 2.18557e-07, 0, -2.5, 0, 0, 0)
+
+[node name="Skeleton3D" parent="character-male-e" index="0"]
+bones/3/rotation = Quaternion(-0.0218769, 0, 0, 0.999761)
+bones/4/rotation = Quaternion(0, 0, -0.338957, 0.940802)
+bones/5/rotation = Quaternion(0, 0, 0.338957, 0.940802)
+bones/6/rotation = Quaternion(0, 0.0218769, 0, 0.999761)
+
+[node name="body-mesh" parent="character-male-e/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_x5nsb")
+
+[node name="head-mesh" parent="character-male-e/Skeleton3D" index="1"]
+surface_material_override/0 = ExtResource("2_x5nsb")
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = ExtResource("2_dclja")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Grounded/blend_position = 0

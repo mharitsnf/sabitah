@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6x21a2wuaju1"]
+
+[ext_resource type="Script" path="res://assets/scripts/actor/base_actor.gd" id="1_1pqqb"]
+[ext_resource type="PackedScene" uid="uid://b4n24sthuksmc" path="res://assets/resources/models/actors/normals/scenes/male_d_normal.tscn" id="2_xssxh"]
+[ext_resource type="PackedScene" uid="uid://boqr703si150s" path="res://assets/prefabs/actor/areas/sleeper_area.tscn" id="3_bwn1u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nmtg3"]
+
+[node name="ReigarActor" type="RigidBody3D" node_paths=PackedStringArray("visuals", "normal_target")]
+collision_layer = 4096
+mass = 50.0
+lock_rotation = true
+linear_damp = 2.0
+script = ExtResource("1_1pqqb")
+adjust_to_water_normal = true
+float_force = 250.0
+ocean_surface_offset = -1.0
+visuals = NodePath("CollisionShape3D/MaleDNormal")
+normal_target = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_nmtg3")
+
+[node name="MaleDNormal" parent="CollisionShape3D" instance=ExtResource("2_xssxh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="SleeperArea" parent="." instance=ExtResource("3_bwn1u")]

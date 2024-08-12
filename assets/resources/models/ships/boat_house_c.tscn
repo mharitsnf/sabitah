@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://crni6evhidkpq"]
+
+[ext_resource type="PackedScene" uid="uid://0e7i6ohwxmm0" path="res://assets/resources/models/ships/boat-house-c.glb" id="1_ku3xt"]
+
+[node name="BoatHouseC" instance=ExtResource("1_ku3xt")]
+
+[node name="boat-house-c" parent="." index="0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

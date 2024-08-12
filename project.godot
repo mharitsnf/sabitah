@@ -23,7 +23,6 @@ Common="*res://assets/scripts/singletons/common.gd"
 State="*res://assets/scripts/singletons/state.gd"
 GeotagState="*res://assets/scripts/singletons/geotag_state.gd"
 PictureState="*res://assets/scripts/singletons/picture_state.gd"
-ClueState="*res://assets/scripts/singletons/clue_state.gd"
 MemoryState="*res://assets/scripts/singletons/memory_state.gd"
 CollectibleState="*res://assets/scripts/singletons/collectible_state.gd"
 ProgressState="*res://assets/scripts/singletons/progress_state.gd"
@@ -46,7 +45,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/size/always_on_top=true
 window/stretch/mode="viewport"
-window/vsync/vsync_mode=2
+window/vsync/vsync_mode=0
 
 [dotnet]
 
@@ -59,6 +58,30 @@ movie_writer/movie_file="C:/Users/mhari/Videos/Godot/Sabitah.avi"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg", "res://addons/extra_snaps/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/nv.file_system/plugin.cfg", "res://addons/proton_scatter/plugin.cfg")
+
+[importer_defaults]
+
+scene={
+"_subresources": {},
+"animation/fps": 30,
+"animation/import": true,
+"animation/remove_immutable_tracks": true,
+"animation/trimming": false,
+"gltf/embedded_image_handling": 1,
+"gltf/naming_version": 1,
+"import_script/path": "",
+"meshes/create_shadow_meshes": true,
+"meshes/ensure_tangents": true,
+"meshes/force_disable_compression": false,
+"meshes/generate_lods": true,
+"meshes/light_baking": 2,
+"meshes/lightmap_texel_size": 0.2,
+"nodes/apply_root_scale": true,
+"nodes/root_name": "",
+"nodes/root_scale": 1.0,
+"nodes/root_type": "",
+"skins/use_named_skins": true
+}
 
 [input]
 
@@ -287,13 +310,19 @@ debug__create_mental_image={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":true,"shift_pressed":true,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":77,"key_label":0,"unicode":109,"echo":false,"script":null)
 ]
 }
+character__toggle_light={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":86,"key_label":0,"unicode":118,"echo":false,"script":null)
+]
+}
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://assets/dialogues/test_dialogue.dialogue", "res://assets/dialogues/clue_checking.dialogue", "res://assets/dialogues/node_sundial.dialogue", "res://assets/dialogues/test.dialogue", "res://assets/dialogues/monologues.dialogue", "res://assets/dialogues/common.dialogue", "res://assets/dialogues/memory_checking.dialogue", "res://assets/dialogues/introduction.dialogue")
+locale/translations_pot_files=PackedStringArray("res://assets/dialogues/test_dialogue.dialogue", "res://assets/dialogues/node_sundial.dialogue", "res://assets/dialogues/test.dialogue", "res://assets/dialogues/monologues.dialogue", "res://assets/dialogues/common.dialogue", "res://assets/dialogues/memory_checking.dialogue", "res://assets/dialogues/introduction.dialogue")
 
 [layer_names]
 
+3d_render/layer_2="Lamp Meshes"
 3d_physics/layer_1="Base or Ground"
 3d_physics/layer_2="Memory Area"
 3d_physics/layer_3="Island Area"
@@ -315,5 +344,33 @@ locale/translations_pot_files=PackedStringArray("res://assets/dialogues/test_dia
 
 [rendering]
 
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=4
 global_illumination/gi/use_half_resolution=true
+scaling_3d/mode=2
+scaling_3d/scale=0.5
+scaling_3d/fsr_sharpness=2.0
+anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/use_debanding=true
+occlusion_culling/use_occlusion_culling=true
+
+[shader_globals]
+
+specular_smoothness={
+"type": "float",
+"value": 0.05
+}
+fresnel_smoothness={
+"type": "float",
+"value": 0.05
+}
+outline_width={
+"type": "float",
+"value": 0.0
+}
+outline_color={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}
+diffuse_curve={
+"type": "sampler2D",
+"value": "res://assets/resources/textures/global_diffuse_curve.res"
+}

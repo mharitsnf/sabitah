@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://assets/scripts/camera_system/main_camera.gd" id="1_st1fw"]
 
 [node name="MainCamera" type="Camera3D"]
+near = 0.5
+far = 8000.0
 script = ExtResource("1_st1fw")
 
 [connection signal="transition_finished" from="." to="." method="_transition_finished"]

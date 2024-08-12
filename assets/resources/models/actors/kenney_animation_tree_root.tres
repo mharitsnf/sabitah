@@ -1,0 +1,62 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=12 format=3 uid="uid://c8sv1p88o0as0"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i6u5l"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ytsg2"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4whx0"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_f6gmc"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ytsg2")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_4whx0")
+blend_point_1/pos = 1.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lwj74"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qngp1"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Fall\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v7qnb"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Jump\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mwy4j"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Fall\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jomsh"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Grounded\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s0s6j"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "animation_state == \"Grounded\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8jx0r"]
+advance_mode = 2
+advance_expression = "true
+"
+
+[resource]
+states/End/position = Vector2(1074.4, 195.23)
+states/Fall/node = SubResource("AnimationNodeAnimation_i6u5l")
+states/Fall/position = Vector2(591.2, 195.248)
+states/Grounded/node = SubResource("AnimationNodeBlendSpace1D_f6gmc")
+states/Grounded/position = Vector2(590.72, 345.36)
+states/Jump/node = SubResource("AnimationNodeAnimation_lwj74")
+states/Jump/position = Vector2(837.6, 195.151)
+states/Start/position = Vector2(353.6, 317.749)
+transitions = ["Grounded", "Fall", SubResource("AnimationNodeStateMachineTransition_qngp1"), "Grounded", "Jump", SubResource("AnimationNodeStateMachineTransition_v7qnb"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_mwy4j"), "Fall", "Grounded", SubResource("AnimationNodeStateMachineTransition_jomsh"), "Jump", "Grounded", SubResource("AnimationNodeStateMachineTransition_s0s6j"), "Start", "Grounded", SubResource("AnimationNodeStateMachineTransition_8jx0r")]
+graph_offset = Vector2(0, 20.9075)

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d21dx21oo1ydm"]
+
+[ext_resource type="PackedScene" uid="uid://brqrwspi02m3v" path="res://assets/resources/models/actors/normals/character-male-a.glb" id="1_pny8i"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hixy7"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mchas"]
+advance_mode = 2
+advance_expression = "true"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f0rs7"]
+states/holding-both/node = SubResource("AnimationNodeAnimation_hixy7")
+states/holding-both/position = Vector2(404, 99.9584)
+transitions = ["Start", "holding-both", SubResource("AnimationNodeStateMachineTransition_mchas")]
+
+[node name="MaleANormal" instance=ExtResource("1_pny8i")]
+
+[node name="character-male-a" parent="." index="0"]
+transform = Transform3D(-2.5, 0, -2.18557e-07, 0, 2.5, 0, 2.18557e-07, 0, -2.5, 0, 0, 0)
+
+[node name="Skeleton3D" parent="character-male-a" index="0"]
+bones/3/rotation = Quaternion(-0.0142169, 0, 0, 0.999899)
+bones/4/rotation = Quaternion(0, 0, -0.342942, 0.939357)
+bones/5/rotation = Quaternion(0, 0, 0.342942, 0.939357)
+bones/6/rotation = Quaternion(0, 0.0142169, 0, 0.999899)
+
+[node name="body-mesh" parent="character-male-a/Skeleton3D" index="0"]
+gi_mode = 2
+
+[node name="head-mesh" parent="character-male-a/Skeleton3D" index="1"]
+gi_mode = 2
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+tree_root = SubResource("AnimationNodeStateMachine_f0rs7")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")

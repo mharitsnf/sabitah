@@ -47,6 +47,7 @@ class InputPromptManager extends RefCounted:
 		input_prompts["F_Enter"] = ipf.create("F", "Enter ship")
 		input_prompts["F_Exit"] = ipf.create("F", "Exit ship")
 		input_prompts["C"] = ipf.create("C", "Collect Memory")
+		input_prompts["V_Light"] = ipf.create("V", "Toggle flashlight")
 		input_prompts["G_Register"] = ipf.create("G", "Register node island")
 		input_prompts["G_Teleport"] = ipf.create("G", "Teleport to node island")
 		input_prompts["T_Enter"] = ipf.create("T", "Enter sundial")
@@ -60,7 +61,7 @@ class InputPromptManager extends RefCounted:
 		input_prompts["LMB_OpenMarker"] = ipf.create("LMB", "Open marker")
 		input_prompts["R"] = ipf.create("R", "Erase")
 		input_prompts["Y"] = ipf.create("Y", "Register Island")
-		input_prompts["V"] = ipf.create("V", "Mark Star")
+		input_prompts["V_MarkStar"] = ipf.create("V", "Mark Star")
 
 	static func add_to_hud_layer(hud: HUDLayer, keys: Array) -> void:
 		for key: String in keys:
